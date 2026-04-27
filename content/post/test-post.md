@@ -34,7 +34,7 @@ $$
 
 ## 图片
 
-暂时没法用 Cloudflare R2，以后再说。
+![BQACAgUAAyEGAASHRsPbAAETr-9p7zJbWnAbJHC5ukwAAXu1KoZM0T0AAkghAAKXznhXcfHASQbCKLE7BA.jpg](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAETr-9p7zJbWnAbJHC5ukwAAXu1KoZM0T0AAkghAAKXznhXcfHASQbCKLE7BA.jpg)
 
 
 
