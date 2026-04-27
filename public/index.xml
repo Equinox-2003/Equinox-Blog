@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Project</title>
+    <title>Welcome to my blog</title>
     <link>http://localhost:1313/</link>
-    <description>Recent content from My New Hugo Project</description>
+    <description>Recent content from Welcome to my blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     
@@ -37,18 +37,17 @@
 <a class="header-anchor" href="#%e4%bb%a3%e7%a0%81%e6%ae%b5"></a>
 代码段
 </h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hello world!&#39;</span><span class="p">)</span>
-</span></span></code></pre></div><h2 id="图片">
-<a class="header-anchor" href="#%e5%9b%be%e7%89%87"></a>
-图片
-</h2><p><img src="#ZgotmplZ" alt="44873217_p0_master1200"></p>
-<h2 id="latex公式">
+</span></span></code></pre></div><h2 id="latex公式">
 <a class="header-anchor" href="#latex%e5%85%ac%e5%bc%8f"></a>
 LaTeX公式
 </h2>$$
 \phi(x) = x\prod_{i=1}^{k} (1 - \frac{1}{p_i})
-$$
+$$<h2 id="图片">
+<a class="header-anchor" href="#%e5%9b%be%e7%89%87"></a>
+图片
+</h2><p><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAETr-9p7zJbWnAbJHC5ukwAAXu1KoZM0T0AAkghAAKXznhXcfHASQbCKLE7BA.jpg" alt="BQACAgUAAyEGAASHRsPbAAETr-9p7zJbWnAbJHC5ukwAAXu1KoZM0T0AAkghAAKXznhXcfHASQbCKLE7BA.jpg"></p>
         
-        <hr><p>本文2026-04-27首发于<a href='http://localhost:1313/'>My New Hugo Project</a>，最后修改于2026-04-27</p>]]>
+        <hr><p>本文2026-04-27首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-04-27</p>]]>
       </description>
       
         <category>Tech</category>
@@ -68,7 +67,7 @@ $$
         
           <p>💘 博麗 霊夢 💘</p>
         
-        <hr><p>本文2023-03-15首发于<a href='http://localhost:1313/'>My New Hugo Project</a>，最后修改于2023-03-15</p>]]>
+        <hr><p>本文2023-03-15首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2023-03-15</p>]]>
       </description>
       
     </item>

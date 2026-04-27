@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Project</title>
+    <title>Welcome to my blog</title>
     <link>http://localhost:1313/archives/</link>
-    <description>Recent content from My New Hugo Project</description>
+    <description>Recent content from Welcome to my blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     
@@ -11,8 +11,6 @@
     <webMaster>shixy2003@gmail.com (Equinox)</webMaster>
     
     <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
-    
-    <lastBuildDate></lastBuildDate>
     
     
     <atom:link href="http://localhost:1313/archives/index.xml" rel="self" type="application/rss&#43;xml" />
