@@ -620,9 +620,11 @@ share:
 home_categories:
   enable: true
   content:
-    - categories: # string (single-layer category) or array (multi-layer category)
+    - categories: Tech # string (single-layer category) or array (multi-layer category)
       cover: # empty means random cover
-    - categories:
+    - categories: Reading
+      cover:
+    - categories: Life
       cover:
 
 ########################################
