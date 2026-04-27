@@ -1,0 +1,15 @@
+{{ define "body-class" }}
+article-page
+{{ end }}
+
+{{ define "main" }}
+{{ partial "article/article.html" . }}
+
+{{ if not (eq .Params.comments false) }}
+{{ partial "comments/include" . }}
+{{ end }}
+
+{{ partialCached "footer/footer" . }}
+
+{{ partialCached "article/components/photoswipe" . }}
+{{ end }}

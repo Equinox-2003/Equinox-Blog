@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/archives/</loc>
+    <lastmod>2026-04-27T18:46:25+08:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/</loc>
     <lastmod>2026-04-27T18:46:25+08:00</lastmod>
   </url><url>
@@ -19,6 +22,12 @@
   </url><url>
     <loc>http://localhost:1313/post/test-post/</loc>
     <lastmod>2026-04-27T16:41:52+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/page/</loc>
+    <lastmod>2026-04-27T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/anime/</loc>
+    <lastmod>2026-04-27T00:00:00+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/hello/</loc>
     <lastmod>2023-03-15T11:00:00-07:00</lastmod>

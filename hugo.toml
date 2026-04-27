@@ -19,3 +19,8 @@ noClasses = false
 enable = true
 delimiters.block = [["\\[", "\\]"], ["$$", "$$"]]
 delimiters.inline = [["\\(", "\\)"], ["$", "$"]]
+
+[markup.tableOfContents]
+startLevel = 1
+endLevel = 6
+ordered = false

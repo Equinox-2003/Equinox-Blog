@@ -17,6 +17,9 @@ menu:
   - name: friend
     url: "friend"
     icon:
+  - name: anime
+    url: "anime"
+    icon:
 
 mainSections: ["post"]
 # 年，月，日及时间的格式化样式
@@ -124,9 +127,11 @@ social:
     url: https://github.com/Equinox-2003
   - name: bilibili
     url: https://space.bilibili.com/167350560
-  - name: CSDN
+  - name: csdn
     url: https://blog.csdn.net/EQUINOX1
-  # email: mailto:xxx@gmail.com
+  - name: codeforces
+    url: https://codeforces.com/profile/_Equinox
+  # - email: mailto:shixy2003@gmail.com
   # github: https://github.com/yourname
   # google: https://plus.google.com/yourname
   # twitter: https://twitter.com/yourname
@@ -358,7 +363,7 @@ comment:
     zh-TW: 說些什麼吧！
     ja: コメントを残す
     pt-BR: Deixe um comentário
-  default: waline # default comment system, when you enable multiple comment systems
+  default: giscus # default comment system, when you enable multiple comment systems
 
 # valine comment system. https://valine.js.org
 # version 1.5.1
@@ -419,16 +424,16 @@ gitalk:
 
 # https://giscus.app/zh-CN
 giscus:
-  enable: false
-  repo:
-  repoId:
-  category:
-  categoryId:
-  mapping: mapping
+  enable: true
+  repo: "Equinox-2003/Equinox-Blog"
+  repoId: "R_kgDOSNpg_Q"
+  category: "Announcements"
+  categoryId: "DIC_kwDOSNpg_c4C7zKB"
+  mapping: pathname
   strict: 0
   reactionsEnabled: 1
   emitMetadata: 0
-  inputPosition: bottom
+  inputPosition: top
   theme:
     light:
     dark:

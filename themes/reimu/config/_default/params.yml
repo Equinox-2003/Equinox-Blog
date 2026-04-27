@@ -120,7 +120,7 @@ sidebar:
     show_common: true # whether to show common sidebar, ignored on mobile devices
 
 social:
-  # email: mailto:xxx@gmail.com
+  # email: mailto:shixy2003@gmail.com
   # github: https://github.com/yourname
   # google: https://plus.google.com/yourname
   # twitter: https://twitter.com/yourname
@@ -413,16 +413,16 @@ gitalk:
 
 # https://giscus.app/zh-CN
 giscus:
-  enable: false
-  repo:
-  repoId:
-  category:
-  categoryId:
-  mapping: mapping
+  enable: true
+  repo: "Equinox-2003/Equinox-Blog"
+  repoId: "R_kgDOSNpg_Q"
+  category: "Announcements"
+  categoryId: "DIC_kwDOSNpg_c4C7zKB"
+  mapping: pathname
   strict: 0
   reactionsEnabled: 1
   emitMetadata: 0
-  inputPosition: bottom
+  inputPosition: top
   theme:
     light:
     dark:

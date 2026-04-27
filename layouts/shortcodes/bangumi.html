@@ -1,0 +1,211 @@
+{{- $bangumi := .Site.Data.bangumi -}}
+{{- $items := $bangumi.items | default (slice) -}}
+{{- $user := $bangumi.user | default dict -}}
+
+<div class="article-content">
+    <style>
+        .anime-page {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .anime-page p {
+            margin: 0;
+        }
+
+        .anime-page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .anime-page-title {
+            margin: 0;
+            border: none;
+            padding: 0;
+            color: var(--body-text-color);
+        }
+
+        .anime-page-title::before {
+            display: none;
+        }
+
+        .anime-page-subtitle {
+            color: var(--second-text-color);
+        }
+
+        .anime-page-link {
+            text-decoration: none;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .anime-page-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            color: var(--second-text-color);
+            font-size: 0.95rem;
+        }
+
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .anime-card {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            overflow: hidden;
+            border-radius: 14px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+            backdrop-filter: blur(6px);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .anime-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        .anime-card-cover {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            display: block;
+        }
+
+        .anime-card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 14px;
+            height: 100%;
+        }
+
+        .anime-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .anime-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--body-text-color);
+        }
+
+        .anime-rating {
+            color: #f6c344;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .anime-card-title {
+            margin: 0;
+            padding: 0;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--body-text-color);
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            overflow: hidden;
+        }
+
+        .anime-card-title::before {
+            display: none;
+        }
+
+        .anime-card-original,
+        .anime-card-date {
+            color: var(--second-text-color);
+            font-size: 0.92rem;
+        }
+
+        .anime-empty {
+            padding: 18px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--second-text-color);
+        }
+
+        @media (max-width: 1200px) {
+            .anime-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 900px) {
+            .anime-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .anime-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+    </style>
+
+    <div class="anime-page">
+        <div class="anime-page-header">
+            <div>
+                <h2 class="anime-page-title">Bangumi 动画收藏</h2>
+                <p class="anime-page-subtitle">展示全部公开收藏状态，不再依赖构建时远程抓取。</p>
+            </div>
+            {{ with $user.profile }}
+            <a class="anime-page-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">查看 Bangumi 主页</a>
+            {{ end }}
+        </div>
+
+        {{ if gt (len $items) 0 }}
+        <div class="anime-page-meta">
+            <span>共 {{ len $items }} 条收藏</span>
+            {{ with $user.updated_at }}<span>最近更新：{{ . }}</span>{{ end }}
+        </div>
+
+        <div class="anime-grid">
+            {{ range $items }}
+            {{ $displayTitle := .title }}
+            <a href="{{ .url }}" target="_blank" rel="noopener noreferrer" class="anime-card">
+                <img class="anime-card-cover no-lightbox" src="{{ .cover }}" alt="{{ $displayTitle }}" loading="lazy" referrerpolicy="no-referrer">
+                <div class="anime-card-body">
+                    <div class="anime-card-top">
+                        {{ with .status_label }}<span class="anime-status">{{ . }}</span>{{ end }}
+                        {{ with .rating }}<span class="anime-rating">★ {{ . }}</span>{{ end }}
+                    </div>
+                    <h3 class="anime-card-title">{{ $displayTitle }}</h3>
+                    {{ if and .original_title .title (ne .original_title .title) }}
+                    <p class="anime-card-original">{{ .original_title }}</p>
+                    {{ end }}
+                    {{ with .date }}<p class="anime-card-date">标记时间：{{ . }}</p>{{ end }}
+                </div>
+            </a>
+            {{ end }}
+        </div>
+        {{ else }}
+        <div class="anime-empty">
+            暂时还没有可展示的 Bangumi 收藏数据。先运行 <code>python tools/refresh-bangumi.py</code>，再重新构建 Hugo 站点即可。
+        </div>
+        {{ end }}
+    </div>
+</div>
