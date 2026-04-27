@@ -1,8 +1,10 @@
 +++
 date = '2026-04-27T16:41:52+08:00'
-draft = true
+draft = false
 title = 'Test Post'
-categories = 'Tech'
+categories = ['Tech']
+math = true
+mermaid = true
 
 +++
 
@@ -20,10 +22,6 @@ print('hello world!')
 
 
 
-## 图片
-
-![44873217_p0_master1200](D:\TyporaPics\44873217_p0_master1200.jpg)
-
 
 
 ## LaTeX公式
@@ -31,6 +29,18 @@ print('hello world!')
 $$
 \phi(x) = x\prod_{i=1}^{k} (1 - \frac{1}{p_i})
 $$
+
+
+
+## 图片
+
+暂时没法用 Cloudflare R2，以后再说。
+
+
+
+
+
+
 
 
 
