@@ -13,7 +13,6 @@ tags:
 toc: true
 math: true
 mermaid: true
-cover: true
 ---
 
 <!--more-->
