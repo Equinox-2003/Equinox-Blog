@@ -8,9 +8,9 @@
   name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no"
 /><title>
-  关于 | Equinox
+  Word Embedding | Equinox
 </title>
-<meta name="description" content="关于"/><script>
+<meta name="description" content="记录学习过程..."/><script>
   window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":25},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
   
 </script>
@@ -33,20 +33,20 @@
     type="font/woff2"
     crossorigin="anonymous"
   /><link rel="stylesheet" href="/css/loader.css" /><meta property="og:type" content="website" />
-  <meta property="og:title" content="关于 | Equinox" />
+  <meta property="og:title" content="Word Embedding | Equinox" />
   <meta
     property="og:description"
-    content="关于"
+    content="记录学习过程..."
   />
-  <meta property="og:url" content="http://localhost:1313/about/" />
+  <meta property="og:url" content="http://localhost:1313/post/word-embedding/" />
   <meta
     property="og:site_name"
     content="Welcome to my blog"
   />
-  <meta property="og:image" content="http://localhost:1313/images/banner.webp" />
+  <meta property="og:image" content="http://localhost:1313/true" />
   <meta property="article:author" content="Equinox" />
-  <meta property="article:published_time" content="2026-04-27T18:12:52&#43;08:00" />
-  <meta property="article:modified_time" content="2026-04-27T18:12:52&#43;08:00" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="http://localhost:1313/images/banner.webp" />
+  <meta property="article:published_time" content="2026-04-28T15:04:20&#43;08:00" />
+  <meta property="article:modified_time" content="2026-04-28T15:04:20&#43;08:00" /><meta property="article:tag" content="Unsuperviesed Learning" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="http://localhost:1313/true" />
 <link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" /><link
     rel="preload"
     as="style"
@@ -122,19 +122,41 @@
       </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
   </nav>
   <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
-<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="关于"><div id="header-outer">
+<header id="header" aria-label="Site header"><picture></picture>
+    <img  fetchpriority="high" src="/true" alt="Word Embedding"><div id="header-outer">
     <div id="header-title"><span id="logo">
-            <h1 data-aos="slide-up">关于</h1>
+            <h1 data-aos="slide-up">Word Embedding</h1>
           </span><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
   </div>
 </header><div id="content"
           aria-label="Page content"
           class="sidebar-left"
-            ><aside id="sidebar" aria-label="Sidebar"><div class="sidebar-wrapper-container "><div class="sidebar-wrapper">
+            ><aside id="sidebar" aria-label="Sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
     <div
       class="sidebar-wrap"
       data-aos="fade-up"
-    ><div class="sidebar-author">
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一word-embedding">一、word-Embedding</a>
+          <ul>
+            <li><a href="#11-为什么-one-hot-vector-是一个糟糕的选择">1.1 为什么 one-hot vector 是一个糟糕的选择</a></li>
+            <li><a href="#12-自监督的word2vec">1.2 自监督的word2vec</a>
+              <ul>
+                <li><a href="#121-跳元模型skip-gram">1.2.1 跳元模型（Skip-Gram）</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
   <img
     data-src="/avatar/avatar.webp"
     data-sizes="auto"
@@ -221,77 +243,11 @@
         href="/anime"
         aria-label="番剧"
       ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
-    </div></div></div>
-  </div><div class="sidebar-widget"><div class="widget-wrapper">
-    <div
-      class="widget-wrap"
-      data-aos="fade-up"
-    >
-      <div style="display: flex; justify-content: space-between;">
-        <h3 class="widget-title">分类</h3></div>
-      <div class="widget">
-        <ul class="category-list"><li class="category-list-item">
-                <a class="category-list-link" href="/categories/machinelearning/" 
-                  title="MachineLearning"
-                  >MachineLearning</a
-                >
-              </li><li class="category-list-item">
-                <a class="category-list-link" href="/categories/tech/" 
-                  title="Tech"
-                  >Tech</a
-                >
-              </li></ul>
-      </div>
-    </div>
-  </div><div class="widget-wrapper">
-    <div
-      class="widget-wrap"
-      data-aos="fade-up"
-    >
-      <div style="display: flex; justify-content: space-between;">
-        <h3 class="widget-title">标签</h3></div>
-      <div class="widget">
-        <ul class="tag-list" itemprop="keywords"><li class="tag-item">
-                <a
-                  class="tag-link"
-                  href="/tags/unsuperviesed-learning/"
-                  aria-label="标签: Unsuperviesed Learning"
-                  title="Unsuperviesed Learning"
-                >
-                  Unsuperviesed Learning
-                </a>
-              </li></ul>
-      </div>
-    </div>
-  </div><div class="widget-wrapper">
-  <div
-    class="widget-wrap"
-    data-aos="fade-up"
-  >
-    <h3 class="widget-title">标签云</h3><div class="widget tagcloud"><a
-            style="font-size:10px"
-            href="/tags/unsuperviesed-learning/"
-            aria-label="标签: Unsuperviesed Learning"
-            >Unsuperviesed Learning</a
-          ></div>
-  </div>
-</div><div class="widget-wrapper">
-    <div
-      class="widget-wrap"
-      data-aos="fade-up"
-    >
-      <h3 class="widget-title">最新文章</h3>
-      <div class="widget">
-        <ul><li>
-              <a href="/post/word-embedding/" title="Word Embedding">Word Embedding</a>
-            </li><li>
-              <a href="/post/test-post/" title="Test Post">Test Post</a>
-            </li><li>
-              <a href="/post/hello/" title="Hello World">Hello World</a>
-            </li></ul>
-      </div>
-    </div>
-  </div></div></div></aside>
+    </div></div></div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
 <section id="main" aria-label="Main content"><article
   class="h-entry article"
   itemscope
@@ -306,18 +262,36 @@
     class="article-date-link icon-calendar"
     data-aos="zoom-in"
   >
-    <time datetime="2026-04-27 18:12:52 &#43;0800 CST" itemprop="datePublished"
-      >2026-04-27</time
+    <time datetime="2026-04-28 15:04:20 &#43;0800 CST" itemprop="datePublished"
+      >2026-04-28</time
     >
     <time style="display: none;" id="post-update-time"
-      >2026-04-27</time
+      >2026-04-28</time
     >
   </span></div>
-</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h1 id="关于本博客">
-<a class="header-anchor" href="#%e5%85%b3%e4%ba%8e%e6%9c%ac%e5%8d%9a%e5%ae%a2"></a>
-关于本博客
-</h1><p>还在建设中……</p>
-</div>
+</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h2 id="一word-embedding">
+<a class="header-anchor" href="#%e4%b8%80word-embedding"></a>
+一、word-Embedding
+</h2><h3 id="11-为什么-one-hot-vector-是一个糟糕的选择">
+<a class="header-anchor" href="#11-%e4%b8%ba%e4%bb%80%e4%b9%88-one-hot-vector-%e6%98%af%e4%b8%80%e4%b8%aa%e7%b3%9f%e7%b3%95%e7%9a%84%e9%80%89%e6%8b%a9"></a>
+1.1 为什么 one-hot vector 是一个糟糕的选择
+</h3><p>之前在学习逻辑回归的时候，采用 one-hot vector 来进行建模，分类。</p>
+<p>独热编码非常易于构建，但它却很难去精准表达不同词之间的相似度。</p>
+<p>比如我们如果用向量来表示 &ldquo;queen&rdquo; 和 &ldquo;king&rdquo;，那么我们很可能希望得到 <code>&quot;queen&quot; - &quot;king&quot; = &quot;woman&quot;</code></p>
+<h3 id="12-自监督的word2vec">
+<a class="header-anchor" href="#12-%e8%87%aa%e7%9b%91%e7%9d%a3%e7%9a%84word2vec"></a>
+1.2 自监督的word2vec
+</h3><p>word2vec 有两个模型：<strong>跳元模型（skip-gram）<strong>和</strong>连续词袋（CBOW）</strong>。</p>
+<p>对于在语义上有意义的表示，它们的训练依赖于<strong>条件概率</strong>，条件概率可以被看作使用语料库中一些词来预测另一些单词。由于是<strong>不带标签</strong>的数据，因此跳元模型和连续词袋都是自监督模型。</p>
+<h4 id="121-跳元模型skip-gram">
+<a class="header-anchor" href="#121-%e8%b7%b3%e5%85%83%e6%a8%a1%e5%9e%8bskip-gram"></a>
+1.2.1 跳元模型（Skip-Gram）
+</h4><blockquote>
+<p>用中心词预测上下文。</p>
+</blockquote>
+<p>跳元模型假设<strong>一个词可以用来在文本序列中生成其周围的单词</strong>。以文本序列“the”“man”“loves”“his”“son”为例。</p>
+<p>假设中心词选“loves”，并将上下文窗口设置成2，</p>
+<p><img src="https://zh-v2.d2l.ai/_images/skip-gram.svg" alt="../_images/skip-gram.svg"></p></div>
     <footer class="article-footer"><div class="sponsor-wrapper">
   <div class="sponsor-button"><div class="sponsor-icon rotate"></div><div class="sponsor-title">赞助</div><div class="sponsor-icon rotate"></div></div><div class="sponsor-tip">Buy me a coffee</div><div class="sponsor-qr"><div class="sponsor-qr-image-wrapper">
           <img src="/sponsor/alipay.jpg" alt="支付宝" width="200" />
@@ -325,11 +299,11 @@
         </div><div class="sponsor-qr-image-wrapper">
           <img src="/sponsor/wechat.jpg" alt="微信" width="200" />
           <p class="sponsor-qr-name">微信</p>
-        </div></div></div><div class="share-wrapper"><a href="https://service.weibo.com/share/share.php?url=http://localhost:1313/about/&amp;appkey=&amp;title=%e5%85%b3%e4%ba%8e&amp;pic=&amp;ralateUid=" target="_blank" rel="noopener noreferrer" title="关于">
+        </div></div></div><div class="share-wrapper"><a href="https://service.weibo.com/share/share.php?url=http://localhost:1313/post/word-embedding/&amp;appkey=&amp;title=Word%20Embedding&amp;pic=&amp;ralateUid=" target="_blank" rel="noopener noreferrer" title="Word Embedding">
       <div class="share-icon icon icon-weibo"></div>
-    </a><a href="https://connect.qq.com/widget/shareqq/index.html?url=http://localhost:1313/about/&amp;title=%e5%85%b3%e4%ba%8e&amp;desc=%e5%85%b3%e4%ba%8e&amp;source=http://localhost:1313/" target="_blank" rel="noopener noreferrer" title="关于">
+    </a><a href="https://connect.qq.com/widget/shareqq/index.html?url=http://localhost:1313/post/word-embedding/&amp;title=Word%20Embedding&amp;desc=%0a&amp;lt;!--more--&amp;gt;%0a%0a%0a%0a##%20%e4%b8%80%e3%80%81word-Embedding%0a%0a%0a%0a###%201.1%20%e4%b8%ba%e4%bb%80%e4%b9%88%20one-hot%20vector%20%e6%98%af%e4%b8%80%e4%b8%aa%e7%b3%9f%e7%b3%95%e7%9a%84%e9%80%89%e6%8b%a9%0a%0a%e4%b9%8b%e5%89%8d%e5%9c%a8%e5%ad%a6%e4%b9%a0%e9%80%bb%e8%be%91%e5%9b%9e%e5%bd%92%e7%9a%84%e6%97%b6%e5%80%99%ef%bc%8c%e9%87%87%e7%94%a8%20one-hot%20vector%20%e6%9d%a5%e8%bf%9b%e8%a1%8c%e5%bb%ba%e6%a8%a1%ef%bc%8c%e5%88%86%e7%b1%bb%e3%80%82%0a%0a%e7%8b%ac%e7%83%ad%e7%bc%96%e7%a0%81%e9%9d%9e%e5%b8%b8%e6%98%93%e4%ba%8e%e6%9e%84%e5%bb%ba%ef%bc%8c%e4%bd%86%e5%ae%83%e5%8d%b4%e5%be%88%e9%9a%be%e5%8e%bb%e7%b2%be%e5%87%86%e8%a1%a8%e8%be%be%e4%b8%8d%e5%90%8c%e8%af%8d%e4%b9%8b%e9%97%b4%e7%9a%84%e7%9b%b8%e4%bc%bc%e5%ba%a6%e3%80%82%0a%0a%e6%af%94%e5%a6%82%e6%88%91%e4%bb%ac%e5%a6%82%e6%9e%9c%e7%94%a8%e5%90%91%e9%87%8f%e6%9d%a5%e8%a1%a8%e7%a4%ba%20&amp;#34;queen&amp;#34;%20%e5%92%8c%20&amp;#34;king&amp;#34;%ef%bc%8c%e9%82%a3%e4%b9%88%e6%88%91%e4%bb%ac%e5%be%88%e5%8f%af%e8%83%bd%e5%b8%8c%e6%9c%9b%e5%be%97%e5%88%b0%20%60&amp;#34;queen&amp;#34;%20-%20&amp;#34;king&amp;#34;%20=%20&amp;#34;woman&amp;#34;%60%0a%0a%0a%0a###%201.2%20%e8%87%aa%e7%9b%91%e7%9d%a3%e7%9a%84word2vec%0a%0aword2vec%20%e6%9c%89%e4%b8%a4%e4%b8%aa%e6%a8%a1%e5%9e%8b%ef%bc%9a**%e8%b7%b3%e5%85%83%e6%a8%a1%e5%9e%8b%ef%bc%88skip-gram%ef%bc%89**%e5%92%8c**%e8%bf%9e%e7%bb%ad%e8%af%8d%e8%a2%8b%ef%bc%88CBOW%ef%bc%89**%e3%80%82%0a%0a%e5%af%b9%20%e2%80%a6&amp;source=http://localhost:1313/" target="_blank" rel="noopener noreferrer" title="Word Embedding">
       <div class="share-icon icon icon-qq"></div>
-    </a><a href="javascript:;"  title="关于">
+    </a><a href="javascript:;"  title="Word Embedding">
       <div class="share-icon icon icon-weixin"><div id="share-weixin">
             <div class="share-weixin-dom">
               <div class="share-weixin-content">
@@ -347,10 +321,40 @@
             </div>
             <div class="share-weixin-canvas"></div>
           </div></div>
-    </a></div><ul class="article-category-list"></ul>
-<ul class="article-tag-list" itemprop="keywords"></ul>
+    </a></div><ul class="article-category-list"><li class="article-tag-list-item" data-aos="zoom-in">
+    <a
+      class="article-category-link"
+      href="/categories/machinelearning"
+      data-aos="zoom-in"
+      >MachineLearning</a
+    >
+    </li></ul>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/unsuperviesed-learning"
+        rel="tag"
+        >Unsuperviesed Learning</a
+      >
+    </li></ul>
 </footer>
-  </div></article><section id="comments" data-aos="fade-up">
+  </div><nav
+    id="article-nav"
+    aria-label="Article navigation"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg7.webp"
+              data-sizes="auto"
+              alt="Test Post"
+              class="lazyload"
+            /><a
+          href="/post/test-post/"
+          aria-label="前一篇:Test Post"
+          title="前一篇:Test Post"
+        ></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Test Post</h3>
+      </div></nav></article><section id="comments" data-aos="fade-up">
 <div class="comment-header"><h2 class="comment-title">Leave a comment</h2>
   <div class="comment-selector">
     <div class="comment-selector-wrap"><div class="selector-item" data-selector="giscus">
@@ -408,7 +412,28 @@
             <div class="arrow-up"></div>
           </div><div id="mask" class="hide"></div>
       </div><nav id="mobile-nav" aria-label="Mobile navigation">
-  <div class="sidebar-wrap"><div class="sidebar-author">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一word-embedding">一、word-Embedding</a>
+          <ul>
+            <li><a href="#11-为什么-one-hot-vector-是一个糟糕的选择">1.1 为什么 one-hot vector 是一个糟糕的选择</a></li>
+            <li><a href="#12-自监督的word2vec">1.2 自监督的word2vec</a>
+              <ul>
+                <li><a href="#121-跳元模型skip-gram">1.2.1 跳元模型（Skip-Gram）</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
   <img
     data-src="/avatar/avatar.webp"
     data-sizes="auto"
@@ -495,7 +520,10 @@
         href="/anime"
         aria-label="番剧"
       ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
-    </div></div></div></nav>
+    </div></div></div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
 </div><script
     src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
     
@@ -545,10 +573,10 @@
   <div><script data-pjax>
         window.REIMU_POST = {
           author: "Equinox",
-          title: "关于",
-          url: "http:\/\/localhost:1313\/about\/",
-          description: "关于",
-          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+          title: "Word Embedding",
+          url: "http:\/\/localhost:1313\/post\/word-embedding\/",
+          description: "\n\u0026lt;!--more--\u0026gt;\n\n\n\n## 一、word-Embedding\n\n\n\n### 1.1 为什么 one-hot vector 是一个糟糕的选择\n\n之前在学习逻辑回归的时候，采用 one-hot vector 来进行建模，分类。\n\n独热编码非常易于构建，但它却很难去精准表达不同词之间的相似度。\n\n比如我们如果用向量来表示 \u0026#34;queen\u0026#34; 和 \u0026#34;king\u0026#34;，那么我们很可能希望得到 \u0060\u0026#34;queen\u0026#34; - \u0026#34;king\u0026#34; = \u0026#34;woman\u0026#34;\u0060\n\n\n\n### 1.2 自监督的word2vec\n\nword2vec 有两个模型：**跳元模型（skip-gram）**和**连续词袋（CBOW）**。\n\n对 …",
+          cover: "http:\/\/localhost:1313\/true",
         };
       </script><script src="/js/insert_highlight.js" data-pjax ></script><script src="/js/tabs.js" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
           if (_$$(`${gallery} ${children}`).length > 0) {
@@ -752,7 +780,36 @@
     
     data-pjax
     
-    integrity="sha384-OEQ&#43;fJp/Mvi2uzBREXybtxryJvLytWapuHu4EE6LPwTKUwATYcc55tPPcZTzVcmx" crossorigin="anonymous"></script></div>
+    integrity="sha384-OEQ&#43;fJp/Mvi2uzBREXybtxryJvLytWapuHu4EE6LPwTKUwATYcc55tPPcZTzVcmx" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-MWNUH0WmtsYGhn2cbH6ELRCbf9LG3QDqCC&#43;gqPB3IBNO35xjZK3Ejb6oONRpDbPg" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/contrib/auto-render.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv&#43;fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script><script data-pjax>
+          var renderMath = () => {
+            if (!window.renderMathInElement) return;
+            window.renderMathInElement(_$("article"), {
+              delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "\\[", right: "\\]", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+              ],
+            });
+          };
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", renderMath, { once: true });
+          } else {
+            renderMath();
+          }
+        </script></div>
 </div><script
     src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
     

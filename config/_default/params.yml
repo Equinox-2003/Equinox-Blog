@@ -629,7 +629,9 @@ home_categories:
       cover: # empty means random cover
     - categories: Reading
       cover:
-    - categories: Life
+    - categories: MachineLearning
+      cover:
+    - categories: CP-Algorithm
       cover:
 
 ########################################
