@@ -8,7 +8,7 @@
   name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no"
 /><title>
-  番剧 | Anime | Equinox
+  注意力机制 | Equinox
 </title>
 <meta name="description" content="记录学习过程..."/><script>
   window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":25},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
@@ -33,20 +33,20 @@
     type="font/woff2"
     crossorigin="anonymous"
   /><link rel="stylesheet" href="/css/loader.css" /><meta property="og:type" content="website" />
-  <meta property="og:title" content="番剧 | Anime | Equinox" />
+  <meta property="og:title" content="注意力机制 | Equinox" />
   <meta
     property="og:description"
     content="记录学习过程..."
   />
-  <meta property="og:url" content="http://localhost:1313/anime/" />
+  <meta property="og:url" content="http://localhost:1313/post/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/" />
   <meta
     property="og:site_name"
     content="Welcome to my blog"
   />
   <meta property="og:image" content="http://localhost:1313/images/banner.webp" />
   <meta property="article:author" content="Equinox" />
-  <meta property="article:published_time" content="2026-04-27T00:00:00&#43;08:00" />
-  <meta property="article:modified_time" content="2026-04-27T00:00:00&#43;08:00" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="http://localhost:1313/images/banner.webp" />
+  <meta property="article:published_time" content="2026-04-28T13:53:40&#43;08:00" />
+  <meta property="article:modified_time" content="2026-04-28T13:53:40&#43;08:00" /><meta property="article:tag" content="LLM" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="http://localhost:1313/images/banner.webp" />
 <link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" /><link
     rel="preload"
     as="style"
@@ -122,19 +122,42 @@
       </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
   </nav>
   <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
-<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="番剧 | Anime"><div id="header-outer">
+<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="注意力机制"><div id="header-outer">
     <div id="header-title"><span id="logo">
-            <h1 data-aos="slide-up">番剧 | Anime</h1>
+            <h1 data-aos="slide-up">注意力机制</h1>
           </span><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
   </div>
 </header><div id="content"
           aria-label="Page content"
           class="sidebar-left"
-            ><aside id="sidebar" aria-label="Sidebar"><div class="sidebar-wrapper-container "><div class="sidebar-wrapper">
+            ><aside id="sidebar" aria-label="Sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
     <div
       class="sidebar-wrap"
       data-aos="fade-up"
-    ><div class="sidebar-author">
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一自注意力机制">一、自注意力机制</a>
+          <ul>
+            <li><a href="#11-为什么需要注意力机制">1.1 为什么需要注意力机制</a></li>
+            <li><a href="#12-自注意力的运作原理">1.2 自注意力的运作原理</a></li>
+            <li><a href="#13-多头注意力">1.3 多头注意力</a></li>
+            <li><a href="#14-位置编码">1.4 位置编码</a></li>
+            <li><a href="#15-截断注意力">1.5 截断注意力</a></li>
+            <li><a href="#16-自注意力-vs-cnn">1.6 自注意力 vs CNN</a></li>
+            <li><a href="#17-自注意力-vs-rnn">1.7 自注意力 vs RNN</a></li>
+            <li><a href="#18-图结构上的自注意力">1.8 图结构上的自注意力</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
   <img
     data-src="/avatar/avatar.webp"
     data-sizes="auto"
@@ -221,128 +244,11 @@
         href="/anime"
         aria-label="番剧"
       ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
-    </div></div></div>
-  </div><div class="sidebar-widget"><div class="widget-wrapper">
-    <div
-      class="widget-wrap"
-      data-aos="fade-up"
-    >
-      <div style="display: flex; justify-content: space-between;">
-        <h3 class="widget-title">分类</h3></div>
-      <div class="widget">
-        <ul class="category-list"><li class="category-list-item">
-                <a class="category-list-link" href="/categories/machinelearning/" 
-                  title="MachineLearning"
-                  >MachineLearning</a
-                >
-              </li><li class="category-list-item">
-                <a class="category-list-link" href="/categories/math/" 
-                  title="Math"
-                  >Math</a
-                >
-              </li><li class="category-list-item">
-                <a class="category-list-link" href="/categories/tech/" 
-                  title="Tech"
-                  >Tech</a
-                >
-              </li></ul>
-      </div>
-    </div>
-  </div><div class="widget-wrapper">
-    <div
-      class="widget-wrap"
-      data-aos="fade-up"
-    >
-      <div style="display: flex; justify-content: space-between;">
-        <h3 class="widget-title">标签</h3></div>
-      <div class="widget">
-        <ul class="tag-list" itemprop="keywords"><li class="tag-item">
-                <a
-                  class="tag-link"
-                  href="/tags/data/"
-                  aria-label="标签: Data"
-                  title="Data"
-                >
-                  Data
-                </a>
-              </li><li class="tag-item">
-                <a
-                  class="tag-link"
-                  href="/tags/linear-algebra/"
-                  aria-label="标签: Linear Algebra"
-                  title="Linear Algebra"
-                >
-                  Linear Algebra
-                </a>
-              </li><li class="tag-item">
-                <a
-                  class="tag-link"
-                  href="/tags/llm/"
-                  aria-label="标签: LLM"
-                  title="LLM"
-                >
-                  LLM
-                </a>
-              </li><li class="tag-item">
-                <a
-                  class="tag-link"
-                  href="/tags/unsuperviesed-learning/"
-                  aria-label="标签: Unsuperviesed Learning"
-                  title="Unsuperviesed Learning"
-                >
-                  Unsuperviesed Learning
-                </a>
-              </li></ul>
-      </div>
-    </div>
-  </div><div class="widget-wrapper">
-  <div
-    class="widget-wrap"
-    data-aos="fade-up"
-  >
-    <h3 class="widget-title">标签云</h3><div class="widget tagcloud"><a
-            style="font-size:10px"
-            href="/tags/data/"
-            aria-label="标签: Data"
-            >Data</a
-          ><a
-            style="font-size:10px"
-            href="/tags/linear-algebra/"
-            aria-label="标签: Linear Algebra"
-            >Linear Algebra</a
-          ><a
-            style="font-size:10px"
-            href="/tags/llm/"
-            aria-label="标签: LLM"
-            >LLM</a
-          ><a
-            style="font-size:10px"
-            href="/tags/unsuperviesed-learning/"
-            aria-label="标签: Unsuperviesed Learning"
-            >Unsuperviesed Learning</a
-          ></div>
-  </div>
-</div><div class="widget-wrapper">
-    <div
-      class="widget-wrap"
-      data-aos="fade-up"
-    >
-      <h3 class="widget-title">最新文章</h3>
-      <div class="widget">
-        <ul><li>
-              <a href="/post/svd/" title="SVD">SVD</a>
-            </li><li>
-              <a href="/post/word-embedding/" title="Word Embedding">Word Embedding</a>
-            </li><li>
-              <a href="/post/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/" title="注意力机制">注意力机制</a>
-            </li><li>
-              <a href="/post/test-post/" title="Test Post">Test Post</a>
-            </li><li>
-              <a href="/post/hello/" title="Hello World">Hello World</a>
-            </li></ul>
-      </div>
-    </div>
-  </div></div></div></aside>
+    </div></div></div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
 <section id="main" aria-label="Main content"><article
   class="h-entry article"
   itemscope
@@ -357,442 +263,260 @@
     class="article-date-link icon-calendar"
     data-aos="zoom-in"
   >
-    <time datetime="2026-04-27 00:00:00 &#43;0800 CST" itemprop="datePublished"
-      >2026-04-27</time
+    <time datetime="2026-04-28 13:53:40 &#43;0800 CST" itemprop="datePublished"
+      >2026-04-28</time
     >
     <time style="display: none;" id="post-update-time"
-      >2026-04-27</time
+      >2026-04-28</time
     >
   </span></div>
-</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><div class="article-content">
-    <style>
-        .anime-page {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .anime-page p {
-            margin: 0;
-        }
-
-        .anime-page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .anime-page-title {
-            margin: 0;
-            border: none;
-            padding: 0;
-            color: var(--body-text-color);
-        }
-
-        .anime-page-title::before {
-            display: none;
-        }
-
-        .anime-page-subtitle {
-            color: var(--second-text-color);
-        }
-
-        .anime-page-link {
-            text-decoration: none;
-            color: var(--accent-color);
-            font-weight: 600;
-        }
-
-        .anime-page-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            color: var(--second-text-color);
-            font-size: 0.95rem;
-        }
-
-        .anime-grid {
-            display: grid;
-            grid-template-columns: repeat(5, minmax(0, 1fr));
-            gap: 24px;
-            align-items: stretch;
-        }
-
-        .anime-card {
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            overflow: hidden;
-            border-radius: 14px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
-            backdrop-filter: blur(6px);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-        }
-
-        .anime-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.18);
-        }
-
-        .anime-card-cover {
-            width: 100%;
-            aspect-ratio: 3 / 4;
-            object-fit: cover;
-            display: block;
-        }
-
-        .anime-card-body {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            padding: 14px;
-            height: 100%;
-        }
-
-        .anime-card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .anime-status {
-            display: inline-flex;
-            align-items: center;
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-size: 0.8rem;
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--body-text-color);
-        }
-
-        .anime-rating {
-            color: #f6c344;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .anime-card-title {
-            margin: 0;
-            padding: 0;
-            border: none;
-            font-size: 1.1rem;
-            color: var(--body-text-color);
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            line-clamp: 2;
-            overflow: hidden;
-        }
-
-        .anime-card-title::before {
-            display: none;
-        }
-
-        .anime-card-original,
-        .anime-card-date {
-            color: var(--second-text-color);
-            font-size: 0.92rem;
-        }
-
-        .anime-empty {
-            padding: 18px;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--second-text-color);
-        }
-
-        @media (max-width: 1200px) {
-            .anime-grid {
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-            }
-        }
-
-        @media (max-width: 900px) {
-            .anime-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-        }
-
-        @media (max-width: 640px) {
-            .anime-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-    </style>
-
-    <div class="anime-page">
-        <div class="anime-page-header">
-            <div>
-                <h2 class="anime-page-title">Bangumi 动画收藏</h2>
-                <p class="anime-page-subtitle">展示全部公开收藏状态，不再依赖构建时远程抓取。</p>
-            </div>
-            
-            <a class="anime-page-link" href="https://bangumi.tv/user/1214444" target="_blank" rel="noopener noreferrer">查看 Bangumi 主页</a>
-            
-        </div>
-
-        
-        <div class="anime-page-meta">
-            <span>共 15 条收藏</span>
-            <span>最近更新：2026-04-27</span>
-        </div>
-
-        <div class="anime-grid">
-            
-            
-            <a href="https://bangumi.tv/subject/548818" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/0c/08/548818_iLSG6.jpg" alt="金牌得主 第二季" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">在看</span>
-                        <span class="anime-rating">★ 8</span>
-                    </div>
-                    <h3 class="anime-card-title">金牌得主 第二季</h3>
-                    
-                    <p class="anime-card-original">メダリスト 第2期</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-4-27</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/547888" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/8e/70/547888_46dnk.jpg" alt="Re：从零开始的异世界生活 第四季 丧失篇" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">在看</span>
-                        <span class="anime-rating">★ 8</span>
-                    </div>
-                    <h3 class="anime-card-title">Re：从零开始的异世界生活 第四季 丧失篇</h3>
-                    
-                    <p class="anime-card-original">Re:ゼロから始める異世界生活 4th season 喪失編</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-4-27</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/377130" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/27/ff/377130_wDU1x.jpg" alt="尖帽子的魔法工房" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">在看</span>
-                        <span class="anime-rating">★ 8</span>
-                    </div>
-                    <h3 class="anime-card-title">尖帽子的魔法工房</h3>
-                    
-                    <p class="anime-card-original">とんがり帽子のアトリエ</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-4-27</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/543360" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/30/1b/543360_tZvht.jpg" alt="上伊那牡丹，酒醉身姿似百合花般" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">在看</span>
-                        <span class="anime-rating">★ 8</span>
-                    </div>
-                    <h3 class="anime-card-title">上伊那牡丹，酒醉身姿似百合花般</h3>
-                    
-                    <p class="anime-card-original">上伊那ぼたん、酔へる姿は百合の花</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-4-18</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/214799" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/2f/07/214799_tGQ11.jpg" alt="宝石之国" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">在看</span>
-                        <span class="anime-rating">★ 7</span>
-                    </div>
-                    <h3 class="anime-card-title">宝石之国</h3>
-                    
-                    <p class="anime-card-original">宝石の国</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-2-24</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/515759" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/0b/24/515759_qA1Zc.jpg" alt="葬送的芙莉莲 第二季" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">在看</span>
-                        <span class="anime-rating">★ 8</span>
-                    </div>
-                    <h3 class="anime-card-title">葬送的芙莉莲 第二季</h3>
-                    
-                    <p class="anime-card-original">葬送のフリーレン 第2期</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-2-24</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/517057" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/92/95/517057_257ad.jpg" alt="【我推的孩子】 第三季" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">在看</span>
-                        <span class="anime-rating">★ 8</span>
-                    </div>
-                    <h3 class="anime-card-title">【我推的孩子】 第三季</h3>
-                    
-                    <p class="anime-card-original">【推しの子】 第3期</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-2-16</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/472741" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/ab/77/472741_MqsB8.jpg" alt="咒术回战 死灭回游 前篇" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">在看</span>
-                        <span class="anime-rating">★ 10</span>
-                    </div>
-                    <h3 class="anime-card-title">咒术回战 死灭回游 前篇</h3>
-                    
-                    <p class="anime-card-original">呪術廻戦 死滅回游 前編</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-2-16</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/493016" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/fe/bf/493016_Qqmf5.jpg" alt="异国日记" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">在看</span>
-                        <span class="anime-rating">★ 8</span>
-                    </div>
-                    <h3 class="anime-card-title">异国日记</h3>
-                    
-                    <p class="anime-card-original">違国日記</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-2-16</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/604826" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/f6/0f/604826_2XWRN.jpg" alt="超时空辉夜姬！" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">看过</span>
-                        <span class="anime-rating">★ 8</span>
-                    </div>
-                    <h3 class="anime-card-title">超时空辉夜姬！</h3>
-                    
-                    <p class="anime-card-original">超かぐや姫！</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-3-23</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/430699" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/ce/3c/430699_hsj90.jpg" alt="金牌得主" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">看过</span>
-                        <span class="anime-rating">★ 8</span>
-                    </div>
-                    <h3 class="anime-card-title">金牌得主</h3>
-                    
-                    <p class="anime-card-original">メダリスト</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-3-23</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/470660" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/e0/d8/470660_uLY5M.jpg" alt="剧场版 链锯人 蕾塞篇" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">看过</span>
-                        <span class="anime-rating">★ 10</span>
-                    </div>
-                    <h3 class="anime-card-title">剧场版 链锯人 蕾塞篇</h3>
-                    
-                    <p class="anime-card-original">劇場版 チェンソーマン レゼ篇</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-3-3</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/325585" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/60/4d/325585_tfU01.jpg" alt="无职转生～到了异世界就拿出真本事～ 第2部分" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">看过</span>
-                        <span class="anime-rating">★ 8</span>
-                    </div>
-                    <h3 class="anime-card-title">无职转生～到了异世界就拿出真本事～ 第2部分</h3>
-                    
-                    <p class="anime-card-original">無職転生 ～異世界行ったら本気だす～ 第2クール</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-2-16</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/277554" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/8b/00/277554_z999u.jpg" alt="无职转生～到了异世界就拿出真本事～" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">看过</span>
-                        <span class="anime-rating">★ 9</span>
-                    </div>
-                    <h3 class="anime-card-title">无职转生～到了异世界就拿出真本事～</h3>
-                    
-                    <p class="anime-card-original">無職転生 ～異世界行ったら本気だす～</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-2-16</p>
-                </div>
-            </a>
-            
-            
-            <a href="https://bangumi.tv/subject/400602" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="https://lain.bgm.tv/r/400/pic/cover/l/13/c5/400602_ZI8Y9.jpg" alt="葬送的芙莉莲" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        <span class="anime-status">看过</span>
-                        <span class="anime-rating">★ 10</span>
-                    </div>
-                    <h3 class="anime-card-title">葬送的芙莉莲</h3>
-                    
-                    <p class="anime-card-original">葬送のフリーレン</p>
-                    
-                    <p class="anime-card-date">标记时间：2026-2-16</p>
-                </div>
-            </a>
-            
-        </div>
-        
-    </div>
-</div>
-
-</div>
+</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h2 id="一自注意力机制">
+<a class="header-anchor" href="#%e4%b8%80%e8%87%aa%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6"></a>
+一、自注意力机制
+</h2><h3 id="11-为什么需要注意力机制">
+<a class="header-anchor" href="#11-%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6"></a>
+1.1 为什么需要注意力机制
+</h3><p>假如输入一句话：</p>
+<blockquote>
+<p>我昨天买了一本关于深度学习的书，它非常有意思。</p>
+</blockquote>
+<p>如果模型现在要理解“它”指代什么，它其实应该<strong>重点</strong>看前面的“书”，而不是<strong>平均</strong>看整句话。</p>
+<p>传统的 RNN/LSTM 虽然能处理序列，但有两个问题：</p>
+<ol>
+<li><strong>长距离依赖难学</strong>
+<ul>
+<li>前面的信息传到后面会逐渐衰减</li>
+</ul>
+</li>
+<li><strong>所有信息被压缩到一个固定长度表示中</strong>
+<ul>
+<li>容易丢失细节</li>
+</ul>
+</li>
+</ol>
+<p>注意力机制解决的核心思路是：<strong>在生成当前表示时，直接去“检索”输入序列中最相关的位置。</strong></p>
+<h3 id="12-自注意力的运作原理">
+<a class="header-anchor" href="#12-%e8%87%aa%e6%b3%a8%e6%84%8f%e5%8a%9b%e7%9a%84%e8%bf%90%e4%bd%9c%e5%8e%9f%e7%90%86"></a>
+1.2 自注意力的运作原理
+</h3><p>我们以一个输入和输出数量相同的情况，序列标注（sequence labeling）为例。</p>
+<p>序列标注要给序列里面的每一个向量一个标签。要怎么解决序列标注的问题呢？直觉的 想法就是使用<strong>全连接网络</strong>。</p>
+<p><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAETwfZp8ex1ZArlgdrtyKHVMfAt6NJd6QACdSMAAncCkFf1C3x8OwJwzjsE.png" alt="BQACAgUAAyEGAASHRsPbAAETwfZp8ex1ZArlgdrtyKHVMfAt6NJd6QACdSMAAncCkFf1C3x8OwJwzjsE.png"></p>
+<p>比如我们要做词性标注，给机器一个句子：I saw a saw。</p>
+<p>对于全连接网络，两个saw完全一模一样，既然全连接网络输入同一个词汇，它没有理由输出不同的东西。</p>
+<p>但实际上，我们期待第一个saw要输出动词，第二个saw要输出名词。</p>
+<p>有没有可能让全连接网络考虑更多的信息，比如上下文的信息呢？</p>
+<p>这是有可能的，把每个向量的前后几个向 量都“串”起来，一起输入到全连接网络就可以了。</p>
+<p><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAETwfpp8ey25OySsNF3cStxD9-gWmdcFgACeSMAAncCkFdwPTjZBav-pjsE.png" alt="BQACAgUAAyEGAASHRsPbAAETwfpp8ey25OySsNF3cStxD9-gWmdcFgACeSMAAncCkFdwPTjZBav-pjsE.png"></p>
+<p>这就引入另一个问题，窗口开多大才好呢？有的时候窗口并不是越大越好，过大，不仅会运算量超大，而且容易过拟合。</p>
+<p>如果想要更好地考虑整个输入序列的信息，就要用到<strong>自注意力模型</strong>。</p>
+<p>运作方式如下：</p>
+<p><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAETwgFp8e1FbV6C2RTPUylRLBhp0ogwKwACgiMAAncCkFcQm8pQhmDL0jsE.png" alt="BQACAgUAAyEGAASHRsPbAAETwgFp8e1FbV6C2RTPUylRLBhp0ogwKwACgiMAAncCkFcQm8pQhmDL0jsE.png"></p>
+<p><strong>自注意力模型会“吃”整个序列的数据，输入几个向量，它就输出几个向量。</strong></p>
+<p>自注意力模型不是只能用一次，可以叠加很多次，自注意力模型的输出可以经过一些网络，然后接着做注意力机制。</p>
+<p>那么自注意力模型的输出是如何得到的呢？</p>
+<p>每一个输入都要有一个输出，而每一个输出，都是考虑了整个输入之后才生成出来的。</p>
+<p><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAETwidp8fExA-5YJ4c0leMi9V8X_0uSjAACqiMAAncCkFdHd9Hk1jf52DsE.png" alt="BQACAgUAAyEGAASHRsPbAAETwidp8fExA-5YJ4c0leMi9V8X_0uSjAACqiMAAncCkFdHd9Hk1jf52DsE.png"></p>
+<p>我们以$b^1$的产生的过程为例，其它的可以类推。</p>
+<p>首先我们要能够判断$a^1$和其它输入的关联程度$\alpha$，给两个向量 $a^1$ 跟 $a^4$ ，它怎么计算出一个数值α呢？我们需要一个计算注意力的模块。</p>
+<p><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAETwkRp8fJxfV9RZfB9R8VKLHrU3bzg2gACxyMAAncCkFcgc--0nKZC5TsE.png" alt="BQACAgUAAyEGAASHRsPbAAETwkRp8fJxfV9RZfB9R8VKLHrU3bzg2gACxyMAAncCkFcgc–0nKZC5TsE.png"></p>
+<p>一个常见的方式是<strong>点积（dot product）</strong>。</p>
+<!-- raw HTML omitted -->
+<p>把输入的两个向量分别乘上两个不同的矩阵，左边这个向量乘上矩阵$W^q$，右边这个向量乘上矩阵$W^k$，得到两个向量 $q$ 跟 $k$，再把 $q$ 跟   $k$ 做点积，把它们做逐元素（element-wise）的相乘，再全部加起来以后就得到一个标量（scalar）α，这是一种计算 α 的方式。</p>
+<p>有另外一个叫做**相加（additive）**的计算方式，其计算方法就是把两个向量通过$W^q$、$W^k$得到$q$和$k$，但不是把它们做点积，而是把 $q$ 和$k$“串”起来“丢”到一个 tanh 函数，再乘上矩阵$W$得到α。总之，有非常多不同的方法可以计算注意力，可以计算关联程度α。但是在接下来的内容里面，我们都只用点积这个方法， 这也是目前最常用的方法，也是用在 <strong>Transformer</strong> 里面的方法</p>
+<p>接下来如何把它套用在自注意力模型里面呢？自注意力模型一般采用<strong>查询-键-值（Query-Key-Value，QKV）模式</strong>。分别计算 $a^1$ 与 $a^2$、$a^3$、$a^4$ 之间的关联性 α。</p>
+<p>把 $a^1$ 乘上$W^q$ 得到$q^1$。$q$ 称为查询（query），它就像是我们使用搜索引擎查找相关文章所使用的关键字，所以称之为<strong>查询</strong>。</p>
+<p>接下来把$a^2$、$a^3$、$a^4$ 乘上$W^k$ 得到向量$k$，向量$k$称为键（key）。把查询$q^1$ 跟键 $k^2$ 算内积（inner-product）就得到 $α_{1,2}$查询，即$q^1$和$k^2$之间的关联性，也被称为$a^1$和$a^2$的<strong>注意力分数</strong>。</p>
+<p>实践的时候，$a^1$也会跟自己算关联性，计算出$a^1$跟每个向量的关联性后，通常会对所有关联性做一个<strong>softmax</strong>。
+</p>
+$$
+\alpha'_{1,i}=exp(\alpha_{1,i})/\sum_{j}exp(\alpha_{1,j})
+$$<blockquote>
+<p>当然也不一定用softmax，也可以用ReLU之类的激活函数，有些时候结果比softmax还要好。</p>
+</blockquote>
+<p>接下来我们要根据关联性，即注意力的分数来抽取重要的信息。把向量$a^1$ 到$a^4$ 乘上$W^v$ 得到新的向量：$v^1$、$v^2$、$v^3$ 和$v^4$，接下来把每一个向量都去乘上注意力的分数$α^′$，再把它们加起来。
+</p>
+$$
+b^1 = \sum_{i}\alpha'_{1,i} v^i
+$$<p>
+每个输入都以此类推的得到各自输出，于是整个自注意力机制（以点积注意力为例）的过程就可以用矩阵运算来表示：
+</p>
+$$
+&Q = W^qI\\
+&K = W^kI\\
+&V = W^vI\\
+&A = K^TQ\\
+&A' = softmax(A)\\
+&O = VA'
+$$<p>
+不过实际当中，通常用的是<strong>Scaled Dot-Product Attention（缩放点积注意力）</strong>：
+</p>
+$$
+A' = softmax(\frac{K^TQ}{\sqrt{d_k}})
+$$<p>
+其中，$d_k$为向量维度，向量维度越大，点积的数值通常也会越大，导致：</p>
+<ul>
+<li>•某些值特别大</li>
+<li>softmax 输出过于尖锐</li>
+<li>梯度变小，不利于训练</li>
+</ul>
+<p>所以除以 $\sqrt{d_k}$ 是为了让数值更稳定。</p>
+<h3 id="13-多头注意力">
+<a class="header-anchor" href="#13-%e5%a4%9a%e5%a4%b4%e6%b3%a8%e6%84%8f%e5%8a%9b"></a>
+1.3 多头注意力
+</h3><p>如果只做一次注意力，模型等于只用一种方式理解关系。<br>
+但现实里，一个词和其他词的关系可能很多样：</p>
+<ul>
+<li>语法关系</li>
+<li>语义关系</li>
+<li>指代关系</li>
+<li>位置关系</li>
+</ul>
+<p><strong>与其只做一次注意力，不如并行做多次，每次学不同的关注模式。</strong></p>
+<p>这就是<strong>多头注意力</strong>。</p>
+<p>假设说我们有 h 个头，那么每个头都有各自的参数：
+</p>
+$$
+W_q^i,W_k^i，W_v^i
+$$<p>
+然后每个头分别计算
+</p>
+$$
+h_i' = softmax(\frac{K^T_iQ_i}{\sqrt{d_k}})V_i \\
+$$<p>
+然后把所有头拼接起来，再做输出：
+</p>
+$$
+O = W_oConcat(h1',h2',...,h_h')
+$$<h3 id="14-位置编码">
+<a class="header-anchor" href="#14-%e4%bd%8d%e7%bd%ae%e7%bc%96%e7%a0%81"></a>
+1.4 位置编码
+</h3><p>自注意力层少了一个也许很重要的信息，即<strong>位置的信息</strong>。</p>
+<p>对一个自注意力层而言，每一个输入是出现在序列的最前面还是最后面，它是完全没有这个信息的。</p>
+<p>因此做自注意力的时候，如果我们觉得位置的信息很重要，需要考虑位置信息时，就要用到<strong>位置编码（positional encoding）</strong>。</p>
+<p>位置编码为每一个位置设定一个向量，即<strong>位置向量（positional vector）</strong>。不同位置都有专属的位置向量$e^i$，把$e^i$加到对应输入上就结束了。</p>
+<p><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAETwtlp8fyHMktbmsQl1wa1CN3LnM-VWAACZSQAAncCkFfGNRQ7o5suuTsE.png" alt="BQACAgUAAyEGAASHRsPbAAETwtlp8fyHMktbmsQl1wa1CN3LnM-VWAACZSQAAncCkFfGNRQ7o5suuTsE.png"></p>
+<p>位置编码的生成方式有很多，最早的 &ldquo;AttentionIs All You Need&quot;中，就是用正余弦函数来生成位置编码。、</p>
+<p>假设输入表示 $\mathbf{X} \in \mathbb{R}^{n \times d}$ 包含一个序列中 $n$ 个词元的 $d$ 维嵌入表示。 位置编码使用相同形状的位置嵌入矩阵 $\mathbf{P} \in \mathbb{R}^{n \times d}$ 输出$\mathbf{X} + \mathbf{P}$， 矩阵第$i$行、第$2j$列和$2j+1$列上的元素为：
+</p>
+$$
+\begin{split}\begin{aligned} p_{i, 2j} &= \sin\left(\frac{i}{10000^{2j/d}}\right),\\p_{i, 2j+1} &= \cos\left(\frac{i}{10000^{2j/d}}\right).\end{aligned}\end{split}
+$$<blockquote>
+<p><strong>Q：为什么要通过正弦函数和余弦函数产生向量，有其他选择吗？为什么一定要这样产生手工的位置向量呢？</strong></p>
+<p>A：当然有其他选择，有专门的论文去讨论如何选择位置编码，这里简单聊一下正余弦函数生成位置编码的好处。</p>
+<ol>
+<li>相邻位置的表示要有连续变化，不是跳跃的，且不同位置尽量不同</li>
+<li>不同维度对应不同“频率”，有的维度变化很快：能区分局部位置差异；有的维度变化很慢：能表示更大尺度的位置趋势</li>
+<li>让模型容易学到“相对位置”，因为根据三角函数的加法公式，我们可以通过线性组合来得到某个偏移量的位置编码，那么模型更容易从绝对位置编码中推导出相对位置信息。</li>
+</ol>
+</blockquote>
+<h3 id="15-截断注意力">
+<a class="header-anchor" href="#15-%e6%88%aa%e6%96%ad%e6%b3%a8%e6%84%8f%e5%8a%9b"></a>
+1.5 截断注意力
+</h3><p>自注意力不是只能用在自然语言处理相关的应用上，它还可以用在很多其他的问题上。比如在做语音的时候，也可以用自注意力。不过将自注意力用于语音处理时，可以对自注意力做一些小小的改动。</p>
+<p>对于普通的注意力机制，如果序列长度是 ，那么：</p>
+<ul>
+<li>每个位置都要和其他 n 个位置算相关性</li>
+<li>会得到一个 $n \times n$ 的注意力矩阵</li>
+</ul>
+<p>这意味着复杂度大致是：</p>
+<p><strong>时间复杂度</strong>：$O(n^2)$</p>
+<p><strong>空间复杂度</strong>：$O(n^2)$</p>
+<p>**截断自注意力（truncated self-attention）**可以处理向量序列长度过大的问题。截断自注意力在做自注意力的时候不要看一整句话，就只看一个小的范围就好，这个范围是人设定的。在做语音识别的时候，如果要辨识某个位置有什么样的音标，这个位置有什么样的内容，并不需要看整句话，只要看这句话以及它前后一定范围之内的信息，就可以判断。在做自注意力的时候，也许没有必要让自注意力考虑一整个句子，只需要考虑一个小范围就好，这样就可以加快运算的速度。这就是截断自注意力。</p>
+<h3 id="16-自注意力-vs-cnn">
+<a class="header-anchor" href="#16-%e8%87%aa%e6%b3%a8%e6%84%8f%e5%8a%9b-vs-cnn"></a>
+1.6 自注意力 vs CNN
+</h3><p><strong>自注意力怎么看图像</strong></p>
+<p>如果对图像中的某个像素做 self-attention：</p>
+<ul>
+<li>这个像素会生成一个 query</li>
+<li>其他像素生成 key/value</li>
+<li>它会和整张图像的所有像素计算相关性</li>
+<li>最后综合整张图的信息</li>
+</ul>
+<p><strong>自注意力机制看全局</strong></p>
+<p>CNN 怎么看图像</p>
+<ul>
+<li>每个卷积核只看一个局部区域</li>
+<li>即所谓的<strong>感受野（receptive field）</strong></li>
+<li>只利用附近像素的信息</li>
+</ul>
+<p><strong>CNN看局部</strong></p>
+<p>CNN：</p>
+<ul>
+<li>感受野是人工设定的</li>
+<li>每个神经元只看固定局部范围</li>
+<li>哪些位置参与计算，是先验决定的</li>
+</ul>
+<p>Self-Attention：</p>
+<ul>
+<li>不需要手工规定感受野</li>
+<li>网络会自动学出该关注哪些位置</li>
+<li>关注范围和形状都是数据驱动学习出来的</li>
+</ul>
+<p>所以这段话的核心可以概括成：<strong>CNN 是固定局部连接，自注意力是可学习的动态连接。</strong></p>
+<p>CNN 其实是 Self-Attention 的特例，<strong>卷积神经网络可以看作是受限制的自注意力</strong>。</p>
+<p>Self-Attention 的表达能力更大、更灵活，如果给 Self-Attention 加上某些限制，它就可以表现得和卷积一样。</p>
+<p>通常情况下，CNN在小数据集上更强，一旦数据量多时，Self-Attention 更灵活，更能从海量数据中获益，最终可能超过 CNN。</p>
+<h3 id="17-自注意力-vs-rnn">
+<a class="header-anchor" href="#17-%e8%87%aa%e6%b3%a8%e6%84%8f%e5%8a%9b-vs-rnn"></a>
+1.7 自注意力 vs RNN
+</h3><ul>
+<li>
+<p>‌ <strong>二者都能处理序列</strong></p>
+<ul>
+<li>RNN 处理序列输入，Self-Attention 也处理序列输入</li>
+</ul>
+</li>
+<li>
+<p><strong>信息整合方式不同</strong></p>
+<ul>
+<li><strong>Self-Attention</strong> 每个位置的输出都可以直接看整个输入序列。即：每个 token 都能直接访问全局上下文。</li>
+<li>RNN 的信息则是沿时间链条逐步传播的。</li>
+</ul>
+</li>
+<li>
+<p><strong>长距离依赖上的差别</strong></p>
+<ul>
+<li>
+<p>RNN如果最后一个位置想利用第一个位置的信息：必须把这个信息一直存在 hidden state 里经过很多步传递中间容易衰减、遗忘</p>
+<p>所以：RNN 处理长距离依赖比较困难。</p>
+</li>
+<li>
+<p>Self-Attention 更容易建模长距离依赖。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>并行性差异</strong></p>
+<ul>
+<li>RNN：无法完全并行</li>
+<li>Self-Attention：更容易并行，训练和推理更高效。</li>
+</ul>
+</li>
+</ul>
+<h3 id="18-图结构上的自注意力">
+<a class="header-anchor" href="#18-%e5%9b%be%e7%bb%93%e6%9e%84%e4%b8%8a%e7%9a%84%e8%87%aa%e6%b3%a8%e6%84%8f%e5%8a%9b"></a>
+1.8 图结构上的自注意力
+</h3><p>如果输入不只是向量集合，而且还带有“图结构”，那么自注意力也能进一步利用图中的边信息。</p>
+<p>图里面除了节点向量，还有边：</p>
+<ul>
+<li><strong>有边，说明两个节点有关联</strong></li>
+<li><strong>没边，说明关系弱或者没有关系</strong></li>
+</ul>
+<p>既然图结构本身已经提供了先验知识，那么就没必要还让模型在所有节点间都学习关系。</p>
+<p>所以可以直接限制：<strong>只在有边连接的节点之间计算注意力。</strong></p>
+<p>这样就变成了<strong>图神经网络（GNN）</strong>
+比如：</p>
+<ul>
+<li>节点 1 只和 5、6、8 相连</li>
+<li>那么节点 1 只需要和 5、6、8 算注意力</li>
+<li>不相连的节点直接不算，权重设为 0</li>
+</ul>
+<p>这样做的本质就是：</p>
+<ul>
+<li>利用图结构限制注意力的连接范围</li>
+<li>只在邻居之间聚合信息</li>
+</ul></div>
     <footer class="article-footer"><div class="sponsor-wrapper">
   <div class="sponsor-button"><div class="sponsor-icon rotate"></div><div class="sponsor-title">赞助</div><div class="sponsor-icon rotate"></div></div><div class="sponsor-tip">Buy me a coffee</div><div class="sponsor-qr"><div class="sponsor-qr-image-wrapper">
           <img src="/sponsor/alipay.jpg" alt="支付宝" width="200" />
@@ -800,11 +524,11 @@
         </div><div class="sponsor-qr-image-wrapper">
           <img src="/sponsor/wechat.jpg" alt="微信" width="200" />
           <p class="sponsor-qr-name">微信</p>
-        </div></div></div><div class="share-wrapper"><a href="https://service.weibo.com/share/share.php?url=http://localhost:1313/anime/&amp;appkey=&amp;title=%e7%95%aa%e5%89%a7%20%7c%20Anime&amp;pic=&amp;ralateUid=" target="_blank" rel="noopener noreferrer" title="番剧 | Anime">
+        </div></div></div><div class="share-wrapper"><a href="https://service.weibo.com/share/share.php?url=http://localhost:1313/post/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/&amp;appkey=&amp;title=%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6&amp;pic=&amp;ralateUid=" target="_blank" rel="noopener noreferrer" title="注意力机制">
       <div class="share-icon icon icon-weibo"></div>
-    </a><a href="https://connect.qq.com/widget/shareqq/index.html?url=http://localhost:1313/anime/&amp;title=%e7%95%aa%e5%89%a7%20%7c%20Anime&amp;desc=%20Bangumi%20%e5%8a%a8%e7%94%bb%e6%94%b6%e8%97%8f%20%e5%b1%95%e7%a4%ba%e5%85%a8%e9%83%a8%e5%85%ac%e5%bc%80%e6%94%b6%e8%97%8f%e7%8a%b6%e6%80%81%ef%bc%8c%e4%b8%8d%e5%86%8d%e4%be%9d%e8%b5%96%e6%9e%84%e5%bb%ba%e6%97%b6%e8%bf%9c%e7%a8%8b%e6%8a%93%e5%8f%96%e3%80%82%0a&amp;source=http://localhost:1313/" target="_blank" rel="noopener noreferrer" title="番剧 | Anime">
+    </a><a href="https://connect.qq.com/widget/shareqq/index.html?url=http://localhost:1313/post/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/&amp;title=%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6&amp;desc=%0a&amp;lt;!--more--&amp;gt;%0a%0a%0a%0a##%20%e4%b8%80%e3%80%81%e8%87%aa%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6%0a%0a###%201.1%20%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6%0a%0a%e5%81%87%e5%a6%82%e8%be%93%e5%85%a5%e4%b8%80%e5%8f%a5%e8%af%9d%ef%bc%9a%0a%0a&amp;gt;%20%20%20%e6%88%91%e6%98%a8%e5%a4%a9%e4%b9%b0%e4%ba%86%e4%b8%80%e6%9c%ac%e5%85%b3%e4%ba%8e%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e7%9a%84%e4%b9%a6%ef%bc%8c%e5%ae%83%e9%9d%9e%e5%b8%b8%e6%9c%89%e6%84%8f%e6%80%9d%e3%80%82%0a&amp;gt;%0a%0a%e5%a6%82%e6%9e%9c%e6%a8%a1%e5%9e%8b%e7%8e%b0%e5%9c%a8%e8%a6%81%e7%90%86%e8%a7%a3%e2%80%9c%e5%ae%83%e2%80%9d%e6%8c%87%e4%bb%a3%e4%bb%80%e4%b9%88%ef%bc%8c%e5%ae%83%e5%85%b6%e5%ae%9e%e5%ba%94%e8%af%a5**%e9%87%8d%e7%82%b9**%e7%9c%8b%e5%89%8d%e9%9d%a2%e7%9a%84%e2%80%9c%e4%b9%a6%e2%80%9d%ef%bc%8c%e8%80%8c%e4%b8%8d%e6%98%af**%e5%b9%b3%e5%9d%87**%e7%9c%8b%e6%95%b4%e5%8f%a5%e8%af%9d%e3%80%82%0a%0a%e4%bc%a0%e7%bb%9f%e7%9a%84%20RNN/LSTM%20%e8%99%bd%e7%84%b6%e8%83%bd%e5%a4%84%e7%90%86%e5%ba%8f%e5%88%97%ef%bc%8c%e4%bd%86%e6%9c%89%e4%b8%a4%e4%b8%aa%e9%97%ae%e9%a2%98%ef%bc%9a%0a%0a1.%20%20**%e9%95%bf%e8%b7%9d%e7%a6%bb%e4%be%9d%e8%b5%96%e9%9a%be%e5%ad%a6**%0a%20%20%20%20-%20%20%20%e5%89%8d%e9%9d%a2%e7%9a%84%e4%bf%a1%e6%81%af%e4%bc%a0%e5%88%b0%e5%90%8e%e9%9d%a2%e4%bc%9a%e9%80%90%e6%b8%90%e8%a1%b0%e5%87%8f%0a2.%20%20**%e6%89%80%e6%9c%89%e4%bf%a1%e6%81%af%e8%a2%ab%e5%8e%8b%e7%bc%a9%e5%88%b0%e4%b8%80%e4%b8%aa%e5%9b%ba%e5%ae%9a%e9%95%bf%e5%ba%a6%e8%a1%a8%e7%a4%ba%e4%b8%ad**%0a%20%20%20%20-%20%20%20%e5%ae%b9%e6%98%93%e4%b8%a2%e5%a4%b1%e7%bb%86%e8%8a%82%0a%0a%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6%e8%a7%a3%e5%86%b3%e7%9a%84%e6%a0%b8%e5%bf%83%e6%80%9d%e8%b7%af%e6%98%af%ef%bc%9a**%e5%9c%a8%e7%94%9f%e6%88%90%e5%bd%93%e5%89%8d%e8%a1%a8%e7%a4%ba%e6%97%b6%ef%bc%8c%e7%9b%b4%e6%8e%a5%e5%8e%bb%e2%80%9c%e6%a3%80%e7%b4%a2%e2%80%9d%e8%be%93%e5%85%a5%e5%ba%8f%e5%88%97%e4%b8%ad%e6%9c%80%e7%9b%b8%e5%85%b3%e7%9a%84%e4%bd%8d%e7%bd%ae%e3%80%82**%20%e2%80%a6&amp;source=http://localhost:1313/" target="_blank" rel="noopener noreferrer" title="注意力机制">
       <div class="share-icon icon icon-qq"></div>
-    </a><a href="javascript:;"  title="番剧 | Anime">
+    </a><a href="javascript:;"  title="注意力机制">
       <div class="share-icon icon icon-weixin"><div id="share-weixin">
             <div class="share-weixin-dom">
               <div class="share-weixin-content">
@@ -822,10 +546,52 @@
             </div>
             <div class="share-weixin-canvas"></div>
           </div></div>
-    </a></div><ul class="article-category-list"></ul>
-<ul class="article-tag-list" itemprop="keywords"></ul>
+    </a></div><ul class="article-category-list"><li class="article-tag-list-item" data-aos="zoom-in">
+    <a
+      class="article-category-link"
+      href="/categories/machinelearning"
+      data-aos="zoom-in"
+      >MachineLearning</a
+    >
+    </li></ul>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/llm"
+        rel="tag"
+        >LLM</a
+      >
+    </li></ul>
 </footer>
-  </div></article><section id="comments" data-aos="fade-up">
+  </div><nav
+    id="article-nav"
+    aria-label="Article navigation"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg11.webp"
+              data-sizes="auto"
+              alt="Test Post"
+              class="lazyload"
+            /><a
+          href="/post/test-post/"
+          aria-label="前一篇:Test Post"
+          title="前一篇:Test Post"
+        ></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Test Post</h3>
+      </div><div class="article-nav-link-wrap right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg15.webp"
+              data-sizes="auto"
+              alt="Word Embedding"
+              class="lazyload"
+            /><a
+          href="/post/word-embedding/"
+          aria-label="后一篇:Word Embedding"
+          title="后一篇:Word Embedding"
+        ></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">Word Embedding</h3>
+      </div></nav></article><section id="comments" data-aos="fade-up">
 <div class="comment-header"><h2 class="comment-title">Leave a comment</h2>
   <div class="comment-selector">
     <div class="comment-selector-wrap"><div class="selector-item" data-selector="giscus">
@@ -883,7 +649,30 @@
             <div class="arrow-up"></div>
           </div><div id="mask" class="hide"></div>
       </div><nav id="mobile-nav" aria-label="Mobile navigation">
-  <div class="sidebar-wrap"><div class="sidebar-author">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一自注意力机制">一、自注意力机制</a>
+          <ul>
+            <li><a href="#11-为什么需要注意力机制">1.1 为什么需要注意力机制</a></li>
+            <li><a href="#12-自注意力的运作原理">1.2 自注意力的运作原理</a></li>
+            <li><a href="#13-多头注意力">1.3 多头注意力</a></li>
+            <li><a href="#14-位置编码">1.4 位置编码</a></li>
+            <li><a href="#15-截断注意力">1.5 截断注意力</a></li>
+            <li><a href="#16-自注意力-vs-cnn">1.6 自注意力 vs CNN</a></li>
+            <li><a href="#17-自注意力-vs-rnn">1.7 自注意力 vs RNN</a></li>
+            <li><a href="#18-图结构上的自注意力">1.8 图结构上的自注意力</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
   <img
     data-src="/avatar/avatar.webp"
     data-sizes="auto"
@@ -970,7 +759,10 @@
         href="/anime"
         aria-label="番剧"
       ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
-    </div></div></div></nav>
+    </div></div></div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
 </div><script
     src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
     
@@ -1020,9 +812,9 @@
   <div><script data-pjax>
         window.REIMU_POST = {
           author: "Equinox",
-          title: "番剧 | Anime",
-          url: "http:\/\/localhost:1313\/anime\/",
-          description: " Bangumi 动画收藏 展示全部公开收藏状态，不再依赖构建时远程抓取。\n",
+          title: "注意力机制",
+          url: "http:\/\/localhost:1313\/post\/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6\/",
+          description: "\n\u0026lt;!--more--\u0026gt;\n\n\n\n## 一、自注意力机制\n\n### 1.1 为什么需要注意力机制\n\n假如输入一句话：\n\n\u0026gt;   我昨天买了一本关于深度学习的书，它非常有意思。\n\u0026gt;\n\n如果模型现在要理解“它”指代什么，它其实应该**重点**看前面的“书”，而不是**平均**看整句话。\n\n传统的 RNN\/LSTM 虽然能处理序列，但有两个问题：\n\n1.  **长距离依赖难学**\n    -   前面的信息传到后面会逐渐衰减\n2.  **所有信息被压缩到一个固定长度表示中**\n    -   容易丢失细节\n\n注意力机制解决的核心思路是：**在生成当前表示时，直接去“检索”输入序列中最相关的位置。** …",
           cover: "http:\/\/localhost:1313\/images\/banner.webp",
         };
       </script><script src="/js/insert_highlight.js" data-pjax ></script><script src="/js/tabs.js" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
@@ -1227,7 +1019,36 @@
     
     data-pjax
     
-    integrity="sha384-OEQ&#43;fJp/Mvi2uzBREXybtxryJvLytWapuHu4EE6LPwTKUwATYcc55tPPcZTzVcmx" crossorigin="anonymous"></script></div>
+    integrity="sha384-OEQ&#43;fJp/Mvi2uzBREXybtxryJvLytWapuHu4EE6LPwTKUwATYcc55tPPcZTzVcmx" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-MWNUH0WmtsYGhn2cbH6ELRCbf9LG3QDqCC&#43;gqPB3IBNO35xjZK3Ejb6oONRpDbPg" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/contrib/auto-render.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv&#43;fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script><script data-pjax>
+          var renderMath = () => {
+            if (!window.renderMathInElement) return;
+            window.renderMathInElement(_$("article"), {
+              delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "\\[", right: "\\]", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+              ],
+            });
+          };
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", renderMath, { once: true });
+          } else {
+            renderMath();
+          }
+        </script></div>
 </div><script
     src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
     

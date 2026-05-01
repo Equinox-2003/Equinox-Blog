@@ -8,7 +8,7 @@
   name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no"
 /><title>
-  归档 | Equinox
+  Transformer | Equinox
 </title>
 <meta name="description" content="记录学习过程..."/><script>
   window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":25},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
@@ -33,20 +33,20 @@
     type="font/woff2"
     crossorigin="anonymous"
   /><link rel="stylesheet" href="/css/loader.css" /><meta property="og:type" content="website" />
-  <meta property="og:title" content="归档 | Equinox" />
+  <meta property="og:title" content="Transformer | Equinox" />
   <meta
     property="og:description"
     content="记录学习过程..."
   />
-  <meta property="og:url" content="http://localhost:1313/archives/" />
+  <meta property="og:url" content="http://localhost:1313/post/transformer/" />
   <meta
     property="og:site_name"
     content="Welcome to my blog"
   />
   <meta property="og:image" content="http://localhost:1313/images/banner.webp" />
   <meta property="article:author" content="Equinox" />
-  <meta property="article:published_time" content="2026-04-27T18:46:25&#43;08:00" />
-  <meta property="article:modified_time" content="2026-04-27T18:46:25&#43;08:00" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="http://localhost:1313/images/banner.webp" /><link rel="alternate" type="application/rss+xml" href="http://localhost:1313/archives/index.xml" title="Welcome to my blog">
+  <meta property="article:published_time" content="2026-04-30T13:08:53&#43;08:00" />
+  <meta property="article:modified_time" content="2026-04-30T13:08:53&#43;08:00" /><meta property="article:tag" content="LLM" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="http://localhost:1313/images/banner.webp" />
 <link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" /><link
     rel="preload"
     as="style"
@@ -121,20 +121,36 @@
       </a><a class="main-nav-link-wrap" href="/anime"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">番剧</span>
       </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
   </nav>
-  <nav id="sub-nav" aria-label="Secondary navigation"><a id="nav-rss-link" class="nav-icon" href="/archives/index.xml" title="RSS 订阅" aria-label="RSS 订阅" target="_blank"></a></nav></div>
-<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt=""><div id="header-outer">
+  <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
+<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="Transformer"><div id="header-outer">
     <div id="header-title"><span id="logo">
-            <h1 data-aos="slide-up">归档</h1>
+            <h1 data-aos="slide-up">Transformer</h1>
           </span><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
   </div>
 </header><div id="content"
           aria-label="Page content"
           class="sidebar-left"
-            ><aside id="sidebar" aria-label="Sidebar"><div class="sidebar-wrapper-container "><div class="sidebar-wrapper">
+            ><aside id="sidebar" aria-label="Sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
     <div
       class="sidebar-wrap"
       data-aos="fade-up"
-    ><div class="sidebar-author">
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一transformer">一、Transformer</a>
+          <ul>
+            <li><a href="#11-seq2seq">1.1 Seq2Seq</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
   <img
     data-src="/avatar/avatar.webp"
     data-sizes="auto"
@@ -151,12 +167,12 @@
   <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
     <div>分类</div>
     <div class="sidebar-state-number">
-      3
+      2
     </div>
   </a>
   <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
     <div>标签</div>
-    <div class="sidebar-state-number">4</div>
+    <div class="sidebar-state-number">2</div>
   </a>
 </div>
 <div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
@@ -221,253 +237,124 @@
         href="/anime"
         aria-label="番剧"
       ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
-    </div></div></div>
-  </div><div class="sidebar-widget"><div class="widget-wrapper">
-    <div
-      class="widget-wrap"
-      data-aos="fade-up"
-    >
-      <div style="display: flex; justify-content: space-between;">
-        <h3 class="widget-title">分类</h3></div>
-      <div class="widget">
-        <ul class="category-list"><li class="category-list-item">
-                <a class="category-list-link" href="/categories/machinelearning/" 
-                  title="MachineLearning"
-                  >MachineLearning</a
-                >
-              </li><li class="category-list-item">
-                <a class="category-list-link" href="/categories/math/" 
-                  title="Math"
-                  >Math</a
-                >
-              </li><li class="category-list-item">
-                <a class="category-list-link" href="/categories/tech/" 
-                  title="Tech"
-                  >Tech</a
-                >
-              </li></ul>
-      </div>
-    </div>
-  </div><div class="widget-wrapper">
-    <div
-      class="widget-wrap"
-      data-aos="fade-up"
-    >
-      <div style="display: flex; justify-content: space-between;">
-        <h3 class="widget-title">标签</h3></div>
-      <div class="widget">
-        <ul class="tag-list" itemprop="keywords"><li class="tag-item">
-                <a
-                  class="tag-link"
-                  href="/tags/data/"
-                  aria-label="标签: Data"
-                  title="Data"
-                >
-                  Data
-                </a>
-              </li><li class="tag-item">
-                <a
-                  class="tag-link"
-                  href="/tags/linear-algebra/"
-                  aria-label="标签: Linear Algebra"
-                  title="Linear Algebra"
-                >
-                  Linear Algebra
-                </a>
-              </li><li class="tag-item">
-                <a
-                  class="tag-link"
-                  href="/tags/llm/"
-                  aria-label="标签: LLM"
-                  title="LLM"
-                >
-                  LLM
-                </a>
-              </li><li class="tag-item">
-                <a
-                  class="tag-link"
-                  href="/tags/unsuperviesed-learning/"
-                  aria-label="标签: Unsuperviesed Learning"
-                  title="Unsuperviesed Learning"
-                >
-                  Unsuperviesed Learning
-                </a>
-              </li></ul>
-      </div>
-    </div>
-  </div><div class="widget-wrapper">
+    </div></div></div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main" aria-label="Main content"><article
+  class="h-entry article"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
   <div
-    class="widget-wrap"
+    class="article-inner"
     data-aos="fade-up"
   >
-    <h3 class="widget-title">标签云</h3><div class="widget tagcloud"><a
-            style="font-size:10px"
-            href="/tags/data/"
-            aria-label="标签: Data"
-            >Data</a
-          ><a
-            style="font-size:10px"
-            href="/tags/linear-algebra/"
-            aria-label="标签: Linear Algebra"
-            >Linear Algebra</a
-          ><a
-            style="font-size:10px"
-            href="/tags/llm/"
-            aria-label="标签: LLM"
-            >LLM</a
-          ><a
-            style="font-size:10px"
-            href="/tags/unsuperviesed-learning/"
-            aria-label="标签: Unsuperviesed Learning"
-            >Unsuperviesed Learning</a
-          ></div>
-  </div>
-</div><div class="widget-wrapper">
-    <div
-      class="widget-wrap"
-      data-aos="fade-up"
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2026-04-30 13:08:53 &#43;0800 CST" itemprop="datePublished"
+      >2026-04-30</time
     >
-      <h3 class="widget-title">最新文章</h3>
-      <div class="widget">
-        <ul><li>
-              <a href="/post/svd/" title="SVD">SVD</a>
-            </li><li>
-              <a href="/post/word-embedding/" title="Word Embedding">Word Embedding</a>
-            </li><li>
-              <a href="/post/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/" title="注意力机制">注意力机制</a>
-            </li><li>
-              <a href="/post/test-post/" title="Test Post">Test Post</a>
-            </li><li>
-              <a href="/post/hello/" title="Hello World">Hello World</a>
-            </li></ul>
-      </div>
-    </div>
-  </div></div></div></aside>
-<section id="main" aria-label="Main content"><div
-    class="archives-outer-wrap"
-    data-aos="fade-up"
-  ><div class="tag-wrap"><div
-      class="archives-tag-list-item"
+    <time style="display: none;" id="post-update-time"
+      >2026-04-30</time
+    >
+  </span></div>
+</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h2 id="一transformer">
+<a class="header-anchor" href="#%e4%b8%80transformer"></a>
+一、Transformer
+</h2><h3 id="11-seq2seq">
+<a class="header-anchor" href="#11-seq2seq"></a>
+1.1 Seq2Seq
+</h3><p>**Seq2Seq(序列到序列)**模型输入和输出都是一个序列，输入与输出序列长度之间的关系有两种情况。</p>
+<ol>
+<li>输入跟输出的长度一样</li>
+<li>机器决定输出的长度。</li>
+</ol>
+<p>序列到序列模型的常见应用：</p>
+<p><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAETzL9p81aTT9EszbUSwWIqiT0DO-YslQACaygAAncCmFfuLZwmLR9fXTsE.png" alt="BQACAgUAAyEGAASHRsPbAAETzL9p81aTT9EszbUSwWIqiT0DO-YslQACaygAAncCmFfuLZwmLR9fXTsE.png"></p>
+<blockquote>
+<p>Q：既然把语音识别系统跟机器翻译系统接起来就能达到语音翻译的效果，那么为什么 要做语音翻译？</p>
+<p>A：世界上很多语言是没有文字的，无法做语音识别。因此需要对这些语言做语音翻译， 直接把它翻译成文字。</p>
+</blockquote></div>
+    <footer class="article-footer"><div class="sponsor-wrapper">
+  <div class="sponsor-button"><div class="sponsor-icon rotate"></div><div class="sponsor-title">赞助</div><div class="sponsor-icon rotate"></div></div><div class="sponsor-tip">Buy me a coffee</div><div class="sponsor-qr"><div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/alipay.jpg" alt="支付宝" width="200" />
+          <p class="sponsor-qr-name">支付宝</p>
+        </div><div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/wechat.jpg" alt="微信" width="200" />
+          <p class="sponsor-qr-name">微信</p>
+        </div></div></div><div class="share-wrapper"><a href="https://service.weibo.com/share/share.php?url=http://localhost:1313/post/transformer/&amp;appkey=&amp;title=Transformer&amp;pic=&amp;ralateUid=" target="_blank" rel="noopener noreferrer" title="Transformer">
+      <div class="share-icon icon icon-weibo"></div>
+    </a><a href="https://connect.qq.com/widget/shareqq/index.html?url=http://localhost:1313/post/transformer/&amp;title=Transformer&amp;desc=%0a&amp;lt;!--more--&amp;gt;%0a%0a##%20%e4%b8%80%e3%80%81Transformer%0a%0a###%201.1%20Seq2Seq%0a%0a**Seq2Seq%28%e5%ba%8f%e5%88%97%e5%88%b0%e5%ba%8f%e5%88%97%29**%e6%a8%a1%e5%9e%8b%e8%be%93%e5%85%a5%e5%92%8c%e8%be%93%e5%87%ba%e9%83%bd%e6%98%af%e4%b8%80%e4%b8%aa%e5%ba%8f%e5%88%97%ef%bc%8c%e8%be%93%e5%85%a5%e4%b8%8e%e8%be%93%e5%87%ba%e5%ba%8f%e5%88%97%e9%95%bf%e5%ba%a6%e4%b9%8b%e9%97%b4%e7%9a%84%e5%85%b3%e7%b3%bb%e6%9c%89%e4%b8%a4%e7%a7%8d%e6%83%85%e5%86%b5%e3%80%82%0a%0a1.%20%20%e8%be%93%e5%85%a5%e8%b7%9f%e8%be%93%e5%87%ba%e7%9a%84%e9%95%bf%e5%ba%a6%e4%b8%80%e6%a0%b7%0a2.%20%20%e6%9c%ba%e5%99%a8%e5%86%b3%e5%ae%9a%e8%be%93%e5%87%ba%e7%9a%84%e9%95%bf%e5%ba%a6%e3%80%82%0a%0a%e5%ba%8f%e5%88%97%e5%88%b0%e5%ba%8f%e5%88%97%e6%a8%a1%e5%9e%8b%e7%9a%84%e5%b8%b8%e8%a7%81%e5%ba%94%e7%94%a8%ef%bc%9a%20%e2%80%a6&amp;source=http://localhost:1313/" target="_blank" rel="noopener noreferrer" title="Transformer">
+      <div class="share-icon icon icon-qq"></div>
+    </a><a href="javascript:;"  title="Transformer">
+      <div class="share-icon icon icon-weixin"><div id="share-weixin">
+            <div class="share-weixin-dom">
+              <div class="share-weixin-content">
+                <img id="share-weixin-banner"> 
+                <div id="share-weixin-title"></div>
+                <div id="share-weixin-desc"></div>
+              </div>
+              <div class="share-weixin-qrcode">
+                <div class="share-weixin-info">
+                  <div id="share-weixin-author"></div>
+                  <div id="share-weixin-theme">Powered By hugo-theme-reimu</div>
+                </div>
+                <img id="share-weixin-qr" >
+              </div>
+            </div>
+            <div class="share-weixin-canvas"></div>
+          </div></div>
+    </a></div><ul class="article-category-list"><li class="article-tag-list-item" data-aos="zoom-in">
+    <a
+      class="article-category-link"
+      href="/categories/machinelearning"
       data-aos="zoom-in"
+      >MachineLearning</a
     >
-      <a class="archives-tag-list-link" href="/tags/data/"
-        >Data</a
-      >
-    </div><div
-      class="archives-tag-list-item"
-      data-aos="zoom-in"
-    >
-      <a class="archives-tag-list-link" href="/tags/linear-algebra/"
-        >Linear Algebra</a
-      >
-    </div><div
-      class="archives-tag-list-item"
-      data-aos="zoom-in"
-    >
-      <a class="archives-tag-list-link" href="/tags/llm/"
+    </li></ul>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/llm"
+        rel="tag"
         >LLM</a
       >
-    </div><div
-      class="archives-tag-list-item"
-      data-aos="zoom-in"
-    >
-      <a class="archives-tag-list-link" href="/tags/unsuperviesed-learning/"
-        >Unsuperviesed Learning</a
-      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    aria-label="Article navigation"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg26.webp"
+              data-sizes="auto"
+              alt="Word Embedding"
+              class="lazyload"
+            /><a
+          href="/post/word-embedding/"
+          aria-label="前一篇:Word Embedding"
+          title="前一篇:Word Embedding"
+        ></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Word Embedding</h3>
+      </div></nav></article><section id="comments" data-aos="fade-up">
+<div class="comment-header"><h2 class="comment-title">Leave a comment</h2>
+  <div class="comment-selector">
+    <div class="comment-selector-wrap"><div class="selector-item" data-selector="giscus">
+          <span>giscus</span>
+        </div></div>
+  </div>
+</div>
+
+<div class="comment-content"><div class="comment giscus-comment" data-aos="fade-up"
+     >
     </div></div>
-<div class="category-wrap"><div
-      class="archives-category-list-item"
-      data-aos="zoom-in"
-    >
-      <a class="archives-category-list-link" href="/categories/machinelearning/"
-        >MachineLearning</a
-      >
-    </div><div
-      class="archives-category-list-item"
-      data-aos="zoom-in"
-    >
-      <a class="archives-category-list-link" href="/categories/math/"
-        >Math</a
-      >
-    </div><div
-      class="archives-category-list-item"
-      data-aos="zoom-in"
-    >
-      <a class="archives-category-list-link" href="/categories/tech/"
-        >Tech</a
-      >
-    </div></div><section class="archives-wrap" data-aos="fade-up">
-    <div class="archive-year-wrap">
-      <span class="archive-year">2026</span>
-    </div>
-    <ul><li class="archive-article">
-          <div class="archive-article-date">
-            <span>
-              <time
-                class="dt-published"
-                datetime="2026-05-01 15:57:45 &#43;0800 CST"
-                itemprop="datePublished"
-                >2026-05</time
-              >
-            </span>
-          </div><a class="archive-article-title" href="/post/svd/"
-              >SVD</a
-            ></li><li class="archive-article">
-          <div class="archive-article-date">
-            <span>
-              <time
-                class="dt-published"
-                datetime="2026-04-28 15:04:20 &#43;0800 CST"
-                itemprop="datePublished"
-                >2026-04</time
-              >
-            </span>
-          </div><a class="archive-article-title" href="/post/word-embedding/"
-              >Word Embedding</a
-            ></li><li class="archive-article">
-          <div class="archive-article-date">
-            <span>
-              <time
-                class="dt-published"
-                datetime="2026-04-28 13:53:40 &#43;0800 CST"
-                itemprop="datePublished"
-                >2026-04</time
-              >
-            </span>
-          </div><a class="archive-article-title" href="/post/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/"
-              >注意力机制</a
-            ></li><li class="archive-article">
-          <div class="archive-article-date">
-            <span>
-              <time
-                class="dt-published"
-                datetime="2026-04-27 16:41:52 &#43;0800 CST"
-                itemprop="datePublished"
-                >2026-04</time
-              >
-            </span>
-          </div><a class="archive-article-title" href="/post/test-post/"
-              >Test Post</a
-            ></li></ul>
-  </section><section class="archives-wrap" data-aos="fade-up">
-    <div class="archive-year-wrap">
-      <span class="archive-year">2023</span>
-    </div>
-    <ul><li class="archive-article">
-          <div class="archive-article-date">
-            <span>
-              <time
-                class="dt-published"
-                datetime="2023-03-15 11:00:00 -0700 -0700"
-                itemprop="datePublished"
-                >2023-03</time
-              >
-            </span>
-          </div><a class="archive-article-title" href="/post/hello/"
-              >Hello World</a
-            ></li></ul>
-  </section></div><nav id="page-nav" aria-label="Pagination navigation" data-aos="fade-up"><span class="page-number current">1</span></nav>
-</section>
+</section></section>
         </div><footer id="footer" aria-label="Site footer">
   <div style="width: 100%; overflow: hidden">
     <div class="footer-line"></div>
@@ -488,10 +375,10 @@
         >
       </div><div>
         <span class="icon-brush"
-          >&nbsp;11.4k</span
+          >&nbsp;8.0k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;00:27</span>
+        <span class="icon-coffee">&nbsp;00:20</span>
       </div><div>
         <span class="icon-eye"></span>
         <span id="busuanzi_container_site_pv"
@@ -513,7 +400,23 @@
             <div class="arrow-up"></div>
           </div><div id="mask" class="hide"></div>
       </div><nav id="mobile-nav" aria-label="Mobile navigation">
-  <div class="sidebar-wrap"><div class="sidebar-author">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一transformer">一、Transformer</a>
+          <ul>
+            <li><a href="#11-seq2seq">1.1 Seq2Seq</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
   <img
     data-src="/avatar/avatar.webp"
     data-sizes="auto"
@@ -530,12 +433,12 @@
   <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
     <div>分类</div>
     <div class="sidebar-state-number">
-      3
+      2
     </div>
   </a>
   <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
     <div>标签</div>
-    <div class="sidebar-state-number">4</div>
+    <div class="sidebar-state-number">2</div>
   </a>
 </div>
 <div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
@@ -600,7 +503,10 @@
         href="/anime"
         aria-label="番剧"
       ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
-    </div></div></div></nav>
+    </div></div></div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
 </div><script
     src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
     
@@ -650,9 +556,9 @@
   <div><script data-pjax>
         window.REIMU_POST = {
           author: "Equinox",
-          title: "",
-          url: "http:\/\/localhost:1313\/archives\/",
-          description: "",
+          title: "Transformer",
+          url: "http:\/\/localhost:1313\/post\/transformer\/",
+          description: "\n\u0026lt;!--more--\u0026gt;\n\n## 一、Transformer\n\n### 1.1 Seq2Seq\n\n**Seq2Seq(序列到序列)**模型输入和输出都是一个序列，输入与输出序列长度之间的关系有两种情况。\n\n1.  输入跟输出的长度一样\n2.  机器决定输出的长度。\n\n序列到序列模型的常见应用： …",
           cover: "http:\/\/localhost:1313\/images\/banner.webp",
         };
       </script><script src="/js/insert_highlight.js" data-pjax ></script><script src="/js/tabs.js" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
@@ -857,7 +763,36 @@
     
     data-pjax
     
-    integrity="sha384-OEQ&#43;fJp/Mvi2uzBREXybtxryJvLytWapuHu4EE6LPwTKUwATYcc55tPPcZTzVcmx" crossorigin="anonymous"></script></div>
+    integrity="sha384-OEQ&#43;fJp/Mvi2uzBREXybtxryJvLytWapuHu4EE6LPwTKUwATYcc55tPPcZTzVcmx" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-MWNUH0WmtsYGhn2cbH6ELRCbf9LG3QDqCC&#43;gqPB3IBNO35xjZK3Ejb6oONRpDbPg" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/contrib/auto-render.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv&#43;fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script><script data-pjax>
+          var renderMath = () => {
+            if (!window.renderMathInElement) return;
+            window.renderMathInElement(_$("article"), {
+              delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "\\[", right: "\\]", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+              ],
+            });
+          };
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", renderMath, { once: true });
+          } else {
+            renderMath();
+          }
+        </script></div>
 </div><script
     src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
     

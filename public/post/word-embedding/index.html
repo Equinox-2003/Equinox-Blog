@@ -43,10 +43,10 @@
     property="og:site_name"
     content="Welcome to my blog"
   />
-  <meta property="og:image" content="http://localhost:1313/true" />
+  <meta property="og:image" content="http://localhost:1313/images/banner.webp" />
   <meta property="article:author" content="Equinox" />
   <meta property="article:published_time" content="2026-04-28T15:04:20&#43;08:00" />
-  <meta property="article:modified_time" content="2026-04-28T15:04:20&#43;08:00" /><meta property="article:tag" content="Unsuperviesed Learning" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="http://localhost:1313/true" />
+  <meta property="article:modified_time" content="2026-04-28T15:04:20&#43;08:00" /><meta property="article:tag" content="Unsuperviesed Learning" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="http://localhost:1313/images/banner.webp" />
 <link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" /><link
     rel="preload"
     as="style"
@@ -122,8 +122,7 @@
       </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
   </nav>
   <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
-<header id="header" aria-label="Site header"><picture></picture>
-    <img  fetchpriority="high" src="/true" alt="Word Embedding"><div id="header-outer">
+<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="Word Embedding"><div id="header-outer">
     <div id="header-title"><span id="logo">
             <h1 data-aos="slide-up">Word Embedding</h1>
           </span><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
@@ -146,7 +145,27 @@
             <li><a href="#11-为什么-one-hot-vector-是一个糟糕的选择">1.1 为什么 one-hot vector 是一个糟糕的选择</a></li>
             <li><a href="#12-自监督的word2vec">1.2 自监督的word2vec</a>
               <ul>
-                <li><a href="#121-跳元模型skip-gram">1.2.1 跳元模型（Skip-Gram）</a></li>
+                <li><a href="#121-跳元模型skip-gram">1.2.1 跳元模型（Skip-Gram）</a>
+                  <ul>
+                    <li><a href="#1211-训练">1.2.1.1 训练</a></li>
+                  </ul>
+                </li>
+                <li><a href="#122-连续词袋cbow模型">1.2.2 连续词袋（CBOW）模型</a>
+                  <ul>
+                    <li><a href="#1221-训练">1.2.2.1 训练</a></li>
+                  </ul>
+                </li>
+                <li><a href="#123-architecture">1.2.3 architecture</a></li>
+              </ul>
+            </li>
+            <li><a href="#14-一个简单的代码示例">1.4 一个简单的代码示例</a>
+              <ul>
+                <li><a href="#141-库">1.4.1 库</a></li>
+                <li><a href="#142--数据">1.4.2  数据</a></li>
+                <li><a href="#143-model">1.4.3 Model</a></li>
+                <li><a href="#144-seq2vec">1.4.4 seq2vec</a></li>
+                <li><a href="#145-构建训练特征">1.4.5 构建训练特征</a></li>
+                <li><a href="#146-训练并测试">1.4.6 训练并测试</a></li>
               </ul>
             </li>
           </ul>
@@ -168,17 +187,17 @@
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>文章</div><div class="sidebar-state-number">3</div>
+    <div>文章</div><div class="sidebar-state-number">5</div>
   </div>
   <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
     <div>分类</div>
     <div class="sidebar-state-number">
-      2
+      3
     </div>
   </a>
   <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
     <div>标签</div>
-    <div class="sidebar-state-number">1</div>
+    <div class="sidebar-state-number">4</div>
   </a>
 </div>
 <div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
@@ -289,9 +308,231 @@
 </h4><blockquote>
 <p>用中心词预测上下文。</p>
 </blockquote>
-<p>跳元模型假设<strong>一个词可以用来在文本序列中生成其周围的单词</strong>。以文本序列“the”“man”“loves”“his”“son”为例。</p>
+<p>Skip-Gram假设<strong>一个词可以用来在文本序列中生成其周围的单词</strong>。以文本序列“the”“man”“loves”“his”“son”为例。</p>
 <p>假设中心词选“loves”，并将上下文窗口设置成2，</p>
-<p><img src="https://zh-v2.d2l.ai/_images/skip-gram.svg" alt="../_images/skip-gram.svg"></p></div>
+<p><img src="https://zh-v2.d2l.ai/_images/skip-gram.svg" alt="../_images/skip-gram.svg"></p>
+<p>Skip-Gram考虑生成上下文词“the”“man”“him”“son”的条件概率：
+</p>
+$$
+P(\textrm{"the"},\textrm{"man"},\textrm{"his"},\textrm{"son"}\mid\textrm{"loves"}).
+$$<p>
+假设上下文词是在给定中心词的情况下独立生成的（即条件独立性）。在这种情况下，上述条件概率可以重写为：
+</p>
+$$
+P(\textrm{"the"}\mid\textrm{"loves"})\cdot P(\textrm{"man"}\mid\textrm{"loves"})\cdot P(\textrm{"his"}\mid\textrm{"loves"})\cdot P(\textrm{"son"}\mid\textrm{"loves"}).
+$$<p>
+在Skip-Gram中，每个词都有两个 d 维向量表示，用于计算条件概率。</p>
+<p>换句话说，索引为 i 的任何词，分别用 $\mathbf{v}_i\in\mathbb{R}^d$和$\mathbf{u}_i\in\mathbb{R}^d$表示其用作<strong>中心词</strong>和<strong>上下文词</strong>时的两个向量。</p>
+<p>给定中心词$w_c$（词典中的索引c），生成任何上下文$w_o$（词典中的索引c）的条件概率可以通过向量点积的softmax操作来建模：
+</p>
+$$
+P(w_o \mid w_c) = \frac{\text{exp}(\mathbf{u}_o^\top \mathbf{v}_c)}{ \sum_{i \in \mathcal{V}} \text{exp}(\mathbf{u}_i^\top \mathbf{v}_c)},
+$$<p>
+假定词表索引集$\mathcal{V} = \{0, 1, \ldots, |\mathcal{V}|-1\}$。给定长度为$T$的文本序列，其中时间步$t$处的词表示为$w^{(t)}$。</p>
+<p>假设上下文词是在给定任何中心词的情况下<strong>独立</strong>生成的。</p>
+<p>对于上下文窗口为m，Skip-Gram的似然函数是在<strong>给定任何中心词的情况下生成所有上下文词的概率</strong>：
+</p>
+$$
+\prod_{t=1}^{T} \prod_{-m \leq j \leq m,\ j \neq 0} P(w^{(t+j)} \mid w^{(t)}),
+$$<h5 id="1211-训练">
+<a class="header-anchor" href="#1211-%e8%ae%ad%e7%bb%83"></a>
+1.2.1.1 训练
+</h5><p>Skip-Gram参数是词表中每个词的中心词向量和上下文词向量。在训练中，我们通过最大化似然函数（<strong>即极大似然估计</strong>）来学习模型参数。这相当于最小化以下损失函数：</p>
+$$
+{-} \sum_{t=1}^{T} \sum_{-m \leq j \leq m,\ j \neq 0} \text{log}\, P(w^{(t+j)} \mid w^{(t)}).
+$$<p>当使用随机梯度下降来最小化损失时，在每次迭代中可以随机抽样一个较短的子序列来计算该子序列的（随机）梯度，以更新模型参数。</p>
+<p>我们对前面条件概率的公式两边取对数可以得到：
+</p>
+$$
+\log P(w_o \mid w_c) =\mathbf{u}_o^\top \mathbf{v}_c - \log\left(\sum_{i \in \mathcal{V}} \text{exp}(\mathbf{u}_i^\top \mathbf{v}_c)\right).
+$$<p>
+通过微分，我们可以获得其相对于中心词向量$\mathbf{v}_c$的梯度为
+</p>
+$$
+\begin{split}\begin{aligned}\frac{\partial \text{log}\, P(w_o \mid w_c)}{\partial \mathbf{v}_c}&= \mathbf{u}_o - \frac{\sum_{j \in \mathcal{V}} \exp(\mathbf{u}_j^\top \mathbf{v}_c)\mathbf{u}_j}{\sum_{i \in \mathcal{V}} \exp(\mathbf{u}_i^\top \mathbf{v}_c)}\\&= \mathbf{u}_o - \sum_{j \in \mathcal{V}} \left(\frac{\text{exp}(\mathbf{u}_j^\top \mathbf{v}_c)}{ \sum_{i \in \mathcal{V}} \text{exp}(\mathbf{u}_i^\top \mathbf{v}_c)}\right) \mathbf{u}_j\\&= \mathbf{u}_o - \sum_{j \in \mathcal{V}} P(w_j \mid w_c) \mathbf{u}_j.\end{aligned}\end{split}
+$$<p>
+从公式可以看出，只要有了以$w_c$为中心词的所有词的条件概率，其他词向量的梯度就可以以相同的方式获得。</p>
+<h4 id="122-连续词袋cbow模型">
+<a class="header-anchor" href="#122-%e8%bf%9e%e7%bb%ad%e8%af%8d%e8%a2%8bcbow%e6%a8%a1%e5%9e%8b"></a>
+1.2.2 连续词袋（CBOW）模型
+</h4><blockquote>
+<p>用上下文预测中心词。</p>
+</blockquote>
+<p>连续词袋（CBOW）模型类似于Skip-Gram。与Skip-Gram的主要区别在于，CBOW模型假设中心词是基于其在文本序列中的周围上下文词生成的。例如，在文本序列“the”“man”“loves”“his”“son”中，在“loves”为中心词且上下文窗口为2的情况下，连续词袋模型考虑基于上下文词“the”“man”“him”“son”生成中心词“loves”的条件概率，即：</p>
+<p><img src="https://zh-v2.d2l.ai/_images/cbow.svg" alt="../_images/cbow.svg"></p>
+<p>由于CBOW模型中存在多个上下文词，<strong>因此在计算条件概率时对这些上下文词向量进行平均</strong>。具体地说，对于字典中索引$i$的任意词，分别用$\mathbf{v}_i\in\mathbb{R}^d$和$\mathbf{u}_i\in\mathbb{R}^d$表示用作上下文词和中心词的两个向量（符号和 Skip-Gram 中相反）。给定上下文词$w_{o_1}, \ldots, w_{o_{2m}}$，（在词表中索引是$o_1, \ldots, o_{2m}$）生成任意中心词$w_c$（在词表中索引是$c$）的条件概率可以由以下公式建模:
+</p>
+$$
+P(w_c \mid w_{o_1}, \ldots, w_{o_{2m}}) = \frac{\text{exp}\left(\frac{1}{2m}\mathbf{u}_c^\top (\mathbf{v}_{o_1} + \ldots, + \mathbf{v}_{o_{2m}}) \right)}{ \sum_{i \in \mathcal{V}} \text{exp}\left(\frac{1}{2m}\mathbf{u}_i^\top (\mathbf{v}_{o_1} + \ldots, + \mathbf{v}_{o_{2m}}) \right)}.
+$$<p>
+为了简洁起见，我们设为$\mathcal{W}_o= \{w_{o_1}, \ldots, w_{o_{2m}}\}$和$\bar{\mathbf{v}}_o = \left(\mathbf{v}_{o_1} + \ldots, + \mathbf{v}_{o_{2m}} \right)/(2m)$。那么上式可以简化为：
+</p>
+$$
+P(w_c \mid \mathcal{W}_o) = \frac{\exp\left(\mathbf{u}_c^\top \bar{\mathbf{v}}_o\right)}{\sum_{i \in \mathcal{V}} \exp\left(\mathbf{u}_i^\top \bar{\mathbf{v}}_o\right)}.
+$$<p>
+给定长度为$T$的文本序列，其中时间步$t$处的词表示为$w^{(t)}$。对于上下文窗口$m$，CBOW模型的似然函数是在给定其上下文词的情况下生成所有中心词的概率：
+</p>
+$$
+\prod_{t=1}^{T}  P(w^{(t)} \mid  w^{(t-m)}, \ldots, w^{(t-1)}, w^{(t+1)}, \ldots, w^{(t+m)}).
+$$<h5 id="1221-训练">
+<a class="header-anchor" href="#1221-%e8%ae%ad%e7%bb%83"></a>
+1.2.2.1 训练
+</h5><p>CBOW模型的最大似然估计等价于最小化以下损失函数：
+</p>
+$$
+-\sum_{t=1}^T  \text{log}\, P(w^{(t)} \mid  w^{(t-m)}, \ldots, w^{(t-1)}, w^{(t+1)}, \ldots, w^{(t+m)}).
+$$<p>
+请注意：
+</p>
+$$
+\log\,P(w_c \mid \mathcal{W}_o) = \mathbf{u}_c^\top \bar{\mathbf{v}}_o - \log\,\left(\sum_{i \in \mathcal{V}} \exp\left(\mathbf{u}_i^\top \bar{\mathbf{v}}_o\right)\right).
+$$<p>
+通过微分，我们可以获得其关于任意上下文词向量的梯度$i = 1, \ldots, 2m$，如下：
+</p>
+$$
+\frac{\partial \log\, P(w_c \mid \mathcal{W}_o)}{\partial \mathbf{v}_{o_i}} = \frac{1}{2m} \left(\mathbf{u}_c - \sum_{j \in \mathcal{V}} \frac{\exp(\mathbf{u}_j^\top \bar{\mathbf{v}}_o)\mathbf{u}_j}{ \sum_{i \in \mathcal{V}} \text{exp}(\mathbf{u}_i^\top \bar{\mathbf{v}}_o)} \right) = \frac{1}{2m}\left(\mathbf{u}_c - \sum_{j \in \mathcal{V}} P(w_j \mid \mathcal{W}_o) \mathbf{u}_j \right).
+$$<h4 id="123-architecture">
+<a class="header-anchor" href="#123-architecture"></a>
+1.2.3 architecture
+</h4><p>上面两种方法都有各自的function，那么只需要构建一个模型，进行训练即可。</p>
+<p>比较有趣的是 word2vec 只用了一个单隐藏层的神经网络：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">输入层</span> <span class="o">-&gt;</span> <span class="n">隐藏层</span> <span class="o">-&gt;</span> <span class="n">输出层</span>
+</span></span></code></pre></div><p>其中：</p>
+<ul>
+<li>输入层：一个词的 one-hot 向量</li>
+<li>隐藏层：词向量层（没有复杂激活）</li>
+<li>输出层：预测上下文词的概率分布</li>
+</ul>
+<p>而我们需要的，正是隐藏层输出的词向量层。</p>
+<p><strong>而隐藏层的权重矩阵是什么形式呢</strong>？
+</p>
+$$
+\mathbf{W}\in\mathbb{R}^{V\times d}
+$$<ul>
+<li>V = 词表大小</li>
+<li>d = 向量维度</li>
+</ul>
+<p>而输入又是 one-hot编码，所以，输入 乘 权重矩阵就是 <strong>查表取向量</strong>。</p>
+<p><strong>为什么训练快？</strong></p>
+<p>因为它网络很浅：</p>
+<ul>
+<li>没有很多层</li>
+<li>没有复杂非线性堆叠</li>
+<li>输入是 one-hot</li>
+<li>隐藏层本质上是 embedding lookup</li>
+</ul>
+<p>但如果直接 softmax 整个词表，仍然会很慢，特别是词表很大时。</p>
+<p>所以 Word2Vec 常用两个优化技巧：</p>
+<p><strong>1、Hierarchical Softmax</strong></p>
+<p>用一棵二叉树表示词表，把原来对整个词表的 softmax 计算，变成沿树路径计算，降低复杂度。</p>
+<p>普通 softmax 在预测一个词时，要对整个词表算一遍概率。如果词表有 100 万个词，那么每次预测都要和 100 万个词比较，开销很大。</p>
+<p><strong>Hierarchical Softmax 的思路是：</strong></p>
+<ul>
+<li>不直接在所有词里“选一个词”，</li>
+<li>而是在一棵二叉树里，从根节点一路做“向左还是向右”的二分类决策，</li>
+<li>最后走到某个叶子节点，对应一个词。</li>
+</ul>
+<p>那么当树是平衡的时候，我们只需要 <strong>O(log)</strong> 的复杂度即可完成比较。</p>
+<p>而这颗树的构建，一种比较常见的做法就是建立<strong>Huffman Tree（哈夫曼树）</strong>，因为高频词会经常预测，而哈夫曼树可以使得频次加权路径最短。</p>
+<p>总结一下就是，<strong>Hierarchical Softmax</strong>把传统的对整张词表计算概率，转化成了树上的多次二分类。</p>
+<p><strong>模型在每个分叉点输出往左走还是往右走，最后的叶子节点就是预测输出。</strong></p>
+<p><strong>2、Negative Sampling</strong></p>
+<p>思想：模型只需要学会谁和谁不相关。</p>
+<p>比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(&#34;吃&#34;, &#34;苹果&#34;)
+</span></span></code></pre></div><p>是正样本</p>
+<p>随机采样几个负样本：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(&#34;吃&#34;, &#34;汽车&#34;)
+</span></span><span class="line"><span class="cl">(&#34;吃&#34;, &#34;银行&#34;)
+</span></span><span class="line"><span class="cl">(&#34;吃&#34;, &#34;天气&#34;)
+</span></span></code></pre></div><p>训练时模型只需要学会：</p>
+<ul>
+<li>“吃”和“苹果”应该接近</li>
+<li>“吃”和“汽车”不应该接近</li>
+</ul>
+<p>这样就不用每次都和整个词表比，大大加快训练。</p>
+<h3 id="14-一个简单的代码示例">
+<a class="header-anchor" href="#14-%e4%b8%80%e4%b8%aa%e7%ae%80%e5%8d%95%e7%9a%84%e4%bb%a3%e7%a0%81%e7%a4%ba%e4%be%8b"></a>
+1.4 一个简单的代码示例
+</h3><blockquote>
+<p>因为手动实现想要达到特别好的效果的话，需要很多的tips。</p>
+<p>所以还是用工具库来做一个示例。</p>
+</blockquote>
+<p>做一个超简单的情感分类：</p>
+<ul>
+<li>训练 Word2Vec</li>
+<li>把句子变成向量</li>
+<li>训练一个分类器</li>
+<li>预测新句子</li>
+</ul>
+<h4 id="141-库">
+<a class="header-anchor" href="#141-%e5%ba%93"></a>
+1.4.1 库
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">Word2Vec</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+</span></span></code></pre></div><h4 id="142--数据">
+<a class="header-anchor" href="#142--%e6%95%b0%e6%8d%ae"></a>
+1.4.2  数据
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># data, 已经分词</span>
+</span></span><span class="line"><span class="cl"><span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s2">&#34;质量&#34;</span><span class="p">,</span> <span class="s2">&#34;很好&#34;</span><span class="p">,</span> <span class="s2">&#34;物流&#34;</span><span class="p">,</span> <span class="s2">&#34;很快&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s2">&#34;商品&#34;</span><span class="p">,</span> <span class="s2">&#34;不错&#34;</span><span class="p">,</span> <span class="s2">&#34;价格&#34;</span><span class="p">,</span> <span class="s2">&#34;实惠&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s2">&#34;体验&#34;</span><span class="p">,</span> <span class="s2">&#34;很好&#34;</span><span class="p">,</span> <span class="s2">&#34;下次&#34;</span><span class="p">,</span> <span class="s2">&#34;还会&#34;</span><span class="p">,</span> <span class="s2">&#34;购买&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s2">&#34;包装&#34;</span><span class="p">,</span> <span class="s2">&#34;破损&#34;</span><span class="p">,</span> <span class="s2">&#34;非常&#34;</span><span class="p">,</span> <span class="s2">&#34;失望&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s2">&#34;物流&#34;</span><span class="p">,</span> <span class="s2">&#34;太慢&#34;</span><span class="p">,</span> <span class="s2">&#34;客服&#34;</span><span class="p">,</span> <span class="s2">&#34;态度&#34;</span><span class="p">,</span> <span class="s2">&#34;差&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s2">&#34;产品&#34;</span><span class="p">,</span> <span class="s2">&#34;不好&#34;</span><span class="p">,</span> <span class="s2">&#34;质量&#34;</span><span class="p">,</span> <span class="s2">&#34;很差&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># label，1: positive, 2: negative</span>
+</span></span><span class="line"><span class="cl"><span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</span></span></code></pre></div><h4 id="143-model">
+<a class="header-anchor" href="#143-model"></a>
+1.4.3 Model
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># word2vec model</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">Word2Vec</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="c1"># dim of word vector</span>
+</span></span><span class="line"><span class="cl">    <span class="n">window</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="c1"># size of context window</span>
+</span></span><span class="line"><span class="cl">    <span class="n">min_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="c1"># min_freq</span>
+</span></span><span class="line"><span class="cl">    <span class="n">workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sg</span><span class="o">=</span><span class="mi">1</span> <span class="c1"># 1 = skip-gram, 0 = cbow</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></div><h4 id="144-seq2vec">
+<a class="header-anchor" href="#144-seq2vec"></a>
+1.4.4 seq2vec
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 把一句话转成向量：对句子中所有词向量取平均</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">sentence_vector</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vectors</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vectors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">[</span><span class="n">word</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">vector_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">vectors</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span></code></pre></div><h4 id="145-构建训练特征">
+<a class="header-anchor" href="#145-%e6%9e%84%e5%bb%ba%e8%ae%ad%e7%bb%83%e7%89%b9%e5%be%81"></a>
+1.4.5 构建训练特征
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sentence_vector</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">labels</span>
+</span></span></code></pre></div><h4 id="146-训练并测试">
+<a class="header-anchor" href="#146-%e8%ae%ad%e7%bb%83%e5%b9%b6%e6%b5%8b%e8%af%95"></a>
+1.4.6 训练并测试
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># classifier</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># test new sentences</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_sentences</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&#34;物流&#34;</span><span class="p">,</span> <span class="s2">&#34;很快&#34;</span><span class="p">,</span> <span class="s2">&#34;商品&#34;</span><span class="p">,</span> <span class="s2">&#34;不错&#34;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&#34;质量&#34;</span><span class="p">,</span> <span class="s2">&#34;很好&#34;</span><span class="p">,</span> <span class="s2">&#34;商品&#34;</span><span class="p">,</span> <span class="s2">&#34;不错&#34;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&#34;物流&#34;</span><span class="p">,</span> <span class="s2">&#34;不好&#34;</span><span class="p">,</span> <span class="s2">&#34;商品&#34;</span><span class="p">,</span> <span class="s2">&#34;很差&#34;</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">test_sentences</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">test_vec</span> <span class="o">=</span> <span class="n">sentence_vector</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_vec</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;预测结果：&#34;</span><span class="p">,</span> <span class="s2">&#34;正面&#34;</span> <span class="k">if</span> <span class="n">pred</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&#34;负面&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p><strong>输出：</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">预测结果： 正面
+</span></span><span class="line"><span class="cl">预测结果： 正面
+</span></span><span class="line"><span class="cl">预测结果： 负面
+</span></span></code></pre></div></div>
     <footer class="article-footer"><div class="sponsor-wrapper">
   <div class="sponsor-button"><div class="sponsor-icon rotate"></div><div class="sponsor-title">赞助</div><div class="sponsor-icon rotate"></div></div><div class="sponsor-tip">Buy me a coffee</div><div class="sponsor-qr"><div class="sponsor-qr-image-wrapper">
           <img src="/sponsor/alipay.jpg" alt="支付宝" width="200" />
@@ -343,17 +584,29 @@
     aria-label="Article navigation"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap left"><img
-              data-src="https://d-sketon.top/img/_backwebp/bg7.webp"
+              data-src="https://d-sketon.top/img/_backwebp/bg4.webp"
               data-sizes="auto"
-              alt="Test Post"
+              alt="注意力机制"
               class="lazyload"
             /><a
-          href="/post/test-post/"
-          aria-label="前一篇:Test Post"
-          title="前一篇:Test Post"
+          href="/post/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/"
+          aria-label="前一篇:注意力机制"
+          title="前一篇:注意力机制"
         ></a>
         <div class="article-nav-caption">前一篇</div>
-        <h3 class="article-nav-title">Test Post</h3>
+        <h3 class="article-nav-title">注意力机制</h3>
+      </div><div class="article-nav-link-wrap right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg7.webp"
+              data-sizes="auto"
+              alt="SVD"
+              class="lazyload"
+            /><a
+          href="/post/svd/"
+          aria-label="后一篇:SVD"
+          title="后一篇:SVD"
+        ></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">SVD</h3>
       </div></nav></article><section id="comments" data-aos="fade-up">
 <div class="comment-header"><h2 class="comment-title">Leave a comment</h2>
   <div class="comment-selector">
@@ -387,10 +640,10 @@
         >
       </div><div>
         <span class="icon-brush"
-          >&nbsp;417</span
+          >&nbsp;11.4k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;00:03</span>
+        <span class="icon-coffee">&nbsp;00:27</span>
       </div><div>
         <span class="icon-eye"></span>
         <span id="busuanzi_container_site_pv"
@@ -423,7 +676,27 @@
             <li><a href="#11-为什么-one-hot-vector-是一个糟糕的选择">1.1 为什么 one-hot vector 是一个糟糕的选择</a></li>
             <li><a href="#12-自监督的word2vec">1.2 自监督的word2vec</a>
               <ul>
-                <li><a href="#121-跳元模型skip-gram">1.2.1 跳元模型（Skip-Gram）</a></li>
+                <li><a href="#121-跳元模型skip-gram">1.2.1 跳元模型（Skip-Gram）</a>
+                  <ul>
+                    <li><a href="#1211-训练">1.2.1.1 训练</a></li>
+                  </ul>
+                </li>
+                <li><a href="#122-连续词袋cbow模型">1.2.2 连续词袋（CBOW）模型</a>
+                  <ul>
+                    <li><a href="#1221-训练">1.2.2.1 训练</a></li>
+                  </ul>
+                </li>
+                <li><a href="#123-architecture">1.2.3 architecture</a></li>
+              </ul>
+            </li>
+            <li><a href="#14-一个简单的代码示例">1.4 一个简单的代码示例</a>
+              <ul>
+                <li><a href="#141-库">1.4.1 库</a></li>
+                <li><a href="#142--数据">1.4.2  数据</a></li>
+                <li><a href="#143-model">1.4.3 Model</a></li>
+                <li><a href="#144-seq2vec">1.4.4 seq2vec</a></li>
+                <li><a href="#145-构建训练特征">1.4.5 构建训练特征</a></li>
+                <li><a href="#146-训练并测试">1.4.6 训练并测试</a></li>
               </ul>
             </li>
           </ul>
@@ -445,17 +718,17 @@
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>文章</div><div class="sidebar-state-number">3</div>
+    <div>文章</div><div class="sidebar-state-number">5</div>
   </div>
   <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
     <div>分类</div>
     <div class="sidebar-state-number">
-      2
+      3
     </div>
   </a>
   <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
     <div>标签</div>
-    <div class="sidebar-state-number">1</div>
+    <div class="sidebar-state-number">4</div>
   </a>
 </div>
 <div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
@@ -576,7 +849,7 @@
           title: "Word Embedding",
           url: "http:\/\/localhost:1313\/post\/word-embedding\/",
           description: "\n\u0026lt;!--more--\u0026gt;\n\n\n\n## 一、word-Embedding\n\n\n\n### 1.1 为什么 one-hot vector 是一个糟糕的选择\n\n之前在学习逻辑回归的时候，采用 one-hot vector 来进行建模，分类。\n\n独热编码非常易于构建，但它却很难去精准表达不同词之间的相似度。\n\n比如我们如果用向量来表示 \u0026#34;queen\u0026#34; 和 \u0026#34;king\u0026#34;，那么我们很可能希望得到 \u0060\u0026#34;queen\u0026#34; - \u0026#34;king\u0026#34; = \u0026#34;woman\u0026#34;\u0060\n\n\n\n### 1.2 自监督的word2vec\n\nword2vec 有两个模型：**跳元模型（skip-gram）**和**连续词袋（CBOW）**。\n\n对 …",
-          cover: "http:\/\/localhost:1313\/true",
+          cover: "http:\/\/localhost:1313\/images\/banner.webp",
         };
       </script><script src="/js/insert_highlight.js" data-pjax ></script><script src="/js/tabs.js" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
           if (_$$(`${gallery} ${children}`).length > 0) {
