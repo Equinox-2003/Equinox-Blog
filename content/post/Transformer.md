@@ -3,7 +3,7 @@ title: "Transformer"
 description: ""
 date: 2026-04-30T13:08:53+08:00
 lastmod: 2026-04-30T13:08:53+08:00
-draft: true
+draft: false
 
 categories:
   - MachineLearning
