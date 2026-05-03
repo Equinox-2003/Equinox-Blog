@@ -12,12 +12,32 @@
     
     <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
     
-    <lastBuildDate>Fri, 01 May 2026 15:57:45 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 03 May 2026 14:27:12 +0800</lastBuildDate>
     
     
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
+    
+    
+
+    <item>
+      <title>Working With Text Data</title>
+      <link>http://localhost:1313/post/working-with-text-data/</link>
+      <pubDate>Sun, 03 May 2026 14:27:12 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/working-with-text-data/</guid>
+      <description>
+        <![CDATA[<h1>Working With Text Data</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-03首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-03</p>]]>
+      </description>
+      
+        <category>LLMs-from-scratch</category>
+      
+    </item>
     
     
 
@@ -36,6 +56,26 @@
       </description>
       
         <category>Math</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Transformer</title>
+      <link>http://localhost:1313/post/transformer/</link>
+      <pubDate>Thu, 30 Apr 2026 13:08:53 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/transformer/</guid>
+      <description>
+        <![CDATA[<h1>Transformer</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-04-30首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-04-30</p>]]>
+      </description>
+      
+        <category>MachineLearning</category>
       
     </item>
     

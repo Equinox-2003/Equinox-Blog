@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Data on Welcome to my blog</title>
-    <link>http://localhost:1313/tags/data/</link>
+    <title>LLMs-From-Scratch on Welcome to my blog</title>
+    <link>http://localhost:1313/categories/llms-from-scratch/</link>
     <description>Recent content from Welcome to my blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Sun, 03 May 2026 14:27:12 +0800</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/tags/data/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="http://localhost:1313/categories/llms-from-scratch/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -36,26 +36,6 @@
       </description>
       
         <category>LLMs-from-scratch</category>
-      
-    </item>
-    
-    
-
-    <item>
-      <title>SVD</title>
-      <link>http://localhost:1313/post/svd/</link>
-      <pubDate>Fri, 01 May 2026 15:57:45 &#43;0800</pubDate>
-      <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/svd/</guid>
-      <description>
-        <![CDATA[<h1>SVD</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
-        
-          
-        
-        <hr><p>本文2026-05-01首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-01</p>]]>
-      </description>
-      
-        <category>Math</category>
       
     </item>
     
