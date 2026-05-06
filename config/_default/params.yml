@@ -24,10 +24,10 @@ menu:
 mainSections: ["post"]
 # 年，月，日及时间的格式化样式
 # Format style for year,month,date & time
-yearFormat: "2026"
-monthFormat: "2026-04"
-dateFormat: "2026-04-20"
-timeFormat: "2026-04-20 15:04:05"
+yearFormat: "2006"
+monthFormat: "2006-01"
+dateFormat: "2006-01-02"
+timeFormat: "2006-01-02 15:04:05"
 
 author: Equinox
 email: shixy2003@gmail.com
