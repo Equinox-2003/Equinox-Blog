@@ -264,7 +264,7 @@ PCA 认为：
 
 > **方差越大的方向，越包含主要信息**。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3f5f3d83a4714b249da3aaec23d596e0.png)
+<img src="https://i-blog.csdnimg.cn/direct/3f5f3d83a4714b249da3aaec23d596e0.png" referrerpolicy="no-referrer">
 
 这其实是很好理解的，如上图，蓝线方向显然拟合效果更好，红线为与蓝线垂直的方向，那么数据在红线上的投影，方差特别小。
 
