@@ -28,7 +28,7 @@ mermaid: true
 
 序列到序列模型的常见应用：
 
-![BQACAgUAAyEGAASHRsPbAAETzL9p81aTT9EszbUSwWIqiT0DO-YslQACaygAAncCmFfuLZwmLR9fXTsE.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAETzL9p81aTT9EszbUSwWIqiT0DO-YslQACaygAAncCmFfuLZwmLR9fXTsE.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/bd057bce03ff4a51a36ac6d962778576.png)
 
 >   Q：既然把语音识别系统跟机器翻译系统接起来就能达到语音翻译的效果，那么为什么 要做语音翻译？
 >
@@ -40,27 +40,27 @@ mermaid: true
 
 一般的序列到序列模型会分成**Encoder(编码器)**和**Decoder(解码器)**。编码器负责处理输入的序列，再把处理好的结果“丢”给解码器，由解码器决定要输出的序列。
 
-![BQACAgUAAyEGAASHRsPbAAET1RVp9YnmoEvCwTHgko6Zc-RatYQgOAACxCIAAimjqVcizcAYtZvtCDsE.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAET1RVp9YnmoEvCwTHgko6Zc-RatYQgOAACxCIAAimjqVcizcAYtZvtCDsE.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a518149a5afe4297b208903f38095052.png)
 
 序列到序列典型的模型就 是**Transformer**，其有一个编码器架构和一个解码器架构：
 
-![BQACAgUAAyEGAASHRsPbAAET1TRp9Y7uKunv7FuLwbhmpCR1Et7BkgACpSQAAimjsVeLfl0701GdjTsE.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAET1TRp9Y7uKunv7FuLwbhmpCR1Et7BkgACpSQAAimjsVeLfl0701GdjTsE.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/152c2610e544410995c294280e299d9c.png)
 
 ### 1.3 Transformer 编码器
 
 Transformer 的编码器使用的是自注意力，输入一排向量，输出另外一个同样长度的向量。
 
-![BQACAgUAAyEGAASHRsPbAAET1U9p9ZCu0f4pvsHmRZ_xQP0tG5iNnQACySQAAimjsVcc8sR4iAeI_DsE.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAET1U9p9ZCu0f4pvsHmRZ_xQP0tG5iNnQACySQAAimjsVcc8sR4iAeI_DsE.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ff25b58c8cf4436b922a132db368fcd3.png)
 
 编码器里面会分成很多的**块（block）**，每一个块都是输入一排向量，输出一排向量。输入一排向量到第一个块，第一个块输出另外一排向量，以此类推，最后一个块会输出最终的向量序列。
 
 Transformer的编码器的每个块并不是神经网络的一层，，在每个块里面，输入一排向量后做自注意力，考虑整个序列的信息，输出另外一排向量：
 
-![BQACAgUAAyEGAASHRsPbAAET1VRp9ZE6Fl4_R6C9seTP86HN7Sy5iAACzyQAAimjsVf-MHs7E_Wl8zsE.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAET1VRp9ZE6Fl4_R6C9seTP86HN7Sy5iAACzyQAAimjsVf-MHs7E_Wl8zsE.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c408c9e526844f47b3b694df20da49dd.png)
 
 Transformer 里面加入了**残差连接（residual connection）**的设计：
 
-![BQACAgUAAyEGAASHRsPbAAET1VZp9ZH-cxQc_7D83x8D_hIZis-hbQAC0iQAAimjsVehemZZMIB0OjsE.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAET1VZp9ZH-cxQc_7D83x8D_hIZis-hbQAC0iQAAimjsVehemZZMIB0OjsE.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1409910f3c2549aeb293444fa17a97b0.png)
 
 最左边的向量b输入到自注意力层后得到向量a，输出向量a加上其输入向量b得到新的输出。得到残差的结果以后，再做**层归一化（layer normalization）**。层归一化不需要考虑批量的信息，而批量归一化需要考虑批量的信息。
 
@@ -71,7 +71,7 @@ Transformer 里面加入了**残差连接（residual connection）**的设计：
 
 Transformer 的编码器结构：
 
-![BQACAgUAAyEGAASHRsPbAAET1WNp9ZTMZdXHzNnmlfG0CZDCPnknIgAC4yQAAimjsVeOAvnyg1uxJDsE.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAET1WNp9ZTMZdXHzNnmlfG0CZDCPnknIgAC4yQAAimjsVeOAvnyg1uxJDsE.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b5d4f6f6b9b14700a5f092323de5c3df.png)
 
 其中 N× 表示重复 N 次。
 
@@ -112,19 +112,19 @@ Transformer 的编码器结构：
 3.  解码器接下来会拿“器”当作输入，其看到了、“机”、“器”， 可能就输出“学”。
 4.  解码器看到、“机”、“器”、“学”，它会输出一个向量。这个向量里面“习” 的分数最高的，所以它就输出“习”。这个过程就反复地持续下去。
 
-![BQACAgUAAyEGAASHRsPbAAET1XFp9ZkzIeAH5Xtp0SE--O4rEB0feQACFxwAAoHJsFexZEMNRVpbVTsE.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAET1XFp9ZkzIeAH5Xtp0SE--O4rEB0feQACFxwAAoHJsFexZEMNRVpbVTsE.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1dbacba80f3346078df9e0991ec667a6.png)
 
 但预测显然可能会出错，造成**误差传播（errorpropagation）**的问题，一步错导致步步错，接下来可能无法再产生正确的词汇。
 
 Transformer 里面的解码器内部的结构如图：
 
-![BQACAgUAAyEGAASHRsPbAAET1XJp9ZmiFmM5u5GNH_jfNWRK-uVfsAACGBwAAoHJsFfnGNjqa1-MijsE.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAET1XJp9ZmiFmM5u5GNH_jfNWRK-uVfsAACGBwAAoHJsFfnGNjqa1-MijsE.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/77cc5fe74d3c4ec5beab87cbb1e50a41.png)
 
 类似于编码器，解码器也有**多头注意力、残差连接和层归一化、前馈神经网络**。解码器**最后再做一个softmax**，使其输出变成一个概率。
 
 此外，解码器使用了**掩蔽自注意力（maskedself-attention）**，掩蔽自注意力可以通过一个**掩码（mask）**来阻止每个位置选择其后面的输入信息。
 
-![BQACAgUAAyEGAASHRsPbAAET1Xpp9ZrQkiDxXZ3IiubJ8tOYQJ12lwACIRwAAoHJsFcZh-UfziZfdjsE.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAET1Xpp9ZrQkiDxXZ3IiubJ8tOYQJ12lwACIRwAAoHJsFcZh-UfziZfdjsE.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/05c741c6c57849c6918b071fc45092a5.png)
 
 >   **Q: 为什么需要在注意力中加掩码?** 
 >
@@ -163,7 +163,7 @@ Transformer 里面的解码器内部的结构如图：
 
 编码器和解码器通过**编码器-解码器注意力（encoder-decoder attention）**传递信息，编码器-解码器注意力是连接编码器跟解码器之间的桥梁。
 
-![BQACAgUAAyEGAASHRsPbAAET1Ztp9aEE4rv1PcvRj9wqWja2zIy65QACSRwAAoHJsFdCQOH19tsFozsE.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAET1Ztp9aEE4rv1PcvRj9wqWja2zIy65QACSRwAAoHJsFdCQOH19tsFozsE.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5cef49a0c4e74a3aa8a364bd0115b42f.png)
 
 编码器-解码器注意力是这样运作的：
 
@@ -272,7 +272,7 @@ Pointer Network 认为：既然经过 Softmax 后的 Attention 权重代表了�
 
 假设我们在做一个机器翻译任务，自回归模型需要一个词一个词地吐出翻译结果。每次面对一个拥有 5 万个单词的词表，模型该怎么选？
 
-![BQACAgUAAyEGAASHRsPbAAET1dhp9a3zgskijDe2UpiqEQiw0Ou5pAACmxwAAoHJsFePIAICREumNjsE.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAET1dhp9a3zgskijDe2UpiqEQiw0Ou5pAACmxwAAoHJsFePIAICREumNjsE.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/41b048431a4c45369695879589956d5c.png)
 
 我们决策的过程可以看成一棵搜索树，那如果我们每步都选当前概率最大的节点，最终可能会错过全局最优的句子。
 

@@ -23,7 +23,7 @@ mermaid: true
 
 作为本书的最后一个章节，作者介绍了如何通过微调一个follow instruction的llm。
 
-本章代码：
+本章代码：[ch07](https://github.com/Equinox-2003/LLMs-from-scratch-Practice/tree/main/ch07)
 
 
 
