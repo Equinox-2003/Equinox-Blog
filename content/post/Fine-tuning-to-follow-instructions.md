@@ -33,7 +33,7 @@ mermaid: true
 
 **流程一览：**
 
-![](https://pub.mini-tools.uk/1-day/3a83cde1-73cf-48cf-b28c-d46fd6da3946.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490313706_image.png)
 
 
 
@@ -42,7 +42,7 @@ mermaid: true
 -   作者为本书专门创建了个数据集
 -   包括1100条 instruction-response pair
 
-![](https://pub.mini-tools.uk/1-day/1095e9a3-9b82-42ea-b78e-de767d2d252f.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490330794_image.png)
 
 首先是下载数据集：
 
@@ -91,7 +91,7 @@ Another example entry:
 
 然而这并不是我们直接喂给llm的数据格式，作者在这里介绍了两种llm的输入格式：
 
-![](https://pub.mini-tools.uk/1-day/6eba0b4f-d289-4891-96c8-45afc59ad6ab.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490335106_image.png)
 
 后面的实现中，作者选择Alpaca prompt style。
 
@@ -737,7 +737,7 @@ Training completed in 91.92 minutes.
 
 我们可视化一下损失曲线：
 
-![](https://pub.mini-tools.uk/1-day/e66ec491-61f8-465e-a377-f49b5a48273f.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490359480_image.png)
 
 说明训练还是很有效的。
 

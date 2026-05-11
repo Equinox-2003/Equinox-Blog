@@ -35,7 +35,7 @@ mermaid: true
 
 虽然模型很庞大，但是架构本身却没有想象中的那么复杂。
 
-![](https://pub.mini-tools.uk/1-day/8477ac05-d52a-4c72-9be1-9c14d6eece06.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490183378_image.png)
 
 本章将会实现GPT-2 small的架构，参数量为124M。
 
@@ -51,7 +51,7 @@ mermaid: true
 
 
 
-![](https://pub.mini-tools.uk/1-day/e4362767-49ea-481e-b812-b7e11c0d2037.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490196344_image.png)
 
 我们将按照上图的流程一步步的构建GPT architecture。
 
@@ -120,7 +120,7 @@ class DummyGPTModel(nn.Module):
 
 GPT-model的数据流如下：
 
-![](https://pub.mini-tools.uk/1-day/539c6429-9d4e-4eee-8e34-66fcb745577c.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490206561_image.png)
 
 为了实践，下面利用ch-02的tokenizer造一些样例：
 
@@ -171,7 +171,7 @@ tensor([[[-1.2034,  0.3201, -0.7130,  ..., -1.5548, -0.2390, -0.4667],
 
 在GPT-2以及现代transformer 架构中，层归一化往往在多头注意力之前或者之后进行。
 
-![](https://pub.mini-tools.uk/1-day/83aeb29f-ca66-4092-ba63-19944667952b.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490225427_image.png)
 
 先来创建几个样例：
 
@@ -358,7 +358,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-![](https://pub.mini-tools.uk/1-day/82f665f5-1140-4356-a001-ca2284b9ace9.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490242774_image.png)
 
 GELU的平滑性可以使得model在训练过程中进行更好的optimize。
 
@@ -366,7 +366,7 @@ GELU的平滑性可以使得model在训练过程中进行更好的optimize。
 
 下面基于GELU来搓一个FeedForward：
 
-![](https://pub.mini-tools.uk/1-day/d365fa8e-21f1-44f2-8d4c-e36f1412c922.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490256838_image.png)
 
 >   FeedForward就是一个两层的小神经网络
 >
@@ -499,7 +499,7 @@ layers.4.0.weight has gradient mean of 1.3258538246154785
 
 GPT-2 所采用的**transformer 架构：**
 
-![](https://pub.mini-tools.uk/1-day/96377ec8-3397-4f2e-b7b9-294246b2b89e.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490266411_image.png)
 
 **实现一下transformer block：**
 
@@ -571,7 +571,7 @@ transformer block 保持了输入向量的维度，即不会改变输入数据�
 
 现在可以把gpt model的架构更为详细地进行展示：
 
-![](https://pub.mini-tools.uk/1-day/5fc1b87e-0376-4a9c-b262-8202fb784221.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490282445_image.png)
 
 然后组装：
 
@@ -703,7 +703,7 @@ Total size of the model: 621.83 MB
 
 所以我们真的要去生成文本时，还需要将logits通过softmax转化为概率，然后进一步地输出文本。
 
-![](https://pub.mini-tools.uk/1-day/88255909-9a79-42e0-ba3b-312b79390083.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490296617_image.png)
 
 写一个接受输入，并输出预测token id的函数：
 

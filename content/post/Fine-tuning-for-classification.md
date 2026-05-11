@@ -455,7 +455,7 @@ The following text 'spam'? Answer with 'yes' or 'no': 'You are a winner
 
 在训练之间，我们需要替换掉原来的输出头。原来的输出头输出的是对于vocab的预测，我们现在要换成垃圾邮件的二分类头。
 
-![](https://pub.mini-tools.uk/1-day/142279cf-01d3-49c1-af96-7c64b2074da2.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490375852_image.png)
 
 我们可以先打印看一下model架构：
 
@@ -759,7 +759,7 @@ examples_seen_tensor = torch.linspace(0, examples_seen, len(train_losses))
 plot_values(epochs_tensor, examples_seen_tensor, train_losses, val_losses)
 ```
 
-![](https://pub.mini-tools.uk/1-day/43819cc2-c8aa-43d9-bc3f-fbbb613d7385.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490395349_image.png)
 
 ```python
 epochs_tensor = torch.linspace(0, num_epochs, len(train_accs))
@@ -771,7 +771,7 @@ plot_values(
 )
 ```
 
-![](https://pub.mini-tools.uk/1-day/93112833-226d-4d07-9e52-c655182ead49.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490404646_image.png)
 
 效果看起来还是比较好的。
 

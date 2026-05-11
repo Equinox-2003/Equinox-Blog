@@ -409,7 +409,7 @@ Validation loss: 10.981106758117676
 
 pytorch 训练神经网络标准流程：
 
-![](https://pub.mini-tools.uk/1-day/fb785c69-4c41-4fcd-b12f-1ad2a3587af7.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490113898_image.png)
 
 我们可以写一个标准的训练循环：
 
@@ -559,7 +559,7 @@ epochs_tensor = torch.linspace(0, num_epochs, len(train_losses))
 plot_losses(epochs_tensor, tokens_seen, train_losses, val_losses)
 ```
 
-![](https://pub.mini-tools.uk/1-day/4757a5ac-7a50-4917-979b-b1d93254621b.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490152245_image.png)
 
 值得注意的是，val loss 很快就不怎么变了，这是因为模型只记住了 training data，过拟合了。
 
@@ -714,7 +714,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-![](https://pub.mini-tools.uk/1-day/713239a6-dc35-4442-99d1-9e894f904bc8.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490167497_image.png)
 
 -   不难发现当除的 temperature 越小，抽样分布越极端
     -   因为指数函数增长很快，此时越大的logit越容易占主导
