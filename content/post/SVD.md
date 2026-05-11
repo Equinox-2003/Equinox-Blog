@@ -264,7 +264,7 @@ PCA 认为：
 
 > **方差越大的方向，越包含主要信息**。
 
-<img src="https://i-blog.csdnimg.cn/direct/3f5f3d83a4714b249da3aaec23d596e0.png" referrerpolicy="no-referrer">
+![0ae7d7d1d5745ceda1eb59d87a62b41f.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778489539707_0ae7d7d1d5745ceda1eb59d87a62b41f.png)
 
 这其实是很好理解的，如上图，蓝线方向显然拟合效果更好，红线为与蓝线垂直的方向，那么数据在红线上的投影，方差特别小。
 
@@ -626,7 +626,7 @@ plt.title("PCA via SVD")
 plt.show()
 ```
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/21d91e63a66348c2a2941b587f3b1495.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778489587774_image.png)
 
 -   数据呈椭圆形
 -   第一主成分沿椭圆长轴
