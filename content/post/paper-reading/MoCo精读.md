@@ -3,7 +3,7 @@ title: "MoCo精读"
 description: ""
 date: 2026-05-17T16:11:57+08:00
 lastmod: 2026-05-17T16:11:57+08:00
-draft: true
+draft: false
 
 categories:
   - paper-reading
@@ -650,21 +650,355 @@ $$
 
 ### 6.2 InfoNCE 
 
+#### 6.2.1 InfoNCE vs NCE
+
+>   关于NCE：[NCE](https://equinox.wiki/post/math/nce/)
+
+在NCE的推导中，我们发现，NCE目标函数的最优解就是使得 模型分布 等于 真实分布，那么为什么还要引入InfoNCE？
+
+**1、目的不同**
+
+**NCE**：可以计算出图片的真实概率。
+
+**表征学习**：不关心概率，更希望将一个图片变成一个好的向量：和正样本接近，负样本远离。
 
 
 
+**2、无法定义高维图像的噪声分布 `pn(x)`**
+
+对于一张256 * 256 的图片，我们很难定义噪声数据的分布。
 
 
 
+**3、二分类 vs 多分类**
+
+InfoNCE 公式：
+$$
+ \mathcal{L}_q = - \log \frac{\exp(sim(q, k^+))}{\exp(sim(q, k^+)) + \sum_{i=1}^K \exp(sim(q, k^-_i))} 
+
+$$
+Softmax 它不仅要求正样本分数高，还**强制要求正样本分数必须比所有负样本的加和还要高得多**。
+
+**这种机制使得 InfoNCE 提取的特征比 NCE 强大得多。**
 
 
 
+**4、最大化“互信息（Mutual Information）”**
+
+InfoNCE 最早是由 Aäron van den Oord（DeepMind的巨佬）在 2018 年的 CPC (Contrastive Predictive Coding) 论文中正式提出的。
+
+他之所以加上 "Info" 这个前缀，是因为他在数学上证明了：**最小化 InfoNCE 损失，实际上是在最大化输入 $x$ 和它的上下文/特征 $c$ 之间的“互信息” $I(x; c)$ 的下界。**
+
+具体的数学结论是：
+$$ I(x; c) \ge \log(K) - \mathcal{L}_{\text{InfoNCE}} $$
+*(其中 $K$ 是负样本的数量)*
+
+这在理论上提供了一个极其强大的证明：
+只要我们使用的负样本数量 $K$ 足够多，且让 InfoNCE Loss 降得足够低，**模型提取出的特征向量就保留了关于原图最多的“本质信息”**，排除了无用的噪声。这就从理论上解释了为什么对比学习学到的特征那么好用。
 
 
 
+因此，采用InfoNCE 可以驱动模型学习：
+
+-   拉近正样本对；
+-   推远负样本对。
 
 
 
+### 6.3 三种对比学习机制的比较
+
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1779264564040_image.png)
+
+作者对比了三种机制，它们的主要区别在于：
+
+-   key 是怎么保存的；
+-   key encoder 是怎么更新的；
+-   dictionary 的大小和一致性如何权衡。
+
+#### 6.3.1 End-to-End
+
+这种方法直接用当前 mini-batch 中的样本作为字典。
+
+特点：
+
+-   query encoder 和 key encoder 都通过反向传播更新；
+-   当前 batch 内的 key 是用当前 encoder 编码的；
+-   因此 key 表征比较一致。
+
+但问题是：
+
+-   dictionary size 受 mini-batch size 限制；
+-   mini-batch size 又受 GPU 显存限制；
+-   如果想要很多负样本，就需要很大的 batch。
+
+论文指出，end-to-end 方法的字典大小与 mini-batch size 耦合，因此受 GPU memory 限制。
+
+
+
+#### 6.3.2 Memory bank 机制
+
+Memory bank 方法会为整个数据集维护一个表征存储库。
+
+特点：
+
+-   可以支持很大的 dictionary；
+-   每次训练从 memory bank 中采样负样本；
+-   不需要在当前 batch 中包含所有负样本。
+
+但问题是：
+
+-   memory bank 中的表示可能是旧 encoder 计算出来的；
+-   当前 encoder 已经更新了，但旧 key 没有同步变化；
+-   因此 key 表征可能不一致。
+
+所以 memory bank 的优势是“大”，但劣势是“一致性不足”。
+
+
+
+#### 6.3.3 MoCo 机制
+
+-   End-to-End 一致性好，但是容量不够大
+-   memory bank 够大但不够一致。
+
+所以MoCo选择折中：
+
+1.  用 queue 维护大量 key；
+2.  用 momentum encoder 编码 key，使 key 表征变化更平滑。
+
+
+
+### 6.4 核心思想
+
+作者认为，对比学习本质上是在高维连续图像空间上构建一个离散字典。
+
+这个字典是动态的，因为：
+
+-   key 是从数据中随机采样来的；
+-   encoder 在训练过程中不断变化；
+-   因此 key 的表示也会随时间变化
+
+
+
+### 6.5 Dictionary as a Queue
+
+MoCo 引入 queue 之后：
+
+-   当前 mini-batch 的 key 会进入队列；
+-   之前若干 mini-batch 的 key 会保留在队列中；
+-   最旧的 mini-batch key 会被移除。
+
+这样，dictionary size 不再等于 mini-batch size，而是可以独立设置为一个更大的**超参数**。
+
+MoCo 的队列更新非常简单：
+
+-   当前 mini-batch 经过 key encoder 得到 key；
+-   这些 key 被加入队列尾部；
+-   队列头部最旧的一批 key 被移除；
+-   队列始终保持固定长度。
+
+queue 带来三个直接好处：
+
+1.  **第一，负样本更多**
+
+    字典可以远大于 mini-batch size，因此每个 query 可以和更多负样本对比。
+
+2.  **第二，计算可控**
+
+    不需要像超大 batch 训练那样一次性把所有负样本都放进显存。
+
+3.  **第三，旧 key 会逐渐淘汰**
+
+    最旧的 key 最可能与当前 encoder 不一致，因此定期移除它们反而有助于保持 dictionary 的新鲜度。
+
+queue 虽然解决了 dictionary size 的问题，但也带来一个新问题：
+
+如果 key encoder 变化太快，那么：
+
+-   较早进入队列的 key 来自旧 encoder；
+-   新进入队列的 key 来自新 encoder；
+-   它们可能不在完全一致的表征空间里；
+-   query 和这些 key 的相似度比较就会变得不稳定。
+
+**MoCo解决方式：**
+
+MoCo 使用两个 encoder：
+
+| 编码器 | 作用       | 更新方式     |
+| ------ | ---------- | ------------ |
+| $f_q$  | 编码 query | 反向传播更新 |
+| $f_k$  | 编码 key   | 动量更新     |
+
+key encoder 的参数 $θ_k$ 不直接通过反向传播更新，而是用 query encoder 参数 $θ_q$ 的移动平均来更新：
+$$
+\theta_k \leftarrow m\theta_k + (1-m)\theta_q
+$$
+**MoCo 的完整训练流程**
+
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1779268133214_image.png)
+
+
+
+## 七、实验
+
+实验部分主要验证 MoCo 的两个核心主张：
+
+-   大规模字典有助于对比学习；
+-   动量编码器能保持字典一致性，从而优于 memory bank 等机制；
+-   MoCo 学到的无监督表征不仅在线性分类上有效，也能很好迁移到下游任务。
+
+#### 7.1 预训练数据集设置
+
+论文在两个无标签数据集上做无监督预训练：
+
+| 数据集                   |                           规模 | 特点                                                         |
+| ------------------------ | -----------------------------: | ------------------------------------------------------------ |
+| **ImageNet-1M / IN-1M**  |                约 128 万张图像 | 类别分布较均衡，图像多为典型物体视角                         |
+| **Instagram-1B / IG-1B** | 约 9.4 亿张公开 Instagram 图像 | 更接近真实世界，长尾、不平衡、未充分清洗，包含物体和场景图像 |
+
+这里需要注意：虽然 IN-1M 有类别标签，但 MoCo 预训练阶段**不使用标签**，只使用图像本身。
+
+
+
+#### 7.2 训练设置
+
+论文使用 ResNet 作为 backbone，并采用 SGD 优化器。
+
+可以概括如下：
+
+| 设置           |      IN-1M |                           IG-1B |
+| -------------- | ---------: | ------------------------------: |
+| 优化器         |        SGD |                             SGD |
+| weight decay   |     0.0001 |                          0.0001 |
+| momentum       |        0.9 |                             0.9 |
+| batch size     |        256 |                            1024 |
+| GPU 数量       |          8 |                              64 |
+| 初始学习率     |       0.03 |                            0.12 |
+| 训练时长       | 200 epochs | 1.25M iterations，约 1.4 epochs |
+| ResNet-50 时间 | 约 53 小时 |                         约 6 天 |
+
+这说明 MoCo 可以扩展到非常大的无标签数据集，但 IG-1B 训练成本明显更高。
+
+
+
+#### 7.3 Linear Classification Protocol
+
+首先，作者使用标准的 **linear classification protocol** 来评估无监督表征质量。
+
+流程是：
+
+1.  在 IN-1M 上进行无监督 MoCo 预训练；
+2.  冻结 backbone，不再更新特征提取器；
+3.  在 ImageNet 上训练一个监督线性分类器；
+4.  使用 ImageNet validation set 的 **1-crop top-1 accuracy** 作为指标。
+
+这个实验的意义是：
+
+如果冻结特征后，只训练一个线性分类器就能取得好结果，说明预训练 backbone 学到的表征本身质量较高。
+
+
+
+#### 7.4 消融实验一：对比三种 contrastive loss 机制
+
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1779269743080_image.png)
+
+论文比较了三种对比学习机制：
+
+| 机制            | 字典来源                 | 优点           | 缺点                             |
+| --------------- | ------------------------ | -------------- | -------------------------------- |
+| **End-to-end**  | 当前 mini-batch          | key 一致性好   | 字典大小受 batch size 限制       |
+| **Memory bank** | 存储历史样本特征         | 字典可以很大   | key 可能来自过旧 encoder，不一致 |
+| **MoCo**        | queue + momentum encoder | 字典大且较一致 | 需要维护队列和动量编码器         |
+
+作者控制变量：
+三种方法使用相同 pretext task 和相同 InfoNCE loss，只改变 dictionary / key encoder 机制。
+
+实验结论非常关键：
+
+1.  三种机制都受益于更大的 $K$，即更多负样本；
+2.  这支持了作者关于 large dictionary 的假设；
+3.  end-to-end 方法在 $K$ 小时接近 MoCo，但 $K$ 受 batch size 限制；
+4.  memory bank 可以支持大字典，但效果低于 MoCo；
+5.  MoCo 在大 $K$ 下表现最好。
+
+根据 Figure 3，ResNet-50 在线性分类下大致表现为：
+
+| 方法        | 最大/典型 $K$ | top-1 accuracy |
+| ----------- | ------------: | -------------: |
+| End-to-end  |          1024 |          57.3% |
+| Memory bank |         65536 |          58.0% |
+| **MoCo**    |         65536 |      **60.6%** |
+
+这说明：**仅仅有大字典还不够，字典中的 key 还必须一致**。MoCo 通过 momentum encoder 同时解决了这两个问题。
+
+
+
+#### 7.4 消融实验二：动量系数 m 的影响
+
+MoCo 的 key encoder 用动量更新：
+$$
+\theta_k \leftarrow m\theta_k + (1-m)\theta_q
+$$
+论文进一步测试不同 m 的影响。
+
+| momentum $m$ |      结果 |
+| -----------: | --------: |
+|            0 |      fail |
+|          0.9 |     55.2% |
+|         0.99 |     57.8% |
+|        0.999 | **59.0%** |
+|       0.9999 |     58.9% |
+
+这个消融实验说明：
+
+-   m=0 时，相当于没有动量，训练 loss 振荡且无法收敛；
+-   m=0.9 时，key encoder 变化仍然偏快，效果明显下降；
+-   m 在 0.99∼0.9999 区间时表现较好；
+-   最佳附近是 m=0.999。
+
+因此，实验强力支持论文的第二个核心假设：
+
+**key encoder 需要缓慢演化，才能让队列中的 dictionary 保持一致。**
+
+
+
+#### 7.5 与已有无监督方法比较
+
+论文还将 MoCo 与之前的无监督 / 自监督方法进行比较。
+
+主要结论是：
+
+-   MoCo 使用标准 ResNet-50 就能取得有竞争力的结果；
+-   MoCo 不依赖特殊网络结构设计；
+-   模型变宽后，性能还能进一步提升；
+-   ResNet-50 下 MoCo 达到 60.6% ImageNet linear top-1 accuracy；
+-   更宽的 ResNet-50w4× 可以达到更高结果。
+
+这表明 MoCo 的收益主要来自其对比学习机制，而不是依赖复杂 architecture trick。
+
+
+
+#### 7.6 下游任务迁移实验
+
+实验部分更重要的结果是迁移学习。论文强调，无监督预训练真正的目标是学到能迁移到下游任务的通用表征，而不仅是 ImageNet 线性分类准确率。
+
+MoCo 被迁移到多个检测和分割任务中，例如：
+
+-   PASCAL VOC object detection；
+-   COCO object detection；
+-   COCO instance segmentation；
+-   keypoint detection；
+-   semantic segmentation 等。
+
+论文结论是：MoCo 在多个检测 / 分割任务上可以达到甚至超过 ImageNet supervised pre-training。
+
+从补充实验中也可以看到，MoCo 相比随机初始化有明显提升，并接近监督预训练。
+
+这里的核心含义是：
+
+-   MoCo 无监督预训练比随机初始化更好；
+-   MoCo 与 ImageNet 监督预训练接近；
+-   在某些检测 / 分割任务上甚至优于监督预训练；
+-   这说明 MoCo 学到的表征更具有通用迁移能力。
 
 
 
