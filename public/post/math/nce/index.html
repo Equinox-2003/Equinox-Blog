@@ -1,0 +1,1052 @@
+<!doctype html>
+<html
+  lang="en-us" 
+  data-theme-mode="auto"
+  >
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  NCE | Equinox
+</title>
+<meta name="description" content="记录学习过程..."/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":25},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_ex15nbittbh.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><link rel="stylesheet" href="/css/loader.css" /><meta property="og:type" content="website" />
+  <meta property="og:title" content="NCE | Equinox" />
+  <meta
+    property="og:description"
+    content="记录学习过程..."
+  />
+  <meta property="og:url" content="http://localhost:1313/post/math/nce/" />
+  <meta
+    property="og:site_name"
+    content="Welcome to my blog"
+  />
+  <meta property="og:image" content="http://localhost:1313/images/banner.webp" />
+  <meta property="article:author" content="Equinox" />
+  <meta property="article:published_time" content="2026-05-18T20:34:13&#43;08:00" />
+  <meta property="article:modified_time" content="2026-05-18T20:34:13&#43;08:00" /><meta property="article:tag" content="Contrastive Learning" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="http://localhost:1313/images/banner.webp" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.css"
+    integrity="sha384-tTgKLjMYmJr94v8qu2PE5MUGSMbyN2xiH266JUB3gpm8vnnJywd1dWSOEfrFz&#43;YI" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg></div><div class="loading-word">Loading...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script><div id="copy-tooltip"></div>
+<div id="lang-tooltip">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation"><a class="main-nav-link-wrap" href="/"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">首页</span>
+      </a><a class="main-nav-link-wrap" href="/archives"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">归档</span>
+      </a><a class="main-nav-link-wrap" href="/about"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">关于</span>
+      </a><a class="main-nav-link-wrap" href="/friend"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">友链</span>
+      </a><a class="main-nav-link-wrap" href="/anime"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">番剧</span>
+      </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
+<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="NCE"><div id="header-outer">
+    <div id="header-title"><span id="logo">
+            <h1 data-aos="slide-up">NCE</h1>
+          </span><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          aria-label="Page content"
+          class="sidebar-left"
+            ><aside id="sidebar" aria-label="Sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#零写在前面">零、写在前面</a></li>
+        <li><a href="#一为什么要用-nce">一、为什么要用 NCE？</a></li>
+        <li><a href="#二核心思想">二、核心思想</a></li>
+        <li><a href="#三数学推导">三、数学推导</a></li>
+        <li><a href="#四为什么-nce-有效">四、为什么 NCE 有效？</a></li>
+        <li><a href="#五实验验证">五、实验验证</a>
+          <ul>
+            <li><a href="#51-如何把公式写成代码">5.1 如何把公式写成代码？</a></li>
+            <li><a href="#52-代码验证">5.2 代码验证</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="Equinox"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Equinox</div>
+  <div class="sidebar-description">记录学习过程...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">18</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">9</div>
+  </a>
+</div>
+<div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
+        <a
+          href="https://github.com/Equinox-2003"
+          itemprop="url"
+          target="_blank"
+          aria-label="github"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-bilibili sidebar-social-icon">
+        <a
+          href="https://space.bilibili.com/167350560"
+          itemprop="url"
+          target="_blank"
+          aria-label="bilibili"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-csdn sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://blog.csdn.net/EQUINOX1"
+          itemprop="url"
+          target="_blank"
+          aria-label="csdn"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-codeforces sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://codeforces.com/profile/_Equinox"
+          itemprop="url"
+          target="_blank"
+          aria-label="codeforces"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/anime"
+        aria-label="番剧"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
+    </div></div></div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main" aria-label="Main content"><article
+  class="h-entry article"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2026-05-18 20:34:13 &#43;0800 CST" itemprop="datePublished"
+      >2026-05-18</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2026-05-18</time
+    >
+  </span></div>
+</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h2 id="零写在前面">
+<a class="header-anchor" href="#%e9%9b%b6%e5%86%99%e5%9c%a8%e5%89%8d%e9%9d%a2"></a>
+零、写在前面
+</h2><p><strong>噪声对比估计（Noise Contrastive Estimation, 简称 NCE）</strong> 是由 Gutmann 和 Hyvärinen 在 2010 年提出的一种强大的参数估计算法。它主要用于解决**非归一化概率模型（Unnormalized Models）**中配分函数（Partition Function）难以计算的问题。</p>
+<p>现如今，NCE 的思想深深影响了自然语言处理（如 Word2Vec）和计算机视觉（如 SimCLR、MoCo 等对比学习方法中的 InfoNCE）。</p>
+<h2 id="一为什么要用-nce">
+<a class="header-anchor" href="#%e4%b8%80%e4%b8%ba%e4%bb%80%e4%b9%88%e8%a6%81%e7%94%a8-nce"></a>
+一、为什么要用 NCE？
+</h2><p>在统计机器学习和深度学习中，我们经常需要拟合一个概率分布。对于离散数据（比如语言模型预测下一个单词），我们通常使用 Softmax 函数：
+</p>
+$$ P_\theta(x) = \frac{\exp(u_\theta(x))}{Z(\theta)} $$<p>
+其中：</p>
+<ul>
+<li>$u_\theta(x)$ 是模型（如神经网络）输出的未归一化的分数（Logits）。</li>
+<li>$Z(\theta) = \sum_{x \in V} \exp(u_\theta(x))$ 是<strong>配分函数（归一化常数）</strong>。</li>
+</ul>
+<p><strong>痛点在于：</strong>
+如果词表大小 $V$ 非常大（比如几十万个词），或者 $x$ 是连续的高维变量（积分代替求和），计算 $Z(\theta)$ 的成本是极高的。如果我们用传统的最大似然估计（MLE）来优化，每次梯度下降都需要计算 $Z(\theta)$ 及其梯度，这在工程上几乎不可行。</p>
+<p><strong>NCE 的目标：避开计算 $Z(\theta)$，依然能够准确估计模型参数 $\theta$。</strong></p>
+<h2 id="二核心思想">
+<a class="header-anchor" href="#%e4%ba%8c%e6%a0%b8%e5%bf%83%e6%80%9d%e6%83%b3"></a>
+二、核心思想
+</h2><p>NCE的核心思想：<strong>将“无监督的生成问题”转化为“有监督的二分类问题”。</strong></p>
+<p>既然直接拟合数据分布太难，那我们就引入一个<strong>已知的、容易采样的噪声分布 $p_n(x)$</strong>。
+然后，我们训练一个二分类器，让它去区分：</p>
+<ul>
+<li><strong>正样本（Data）：</strong> 来自真实数据分布 $p_d(x)$ 的样本，标签记为 $D=1$。</li>
+<li><strong>负样本（Noise）：</strong> 来自噪声分布 $p_n(x)$ 的样本，标签记为 $D=0$。</li>
+</ul>
+<p>只要我们的分类器足够强大，能够完美区分真实数据和噪声，那么它实际上也就“学会”了真实数据的分布 $p_d(x)$。</p>
+<h2 id="三数学推导">
+<a class="header-anchor" href="#%e4%b8%89%e6%95%b0%e5%ad%a6%e6%8e%a8%e5%af%bc"></a>
+三、数学推导
+</h2><p><strong>1. 设定先验概率</strong></p>
+<p>假设我们有一批真实数据，同时我们根据噪声分布 $p_n(x)$ 生成噪声数据。
+设定真实数据与噪声数据的比例为 $1 : k$（即每 1 个真实样本，对应 $k$ 个噪声样本）。
+那么，对于任意一个进入分类器的样本，它的先验概率为：</p>
+<ul>
+<li>来自真实数据的概率：$P(D=1) = \frac{1}{1+k}$</li>
+<li>来自噪声数据的概率：$P(D=0) = \frac{k}{1+k}$</li>
+</ul>
+<p><strong>2. 根据贝叶斯定理计算后验概率</strong></p>
+<p>给定一个样本 $x$，它属于真实数据（$D=1$）的真实后验概率是多少？根据贝叶斯定理：
+</p>
+$$ P(D=1 | x) = \frac{P(x | D=1) P(D=1)}{P(x | D=1) P(D=1) + P(x | D=0) P(D=0)} $$<p>我们知道条件概率就是分布本身：</p>
+<ul>
+<li>$P(x | D=1) = p_d(x)$ （真实数据分布）</li>
+<li>$P(x | D=0) = p_n(x)$ （噪声分布）</li>
+</ul>
+<p>代入先验概率，得到：
+</p>
+$$ P(D=1 | x) = \frac{p_d(x) \cdot \frac{1}{1+k}}{p_d(x) \cdot \frac{1}{1+k} + p_n(x) \cdot \frac{k}{1+k}} = \frac{p_d(x)}{p_d(x) + k \cdot p_n(x)} $$<p>同理，它是噪声的后验概率为：
+</p>
+$$ P(D=0 | x) = \frac{k \cdot p_n(x)}{p_d(x) + k \cdot p_n(x)} $$<p><strong>3. 用 $p_\theta(x)$替代$p_d(x)$</strong></p>
+<p>在现实中，我们不知道真实的 $p_d(x)$，我们的目的正是用模型 $p_\theta(x)$ 去逼近 $p_d(x)$。因此，我们将上述公式中的 $p_d(x)$ 替换为我们的模型 $p_\theta(x)$，得到分类模型预测的概率：</p>
+$$ P_\theta(D=1 | x) = \frac{p_\theta(x)}{p_\theta(x) + k \cdot p_n(x)} $$<p>
+</p>
+$$ P_\theta(D=0 | x) = \frac{k \cdot p_n(x)}{p_\theta(x) + k \cdot p_n(x)} $$<blockquote>
+<p>但是$p_\theta(x)$的计算不还是要算那个很大的配分函数吗？</p>
+<p>NCE 作者提出一个极其大胆的假设：<strong>将归一化常数 $Z(\theta)$ 看作是一个普通的可学习参数 $c$</strong>，甚至在神经网络能力足够强时，直接<strong>强制假设 $Z=1$</strong>（即网络输出自动趋于归一化）。</p>
+<p>因此，在 NCE 中，我们直接让 $p_\theta(x) = \exp(u_\theta(x))$，<strong>彻底抛弃了对配分函数的全局计算。</strong></p>
+</blockquote>
+<p><strong>4. 构建目标函数（交叉熵/对数似然）</strong></p>
+<p>既然这是一个二分类问题，我们就用标准的二元交叉熵（或者说最大化对数似然）来作为目标函数 $J(\theta)$。</p>
+<p>对于来自真实分布 $p_d$ 的样本 $x$，我们希望 $P_\theta(D=1|x)$ 越大越好；
+对于来自噪声分布 $p_n$ 的样本 $y$，我们希望 $P_\theta(D=0|y)$ 越大越好。</p>
+<p>目标函数（<strong>期望形式</strong>）为：
+</p>
+$$ J(\theta) = \mathbb{E}_{x \sim p_d} [\ln P_\theta(D=1 | x)] + k \cdot \mathbb{E}_{y \sim p_n} [\ln P_\theta(D=0 | y)] $$<p>把步骤3中的式子代入，得到 <strong>NCE 的最终目标函数公式</strong>：
+</p>
+$$ J(\theta) = \mathbb{E}_{x \sim p_d} \left[ \ln \frac{p_\theta(x)}{p_\theta(x) + k \cdot p_n(x)} \right] + k \cdot \mathbb{E}_{y \sim p_n} \left[ \ln \frac{k \cdot p_n(y)}{p_\theta(y) + k \cdot p_n(y)} \right] $$<p><strong>在实际训练中，期望 $\mathbb{E}$ 会被替换为经验平均（即在一个 Batch 内的平均值）。</strong></p>
+<blockquote>
+<p>这个其实还是可以理解的，基于大数定律，我们用样本均值替代期望。</p>
+</blockquote>
+<h2 id="四为什么-nce-有效">
+<a class="header-anchor" href="#%e5%9b%9b%e4%b8%ba%e4%bb%80%e4%b9%88-nce-%e6%9c%89%e6%95%88"></a>
+四、为什么 NCE 有效？
+</h2><p>我们对目标函数跑梯度下降，真能使得$p_\theta(x)$ 收敛到真实分布 $p_d(x)$ 吗？</p>
+<p>我们求导来证明：</p>
+<p>第一项的导数：
+$$
+\begin{align}
+\ln \frac{p_\theta}{p_\theta + k p_n} &amp;= \ln p_\theta - \ln(p_\theta + k p_n) \
+\nabla_\theta \ln \frac{p_\theta}{p_\theta + k p_n}&amp;=\nabla_\theta \left( \ln p_\theta - \ln(p_\theta + k p_n) \right)\
+&amp;= \nabla_\theta \ln p_\theta - \frac{1}{p_\theta + k p_n} \nabla\theta p_\theta\
+&amp;= \nabla_\theta \ln p_\theta - \frac{p_\theta}{p_\theta + k p_n} \nabla\theta \ln p_\theta\
+&amp;= \frac{kp_n}{p_\theta + k p_n} \nabla\theta \ln p_\theta\</p>
+<p>\end{align}
+$$</p>
+<p>第二项的导数：
+</p>
+$$
+\begin{align}
+\ln \frac{k p_n}{p_\theta + k p_n} &= \ln(k p_n) - \ln(p_\theta + k p_n)\\
+\nabla_\theta \ln \frac{k p_n}{p_\theta + k p_n} &= -\frac{p_\theta}{p_\theta + k p_n} \nabla_\theta \ln p_\theta 
+\end{align}
+$$<p>
+我们把期望写成积分形式：
+</p>
+$$
+\begin{align}
+ \nabla_\theta J(\theta) &= \mathbb{E}_{x \sim p_d} \left[ \frac{k \cdot p_n(x)}{p_\theta(x) + k \cdot p_n(x)} \nabla_\theta \ln p_\theta(x) \right] - k \cdot \mathbb{E}_{y \sim p_n} \left[ \frac{p_\theta(y)}{p_\theta(y) + k \cdot p_n(y)} \nabla_\theta \ln p_\theta(y) \right] \\
+ &=  \int p_d(x) \left[ \frac{k \cdot p_n(x)}{p_\theta(x) + k \cdot p_n(x)} \nabla_\theta \ln p_\theta(x) \right] dx  - \int p_n(x) \cdot k \cdot \left[ \frac{p_\theta(x)}{p_\theta(x) + k \cdot p_n(x)} \nabla_\theta \ln p_\theta(x) \right] dx \\
+ &= \int \left[ \color{blue}{p_d(x)} - \color{blue}{p_\theta(x)} \right] \color{red}{\left[ \frac{k \cdot p_n(x)}{p_\theta(x) + k \cdot p_n(x)} \nabla_\theta \ln p_\theta(x) \right]} dx
+\end{align}
+$$<p>
+我们发现<strong>最大化 NCE 的目标函数，其全局最优解正是使得模型分布完全等于真实数据分布。</strong></p>
+<h2 id="五实验验证">
+<a class="header-anchor" href="#%e4%ba%94%e5%ae%9e%e9%aa%8c%e9%aa%8c%e8%af%81"></a>
+五、实验验证
+</h2><p>简单写一个浅一点的神经网络，然后以一个双峰高斯分布为真实数据，选一个简单的、很宽的单峰高斯分布为噪声数据。以NCE作为loss，看看训练出来的结果如何。</p>
+<h3 id="51-如何把公式写成代码">
+<a class="header-anchor" href="#51-%e5%a6%82%e4%bd%95%e6%8a%8a%e5%85%ac%e5%bc%8f%e5%86%99%e6%88%90%e4%bb%a3%e7%a0%81"></a>
+5.1 如何把公式写成代码？
+</h3>$$
+\begin{align}
+P_\theta(D=1|x) &= \frac{exp(u_\theta(x))}{exp(u_\theta(x) + k\cdot p_n(x))} \\
+&= \frac{1}{1 + exp(log(k\cdot p_n(x)) - u_\theta(x))} \\
+&= Sigmoid(u_\theta(x) - log(k \cdot p_n(x)))
+\end{align}
+$$<h3 id="52-代码验证">
+<a class="header-anchor" href="#52-%e4%bb%a3%e7%a0%81%e9%aa%8c%e8%af%81"></a>
+5.2 代码验证
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">sample_real_data</span><span class="p">(</span><span class="n">batch_size</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msk</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.5</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sample1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">-</span> <span class="mf">2.0</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sample2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="mf">2.0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">msk</span><span class="p">,</span> <span class="n">sample1</span><span class="p">,</span> <span class="n">sample2</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">noise_dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">sample_noise_data</span><span class="p">(</span><span class="n">batch_size</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">noise_dist</span><span class="o">.</span><span class="n">sample</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">EnergyModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">EnergyModel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCEWithLogitsLoss</span><span class="p">()</span> <span class="c1"># binary classificaion cross entropy</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">512</span>
+</span></span><span class="line"><span class="cl"><span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">epochs</span> <span class="o">=</span> <span class="mi">300</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 1:k sample</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x_real</span> <span class="o">=</span> <span class="n">sample_real_data</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x_noise</span> <span class="o">=</span> <span class="n">sample_noise_data</span><span class="p">(</span><span class="n">batch_size</span> <span class="o">*</span> <span class="n">k</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">x_all</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_real</span><span class="p">,</span> <span class="n">x_noise</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">u_theta</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_all</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">log_p_n</span> <span class="o">=</span> <span class="n">noise_dist</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">x_all</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">logits</span> <span class="o">=</span> <span class="n">u_theta</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">-</span> <span class="n">log_p_n</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">labels_real</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">labels_noise</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">labels_real</span><span class="p">,</span> <span class="n">labels_noise</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">50</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Epoch </span><span class="si">{</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">epochs</span><span class="si">}</span><span class="s2">, Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Epoch 50/300, Loss: 0.4031
+</span></span><span class="line"><span class="cl">Epoch 100/300, Loss: 0.3607
+</span></span><span class="line"><span class="cl">Epoch 150/300, Loss: 0.3159
+</span></span><span class="line"><span class="cl">Epoch 200/300, Loss: 0.3107
+</span></span><span class="line"><span class="cl">Epoch 250/300, Loss: 0.3240
+</span></span><span class="line"><span class="cl">Epoch 300/300, Loss: 0.3147
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Training finished! Plotting results...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Training finished! Plotting results...
+</span></span><span class="line"><span class="cl">EnergyModel(
+</span></span><span class="line"><span class="cl">  (net): Sequential(
+</span></span><span class="line"><span class="cl">    (0): Linear(in_features=1, out_features=32, bias=True)
+</span></span><span class="line"><span class="cl">    (1): ReLU()
+</span></span><span class="line"><span class="cl">    (2): Linear(in_features=32, out_features=32, bias=True)
+</span></span><span class="line"><span class="cl">    (3): ReLU()
+</span></span><span class="line"><span class="cl">    (4): Linear(in_features=32, out_features=1, bias=True)
+</span></span><span class="line"><span class="cl">  )
+</span></span><span class="line"><span class="cl">)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">u_theta_test</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p_theta_unnormalized</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">u_theta_test</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x_test_np</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">real_samples</span> <span class="o">=</span> <span class="n">sample_real_data</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">real_samples</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True Data Histogram (Bimodal)&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">noise_pdf</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">noise_dist</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">x_test</span><span class="p">))</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test_np</span><span class="p">,</span> <span class="n">noise_pdf</span><span class="p">,</span> <span class="s1">&#39;g--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Noise Distribution p_n(x)&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">scale_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">p_theta_unnormalized</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.4</span>  <span class="c1"># 0.4 约是直方图最高点</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test_np</span><span class="p">,</span> <span class="n">p_theta_unnormalized</span> <span class="o">/</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Learned unnormalized p_theta(x)&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;NCE: Learning Data Distribution via Binary Classification&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1779181304523_def9ac1f2f6eaffdca75287db7747465.png" alt="def9ac1f2f6eaffdca75287db7747465.png"></p>
+<p>效果还不错。</p></div>
+    <footer class="article-footer"><div class="sponsor-wrapper">
+  <div class="sponsor-button"><div class="sponsor-icon rotate"></div><div class="sponsor-title">赞助</div><div class="sponsor-icon rotate"></div></div><div class="sponsor-tip">Buy me a coffee</div><div class="sponsor-qr"><div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/alipay.jpg" alt="支付宝" width="200" />
+          <p class="sponsor-qr-name">支付宝</p>
+        </div><div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/wechat.jpg" alt="微信" width="200" />
+          <p class="sponsor-qr-name">微信</p>
+        </div></div></div><div class="share-wrapper"><a href="https://service.weibo.com/share/share.php?url=http://localhost:1313/post/math/nce/&amp;appkey=&amp;title=NCE&amp;pic=&amp;ralateUid=" target="_blank" rel="noopener noreferrer" title="NCE">
+      <div class="share-icon icon icon-weibo"></div>
+    </a><a href="https://connect.qq.com/widget/shareqq/index.html?url=http://localhost:1313/post/math/nce/&amp;title=NCE&amp;desc=%0a&amp;lt;!--more--&amp;gt;%0a%0a%0a%0a##%20%e9%9b%b6%e3%80%81%e5%86%99%e5%9c%a8%e5%89%8d%e9%9d%a2%0a%0a**%e5%99%aa%e5%a3%b0%e5%af%b9%e6%af%94%e4%bc%b0%e8%ae%a1%ef%bc%88Noise%20Contrastive%20Estimation,%20%e7%ae%80%e7%a7%b0%20NCE%ef%bc%89**%20%e6%98%af%e7%94%b1%20Gutmann%20%e5%92%8c%20Hyv%c3%a4rinen%20%e5%9c%a8%202010%20%e5%b9%b4%e6%8f%90%e5%87%ba%e7%9a%84%e4%b8%80%e7%a7%8d%e5%bc%ba%e5%a4%a7%e7%9a%84%e5%8f%82%e6%95%b0%e4%bc%b0%e8%ae%a1%e7%ae%97%e6%b3%95%e3%80%82%e5%ae%83%e4%b8%bb%e8%a6%81%e7%94%a8%e4%ba%8e%e8%a7%a3%e5%86%b3**%e9%9d%9e%e5%bd%92%e4%b8%80%e5%8c%96%e6%a6%82%e7%8e%87%e6%a8%a1%e5%9e%8b%ef%bc%88Unnormalized%20Models%ef%bc%89**%e4%b8%ad%e9%85%8d%e5%88%86%e5%87%bd%e6%95%b0%ef%bc%88Partition%20Function%ef%bc%89%e9%9a%be%e4%bb%a5%e8%ae%a1%e7%ae%97%e7%9a%84%e9%97%ae%e9%a2%98%e3%80%82%0a%0a%e7%8e%b0%e5%a6%82%e4%bb%8a%ef%bc%8cNCE%20%e7%9a%84%e6%80%9d%e6%83%b3%e6%b7%b1%e6%b7%b1%e5%bd%b1%e5%93%8d%e4%ba%86%e8%87%aa%e7%84%b6%e8%af%ad%e8%a8%80%e5%a4%84%e7%90%86%ef%bc%88%e5%a6%82%20Word2Vec%ef%bc%89%e5%92%8c%e8%ae%a1%e7%ae%97%e6%9c%ba%e8%a7%86%e8%a7%89%ef%bc%88%e5%a6%82%20SimCLR%e3%80%81MoCo%20%e7%ad%89%e5%af%b9%e6%af%94%e5%ad%a6%e4%b9%a0%e6%96%b9%e6%b3%95%e4%b8%ad%e7%9a%84%20InfoNCE%ef%bc%89%e3%80%82%0a%0a%0a%0a##%20%e4%b8%80%e3%80%81%e4%b8%ba%e4%bb%80%e4%b9%88%e8%a6%81%e7%94%a8%20NCE%ef%bc%9f%0a%0a%e5%9c%a8%e7%bb%9f%e8%ae%a1%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0%e5%92%8c%20%e2%80%a6&amp;source=http://localhost:1313/" target="_blank" rel="noopener noreferrer" title="NCE">
+      <div class="share-icon icon icon-qq"></div>
+    </a><a href="javascript:;"  title="NCE">
+      <div class="share-icon icon icon-weixin"><div id="share-weixin">
+            <div class="share-weixin-dom">
+              <div class="share-weixin-content">
+                <img id="share-weixin-banner"> 
+                <div id="share-weixin-title"></div>
+                <div id="share-weixin-desc"></div>
+              </div>
+              <div class="share-weixin-qrcode">
+                <div class="share-weixin-info">
+                  <div id="share-weixin-author"></div>
+                  <div id="share-weixin-theme">Powered By hugo-theme-reimu</div>
+                </div>
+                <img id="share-weixin-qr" >
+              </div>
+            </div>
+            <div class="share-weixin-canvas"></div>
+          </div></div>
+    </a></div><ul class="article-category-list"><li class="article-tag-list-item" data-aos="zoom-in">
+    <a
+      class="article-category-link"
+      href="/categories/math"
+      data-aos="zoom-in"
+      >MatH</a
+    >
+    </li></ul>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/contrastive-learning"
+        rel="tag"
+        >Contrastive Learning</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    aria-label="Article navigation"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg20.webp"
+              data-sizes="auto"
+              alt="MoCo精读"
+              class="lazyload"
+            /><a
+          href="/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/"
+          aria-label="前一篇:MoCo精读"
+          title="前一篇:MoCo精读"
+        ></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">MoCo精读</h3>
+      </div><div class="article-nav-link-wrap right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg24.webp"
+              data-sizes="auto"
+              alt="Assignment1"
+              class="lazyload"
+            /><a
+          href="/post/cs336/assignment1/"
+          aria-label="后一篇:Assignment1"
+          title="后一篇:Assignment1"
+        ></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">Assignment1</h3>
+      </div></nav></article><section id="comments" data-aos="fade-up">
+<div class="comment-header"><h2 class="comment-title">Leave a comment</h2>
+  <div class="comment-selector">
+    <div class="comment-selector-wrap"><div class="selector-item" data-selector="giscus">
+          <span>giscus</span>
+        </div></div>
+  </div>
+</div>
+
+<div class="comment-content"><div class="comment giscus-comment" data-aos="fade-up"
+     >
+    </div></div>
+</section></section>
+        </div><footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2006-2026<span class="footer-info-sep rotate"></span>Equinox
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Hugo</a
+        >&nbsp;Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;76.1k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;02:43</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#零写在前面">零、写在前面</a></li>
+        <li><a href="#一为什么要用-nce">一、为什么要用 NCE？</a></li>
+        <li><a href="#二核心思想">二、核心思想</a></li>
+        <li><a href="#三数学推导">三、数学推导</a></li>
+        <li><a href="#四为什么-nce-有效">四、为什么 NCE 有效？</a></li>
+        <li><a href="#五实验验证">五、实验验证</a>
+          <ul>
+            <li><a href="#51-如何把公式写成代码">5.1 如何把公式写成代码？</a></li>
+            <li><a href="#52-代码验证">5.2 代码验证</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="Equinox"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Equinox</div>
+  <div class="sidebar-description">记录学习过程...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">18</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">9</div>
+  </a>
+</div>
+<div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
+        <a
+          href="https://github.com/Equinox-2003"
+          itemprop="url"
+          target="_blank"
+          aria-label="github"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-bilibili sidebar-social-icon">
+        <a
+          href="https://space.bilibili.com/167350560"
+          itemprop="url"
+          target="_blank"
+          aria-label="bilibili"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-csdn sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://blog.csdn.net/EQUINOX1"
+          itemprop="url"
+          target="_blank"
+          aria-label="csdn"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-codeforces sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://codeforces.com/profile/_Equinox"
+          itemprop="url"
+          target="_blank"
+          aria-label="codeforces"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/anime"
+        aria-label="番剧"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
+    </div></div></div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js"  ></script><script src="/js/aos.js"  ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" data-pjax ></script><script>
+  var setupFirework = () => {
+    if (! false  || !window.matchMedia('(max-width: 768px)').matches) {
+      if (window.firework) {
+        const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+        options.excludeElements = options.excludeelements;
+        delete options.excludeelements;
+        window.firework(options);
+      }
+    }
+  }
+</script><script
+    src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js"
+    defer
+    
+    
+    onload="setupFirework()"
+    integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8&#43;pUoWX8n1rgq282T" crossorigin="anonymous"></script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "Equinox",
+          title: "NCE",
+          url: "http:\/\/localhost:1313\/post\/math\/nce\/",
+          description: "\n\u0026lt;!--more--\u0026gt;\n\n\n\n## 零、写在前面\n\n**噪声对比估计（Noise Contrastive Estimation, 简称 NCE）** 是由 Gutmann 和 Hyvärinen 在 2010 年提出的一种强大的参数估计算法。它主要用于解决**非归一化概率模型（Unnormalized Models）**中配分函数（Partition Function）难以计算的问题。\n\n现如今，NCE 的思想深深影响了自然语言处理（如 Word2Vec）和计算机视觉（如 SimCLR、MoCo 等对比学习方法中的 InfoNCE）。\n\n\n\n## 一、为什么要用 NCE？\n\n在统计机器学习和 …",
+          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" data-pjax ></script><script src="/js/tabs.js" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
+          if (_$$(`${gallery} ${children}`).length > 0) {
+            new PhotoSwipeLightbox({
+              gallery,
+              children,pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+        }
+        const pswp = () => {
+          initPswp('.article-entry', 'a.article-gallery-item');
+          initPswp('.article-gallery', 'a.article-gallery-item');
+        }
+        pswp()
+      </script><script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+  var commentConfigKeys = ['valine', 'waline', 'twikoo', 'gitalk', 'giscus', 'utterances', 'beaudar', 'disqus'];
+  var commentConfig = {giscus: {
+      enable: true,
+      load: async () => {
+        const container = document.querySelector('.giscus-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const existingScript = container.querySelector('script[src*="giscus.app/client.js"]');
+        if (existingScript) existingScript.remove();
+        const existingFrame = document.querySelector('iframe.giscus-frame');
+        if (existingFrame) existingFrame.remove();
+
+        const giscusScript = document.createElement('script');
+        const domMode = document.documentElement.getAttribute("data-theme");
+        const defaultTheme = { dark: 'dark', light: 'light' };
+        const customTheme = {
+          light: '' ? '' : new URL('\/css\/giscus_reimu_light.css', window.location.origin).href,
+          dark: '' ? '' : new URL('\/css\/giscus_reimu_dark.css', window.location.origin).href
+        };
+        const hasGiscusCorsHeader = async (url) => {
+          if (!url) return false;
+          if (!url.startsWith('http')) return true;
+          try {
+            let response = await fetch(url, { method: 'HEAD', cache: 'no-store' });
+            if (response.status === 405) {
+              response = await fetch(url, { method: 'GET', cache: 'no-store' });
+            }
+            const allowOrigin = response.headers.get('access-control-allow-origin') || '';
+            return allowOrigin === '*' || allowOrigin.split(',').map(value => value.trim()).includes('https://giscus.app');
+          } catch {
+            return false;
+          }
+        };
+        let giscusTheme = defaultTheme;
+        const [darkCorsOk, lightCorsOk] = await Promise.all([
+          hasGiscusCorsHeader(customTheme.dark),
+          hasGiscusCorsHeader(customTheme.light)
+        ]);
+        if (darkCorsOk && lightCorsOk) {
+          giscusTheme = customTheme;
+        }
+
+        const docLang = document.documentElement.lang || 'en';
+        const langBase = docLang.split('-')[0];
+        const supportedLangs = ['ar', 'be', 'bg', 'ca', 'cs', 'da', 'de', 'en',
+        'eo', 'es', 'eu', 'fa', 'fr', 'gr', 'hbs', 'he', 'hu', 'id', 'it', 'ja',
+        'kh', 'ko', 'nl', 'pl', 'pt', 'ro', 'ru', 'th', 'tr', 'uk', 'uz', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'];
+        const giscusLang = supportedLangs.includes(docLang) ? docLang : supportedLangs.includes(langBase) ? langBase : 'en';
+
+        giscusScript.src = 'https://giscus.app/client.js';
+        giscusScript.setAttribute('data-repo', 'Equinox-2003\/Equinox-Blog');
+        giscusScript.setAttribute('data-repo-id', 'R_kgDOSNpg_Q');
+        giscusScript.setAttribute('data-category', 'Announcements');
+        giscusScript.setAttribute('data-category-id', 'DIC_kwDOSNpg_c4C7zKB');
+        giscusScript.setAttribute('data-mapping', 'pathname');
+        giscusScript.setAttribute('data-strict', '0');
+        giscusScript.setAttribute('data-reactions-enabled', '1');
+        giscusScript.setAttribute('data-emit-metadata', '0');
+        giscusScript.setAttribute('data-input-position', 'top');
+        giscusScript.setAttribute('data-theme', domMode === 'dark' ? giscusTheme.dark : giscusTheme.light);
+        giscusScript.setAttribute('data-lang', giscusLang);
+        giscusScript.setAttribute('crossorigin', 'anonymous');
+        giscusScript.async = true;
+        container.appendChild(giscusScript);
+         const themeHandler = (e) => {
+          const isDark = e.detail.isDark;
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe || !iframe.contentWindow) {
+            document.body.removeEventListener('reimu:theme-set', themeHandler);
+            return;
+          }
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: isDark ? giscusTheme.dark : giscusTheme.light } } }, 'https://giscus.app');
+        };
+        document.body.addEventListener('reimu:theme-set', themeHandler);
+      }
+    },};
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig?.[key]?.enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    var savedCommentType = localStorage.getItem('commentType');
+
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+
+    if (!defaultComment) {
+      var configDefault = 'giscus';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig?.[sys]?.enable) || '';
+    }
+  }
+
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false,
+      disqus: false,
+      utterances: false,
+      beaudar: false,
+    };
+
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      const commentType = item.getAttribute('data-selector');
+
+      hideAllComments();
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          changeActiveCommentItems(item);
+        });
+      }
+
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script><script
+    src="https://npm.webcache.cn/qrcode@1.5.1/build/qrcode.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-VT1EeewTCEXgndcPMQ0PzV&#43;uVFYjxFIjmAA7s5gcMX9t4Dt5TD&#43;OVQIn7NJWIXn7" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/@zumer/snapdom@1.9.14/dist/snapdom.min.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-OEQ&#43;fJp/Mvi2uzBREXybtxryJvLytWapuHu4EE6LPwTKUwATYcc55tPPcZTzVcmx" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-MWNUH0WmtsYGhn2cbH6ELRCbf9LG3QDqCC&#43;gqPB3IBNO35xjZK3Ejb6oONRpDbPg" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/contrib/auto-render.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv&#43;fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script><script data-pjax>
+          var renderMath = () => {
+            if (!window.renderMathInElement) return;
+            window.renderMathInElement(_$("article"), {
+              delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "\\[", right: "\\]", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+              ],
+            });
+          };
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", renderMath, { once: true });
+          } else {
+            renderMath();
+          }
+        </script></div>
+</div><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    
+    async
+    
+    
+    integrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>

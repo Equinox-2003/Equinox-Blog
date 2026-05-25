@@ -1,0 +1,1585 @@
+<!doctype html>
+<html
+  lang="en-us" 
+  data-theme-mode="auto"
+  >
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  Fine Tuning for Classification | Equinox
+</title>
+<meta name="description" content="记录学习过程..."/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":25},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_ex15nbittbh.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><link rel="stylesheet" href="/css/loader.css" /><meta property="og:type" content="website" />
+  <meta property="og:title" content="Fine Tuning for Classification | Equinox" />
+  <meta
+    property="og:description"
+    content="记录学习过程..."
+  />
+  <meta property="og:url" content="http://localhost:1313/post/llms-from-scratch/fine-tuning-for-classification/" />
+  <meta
+    property="og:site_name"
+    content="Welcome to my blog"
+  />
+  <meta property="og:image" content="http://localhost:1313/images/banner.webp" />
+  <meta property="article:author" content="Equinox" />
+  <meta property="article:published_time" content="2026-05-08T19:26:35&#43;08:00" />
+  <meta property="article:modified_time" content="2026-05-08T19:26:35&#43;08:00" /><meta property="article:tag" content="LLM" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="http://localhost:1313/images/banner.webp" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.css"
+    integrity="sha384-tTgKLjMYmJr94v8qu2PE5MUGSMbyN2xiH266JUB3gpm8vnnJywd1dWSOEfrFz&#43;YI" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg></div><div class="loading-word">Loading...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script><div id="copy-tooltip"></div>
+<div id="lang-tooltip">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation"><a class="main-nav-link-wrap" href="/"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">首页</span>
+      </a><a class="main-nav-link-wrap" href="/archives"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">归档</span>
+      </a><a class="main-nav-link-wrap" href="/about"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">关于</span>
+      </a><a class="main-nav-link-wrap" href="/friend"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">友链</span>
+      </a><a class="main-nav-link-wrap" href="/anime"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">番剧</span>
+      </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
+<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="Fine Tuning for Classification"><div id="header-outer">
+    <div id="header-title"><span id="logo">
+            <h1 data-aos="slide-up">Fine Tuning for Classification</h1>
+          </span><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          aria-label="Page content"
+          class="sidebar-left"
+            ><aside id="sidebar" aria-label="Sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#零写在前面">零、写在前面</a></li>
+        <li><a href="#一fine-tuning-for-classification">一、Fine-tuning for classification</a>
+          <ul>
+            <li><a href="#11-different-categories-of-fine-tuning">1.1 Different categories of fine-tuning</a></li>
+            <li><a href="#12-准备数据集">1.2 准备数据集</a></li>
+            <li><a href="#13-creating-data-loaders">1.3 Creating data loaders</a></li>
+            <li><a href="#14-用预训练权重初始化模型">1.4 用预训练权重初始化模型</a></li>
+            <li><a href="#15-增加分类头">1.5 增加分类头</a></li>
+            <li><a href="#16-classification-loss-and-accuracy">1.6 classification loss and accuracy</a></li>
+            <li><a href="#17-fine-tuning-the-model-on-supervised-data">1.7 Fine-tuning the model on supervised data</a></li>
+            <li><a href="#18-using-the-llm-as-a-spam-classifier">1.8 Using the LLM as a spam classifier</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="Equinox"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Equinox</div>
+  <div class="sidebar-description">记录学习过程...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">18</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">9</div>
+  </a>
+</div>
+<div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
+        <a
+          href="https://github.com/Equinox-2003"
+          itemprop="url"
+          target="_blank"
+          aria-label="github"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-bilibili sidebar-social-icon">
+        <a
+          href="https://space.bilibili.com/167350560"
+          itemprop="url"
+          target="_blank"
+          aria-label="bilibili"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-csdn sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://blog.csdn.net/EQUINOX1"
+          itemprop="url"
+          target="_blank"
+          aria-label="csdn"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-codeforces sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://codeforces.com/profile/_Equinox"
+          itemprop="url"
+          target="_blank"
+          aria-label="codeforces"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/anime"
+        aria-label="番剧"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
+    </div></div></div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main" aria-label="Main content"><article
+  class="h-entry article"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2026-05-08 19:26:35 &#43;0800 CST" itemprop="datePublished"
+      >2026-05-08</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2026-05-08</time
+    >
+  </span></div>
+</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h2 id="零写在前面">
+<a class="header-anchor" href="#%e9%9b%b6%e5%86%99%e5%9c%a8%e5%89%8d%e9%9d%a2"></a>
+零、写在前面
+</h2><p>这一章主要讲了下如何对llm进行微调。</p>
+<p>本章代码：<a href="https://github.com/Equinox-2003/LLMs-from-scratch-Practice/tree/main/ch06">ch06</a></p>
+<h2 id="一fine-tuning-for-classification">
+<a class="header-anchor" href="#%e4%b8%80fine-tuning-for-classification"></a>
+一、Fine-tuning for classification
+</h2><h3 id="11-different-categories-of-fine-tuning">
+<a class="header-anchor" href="#11-different-categories-of-fine-tuning"></a>
+1.1 Different categories of fine-tuning
+</h3><p>对语言模型最常用的微调方式有 <strong>instruction fine-tuning</strong> 以及 <strong>classification fine-tuning</strong>。</p>
+<p><strong>instruction fine-tuning</strong>涉及到在基于指令的任务集合上进行训练，然后提高llm对于自然语言prompt的理解以及执行任务的能力。</p>
+<p>而 <strong>classification fine-tuning</strong>则更简单一点，就是对llm在分类问题的数据上训练，只能输出训练的时候见过的类别标签。</p>
+<p>显然，<strong>instruction fine-tuning</strong>更通用，因为可以用于多个领域。<strong>classification fine-tuning</strong>其实是一种专用模型，比如 翻译、分类……</p>
+<p><strong>classification fine-tuning</strong>的训练要容易的多，所以本章主要涉及<strong>classification fine-tuning</strong>。在下一章会进行 <strong>instruction fine-tuning</strong>。</p>
+<h3 id="12-准备数据集">
+<a class="header-anchor" href="#12-%e5%87%86%e5%a4%87%e6%95%b0%e6%8d%ae%e9%9b%86"></a>
+1.2 准备数据集
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">zipfile</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;https://archive.ics.uci.edu/static/public/228/sms+spam+collection.zip&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">zip_path</span> <span class="o">=</span> <span class="s2">&#34;sms_spam_collection.zip&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">extracted_path</span> <span class="o">=</span> <span class="s2">&#34;sms_spam_collection&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">data_file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">extracted_path</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&#34;SMSSpamCollection.tsv&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">download_and_unzip_spam_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">zip_path</span><span class="p">,</span> <span class="n">extracted_path</span><span class="p">,</span> <span class="n">data_file_path</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">data_file_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">data_file_path</span><span class="si">}</span><span class="s2"> already exists. Skipping download and extraction.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Downloading the file</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">zip_path</span><span class="p">,</span> <span class="s2">&#34;wb&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_file</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">8192</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">out_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Unzipping the file</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_path</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">extracted_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Add .tsv file extension</span>
+</span></span><span class="line"><span class="cl">    <span class="n">original_file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">extracted_path</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&#34;SMSSpamCollection&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">original_file_path</span><span class="p">,</span> <span class="n">data_file_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;File downloaded and saved as </span><span class="si">{</span><span class="n">data_file_path</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">download_and_unzip_spam_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">zip_path</span><span class="p">,</span> <span class="n">extracted_path</span><span class="p">,</span> <span class="n">data_file_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span><span class="p">,</span> <span class="ne">TimeoutError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Primary URL failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">. Trying backup URL...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;https://f001.backblazeb2.com/file/LLMs-from-scratch/sms%2Bspam%2Bcollection.zip&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">download_and_unzip_spam_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">zip_path</span><span class="p">,</span> <span class="n">extracted_path</span><span class="p">,</span> <span class="n">data_file_path</span><span class="p">)</span>
+</span></span></code></pre></div><p>这里选择了一个比较小的垃圾邮件分类的数据集。</p>
+<p>可以用pandas读一下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">data_file_path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;Label&#34;</span><span class="p">,</span> <span class="s2">&#34;Text&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span>
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th style="text-align: right"></th>
+          <th style="text-align: right">Label</th>
+          <th style="text-align: right">Text</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: right">0</td>
+          <td style="text-align: right">ham</td>
+          <td style="text-align: right">Go until jurong point, crazy.. Available only &hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">ham</td>
+          <td style="text-align: right">Ok lar&hellip; Joking wif u oni&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">2</td>
+          <td style="text-align: right">spam</td>
+          <td style="text-align: right">Free entry in 2 a wkly comp to win FA Cup fina&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">3</td>
+          <td style="text-align: right">ham</td>
+          <td style="text-align: right">U dun say so early hor&hellip; U c already then say&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">4</td>
+          <td style="text-align: right">ham</td>
+          <td style="text-align: right">Nah I don&rsquo;t think he goes to usf, he lives aro&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">&hellip;</td>
+          <td style="text-align: right">&hellip;</td>
+          <td style="text-align: right">&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">5567</td>
+          <td style="text-align: right">spam</td>
+          <td style="text-align: right">This is the 2nd time we have tried 2 contact u&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">5568</td>
+          <td style="text-align: right">ham</td>
+          <td style="text-align: right">Will ü b going to esplanade fr home?</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">5569</td>
+          <td style="text-align: right">ham</td>
+          <td style="text-align: right">Pity, * was in mood for that. So&hellip;any other s&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">5570</td>
+          <td style="text-align: right">ham</td>
+          <td style="text-align: right">The guy did some bitching but I acted like i&rsquo;d&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">5571</td>
+          <td style="text-align: right">ham</td>
+          <td style="text-align: right">Rofl. Its true to its name</td>
+      </tr>
+  </tbody>
+</table>
+<p>5572 rows × 2 columns</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;Label&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Label
+</span></span><span class="line"><span class="cl">ham     4825
+</span></span><span class="line"><span class="cl">spam     747
+</span></span><span class="line"><span class="cl">Name: count, dtype: int64
+</span></span></code></pre></div><p>为了进一步缩减训练时间，作者选择抽出来和垃圾邮件相等数目的非垃圾邮件，来作为训练数据：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create_balanced_dataset</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Count the instances of &#34;spam&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num_spam</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;Label&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;spam&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># Randomly sample &#34;ham&#34; instances to match the number of &#34;spam&#34; instances</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ham_subset</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;Label&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;ham&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">num_spam</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># Combine ham &#34;subset&#34; with &#34;spam&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">balanced_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ham_subset</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;Label&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;spam&#34;</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">balanced_df</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">balanced_df</span> <span class="o">=</span> <span class="n">create_balanced_dataset</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">balanced_df</span><span class="p">[</span><span class="s2">&#34;Label&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Label
+</span></span><span class="line"><span class="cl">ham     747
+</span></span><span class="line"><span class="cl">spam    747
+</span></span><span class="line"><span class="cl">Name: count, dtype: int64
+</span></span></code></pre></div><p>然后将label 改成 0/1 两种取值：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">balanced_df</span><span class="p">[</span><span class="s2">&#34;Label&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">balanced_df</span><span class="p">[</span><span class="s2">&#34;Label&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s2">&#34;ham&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;spam&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">balanced_df</span>
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th style="text-align: right"></th>
+          <th style="text-align: right">Label</th>
+          <th style="text-align: right">Text</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: right">4307</td>
+          <td style="text-align: right">0</td>
+          <td style="text-align: right">Awww dat is sweet! We can think of something t&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">4138</td>
+          <td style="text-align: right">0</td>
+          <td style="text-align: right">Just got to &lt;#&gt;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">4831</td>
+          <td style="text-align: right">0</td>
+          <td style="text-align: right">The word &ldquo;Checkmate&rdquo; in chess comes from the P&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">4461</td>
+          <td style="text-align: right">0</td>
+          <td style="text-align: right">This is wishing you a great day. Moji told me &hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">5440</td>
+          <td style="text-align: right">0</td>
+          <td style="text-align: right">Thank you. do you generally date the brothas?</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">&hellip;</td>
+          <td style="text-align: right">&hellip;</td>
+          <td style="text-align: right">&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">5537</td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">Want explicit SEX in 30 secs? Ring 02073162414&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">5540</td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">ASKED 3MOBILE IF 0870 CHATLINES INCLU IN FREE &hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">5547</td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">Had your contract mobile 11 Mnths? Latest Moto&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">5566</td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">REMINDER FROM O2: To get 2.50 pounds free call&hellip;</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">5567</td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">This is the 2nd time we have tried 2 contact u&hellip;</td>
+      </tr>
+  </tbody>
+</table>
+<p>1494 rows × 2 columns</p>
+<p>进一步划分训练集、验证集：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">random_split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">train_frac</span><span class="p">,</span> <span class="n">validation_frac</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Shuffle the entire DataFrame</span>
+</span></span><span class="line"><span class="cl">    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Calculate split indices</span>
+</span></span><span class="line"><span class="cl">    <span class="n">train_end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">*</span> <span class="n">train_frac</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">validation_end</span> <span class="o">=</span> <span class="n">train_end</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">*</span> <span class="n">validation_frac</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Split the DataFrame</span>
+</span></span><span class="line"><span class="cl">    <span class="n">train_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">validation_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">train_end</span><span class="p">:</span><span class="n">validation_end</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">test_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">validation_end</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">train_df</span><span class="p">,</span> <span class="n">validation_df</span><span class="p">,</span> <span class="n">test_df</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">train_df</span><span class="p">,</span> <span class="n">validation_df</span><span class="p">,</span> <span class="n">test_df</span> <span class="o">=</span> <span class="n">random_split</span><span class="p">(</span><span class="n">balanced_df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Test size is implied to be 0.2 as the remainder</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">train_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&#34;train.csv&#34;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">validation_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&#34;validation.csv&#34;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&#34;test.csv&#34;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="13-creating-data-loaders">
+<a class="header-anchor" href="#13-creating-data-loaders"></a>
+1.3 Creating data loaders
+</h3><p>序列长短不一，我们有两种选择：</p>
+<ol>
+<li>选定seq_len为数据集中最短那个，然后长于这个长度的直接截断为seq_len。</li>
+<li>选定seq_len为数据集中最长那个，然后长度不够的，加<!-- raw HTML omitted --> token&gt;进行填充。</li>
+</ol>
+<p>截断会丢失信息，pad会让数据集规模变大，不过我们这个数据集很小，直接选择填充。</p>
+<p>不过在第二章将tokenizer的时候就介绍过，GPT model 只有 <!-- raw HTML omitted -->这一种特殊token，所以我们直接用 <!-- raw HTML omitted -->填充。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tiktoken</span>
+</span></span><span class="line"><span class="cl"><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">get_encoding</span><span class="p">(</span><span class="s2">&#34;gpt2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;&lt;|endoftext|&gt;&#34;</span><span class="p">,</span> <span class="n">allowed_special</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;&lt;|endoftext|&gt;&#34;</span><span class="p">}))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[50256]
+</span></span></code></pre></div><p>然后就可以写一个dataset：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SpamDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">csv_file</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pad_token_id</span><span class="o">=</span><span class="mi">50256</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Pre-tokenize texts</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">encoded_texts</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="n">tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&#34;Text&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">max_length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">max_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_longest_encoded_length</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">max_length</span> <span class="o">=</span> <span class="n">max_length</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># Truncate sequences if they are longer than max_length</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_texts</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="n">encoded_text</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">max_length</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="n">encoded_text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_texts</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Pad sequences to the longest sequence</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">encoded_texts</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="n">encoded_text</span> <span class="o">+</span> <span class="p">[</span><span class="n">pad_token_id</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_length</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">encoded_text</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">encoded_text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_texts</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">encoded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_texts</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&#34;Label&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">encoded</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">_longest_encoded_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">encoded_text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_texts</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">encoded_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">encoded_text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">encoded_length</span> <span class="o">&gt;</span> <span class="n">max_length</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">max_length</span> <span class="o">=</span> <span class="n">encoded_length</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">max_length</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># Note: A more pythonic version to implement this method</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># is the following, which is also used in the next chapter:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># return max(len(encoded_text) for encoded_text in self.encoded_texts)</span>
+</span></span></code></pre></div><p>创建三个dataset：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">SpamDataset</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">csv_file</span><span class="o">=</span><span class="s2">&#34;train.csv&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">max_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">train_dataset</span><span class="o">.</span><span class="n">max_length</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">120
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">val_dataset</span> <span class="o">=</span> <span class="n">SpamDataset</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">csv_file</span><span class="o">=</span><span class="s2">&#34;validation.csv&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">max_length</span><span class="o">=</span><span class="n">train_dataset</span><span class="o">.</span><span class="n">max_length</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_dataset</span> <span class="o">=</span> <span class="n">SpamDataset</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">csv_file</span><span class="o">=</span><span class="s2">&#34;test.csv&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">max_length</span><span class="o">=</span><span class="n">train_dataset</span><span class="o">.</span><span class="n">max_length</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></div><p>然后创建三个dataloader用于后续训练用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">num_workers</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">drop_last</span><span class="o">=</span><span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">val_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dataset</span><span class="o">=</span><span class="n">val_dataset</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">drop_last</span><span class="o">=</span><span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">test_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dataset</span><span class="o">=</span><span class="n">test_dataset</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">drop_last</span><span class="o">=</span><span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">input_batch</span><span class="p">,</span> <span class="n">target_batch</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">pass</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Input batch dimensions:&#34;</span><span class="p">,</span> <span class="n">input_batch</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Label batch dimensions&#34;</span><span class="p">,</span> <span class="n">target_batch</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Input batch dimensions: torch.Size([8, 120])
+</span></span><span class="line"><span class="cl">Label batch dimensions torch.Size([8])
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)</span><span class="si">}</span><span class="s2"> training batches&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">val_loader</span><span class="p">)</span><span class="si">}</span><span class="s2"> validation batches&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_loader</span><span class="p">)</span><span class="si">}</span><span class="s2"> test batches&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">130 training batches
+</span></span><span class="line"><span class="cl">19 validation batches
+</span></span><span class="line"><span class="cl">38 test batches
+</span></span></code></pre></div><h3 id="14-用预训练权重初始化模型">
+<a class="header-anchor" href="#14-%e7%94%a8%e9%a2%84%e8%ae%ad%e7%bb%83%e6%9d%83%e9%87%8d%e5%88%9d%e5%a7%8b%e5%8c%96%e6%a8%a1%e5%9e%8b"></a>
+1.4 用预训练权重初始化模型
+</h3><p>这个主要就是上一章的内容，加载GPT-2的权重，不过因为我们要做分类任务微调，那么原来那个输出头肯定不能用了，我们需要用一个二分类的输出头替换。</p>
+<p>先加载权重：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">CHOOSE_MODEL</span> <span class="o">=</span> <span class="s2">&#34;gpt2-small (124M)&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">INPUT_PROMPT</span> <span class="o">=</span> <span class="s2">&#34;Every effort moves&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">BASE_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;vocab_size&#34;</span><span class="p">:</span> <span class="mi">50257</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;context_length&#34;</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;drop_rate&#34;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;qkv_bias&#34;</span><span class="p">:</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">model_configs</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;gpt2-small (124M)&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;emb_dim&#34;</span><span class="p">:</span> <span class="mi">768</span><span class="p">,</span> <span class="s2">&#34;n_layers&#34;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s2">&#34;n_heads&#34;</span><span class="p">:</span> <span class="mi">12</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;gpt2-medium (355M)&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;emb_dim&#34;</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span> <span class="s2">&#34;n_layers&#34;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&#34;n_heads&#34;</span><span class="p">:</span> <span class="mi">16</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;gpt2-large (774M)&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;emb_dim&#34;</span><span class="p">:</span> <span class="mi">1280</span><span class="p">,</span> <span class="s2">&#34;n_layers&#34;</span><span class="p">:</span> <span class="mi">36</span><span class="p">,</span> <span class="s2">&#34;n_heads&#34;</span><span class="p">:</span> <span class="mi">20</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;gpt2-xl (1558M)&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;emb_dim&#34;</span><span class="p">:</span> <span class="mi">1600</span><span class="p">,</span> <span class="s2">&#34;n_layers&#34;</span><span class="p">:</span> <span class="mi">48</span><span class="p">,</span> <span class="s2">&#34;n_heads&#34;</span><span class="p">:</span> <span class="mi">25</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">BASE_CONFIG</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">model_configs</span><span class="p">[</span><span class="n">CHOOSE_MODEL</span><span class="p">])</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">gpt_download</span> <span class="kn">import</span> <span class="n">download_and_load_gpt2</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">previous_chapters</span> <span class="kn">import</span> <span class="n">GPTModel</span><span class="p">,</span> <span class="n">load_weights_into_gpt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">model_size</span> <span class="o">=</span> <span class="n">CHOOSE_MODEL</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&#34; &#34;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&#34;(&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&#34;)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">settings</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">download_and_load_gpt2</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">model_size</span><span class="o">=</span><span class="n">model_size</span><span class="p">,</span> <span class="n">models_dir</span><span class="o">=</span><span class="s2">&#34;gpt2&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">GPTModel</span><span class="p">(</span><span class="n">BASE_CONFIG</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">load_weights_into_gpt</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span></span></code></pre></div><p>随便测个句子看权重加载正确没：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">previous_chapters</span> <span class="kn">import</span> <span class="n">generate_text_simple</span><span class="p">,</span> <span class="n">text_to_token_ids</span><span class="p">,</span> <span class="n">token_ids_to_text</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">text_1</span> <span class="o">=</span> <span class="s2">&#34;Every effort moves you&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">token_ids</span> <span class="o">=</span> <span class="n">generate_text_simple</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">idx</span><span class="o">=</span><span class="n">text_to_token_ids</span><span class="p">(</span><span class="n">text_1</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">context_size</span><span class="o">=</span><span class="n">BASE_CONFIG</span><span class="p">[</span><span class="s2">&#34;context_length&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">token_ids_to_text</span><span class="p">(</span><span class="n">token_ids</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&#39;Every effort moves you forward.\n\nThe first step is to understand the importance of your work&#39;
+</span></span></code></pre></div><p>我们尝试给一个instruction：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">text_2</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Is the following text &#39;spam&#39;? Answer with &#39;yes&#39; or &#39;no&#39;:&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34; &#39;You are a winner you have been specially&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34; selected to receive $1000 cash or a $2000 award.&#39;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">token_ids</span> <span class="o">=</span> <span class="n">generate_text_simple</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">idx</span><span class="o">=</span><span class="n">text_to_token_ids</span><span class="p">(</span><span class="n">text_2</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">context_size</span><span class="o">=</span><span class="n">BASE_CONFIG</span><span class="p">[</span><span class="s2">&#34;context_length&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">token_ids_to_text</span><span class="p">(</span><span class="n">token_ids</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Is the following text &#39;spam&#39;? Answer with &#39;yes&#39; or &#39;no&#39;: &#39;You are a winner you have been specially selected to receive $1000 cash or a $2000 award.&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">The following text &#39;spam&#39;? Answer with &#39;yes&#39; or &#39;no&#39;: &#39;You are a winner
+</span></span></code></pre></div><p>没有像我们日常生活中用的llm那样给出结果，这是正常的，因为我们还没有进行微调。</p>
+<h3 id="15-增加分类头">
+<a class="header-anchor" href="#15-%e5%a2%9e%e5%8a%a0%e5%88%86%e7%b1%bb%e5%a4%b4"></a>
+1.5 增加分类头
+</h3><p>在训练之间，我们需要替换掉原来的输出头。原来的输出头输出的是对于vocab的预测，我们现在要换成垃圾邮件的二分类头。</p>
+<p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490375852_image.png" alt="image.png"></p>
+<p>我们可以先打印看一下model架构：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">model</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GPTModel(
+</span></span><span class="line"><span class="cl">  (tok_emb): Embedding(50257, 768)
+</span></span><span class="line"><span class="cl">  (pos_emb): Embedding(1024, 768)
+</span></span><span class="line"><span class="cl">  (drop_emb): Dropout(p=0.0, inplace=False)
+</span></span><span class="line"><span class="cl">  (trf_blocks): Sequential(
+</span></span><span class="line"><span class="cl">    (0): TransformerBlock(
+</span></span><span class="line"><span class="cl">      (att): MultiHeadAttention(
+</span></span><span class="line"><span class="cl">        (W_q): Linear(in_features=768, out_features=768, bias=True)
+</span></span><span class="line"><span class="cl">        (W_k): Linear(in_features=768, out_features=768, bias=True)
+</span></span><span class="line"><span class="cl">        (W_v): Linear(in_features=768, out_features=768, bias=True)
+</span></span><span class="line"><span class="cl">        (out_proj): Linear(in_features=768, out_features=768, bias=True)
+</span></span><span class="line"><span class="cl">        (dropout): Dropout(p=0.0, inplace=False)
+</span></span><span class="line"><span class="cl">      )
+</span></span><span class="line"><span class="cl">      (ff): FeedForward(
+</span></span><span class="line"><span class="cl">        (layers): Sequential(
+</span></span><span class="line"><span class="cl">          (0): Linear(in_features=768, out_features=3072, bias=True)
+</span></span><span class="line"><span class="cl">          (1): GELU()
+</span></span><span class="line"><span class="cl">          (2): Linear(in_features=3072, out_features=768, bias=True)
+</span></span><span class="line"><span class="cl">        )
+</span></span><span class="line"><span class="cl">      )
+</span></span><span class="line"><span class="cl">      (norm1): LayerNorm()
+</span></span><span class="line"><span class="cl">      (norm2): LayerNorm()
+</span></span><span class="line"><span class="cl">      (drop_shortcut): Dropout(p=0.0, inplace=False)
+</span></span><span class="line"><span class="cl">    )
+</span></span><span class="line"><span class="cl">    (1): TransformerBlock(
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">    )
+</span></span><span class="line"><span class="cl">  )
+</span></span><span class="line"><span class="cl">  (final_norm): LayerNorm()
+</span></span><span class="line"><span class="cl">  (out_head): Linear(in_features=768, out_features=50257, bias=False)
+</span></span><span class="line"><span class="cl">)
+</span></span><span class="line"><span class="cl">Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
+</span></span></code></pre></div><p>那么我们只需要替换掉out_head，在那之前，先把模型权重的requires_grad置False：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span></code></pre></div><p>因为我们希望复用已经有的语义提取能力。</p>
+<p>然后更换分类头：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">num_classes</span> <span class="o">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">out_head</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">in_features</span><span class="o">=</span><span class="n">BASE_CONFIG</span><span class="p">[</span><span class="s2">&#34;emb_dim&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="n">out_features</span><span class="o">=</span><span class="n">num_classes</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></div><p>有趣的是，作者做过实验，发现把最后一层 transformer 和 最后一个层归一化的requires_grad置为True，效果最好：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">trf_blocks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">final_norm</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span></code></pre></div><h3 id="16-classification-loss-and-accuracy">
+<a class="header-anchor" href="#16-classification-loss-and-accuracy"></a>
+1.6 classification loss and accuracy
+</h3><p>先写个 accuracy 计算函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">calc_accuracy_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_batches</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">correct_predictions</span><span class="p">,</span> <span class="n">num_examples</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">num_batches</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">num_batches</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_loader</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">num_batches</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">num_batches</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_loader</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">input_batch</span><span class="p">,</span> <span class="n">target_batch</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_loader</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_batches</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">input_batch</span> <span class="o">=</span> <span class="n">input_batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">target_batch</span> <span class="o">=</span> <span class="n">target_batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">                <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_batch</span><span class="p">)[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">predicted_labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">num_examples</span> <span class="o">+=</span> <span class="n">predicted_labels</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">correct_predictions</span> <span class="o">+=</span> <span class="p">((</span><span class="n">predicted_labels</span> <span class="o">==</span> <span class="n">target_batch</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">correct_predictions</span> <span class="o">/</span> <span class="n">num_examples</span>
+</span></span></code></pre></div><p>然后看一下效果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&#34;cuda&#34;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&#34;cpu&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_accuracy</span> <span class="o">=</span> <span class="n">calc_accuracy_loader</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">train_loader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_batches</span><span class="o">=</span><span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">val_accuracy</span> <span class="o">=</span> <span class="n">calc_accuracy_loader</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">val_loader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_batches</span><span class="o">=</span><span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_accuracy</span> <span class="o">=</span> <span class="n">calc_accuracy_loader</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">test_loader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_batches</span><span class="o">=</span><span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Training accuracy: </span><span class="si">{</span><span class="n">train_accuracy</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Validation accuracy: </span><span class="si">{</span><span class="n">val_accuracy</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Test accuracy: </span><span class="si">{</span><span class="n">test_accuracy</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">device</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Training accuracy: 46.25%
+</span></span><span class="line"><span class="cl">Validation accuracy: 45.00%
+</span></span><span class="line"><span class="cl">Test accuracy: 48.75%
+</span></span></code></pre></div><p>这是符合预期的，基本跟乱猜概率差不多，因为我们还没开始训练。</p>
+<p>然后是loss计算：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">calc_loss_batch</span><span class="p">(</span><span class="n">input_batch</span><span class="p">,</span> <span class="n">target_batch</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">input_batch</span> <span class="o">=</span> <span class="n">input_batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">target_batch</span> <span class="o">=</span> <span class="n">target_batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_batch</span><span class="p">)[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">target_batch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">loss</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Same as in chapter 5</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">calc_loss_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_batches</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">total_loss</span> <span class="o">=</span> <span class="mf">0.</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_loader</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&#34;nan&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">num_batches</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">num_batches</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_loader</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># Reduce the number of batches to match the total number of batches in the data loader</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># if num_batches exceeds the number of batches in the data loader</span>
+</span></span><span class="line"><span class="cl">        <span class="n">num_batches</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">num_batches</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_loader</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">input_batch</span><span class="p">,</span> <span class="n">target_batch</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_loader</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_batches</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">loss</span> <span class="o">=</span> <span class="n">calc_loss_batch</span><span class="p">(</span><span class="n">input_batch</span><span class="p">,</span> <span class="n">target_batch</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">total_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">total_loss</span> <span class="o">/</span> <span class="n">num_batches</span>
+</span></span></code></pre></div><p>然后是训练函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Same as chapter 5</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">evaluate_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">eval_iter</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="n">train_loss</span> <span class="o">=</span> <span class="n">calc_loss_loader</span><span class="p">(</span><span class="n">train_loader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_batches</span><span class="o">=</span><span class="n">eval_iter</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">val_loss</span> <span class="o">=</span> <span class="n">calc_loss_loader</span><span class="p">(</span><span class="n">val_loader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_batches</span><span class="o">=</span><span class="n">eval_iter</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">train_loss</span><span class="p">,</span> <span class="n">val_loss</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Overall the same as `train_model_simple` in chapter 5</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">train_classifier_simple</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">eval_freq</span><span class="p">,</span> <span class="n">eval_iter</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Initialize lists to track losses and examples seen</span>
+</span></span><span class="line"><span class="cl">    <span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span><span class="p">,</span> <span class="n">train_accs</span><span class="p">,</span> <span class="n">val_accs</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">examples_seen</span><span class="p">,</span> <span class="n">global_step</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Main training loop</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>  <span class="c1"># Set model to training mode</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">input_batch</span><span class="p">,</span> <span class="n">target_batch</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span> <span class="c1"># Reset loss gradients from previous batch iteration</span>
+</span></span><span class="line"><span class="cl">            <span class="n">loss</span> <span class="o">=</span> <span class="n">calc_loss_batch</span><span class="p">(</span><span class="n">input_batch</span><span class="p">,</span> <span class="n">target_batch</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span> <span class="c1"># Calculate loss gradients</span>
+</span></span><span class="line"><span class="cl">            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span> <span class="c1"># Update model weights using loss gradients</span>
+</span></span><span class="line"><span class="cl">            <span class="n">examples_seen</span> <span class="o">+=</span> <span class="n">input_batch</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># New: track examples instead of tokens</span>
+</span></span><span class="line"><span class="cl">            <span class="n">global_step</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># Optional evaluation step</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">global_step</span> <span class="o">%</span> <span class="n">eval_freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">train_loss</span><span class="p">,</span> <span class="n">val_loss</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">model</span><span class="p">,</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">eval_iter</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">train_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">train_loss</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">val_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Ep </span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> (Step </span><span class="si">{</span><span class="n">global_step</span><span class="si">:</span><span class="s2">06d</span><span class="si">}</span><span class="s2">): &#34;</span>
+</span></span><span class="line"><span class="cl">                      <span class="sa">f</span><span class="s2">&#34;Train loss </span><span class="si">{</span><span class="n">train_loss</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, Val loss </span><span class="si">{</span><span class="n">val_loss</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Calculate accuracy after each epoch</span>
+</span></span><span class="line"><span class="cl">        <span class="n">train_accuracy</span> <span class="o">=</span> <span class="n">calc_accuracy_loader</span><span class="p">(</span><span class="n">train_loader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_batches</span><span class="o">=</span><span class="n">eval_iter</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">val_accuracy</span> <span class="o">=</span> <span class="n">calc_accuracy_loader</span><span class="p">(</span><span class="n">val_loader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_batches</span><span class="o">=</span><span class="n">eval_iter</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Training accuracy: </span><span class="si">{</span><span class="n">train_accuracy</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">% | &#34;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Validation accuracy: </span><span class="si">{</span><span class="n">val_accuracy</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">train_accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">train_accuracy</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">val_accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val_accuracy</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span><span class="p">,</span> <span class="n">train_accs</span><span class="p">,</span> <span class="n">val_accs</span><span class="p">,</span> <span class="n">examples_seen</span>
+</span></span></code></pre></div><p>基本都和第五章一样。</p>
+<h3 id="17-fine-tuning-the-model-on-supervised-data">
+<a class="header-anchor" href="#17-fine-tuning-the-model-on-supervised-data"></a>
+1.7 Fine-tuning the model on supervised data
+</h3><p>然后就是训练：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">AdamW</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">5e-5</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span><span class="p">,</span> <span class="n">train_accs</span><span class="p">,</span> <span class="n">val_accs</span><span class="p">,</span> <span class="n">examples_seen</span> <span class="o">=</span> \
+</span></span><span class="line"><span class="cl">    <span class="n">train_classifier_simple</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">model</span><span class="p">,</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">num_epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">eval_freq</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">eval_iter</span><span class="o">=</span><span class="mi">5</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">execution_time_minutes</span> <span class="o">=</span> <span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">/</span> <span class="mi">60</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Training completed in </span><span class="si">{</span><span class="n">execution_time_minutes</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> minutes.&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Ep</span> <span class="mi">1</span> <span class="p">(</span><span class="n">Step</span> <span class="mi">000000</span><span class="p">):</span> <span class="n">Train</span> <span class="n">loss</span> <span class="mf">2.153</span><span class="p">,</span> <span class="n">Val</span> <span class="n">loss</span> <span class="mf">2.392</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ep</span> <span class="mi">1</span> <span class="p">(</span><span class="n">Step</span> <span class="mi">000050</span><span class="p">):</span> <span class="n">Train</span> <span class="n">loss</span> <span class="mf">0.617</span><span class="p">,</span> <span class="n">Val</span> <span class="n">loss</span> <span class="mf">0.637</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ep</span> <span class="mi">1</span> <span class="p">(</span><span class="n">Step</span> <span class="mi">000100</span><span class="p">):</span> <span class="n">Train</span> <span class="n">loss</span> <span class="mf">0.523</span><span class="p">,</span> <span class="n">Val</span> <span class="n">loss</span> <span class="mf">0.557</span>
+</span></span><span class="line"><span class="cl"><span class="n">Training</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">70.00</span><span class="o">%</span> <span class="o">|</span> <span class="n">Validation</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">72.50</span><span class="o">%</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ep</span> <span class="mi">2</span> <span class="p">(</span><span class="n">Step</span> <span class="mi">000150</span><span class="p">):</span> <span class="n">Train</span> <span class="n">loss</span> <span class="mf">0.561</span><span class="p">,</span> <span class="n">Val</span> <span class="n">loss</span> <span class="mf">0.489</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ep</span> <span class="mi">2</span> <span class="p">(</span><span class="n">Step</span> <span class="mi">000200</span><span class="p">):</span> <span class="n">Train</span> <span class="n">loss</span> <span class="mf">0.419</span><span class="p">,</span> <span class="n">Val</span> <span class="n">loss</span> <span class="mf">0.397</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ep</span> <span class="mi">2</span> <span class="p">(</span><span class="n">Step</span> <span class="mi">000250</span><span class="p">):</span> <span class="n">Train</span> <span class="n">loss</span> <span class="mf">0.409</span><span class="p">,</span> <span class="n">Val</span> <span class="n">loss</span> <span class="mf">0.353</span>
+</span></span><span class="line"><span class="cl"><span class="n">Training</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">82.50</span><span class="o">%</span> <span class="o">|</span> <span class="n">Validation</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">85.00</span><span class="o">%</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ep</span> <span class="mi">3</span> <span class="p">(</span><span class="n">Step</span> <span class="mi">000300</span><span class="p">):</span> <span class="n">Train</span> <span class="n">loss</span> <span class="mf">0.333</span><span class="p">,</span> <span class="n">Val</span> <span class="n">loss</span> <span class="mf">0.320</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ep</span> <span class="mi">3</span> <span class="p">(</span><span class="n">Step</span> <span class="mi">000350</span><span class="p">):</span> <span class="n">Train</span> <span class="n">loss</span> <span class="mf">0.340</span><span class="p">,</span> <span class="n">Val</span> <span class="n">loss</span> <span class="mf">0.306</span>
+</span></span><span class="line"><span class="cl"><span class="n">Training</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">90.00</span><span class="o">%</span> <span class="o">|</span> <span class="n">Validation</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">90.00</span><span class="o">%</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ep</span> <span class="mi">4</span> <span class="p">(</span><span class="n">Step</span> <span class="mi">000400</span><span class="p">):</span> <span class="n">Train</span> <span class="n">loss</span> <span class="mf">0.136</span><span class="p">,</span> <span class="n">Val</span> <span class="n">loss</span> <span class="mf">0.200</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ep</span> <span class="mi">4</span> <span class="p">(</span><span class="n">Step</span> <span class="mi">000450</span><span class="p">):</span> <span class="n">Train</span> <span class="n">loss</span> <span class="mf">0.153</span><span class="p">,</span> <span class="n">Val</span> <span class="n">loss</span> <span class="mf">0.132</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ep</span> <span class="mi">4</span> <span class="p">(</span><span class="n">Step</span> <span class="mi">000500</span><span class="p">):</span> <span class="n">Train</span> <span class="n">loss</span> <span class="mf">0.222</span><span class="p">,</span> <span class="n">Val</span> <span class="n">loss</span> <span class="mf">0.137</span>
+</span></span><span class="line"><span class="cl"><span class="n">Training</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">100.00</span><span class="o">%</span> <span class="o">|</span> <span class="n">Validation</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">97.50</span><span class="o">%</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ep</span> <span class="mi">5</span> <span class="p">(</span><span class="n">Step</span> <span class="mi">000550</span><span class="p">):</span> <span class="n">Train</span> <span class="n">loss</span> <span class="mf">0.207</span><span class="p">,</span> <span class="n">Val</span> <span class="n">loss</span> <span class="mf">0.143</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ep</span> <span class="mi">5</span> <span class="p">(</span><span class="n">Step</span> <span class="mi">000600</span><span class="p">):</span> <span class="n">Train</span> <span class="n">loss</span> <span class="mf">0.083</span><span class="p">,</span> <span class="n">Val</span> <span class="n">loss</span> <span class="mf">0.074</span>
+</span></span><span class="line"><span class="cl"><span class="n">Training</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">100.00</span><span class="o">%</span> <span class="o">|</span> <span class="n">Validation</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">97.50</span><span class="o">%</span>
+</span></span><span class="line"><span class="cl"><span class="n">Training</span> <span class="n">completed</span> <span class="ow">in</span> <span class="mf">1.23</span> <span class="n">minutes</span><span class="o">.</span>
+</span></span></code></pre></div><blockquote>
+<p>用的破游戏本的3050Ti</p>
+</blockquote>
+<p>画个图可视化一下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">plot_values</span><span class="p">(</span><span class="n">epochs_seen</span><span class="p">,</span> <span class="n">examples_seen</span><span class="p">,</span> <span class="n">train_values</span><span class="p">,</span> <span class="n">val_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;loss&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Plot training and validation loss against epochs</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs_seen</span><span class="p">,</span> <span class="n">train_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&#34;Training </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs_seen</span><span class="p">,</span> <span class="n">val_values</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&#34;-.&#34;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&#34;Validation </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;Epochs&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">label</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Create a second x-axis for examples seen</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twiny</span><span class="p">()</span>  <span class="c1"># Create a second x-axis that shares the same y-axis</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">examples_seen</span><span class="p">,</span> <span class="n">train_values</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Invisible plot for aligning ticks</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;Examples seen&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># Adjust layout to make room</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">-plot.pdf&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">epochs_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_losses</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">examples_seen_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">examples_seen</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_losses</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plot_values</span><span class="p">(</span><span class="n">epochs_tensor</span><span class="p">,</span> <span class="n">examples_seen_tensor</span><span class="p">,</span> <span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span><span class="p">)</span>
+</span></span></code></pre></div><p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490395349_image.png" alt="image.png"></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">epochs_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_accs</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">examples_seen_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">examples_seen</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_accs</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plot_values</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">epochs_tensor</span><span class="p">,</span> <span class="n">examples_seen_tensor</span><span class="p">,</span> <span class="n">train_accs</span><span class="p">,</span> <span class="n">val_accs</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">label</span><span class="o">=</span><span class="s2">&#34;accuracy&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></div><p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490404646_image.png" alt="image.png"></p>
+<p>效果看起来还是比较好的。</p>
+<p>我们打印一下三个数据集的数据：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_accuracy</span> <span class="o">=</span> <span class="n">calc_accuracy_loader</span><span class="p">(</span><span class="n">train_loader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">val_accuracy</span> <span class="o">=</span> <span class="n">calc_accuracy_loader</span><span class="p">(</span><span class="n">val_loader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_accuracy</span> <span class="o">=</span> <span class="n">calc_accuracy_loader</span><span class="p">(</span><span class="n">test_loader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Training accuracy: </span><span class="si">{</span><span class="n">train_accuracy</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Validation accuracy: </span><span class="si">{</span><span class="n">val_accuracy</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Test accuracy: </span><span class="si">{</span><span class="n">test_accuracy</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="18-using-the-llm-as-a-spam-classifier">
+<a class="header-anchor" href="#18-using-the-llm-as-a-spam-classifier"></a>
+1.8 Using the LLM as a spam classifier
+</h3><p>写一个辅助函数，用于对文本进行垃圾分类：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">classify_review</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pad_token_id</span><span class="o">=</span><span class="mi">50256</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">input_ids</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">supported_context_length</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">pos_emb</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">input_ids</span> <span class="o">=</span> <span class="n">input_ids</span><span class="p">[:</span><span class="nb">min</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">max_length</span><span class="p">,</span> <span class="n">supported_context_length</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">input_ids</span> <span class="o">+=</span> <span class="p">[</span><span class="n">pad_token_id</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_length</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_ids</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">input_ids</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">)[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">predicted_label</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s2">&#34;spam&#34;</span> <span class="k">if</span> <span class="n">predicted_label</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&#34;not spam&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">text_1</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;You are a winner you have been specially&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34; selected to receive $1000 cash or a $2000 award.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">classify_review</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">text_1</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="n">train_dataset</span><span class="o">.</span><span class="n">max_length</span>
+</span></span><span class="line"><span class="cl"><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spam
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">text_2</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Hey, just wanted to check if we&#39;re still on&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34; for dinner tonight? Let me know!&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">classify_review</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">text_2</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="n">train_dataset</span><span class="o">.</span><span class="n">max_length</span>
+</span></span><span class="line"><span class="cl"><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">not spam
+</span></span></code></pre></div><p>效果还不错。</p>
+<p>然后保存权重：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s2">&#34;review_classifier.pth&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>方便以后加载：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">model_state_dict</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&#34;review_classifier.pth&#34;</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">model_state_dict</span><span class="p">)</span>
+</span></span></code></pre></div></div>
+    <footer class="article-footer"><div class="sponsor-wrapper">
+  <div class="sponsor-button"><div class="sponsor-icon rotate"></div><div class="sponsor-title">赞助</div><div class="sponsor-icon rotate"></div></div><div class="sponsor-tip">Buy me a coffee</div><div class="sponsor-qr"><div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/alipay.jpg" alt="支付宝" width="200" />
+          <p class="sponsor-qr-name">支付宝</p>
+        </div><div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/wechat.jpg" alt="微信" width="200" />
+          <p class="sponsor-qr-name">微信</p>
+        </div></div></div><div class="share-wrapper"><a href="https://service.weibo.com/share/share.php?url=http://localhost:1313/post/llms-from-scratch/fine-tuning-for-classification/&amp;appkey=&amp;title=Fine%20Tuning%20for%20Classification&amp;pic=&amp;ralateUid=" target="_blank" rel="noopener noreferrer" title="Fine Tuning for Classification">
+      <div class="share-icon icon icon-weibo"></div>
+    </a><a href="https://connect.qq.com/widget/shareqq/index.html?url=http://localhost:1313/post/llms-from-scratch/fine-tuning-for-classification/&amp;title=Fine%20Tuning%20for%20Classification&amp;desc=%0a&amp;lt;!--more--&amp;gt;%0a%0a%0a%0a##%20%e9%9b%b6%e3%80%81%e5%86%99%e5%9c%a8%e5%89%8d%e9%9d%a2%0a%0a%e8%bf%99%e4%b8%80%e7%ab%a0%e4%b8%bb%e8%a6%81%e8%ae%b2%e4%ba%86%e4%b8%8b%e5%a6%82%e4%bd%95%e5%af%b9llm%e8%bf%9b%e8%a1%8c%e5%be%ae%e8%b0%83%e3%80%82%0a%0a%e6%9c%ac%e7%ab%a0%e4%bb%a3%e7%a0%81%ef%bc%9a[ch06]%28https://github.com/Equinox-2003/LLMs-from-scratch-Practice/tree/main/ch06%29%0a%0a%0a%0a##%20%e4%b8%80%e3%80%81Fine-tuning%20for%20classification%0a%0a###%201.1%20Different%20categories%20of%20fine-tuning%0a%0a%e5%af%b9%e8%af%ad%e8%a8%80%e6%a8%a1%e5%9e%8b%e6%9c%80%e5%b8%b8%e7%94%a8%e7%9a%84%e5%be%ae%e8%b0%83%e6%96%b9%e5%bc%8f%e6%9c%89%20**instruction%20fine-tuning**%20%e4%bb%a5%e5%8f%8a%20**classification%20fine-tuning**%e3%80%82%20%e2%80%a6&amp;source=http://localhost:1313/" target="_blank" rel="noopener noreferrer" title="Fine Tuning for Classification">
+      <div class="share-icon icon icon-qq"></div>
+    </a><a href="javascript:;"  title="Fine Tuning for Classification">
+      <div class="share-icon icon icon-weixin"><div id="share-weixin">
+            <div class="share-weixin-dom">
+              <div class="share-weixin-content">
+                <img id="share-weixin-banner"> 
+                <div id="share-weixin-title"></div>
+                <div id="share-weixin-desc"></div>
+              </div>
+              <div class="share-weixin-qrcode">
+                <div class="share-weixin-info">
+                  <div id="share-weixin-author"></div>
+                  <div id="share-weixin-theme">Powered By hugo-theme-reimu</div>
+                </div>
+                <img id="share-weixin-qr" >
+              </div>
+            </div>
+            <div class="share-weixin-canvas"></div>
+          </div></div>
+    </a></div><ul class="article-category-list"><li class="article-tag-list-item" data-aos="zoom-in">
+    <a
+      class="article-category-link"
+      href="/categories/llms-from-scratch"
+      data-aos="zoom-in"
+      >LLMs-from-scratch</a
+    >
+    </li></ul>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/llm"
+        rel="tag"
+        >LLM</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    aria-label="Article navigation"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg4.webp"
+              data-sizes="auto"
+              alt="Pretraining on Unlabeled Data"
+              class="lazyload"
+            /><a
+          href="/post/llms-from-scratch/pretraining-on-unlabeled-data/"
+          aria-label="前一篇:Pretraining on Unlabeled Data"
+          title="前一篇:Pretraining on Unlabeled Data"
+        ></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Pretraining on Unlabeled Data</h3>
+      </div><div class="article-nav-link-wrap right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg16.webp"
+              data-sizes="auto"
+              alt="Fine Tuning to Follow Instructions"
+              class="lazyload"
+            /><a
+          href="/post/llms-from-scratch/fine-tuning-to-follow-instructions/"
+          aria-label="后一篇:Fine Tuning to Follow Instructions"
+          title="后一篇:Fine Tuning to Follow Instructions"
+        ></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">Fine Tuning to Follow Instructions</h3>
+      </div></nav></article><section id="comments" data-aos="fade-up">
+<div class="comment-header"><h2 class="comment-title">Leave a comment</h2>
+  <div class="comment-selector">
+    <div class="comment-selector-wrap"><div class="selector-item" data-selector="giscus">
+          <span>giscus</span>
+        </div></div>
+  </div>
+</div>
+
+<div class="comment-content"><div class="comment giscus-comment" data-aos="fade-up"
+     >
+    </div></div>
+</section></section>
+        </div><footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2006-2026<span class="footer-info-sep rotate"></span>Equinox
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Hugo</a
+        >&nbsp;Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;76.0k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;02:43</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#零写在前面">零、写在前面</a></li>
+        <li><a href="#一fine-tuning-for-classification">一、Fine-tuning for classification</a>
+          <ul>
+            <li><a href="#11-different-categories-of-fine-tuning">1.1 Different categories of fine-tuning</a></li>
+            <li><a href="#12-准备数据集">1.2 准备数据集</a></li>
+            <li><a href="#13-creating-data-loaders">1.3 Creating data loaders</a></li>
+            <li><a href="#14-用预训练权重初始化模型">1.4 用预训练权重初始化模型</a></li>
+            <li><a href="#15-增加分类头">1.5 增加分类头</a></li>
+            <li><a href="#16-classification-loss-and-accuracy">1.6 classification loss and accuracy</a></li>
+            <li><a href="#17-fine-tuning-the-model-on-supervised-data">1.7 Fine-tuning the model on supervised data</a></li>
+            <li><a href="#18-using-the-llm-as-a-spam-classifier">1.8 Using the LLM as a spam classifier</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="Equinox"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Equinox</div>
+  <div class="sidebar-description">记录学习过程...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">18</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">9</div>
+  </a>
+</div>
+<div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
+        <a
+          href="https://github.com/Equinox-2003"
+          itemprop="url"
+          target="_blank"
+          aria-label="github"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-bilibili sidebar-social-icon">
+        <a
+          href="https://space.bilibili.com/167350560"
+          itemprop="url"
+          target="_blank"
+          aria-label="bilibili"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-csdn sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://blog.csdn.net/EQUINOX1"
+          itemprop="url"
+          target="_blank"
+          aria-label="csdn"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-codeforces sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://codeforces.com/profile/_Equinox"
+          itemprop="url"
+          target="_blank"
+          aria-label="codeforces"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/anime"
+        aria-label="番剧"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
+    </div></div></div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js"  ></script><script src="/js/aos.js"  ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" data-pjax ></script><script>
+  var setupFirework = () => {
+    if (! false  || !window.matchMedia('(max-width: 768px)').matches) {
+      if (window.firework) {
+        const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+        options.excludeElements = options.excludeelements;
+        delete options.excludeelements;
+        window.firework(options);
+      }
+    }
+  }
+</script><script
+    src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js"
+    defer
+    
+    
+    onload="setupFirework()"
+    integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8&#43;pUoWX8n1rgq282T" crossorigin="anonymous"></script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "Equinox",
+          title: "Fine Tuning for Classification",
+          url: "http:\/\/localhost:1313\/post\/llms-from-scratch\/fine-tuning-for-classification\/",
+          description: "\n\u0026lt;!--more--\u0026gt;\n\n\n\n## 零、写在前面\n\n这一章主要讲了下如何对llm进行微调。\n\n本章代码：[ch06](https:\/\/github.com\/Equinox-2003\/LLMs-from-scratch-Practice\/tree\/main\/ch06)\n\n\n\n## 一、Fine-tuning for classification\n\n### 1.1 Different categories of fine-tuning\n\n对语言模型最常用的微调方式有 **instruction fine-tuning** 以及 **classification fine-tuning**。 …",
+          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" data-pjax ></script><script src="/js/tabs.js" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
+          if (_$$(`${gallery} ${children}`).length > 0) {
+            new PhotoSwipeLightbox({
+              gallery,
+              children,pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+        }
+        const pswp = () => {
+          initPswp('.article-entry', 'a.article-gallery-item');
+          initPswp('.article-gallery', 'a.article-gallery-item');
+        }
+        pswp()
+      </script><script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+  var commentConfigKeys = ['valine', 'waline', 'twikoo', 'gitalk', 'giscus', 'utterances', 'beaudar', 'disqus'];
+  var commentConfig = {giscus: {
+      enable: true,
+      load: async () => {
+        const container = document.querySelector('.giscus-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const existingScript = container.querySelector('script[src*="giscus.app/client.js"]');
+        if (existingScript) existingScript.remove();
+        const existingFrame = document.querySelector('iframe.giscus-frame');
+        if (existingFrame) existingFrame.remove();
+
+        const giscusScript = document.createElement('script');
+        const domMode = document.documentElement.getAttribute("data-theme");
+        const defaultTheme = { dark: 'dark', light: 'light' };
+        const customTheme = {
+          light: '' ? '' : new URL('\/css\/giscus_reimu_light.css', window.location.origin).href,
+          dark: '' ? '' : new URL('\/css\/giscus_reimu_dark.css', window.location.origin).href
+        };
+        const hasGiscusCorsHeader = async (url) => {
+          if (!url) return false;
+          if (!url.startsWith('http')) return true;
+          try {
+            let response = await fetch(url, { method: 'HEAD', cache: 'no-store' });
+            if (response.status === 405) {
+              response = await fetch(url, { method: 'GET', cache: 'no-store' });
+            }
+            const allowOrigin = response.headers.get('access-control-allow-origin') || '';
+            return allowOrigin === '*' || allowOrigin.split(',').map(value => value.trim()).includes('https://giscus.app');
+          } catch {
+            return false;
+          }
+        };
+        let giscusTheme = defaultTheme;
+        const [darkCorsOk, lightCorsOk] = await Promise.all([
+          hasGiscusCorsHeader(customTheme.dark),
+          hasGiscusCorsHeader(customTheme.light)
+        ]);
+        if (darkCorsOk && lightCorsOk) {
+          giscusTheme = customTheme;
+        }
+
+        const docLang = document.documentElement.lang || 'en';
+        const langBase = docLang.split('-')[0];
+        const supportedLangs = ['ar', 'be', 'bg', 'ca', 'cs', 'da', 'de', 'en',
+        'eo', 'es', 'eu', 'fa', 'fr', 'gr', 'hbs', 'he', 'hu', 'id', 'it', 'ja',
+        'kh', 'ko', 'nl', 'pl', 'pt', 'ro', 'ru', 'th', 'tr', 'uk', 'uz', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'];
+        const giscusLang = supportedLangs.includes(docLang) ? docLang : supportedLangs.includes(langBase) ? langBase : 'en';
+
+        giscusScript.src = 'https://giscus.app/client.js';
+        giscusScript.setAttribute('data-repo', 'Equinox-2003\/Equinox-Blog');
+        giscusScript.setAttribute('data-repo-id', 'R_kgDOSNpg_Q');
+        giscusScript.setAttribute('data-category', 'Announcements');
+        giscusScript.setAttribute('data-category-id', 'DIC_kwDOSNpg_c4C7zKB');
+        giscusScript.setAttribute('data-mapping', 'pathname');
+        giscusScript.setAttribute('data-strict', '0');
+        giscusScript.setAttribute('data-reactions-enabled', '1');
+        giscusScript.setAttribute('data-emit-metadata', '0');
+        giscusScript.setAttribute('data-input-position', 'top');
+        giscusScript.setAttribute('data-theme', domMode === 'dark' ? giscusTheme.dark : giscusTheme.light);
+        giscusScript.setAttribute('data-lang', giscusLang);
+        giscusScript.setAttribute('crossorigin', 'anonymous');
+        giscusScript.async = true;
+        container.appendChild(giscusScript);
+         const themeHandler = (e) => {
+          const isDark = e.detail.isDark;
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe || !iframe.contentWindow) {
+            document.body.removeEventListener('reimu:theme-set', themeHandler);
+            return;
+          }
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: isDark ? giscusTheme.dark : giscusTheme.light } } }, 'https://giscus.app');
+        };
+        document.body.addEventListener('reimu:theme-set', themeHandler);
+      }
+    },};
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig?.[key]?.enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    var savedCommentType = localStorage.getItem('commentType');
+
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+
+    if (!defaultComment) {
+      var configDefault = 'giscus';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig?.[sys]?.enable) || '';
+    }
+  }
+
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false,
+      disqus: false,
+      utterances: false,
+      beaudar: false,
+    };
+
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      const commentType = item.getAttribute('data-selector');
+
+      hideAllComments();
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          changeActiveCommentItems(item);
+        });
+      }
+
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script><script
+    src="https://npm.webcache.cn/qrcode@1.5.1/build/qrcode.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-VT1EeewTCEXgndcPMQ0PzV&#43;uVFYjxFIjmAA7s5gcMX9t4Dt5TD&#43;OVQIn7NJWIXn7" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/@zumer/snapdom@1.9.14/dist/snapdom.min.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-OEQ&#43;fJp/Mvi2uzBREXybtxryJvLytWapuHu4EE6LPwTKUwATYcc55tPPcZTzVcmx" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-MWNUH0WmtsYGhn2cbH6ELRCbf9LG3QDqCC&#43;gqPB3IBNO35xjZK3Ejb6oONRpDbPg" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/contrib/auto-render.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv&#43;fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script><script data-pjax>
+          var renderMath = () => {
+            if (!window.renderMathInElement) return;
+            window.renderMathInElement(_$("article"), {
+              delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "\\[", right: "\\]", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+              ],
+            });
+          };
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", renderMath, { once: true });
+          } else {
+            renderMath();
+          }
+        </script></div>
+</div><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    
+    async
+    
+    
+    integrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>

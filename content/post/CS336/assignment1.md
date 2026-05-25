@@ -1246,13 +1246,24 @@ def run_softmax(in_features: Float[Tensor, " ..."], dim: int) -> Float[Tensor, "
 
 #### 2.4.2 Implement scaled dot-product attention (5 points)
 
-经典的**缩放点积注意力**公式：
+
+
+经典的 **缩放点积注意力** 公式：
+
+
 $$
-\text{Attention}(Q,K,V)
-=
-\text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 $$
+
+
+
+
+
+
+
+
 其中：
+
 $$
 Q \in \mathbb{R}^{n \times d_k}
 $$
@@ -1984,14 +1995,11 @@ def run_cross_entropy(
 从随机初始化的参数$\theta_0$开始，然后对于每一步：$t = 0,\dots,T-1$
 
 执行如下更新：
+
 $$
-\theta_{t+1}
-\leftarrow
-\theta_t
--
-\alpha_t
-\nabla L(\theta_t;B_t)
+\theta_{t+1} \leftarrow \theta_t - \alpha_t \nabla L( \theta_t; B_t)
 $$
+
 其中：
 
 -   $B_t$是从数据集 $D$ 中随机采样得到的一个batch；
@@ -2024,12 +2032,7 @@ PyTorch 优化器 API 有一些细节，所以用一个例子来解释会更容�
 
 为了让例子更丰富，我们将实现 SGD 的一个轻微变体：学习率会随着训练过程衰减。它从初始学习率 α 开始，然后随着时间推移，更新步长逐渐变小：
 $$
-\theta_{t+1}
-=
-\theta_t
--
-\frac{\alpha}{\sqrt{t+1}}
-\nabla L(\theta_t;B_t)
+\theta_{t+1} = \theta_t - \frac{\alpha}{\sqrt{t+1}} \nabla L(\theta_t;B_t)
 $$
 实现：
 
@@ -2538,9 +2541,7 @@ def run_load_checkpoint(
 
 首先，在 **temperature scaling** 中，我们使用一个温度参数 $\tau$ 来修改 softmax。新的 softmax 为：
 $$
-\text{softmax}(v,\tau)_i
-=
-\frac{\exp(v_i/\tau)}
+\text{softmax}(v,\tau)_i = \frac{\exp(v_i/\tau)}
 {\sum_{j=1}^{\text{vocab\_size}}\exp(v_j/\tau)}
 $$
 注意，当：
@@ -2559,8 +2560,7 @@ $$
 
 带有超参数 $p$ 的核采样会根据下面的公式产生下一个 token：
 $$
-P(x_{t+1}=i\mid q)
-=
+P(x_{t+1}=i\mid q) =
 \begin{cases}
 \frac{q_i}{\sum_{j\in V(p)}q_j}, & \text{if } i\in V(p) \\
 0, & \text{otherwise}

@@ -675,7 +675,6 @@ $$
 InfoNCE 公式：
 $$
  \mathcal{L}_q = - \log \frac{\exp(sim(q, k^+))}{\exp(sim(q, k^+)) + \sum_{i=1}^K \exp(sim(q, k^-_i))} 
-
 $$
 Softmax 它不仅要求正样本分数高，还**强制要求正样本分数必须比所有负样本的加和还要高得多**。
 

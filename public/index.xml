@@ -12,7 +12,7 @@
     
     <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
     
-    <lastBuildDate>Wed, 06 May 2026 14:17:41 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 20 May 2026 20:45:30 +0800</lastBuildDate>
     
     
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss&#43;xml" />
@@ -22,11 +22,171 @@
     
 
     <item>
+      <title>Assignment1</title>
+      <link>http://localhost:1313/post/cs336/assignment1/</link>
+      <pubDate>Wed, 20 May 2026 20:45:30 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/cs336/assignment1/</guid>
+      <description>
+        <![CDATA[<h1>Assignment1</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-20首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-20</p>]]>
+      </description>
+      
+        <category>CS336</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>NCE</title>
+      <link>http://localhost:1313/post/math/nce/</link>
+      <pubDate>Mon, 18 May 2026 20:34:13 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/math/nce/</guid>
+      <description>
+        <![CDATA[<h1>NCE</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-18首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-18</p>]]>
+      </description>
+      
+        <category>MatH</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>MoCo精读</title>
+      <link>http://localhost:1313/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/</link>
+      <pubDate>Sun, 17 May 2026 16:11:57 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/</guid>
+      <description>
+        <![CDATA[<h1>MoCo精读</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-17首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-17</p>]]>
+      </description>
+      
+        <category>paper-reading</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>MAE精读</title>
+      <link>http://localhost:1313/post/paper-reading/mae%E7%B2%BE%E8%AF%BB/</link>
+      <pubDate>Thu, 14 May 2026 11:34:47 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/paper-reading/mae%E7%B2%BE%E8%AF%BB/</guid>
+      <description>
+        <![CDATA[<h1>MAE精读</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-14首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-14</p>]]>
+      </description>
+      
+        <category>paper-reading</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>ViT精读</title>
+      <link>http://localhost:1313/post/paper-reading/vit%E7%B2%BE%E8%AF%BB/</link>
+      <pubDate>Wed, 13 May 2026 12:52:48 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/paper-reading/vit%E7%B2%BE%E8%AF%BB/</guid>
+      <description>
+        <![CDATA[<h1>ViT精读</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-13首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-13</p>]]>
+      </description>
+      
+        <category>paper-reading</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>个人图床搭建</title>
+      <link>http://localhost:1313/post/tech/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Mon, 11 May 2026 17:11:09 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/tech/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</guid>
+      <description>
+        <![CDATA[<h1>个人图床搭建</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-11首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-11</p>]]>
+      </description>
+      
+        <category>Tech</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Fine Tuning to Follow Instructions</title>
+      <link>http://localhost:1313/post/llms-from-scratch/fine-tuning-to-follow-instructions/</link>
+      <pubDate>Sat, 09 May 2026 15:31:28 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/llms-from-scratch/fine-tuning-to-follow-instructions/</guid>
+      <description>
+        <![CDATA[<h1>Fine Tuning to Follow Instructions</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-09首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-09</p>]]>
+      </description>
+      
+        <category>LLMs-from-scratch</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Fine Tuning for Classification</title>
+      <link>http://localhost:1313/post/llms-from-scratch/fine-tuning-for-classification/</link>
+      <pubDate>Fri, 08 May 2026 19:26:35 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/llms-from-scratch/fine-tuning-for-classification/</guid>
+      <description>
+        <![CDATA[<h1>Fine Tuning for Classification</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-08首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-08</p>]]>
+      </description>
+      
+        <category>LLMs-from-scratch</category>
+      
+    </item>
+    
+    
+
+    <item>
       <title>Pretraining on Unlabeled Data</title>
-      <link>http://localhost:1313/post/pretraining-on-unlabeled-data/</link>
+      <link>http://localhost:1313/post/llms-from-scratch/pretraining-on-unlabeled-data/</link>
       <pubDate>Wed, 06 May 2026 14:17:41 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/pretraining-on-unlabeled-data/</guid>
+      <guid>http://localhost:1313/post/llms-from-scratch/pretraining-on-unlabeled-data/</guid>
       <description>
         <![CDATA[<h1>Pretraining on Unlabeled Data</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
@@ -43,10 +203,10 @@
 
     <item>
       <title>Implementing a GPT Model From Scratch to Generate Text</title>
-      <link>http://localhost:1313/post/implementing-a-gpt-model-from-scratch-to-generate-text/</link>
+      <link>http://localhost:1313/post/llms-from-scratch/implementing-a-gpt-model-from-scratch-to-generate-text/</link>
       <pubDate>Mon, 04 May 2026 21:09:06 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/implementing-a-gpt-model-from-scratch-to-generate-text/</guid>
+      <guid>http://localhost:1313/post/llms-from-scratch/implementing-a-gpt-model-from-scratch-to-generate-text/</guid>
       <description>
         <![CDATA[<h1>Implementing a GPT Model From Scratch to Generate Text</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
@@ -56,192 +216,6 @@
       </description>
       
         <category>LLMs-from-scratch</category>
-      
-    </item>
-    
-    
-
-    <item>
-      <title>Coding Attention Mechanisms</title>
-      <link>http://localhost:1313/post/coding-attention-mechanisms/</link>
-      <pubDate>Mon, 04 May 2026 12:21:35 &#43;0800</pubDate>
-      <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/coding-attention-mechanisms/</guid>
-      <description>
-        <![CDATA[<h1>Coding Attention Mechanisms</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
-        
-          
-        
-        <hr><p>本文2026-05-04首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-04</p>]]>
-      </description>
-      
-        <category>LLMs-from-scratch</category>
-      
-    </item>
-    
-    
-
-    <item>
-      <title>Working With Text Data</title>
-      <link>http://localhost:1313/post/working-with-text-data/</link>
-      <pubDate>Sun, 03 May 2026 14:27:12 &#43;0800</pubDate>
-      <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/working-with-text-data/</guid>
-      <description>
-        <![CDATA[<h1>Working With Text Data</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
-        
-          
-        
-        <hr><p>本文2026-05-03首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-03</p>]]>
-      </description>
-      
-        <category>LLMs-from-scratch</category>
-      
-    </item>
-    
-    
-
-    <item>
-      <title>SVD</title>
-      <link>http://localhost:1313/post/svd/</link>
-      <pubDate>Fri, 01 May 2026 15:57:45 &#43;0800</pubDate>
-      <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/svd/</guid>
-      <description>
-        <![CDATA[<h1>SVD</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
-        
-          
-        
-        <hr><p>本文2026-05-01首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-01</p>]]>
-      </description>
-      
-        <category>Math</category>
-      
-    </item>
-    
-    
-
-    <item>
-      <title>Transformer</title>
-      <link>http://localhost:1313/post/transformer/</link>
-      <pubDate>Thu, 30 Apr 2026 13:08:53 &#43;0800</pubDate>
-      <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/transformer/</guid>
-      <description>
-        <![CDATA[<h1>Transformer</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
-        
-          
-        
-        <hr><p>本文2026-04-30首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-04-30</p>]]>
-      </description>
-      
-        <category>MachineLearning</category>
-      
-    </item>
-    
-    
-
-    <item>
-      <title>Word Embedding</title>
-      <link>http://localhost:1313/post/word-embedding/</link>
-      <pubDate>Tue, 28 Apr 2026 15:04:20 &#43;0800</pubDate>
-      <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/word-embedding/</guid>
-      <description>
-        <![CDATA[<h1>Word Embedding</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
-        
-          
-        
-        <hr><p>本文2026-04-28首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-04-28</p>]]>
-      </description>
-      
-        <category>MachineLearning</category>
-      
-    </item>
-    
-    
-
-    <item>
-      <title>注意力机制</title>
-      <link>http://localhost:1313/post/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/</link>
-      <pubDate>Tue, 28 Apr 2026 13:53:40 &#43;0800</pubDate>
-      <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/</guid>
-      <description>
-        <![CDATA[<h1>注意力机制</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
-        
-          
-        
-        <hr><p>本文2026-04-28首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-04-28</p>]]>
-      </description>
-      
-        <category>MachineLearning</category>
-      
-    </item>
-    
-    
-
-    <item>
-      <title>Test Post</title>
-      <link>http://localhost:1313/post/test-post/</link>
-      <pubDate>Mon, 27 Apr 2026 16:41:52 &#43;0800</pubDate>
-      <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/test-post/</guid>
-      <description>
-        <![CDATA[<h1>Test Post</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
-        
-          <h1 id="测试博客">
-<a class="header-anchor" href="#%e6%b5%8b%e8%af%95%e5%8d%9a%e5%ae%a2"></a>
-测试博客
-</h1><h2 id="代码段">
-<a class="header-anchor" href="#%e4%bb%a3%e7%a0%81%e6%ae%b5"></a>
-代码段
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hello world!&#39;</span><span class="p">)</span>
-</span></span></code></pre></div><h2 id="latex公式">
-<a class="header-anchor" href="#latex%e5%85%ac%e5%bc%8f"></a>
-LaTeX公式
-</h2>$$
-\phi(x) = x\prod_{i=1}^{k} (1 - \frac{1}{p_i})
-$$<h2 id="图片">
-<a class="header-anchor" href="#%e5%9b%be%e7%89%87"></a>
-图片
-</h2><p><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAETr-9p7zJbWnAbJHC5ukwAAXu1KoZM0T0AAkghAAKXznhXcfHASQbCKLE7BA.jpg" alt="BQACAgUAAyEGAASHRsPbAAETr-9p7zJbWnAbJHC5ukwAAXu1KoZM0T0AAkghAAKXznhXcfHASQbCKLE7BA.jpg"></p>
-<h1 id="h1">
-<a class="header-anchor" href="#h1"></a>
-H1
-</h1><h2 id="h2">
-<a class="header-anchor" href="#h2"></a>
-H2
-</h2><h3 id="h3">
-<a class="header-anchor" href="#h3"></a>
-H3
-</h3><h4 id="h4">
-<a class="header-anchor" href="#h4"></a>
-H4
-</h4>
-        
-        <hr><p>本文2026-04-27首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-04-27</p>]]>
-      </description>
-      
-        <category>Tech</category>
-      
-    </item>
-    
-    
-
-    <item>
-      <title>Hello World</title>
-      <link>http://localhost:1313/post/hello/</link>
-      <pubDate>Wed, 15 Mar 2023 11:00:00 -0700</pubDate>
-      <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/hello/</guid>
-      <description>
-        <![CDATA[<h1>Hello World</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
-        
-          <p>💘 博麗 霊夢 💘</p>
-        
-        <hr><p>本文2023-03-15首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2023-03-15</p>]]>
-      </description>
       
     </item>
     

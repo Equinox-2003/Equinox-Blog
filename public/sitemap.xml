@@ -2,58 +2,106 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/post/cs336/assignment1/</loc>
+    <lastmod>2026-05-20T20:45:30+08:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2026-05-06T14:17:41+08:00</lastmod>
+    <lastmod>2026-05-20T20:45:30+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/cs336/</loc>
+    <lastmod>2026-05-20T20:45:30+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/llm/</loc>
-    <lastmod>2026-05-06T14:17:41+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/llms-from-scratch/</loc>
-    <lastmod>2026-05-06T14:17:41+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/post/pretraining-on-unlabeled-data/</loc>
-    <lastmod>2026-05-06T14:17:41+08:00</lastmod>
+    <lastmod>2026-05-20T20:45:30+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2026-05-06T14:17:41+08:00</lastmod>
+    <lastmod>2026-05-20T20:45:30+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
+    <lastmod>2026-05-20T20:45:30+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/contrastive-learning/</loc>
+    <lastmod>2026-05-18T20:34:13+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/math/</loc>
+    <lastmod>2026-05-18T20:34:13+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/math/nce/</loc>
+    <lastmod>2026-05-18T20:34:13+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/cv/</loc>
+    <lastmod>2026-05-17T16:11:57+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/</loc>
+    <lastmod>2026-05-17T16:11:57+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/nlp/</loc>
+    <lastmod>2026-05-17T16:11:57+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/paper-reading/</loc>
+    <lastmod>2026-05-17T16:11:57+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/paper-reading/mae%E7%B2%BE%E8%AF%BB/</loc>
+    <lastmod>2026-05-14T11:34:47+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/multimodality/</loc>
+    <lastmod>2026-05-14T11:34:47+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/paper-reading/vit%E7%B2%BE%E8%AF%BB/</loc>
+    <lastmod>2026-05-13T12:52:48+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/tech/</loc>
+    <lastmod>2026-05-11T17:11:09+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/tools/</loc>
+    <lastmod>2026-05-11T17:11:09+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/tech/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2026-05-11T17:11:09+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/llms-from-scratch/fine-tuning-to-follow-instructions/</loc>
+    <lastmod>2026-05-09T15:31:28+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/llms-from-scratch/</loc>
+    <lastmod>2026-05-09T15:31:28+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/llms-from-scratch/fine-tuning-for-classification/</loc>
+    <lastmod>2026-05-08T19:26:35+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/llms-from-scratch/pretraining-on-unlabeled-data/</loc>
     <lastmod>2026-05-06T14:17:41+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/implementing-a-gpt-model-from-scratch-to-generate-text/</loc>
+    <loc>http://localhost:1313/post/llms-from-scratch/implementing-a-gpt-model-from-scratch-to-generate-text/</loc>
     <lastmod>2026-05-04T21:09:06+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/coding-attention-mechanisms/</loc>
+    <loc>http://localhost:1313/post/llms-from-scratch/coding-attention-mechanisms/</loc>
     <lastmod>2026-05-04T12:21:35+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/data/</loc>
     <lastmod>2026-05-03T14:27:12+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/working-with-text-data/</loc>
+    <loc>http://localhost:1313/post/llms-from-scratch/working-with-text-data/</loc>
     <lastmod>2026-05-03T14:27:12+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/linear-algebra/</loc>
     <lastmod>2026-05-01T15:57:45+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/math/</loc>
-    <lastmod>2026-05-01T15:57:45+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/post/svd/</loc>
+    <loc>http://localhost:1313/post/linear-algebra/svd/</loc>
     <lastmod>2026-05-01T15:57:45+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/machinelearning/</loc>
     <lastmod>2026-04-30T13:08:53+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/transformer/</loc>
+    <loc>http://localhost:1313/post/machinelearning/transformer/</loc>
     <lastmod>2026-04-30T13:08:53+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/unsuperviesed-learning/</loc>
     <lastmod>2026-04-28T15:04:20+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/word-embedding/</loc>
+    <loc>http://localhost:1313/post/machinelearning/word-embedding/</loc>
     <lastmod>2026-04-28T15:04:20+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/</loc>
+    <loc>http://localhost:1313/post/machinelearning/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/</loc>
     <lastmod>2026-04-28T13:53:40+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/archives/</loc>
@@ -65,10 +113,7 @@
     <loc>http://localhost:1313/friend/</loc>
     <lastmod>2026-04-27T18:10:52+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/tech/</loc>
-    <lastmod>2026-04-27T16:41:52+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/post/test-post/</loc>
+    <loc>http://localhost:1313/post/tech/test-post/</loc>
     <lastmod>2026-04-27T16:41:52+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/page/</loc>

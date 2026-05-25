@@ -12,7 +12,7 @@
     
     <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
     
-    <lastBuildDate>Wed, 06 May 2026 14:17:41 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 20 May 2026 20:45:30 +0800</lastBuildDate>
     
     
     <atom:link href="http://localhost:1313/tags/llm/index.xml" rel="self" type="application/rss&#43;xml" />
@@ -22,11 +22,71 @@
     
 
     <item>
+      <title>Assignment1</title>
+      <link>http://localhost:1313/post/cs336/assignment1/</link>
+      <pubDate>Wed, 20 May 2026 20:45:30 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/cs336/assignment1/</guid>
+      <description>
+        <![CDATA[<h1>Assignment1</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-20首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-20</p>]]>
+      </description>
+      
+        <category>CS336</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Fine Tuning to Follow Instructions</title>
+      <link>http://localhost:1313/post/llms-from-scratch/fine-tuning-to-follow-instructions/</link>
+      <pubDate>Sat, 09 May 2026 15:31:28 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/llms-from-scratch/fine-tuning-to-follow-instructions/</guid>
+      <description>
+        <![CDATA[<h1>Fine Tuning to Follow Instructions</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-09首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-09</p>]]>
+      </description>
+      
+        <category>LLMs-from-scratch</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Fine Tuning for Classification</title>
+      <link>http://localhost:1313/post/llms-from-scratch/fine-tuning-for-classification/</link>
+      <pubDate>Fri, 08 May 2026 19:26:35 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/llms-from-scratch/fine-tuning-for-classification/</guid>
+      <description>
+        <![CDATA[<h1>Fine Tuning for Classification</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-08首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-08</p>]]>
+      </description>
+      
+        <category>LLMs-from-scratch</category>
+      
+    </item>
+    
+    
+
+    <item>
       <title>Pretraining on Unlabeled Data</title>
-      <link>http://localhost:1313/post/pretraining-on-unlabeled-data/</link>
+      <link>http://localhost:1313/post/llms-from-scratch/pretraining-on-unlabeled-data/</link>
       <pubDate>Wed, 06 May 2026 14:17:41 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/pretraining-on-unlabeled-data/</guid>
+      <guid>http://localhost:1313/post/llms-from-scratch/pretraining-on-unlabeled-data/</guid>
       <description>
         <![CDATA[<h1>Pretraining on Unlabeled Data</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
@@ -43,10 +103,10 @@
 
     <item>
       <title>Implementing a GPT Model From Scratch to Generate Text</title>
-      <link>http://localhost:1313/post/implementing-a-gpt-model-from-scratch-to-generate-text/</link>
+      <link>http://localhost:1313/post/llms-from-scratch/implementing-a-gpt-model-from-scratch-to-generate-text/</link>
       <pubDate>Mon, 04 May 2026 21:09:06 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/implementing-a-gpt-model-from-scratch-to-generate-text/</guid>
+      <guid>http://localhost:1313/post/llms-from-scratch/implementing-a-gpt-model-from-scratch-to-generate-text/</guid>
       <description>
         <![CDATA[<h1>Implementing a GPT Model From Scratch to Generate Text</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
@@ -63,10 +123,10 @@
 
     <item>
       <title>Coding Attention Mechanisms</title>
-      <link>http://localhost:1313/post/coding-attention-mechanisms/</link>
+      <link>http://localhost:1313/post/llms-from-scratch/coding-attention-mechanisms/</link>
       <pubDate>Mon, 04 May 2026 12:21:35 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/coding-attention-mechanisms/</guid>
+      <guid>http://localhost:1313/post/llms-from-scratch/coding-attention-mechanisms/</guid>
       <description>
         <![CDATA[<h1>Coding Attention Mechanisms</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
@@ -83,10 +143,10 @@
 
     <item>
       <title>Working With Text Data</title>
-      <link>http://localhost:1313/post/working-with-text-data/</link>
+      <link>http://localhost:1313/post/llms-from-scratch/working-with-text-data/</link>
       <pubDate>Sun, 03 May 2026 14:27:12 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/working-with-text-data/</guid>
+      <guid>http://localhost:1313/post/llms-from-scratch/working-with-text-data/</guid>
       <description>
         <![CDATA[<h1>Working With Text Data</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
@@ -103,10 +163,10 @@
 
     <item>
       <title>Transformer</title>
-      <link>http://localhost:1313/post/transformer/</link>
+      <link>http://localhost:1313/post/machinelearning/transformer/</link>
       <pubDate>Thu, 30 Apr 2026 13:08:53 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/transformer/</guid>
+      <guid>http://localhost:1313/post/machinelearning/transformer/</guid>
       <description>
         <![CDATA[<h1>Transformer</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
@@ -123,10 +183,10 @@
 
     <item>
       <title>注意力机制</title>
-      <link>http://localhost:1313/post/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/</link>
+      <link>http://localhost:1313/post/machinelearning/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/</link>
       <pubDate>Tue, 28 Apr 2026 13:53:40 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/</guid>
+      <guid>http://localhost:1313/post/machinelearning/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/</guid>
       <description>
         <![CDATA[<h1>注意力机制</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         

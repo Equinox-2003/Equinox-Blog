@@ -1,0 +1,1082 @@
+<!doctype html>
+<html
+  lang="en-us" 
+  data-theme-mode="auto"
+  >
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  注意力机制 | Equinox
+</title>
+<meta name="description" content="记录学习过程..."/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":25},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_ex15nbittbh.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><link rel="stylesheet" href="/css/loader.css" /><meta property="og:type" content="website" />
+  <meta property="og:title" content="注意力机制 | Equinox" />
+  <meta
+    property="og:description"
+    content="记录学习过程..."
+  />
+  <meta property="og:url" content="http://localhost:1313/post/machinelearning/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/" />
+  <meta
+    property="og:site_name"
+    content="Welcome to my blog"
+  />
+  <meta property="og:image" content="http://localhost:1313/images/banner.webp" />
+  <meta property="article:author" content="Equinox" />
+  <meta property="article:published_time" content="2026-04-28T13:53:40&#43;08:00" />
+  <meta property="article:modified_time" content="2026-04-28T13:53:40&#43;08:00" /><meta property="article:tag" content="LLM" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="http://localhost:1313/images/banner.webp" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.css"
+    integrity="sha384-tTgKLjMYmJr94v8qu2PE5MUGSMbyN2xiH266JUB3gpm8vnnJywd1dWSOEfrFz&#43;YI" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg></div><div class="loading-word">Loading...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script><div id="copy-tooltip"></div>
+<div id="lang-tooltip">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation"><a class="main-nav-link-wrap" href="/"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">首页</span>
+      </a><a class="main-nav-link-wrap" href="/archives"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">归档</span>
+      </a><a class="main-nav-link-wrap" href="/about"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">关于</span>
+      </a><a class="main-nav-link-wrap" href="/friend"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">友链</span>
+      </a><a class="main-nav-link-wrap" href="/anime"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">番剧</span>
+      </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
+<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="注意力机制"><div id="header-outer">
+    <div id="header-title"><span id="logo">
+            <h1 data-aos="slide-up">注意力机制</h1>
+          </span><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          aria-label="Page content"
+          class="sidebar-left"
+            ><aside id="sidebar" aria-label="Sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一自注意力机制">一、自注意力机制</a>
+          <ul>
+            <li><a href="#11-为什么需要注意力机制">1.1 为什么需要注意力机制</a></li>
+            <li><a href="#12-自注意力的运作原理">1.2 自注意力的运作原理</a></li>
+            <li><a href="#13-多头注意力">1.3 多头注意力</a></li>
+            <li><a href="#14-位置编码">1.4 位置编码</a></li>
+            <li><a href="#15-截断注意力">1.5 截断注意力</a></li>
+            <li><a href="#16-自注意力-vs-cnn">1.6 自注意力 vs CNN</a></li>
+            <li><a href="#17-自注意力-vs-rnn">1.7 自注意力 vs RNN</a></li>
+            <li><a href="#18-图结构上的自注意力">1.8 图结构上的自注意力</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="Equinox"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Equinox</div>
+  <div class="sidebar-description">记录学习过程...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">18</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">9</div>
+  </a>
+</div>
+<div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
+        <a
+          href="https://github.com/Equinox-2003"
+          itemprop="url"
+          target="_blank"
+          aria-label="github"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-bilibili sidebar-social-icon">
+        <a
+          href="https://space.bilibili.com/167350560"
+          itemprop="url"
+          target="_blank"
+          aria-label="bilibili"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-csdn sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://blog.csdn.net/EQUINOX1"
+          itemprop="url"
+          target="_blank"
+          aria-label="csdn"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-codeforces sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://codeforces.com/profile/_Equinox"
+          itemprop="url"
+          target="_blank"
+          aria-label="codeforces"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/anime"
+        aria-label="番剧"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
+    </div></div></div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main" aria-label="Main content"><article
+  class="h-entry article"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2026-04-28 13:53:40 &#43;0800 CST" itemprop="datePublished"
+      >2026-04-28</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2026-04-28</time
+    >
+  </span></div>
+</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h2 id="一自注意力机制">
+<a class="header-anchor" href="#%e4%b8%80%e8%87%aa%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6"></a>
+一、自注意力机制
+</h2><h3 id="11-为什么需要注意力机制">
+<a class="header-anchor" href="#11-%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6"></a>
+1.1 为什么需要注意力机制
+</h3><p>假如输入一句话：</p>
+<blockquote>
+<p>我昨天买了一本关于深度学习的书，它非常有意思。</p>
+</blockquote>
+<p>如果模型现在要理解“它”指代什么，它其实应该<strong>重点</strong>看前面的“书”，而不是<strong>平均</strong>看整句话。</p>
+<p>传统的 RNN/LSTM 虽然能处理序列，但有两个问题：</p>
+<ol>
+<li><strong>长距离依赖难学</strong>
+<ul>
+<li>前面的信息传到后面会逐渐衰减</li>
+</ul>
+</li>
+<li><strong>所有信息被压缩到一个固定长度表示中</strong>
+<ul>
+<li>容易丢失细节</li>
+</ul>
+</li>
+</ol>
+<p>注意力机制解决的核心思路是：<strong>在生成当前表示时，直接去“检索”输入序列中最相关的位置。</strong></p>
+<h3 id="12-自注意力的运作原理">
+<a class="header-anchor" href="#12-%e8%87%aa%e6%b3%a8%e6%84%8f%e5%8a%9b%e7%9a%84%e8%bf%90%e4%bd%9c%e5%8e%9f%e7%90%86"></a>
+1.2 自注意力的运作原理
+</h3><p>我们以一个输入和输出数量相同的情况，序列标注（sequence labeling）为例。</p>
+<p>序列标注要给序列里面的每一个向量一个标签。要怎么解决序列标注的问题呢？直觉的 想法就是使用<strong>全连接网络</strong>。</p>
+<p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778489972362_image.png" alt="image.png"></p>
+<p>比如我们要做词性标注，给机器一个句子：I saw a saw。</p>
+<p>对于全连接网络，两个saw完全一模一样，既然全连接网络输入同一个词汇，它没有理由输出不同的东西。</p>
+<p>但实际上，我们期待第一个saw要输出动词，第二个saw要输出名词。</p>
+<p>有没有可能让全连接网络考虑更多的信息，比如上下文的信息呢？</p>
+<p>这是有可能的，把每个向量的前后几个向 量都“串”起来，一起输入到全连接网络就可以了。</p>
+<p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778489995903_image.png" alt="image.png"></p>
+<p>这就引入另一个问题，窗口开多大才好呢？有的时候窗口并不是越大越好，过大，不仅会运算量超大，而且容易过拟合。</p>
+<p>如果想要更好地考虑整个输入序列的信息，就要用到<strong>自注意力模型</strong>。</p>
+<p>运作方式如下：</p>
+<p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490011830_image.png" alt="image.png"></p>
+<p><strong>自注意力模型会“吃”整个序列的数据，输入几个向量，它就输出几个向量。</strong></p>
+<p>自注意力模型不是只能用一次，可以叠加很多次，自注意力模型的输出可以经过一些网络，然后接着做注意力机制。</p>
+<p>那么自注意力模型的输出是如何得到的呢？</p>
+<p>每一个输入都要有一个输出，而每一个输出，都是考虑了整个输入之后才生成出来的。</p>
+<p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490021399_image.png" alt="image.png"></p>
+<p>我们以$b^1$的产生的过程为例，其它的可以类推。</p>
+<p>首先我们要能够判断$a^1$和其它输入的关联程度$\alpha$，给两个向量 $a^1$ 跟 $a^4$ ，它怎么计算出一个数值α呢？我们需要一个计算注意力的模块。</p>
+<p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490038207_image.png" alt="image.png"></p>
+<p>一个常见的方式是<strong>点积（dot product）</strong>。</p>
+<p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490058538_image.png" alt="image.png"></p>
+<p>把输入的两个向量分别乘上两个不同的矩阵，左边这个向量乘上矩阵$W^q$，右边这个向量乘上矩阵$W^k$，得到两个向量 $q$ 跟 $k$，再把 $q$ 跟   $k$ 做点积，把它们做逐元素（element-wise）的相乘，再全部加起来以后就得到一个标量（scalar）α，这是一种计算 α 的方式。</p>
+<p>有另外一个叫做**相加（additive）**的计算方式，其计算方法就是把两个向量通过$W^q$、$W^k$得到$q$和$k$，但不是把它们做点积，而是把 $q$ 和$k$“串”起来“丢”到一个 tanh 函数，再乘上矩阵$W$得到α。总之，有非常多不同的方法可以计算注意力，可以计算关联程度α。但是在接下来的内容里面，我们都只用点积这个方法， 这也是目前最常用的方法，也是用在 <strong>Transformer</strong> 里面的方法</p>
+<p>接下来如何把它套用在自注意力模型里面呢？自注意力模型一般采用<strong>查询-键-值（Query-Key-Value，QKV）模式</strong>。分别计算 $a^1$ 与 $a^2$、$a^3$、$a^4$ 之间的关联性 α。</p>
+<p>把 $a^1$ 乘上$W^q$ 得到$q^1$。$q$ 称为查询（query），它就像是我们使用搜索引擎查找相关文章所使用的关键字，所以称之为<strong>查询</strong>。</p>
+<p>接下来把$a^2$、$a^3$、$a^4$ 乘上$W^k$ 得到向量$k$，向量$k$称为键（key）。把查询$q^1$ 跟键 $k^2$ 算内积（inner-product）就得到 $α_{1,2}$查询，即$q^1$和$k^2$之间的关联性，也被称为$a^1$和$a^2$的<strong>注意力分数</strong>。</p>
+<p>实践的时候，$a^1$也会跟自己算关联性，计算出$a^1$跟每个向量的关联性后，通常会对所有关联性做一个<strong>softmax</strong>。
+</p>
+$$
+\alpha'_{1,i}=exp(\alpha_{1,i})/\sum_{j}exp(\alpha_{1,j})
+$$<blockquote>
+<p>当然也不一定用softmax，也可以用ReLU之类的激活函数，有些时候结果比softmax还要好。</p>
+</blockquote>
+<p>接下来我们要根据关联性，即注意力的分数来抽取重要的信息。把向量$a^1$ 到$a^4$ 乘上$W^v$ 得到新的向量：$v^1$、$v^2$、$v^3$ 和$v^4$，接下来把每一个向量都去乘上注意力的分数$α^′$，再把它们加起来。
+</p>
+$$
+b^1 = \sum_{i}\alpha'_{1,i} v^i
+$$<p>
+每个输入都以此类推的得到各自输出，于是整个自注意力机制（以点积注意力为例）的过程就可以用矩阵运算来表示：
+</p>
+$$
+&Q = W^qI\\
+&K = W^kI\\
+&V = W^vI\\
+&A = K^TQ\\
+&A' = softmax(A)\\
+&O = VA'
+$$<p>
+不过实际当中，通常用的是<strong>Scaled Dot-Product Attention（缩放点积注意力）</strong>：
+</p>
+$$
+A' = softmax(\frac{K^TQ}{\sqrt{d_k}})
+$$<p>
+其中，$d_k$为向量维度，向量维度越大，点积的数值通常也会越大，导致：</p>
+<ul>
+<li>•某些值特别大</li>
+<li>softmax 输出过于尖锐</li>
+<li>梯度变小，不利于训练</li>
+</ul>
+<p>所以除以 $\sqrt{d_k}$ 是为了让数值更稳定。</p>
+<h3 id="13-多头注意力">
+<a class="header-anchor" href="#13-%e5%a4%9a%e5%a4%b4%e6%b3%a8%e6%84%8f%e5%8a%9b"></a>
+1.3 多头注意力
+</h3><p>如果只做一次注意力，模型等于只用一种方式理解关系。<br>
+但现实里，一个词和其他词的关系可能很多样：</p>
+<ul>
+<li>语法关系</li>
+<li>语义关系</li>
+<li>指代关系</li>
+<li>位置关系</li>
+</ul>
+<p><strong>与其只做一次注意力，不如并行做多次，每次学不同的关注模式。</strong></p>
+<p>这就是<strong>多头注意力</strong>。</p>
+<p>假设说我们有 h 个头，那么每个头都有各自的参数：
+</p>
+$$
+W_q^i,W_k^i，W_v^i
+$$<p>
+然后每个头分别计算
+</p>
+$$
+h_i' = softmax(\frac{K^T_iQ_i}{\sqrt{d_k}})V_i \\
+$$<p>
+然后把所有头拼接起来，再做输出：
+</p>
+$$
+O = W_oConcat(h1',h2',...,h_h')
+$$<h3 id="14-位置编码">
+<a class="header-anchor" href="#14-%e4%bd%8d%e7%bd%ae%e7%bc%96%e7%a0%81"></a>
+1.4 位置编码
+</h3><p>自注意力层少了一个也许很重要的信息，即<strong>位置的信息</strong>。</p>
+<p>对一个自注意力层而言，每一个输入是出现在序列的最前面还是最后面，它是完全没有这个信息的。</p>
+<p>因此做自注意力的时候，如果我们觉得位置的信息很重要，需要考虑位置信息时，就要用到<strong>位置编码（positional encoding）</strong>。</p>
+<p>位置编码为每一个位置设定一个向量，即<strong>位置向量（positional vector）</strong>。不同位置都有专属的位置向量$e^i$，把$e^i$加到对应输入上就结束了。</p>
+<p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1778490064058_image.png" alt="image.png"></p>
+<p>位置编码的生成方式有很多，最早的 &ldquo;AttentionIs All You Need&quot;中，就是用正余弦函数来生成位置编码。、</p>
+<p>假设输入表示 $\mathbf{X} \in \mathbb{R}^{n \times d}$ 包含一个序列中 $n$ 个词元的 $d$ 维嵌入表示。 位置编码使用相同形状的位置嵌入矩阵 $\mathbf{P} \in \mathbb{R}^{n \times d}$ 输出$\mathbf{X} + \mathbf{P}$， 矩阵第$i$行、第$2j$列和$2j+1$列上的元素为：
+</p>
+$$
+\begin{split}\begin{aligned} p_{i, 2j} &= \sin\left(\frac{i}{10000^{2j/d}}\right),\\p_{i, 2j+1} &= \cos\left(\frac{i}{10000^{2j/d}}\right).\end{aligned}\end{split}
+$$<blockquote>
+<p><strong>Q：为什么要通过正弦函数和余弦函数产生向量，有其他选择吗？为什么一定要这样产生手工的位置向量呢？</strong></p>
+<p>A：当然有其他选择，有专门的论文去讨论如何选择位置编码，这里简单聊一下正余弦函数生成位置编码的好处。</p>
+<ol>
+<li>相邻位置的表示要有连续变化，不是跳跃的，且不同位置尽量不同</li>
+<li>不同维度对应不同“频率”，有的维度变化很快：能区分局部位置差异；有的维度变化很慢：能表示更大尺度的位置趋势</li>
+<li>让模型容易学到“相对位置”，因为根据三角函数的加法公式，我们可以通过线性组合来得到某个偏移量的位置编码，那么模型更容易从绝对位置编码中推导出相对位置信息。</li>
+</ol>
+</blockquote>
+<h3 id="15-截断注意力">
+<a class="header-anchor" href="#15-%e6%88%aa%e6%96%ad%e6%b3%a8%e6%84%8f%e5%8a%9b"></a>
+1.5 截断注意力
+</h3><p>自注意力不是只能用在自然语言处理相关的应用上，它还可以用在很多其他的问题上。比如在做语音的时候，也可以用自注意力。不过将自注意力用于语音处理时，可以对自注意力做一些小小的改动。</p>
+<p>对于普通的注意力机制，如果序列长度是 ，那么：</p>
+<ul>
+<li>每个位置都要和其他 n 个位置算相关性</li>
+<li>会得到一个 $n \times n$ 的注意力矩阵</li>
+</ul>
+<p>这意味着复杂度大致是：</p>
+<p><strong>时间复杂度</strong>：$O(n^2)$</p>
+<p><strong>空间复杂度</strong>：$O(n^2)$</p>
+<p>**截断自注意力（truncated self-attention）**可以处理向量序列长度过大的问题。截断自注意力在做自注意力的时候不要看一整句话，就只看一个小的范围就好，这个范围是人设定的。在做语音识别的时候，如果要辨识某个位置有什么样的音标，这个位置有什么样的内容，并不需要看整句话，只要看这句话以及它前后一定范围之内的信息，就可以判断。在做自注意力的时候，也许没有必要让自注意力考虑一整个句子，只需要考虑一个小范围就好，这样就可以加快运算的速度。这就是截断自注意力。</p>
+<h3 id="16-自注意力-vs-cnn">
+<a class="header-anchor" href="#16-%e8%87%aa%e6%b3%a8%e6%84%8f%e5%8a%9b-vs-cnn"></a>
+1.6 自注意力 vs CNN
+</h3><p><strong>自注意力怎么看图像</strong></p>
+<p>如果对图像中的某个像素做 self-attention：</p>
+<ul>
+<li>这个像素会生成一个 query</li>
+<li>其他像素生成 key/value</li>
+<li>它会和整张图像的所有像素计算相关性</li>
+<li>最后综合整张图的信息</li>
+</ul>
+<p><strong>自注意力机制看全局</strong></p>
+<p>CNN 怎么看图像</p>
+<ul>
+<li>每个卷积核只看一个局部区域</li>
+<li>即所谓的<strong>感受野（receptive field）</strong></li>
+<li>只利用附近像素的信息</li>
+</ul>
+<p><strong>CNN看局部</strong></p>
+<p>CNN：</p>
+<ul>
+<li>感受野是人工设定的</li>
+<li>每个神经元只看固定局部范围</li>
+<li>哪些位置参与计算，是先验决定的</li>
+</ul>
+<p>Self-Attention：</p>
+<ul>
+<li>不需要手工规定感受野</li>
+<li>网络会自动学出该关注哪些位置</li>
+<li>关注范围和形状都是数据驱动学习出来的</li>
+</ul>
+<p>所以这段话的核心可以概括成：<strong>CNN 是固定局部连接，自注意力是可学习的动态连接。</strong></p>
+<p>CNN 其实是 Self-Attention 的特例，<strong>卷积神经网络可以看作是受限制的自注意力</strong>。</p>
+<p>Self-Attention 的表达能力更大、更灵活，如果给 Self-Attention 加上某些限制，它就可以表现得和卷积一样。</p>
+<p>通常情况下，CNN在小数据集上更强，一旦数据量多时，Self-Attention 更灵活，更能从海量数据中获益，最终可能超过 CNN。</p>
+<h3 id="17-自注意力-vs-rnn">
+<a class="header-anchor" href="#17-%e8%87%aa%e6%b3%a8%e6%84%8f%e5%8a%9b-vs-rnn"></a>
+1.7 自注意力 vs RNN
+</h3><ul>
+<li>
+<p>‌ <strong>二者都能处理序列</strong></p>
+<ul>
+<li>RNN 处理序列输入，Self-Attention 也处理序列输入</li>
+</ul>
+</li>
+<li>
+<p><strong>信息整合方式不同</strong></p>
+<ul>
+<li><strong>Self-Attention</strong> 每个位置的输出都可以直接看整个输入序列。即：每个 token 都能直接访问全局上下文。</li>
+<li>RNN 的信息则是沿时间链条逐步传播的。</li>
+</ul>
+</li>
+<li>
+<p><strong>长距离依赖上的差别</strong></p>
+<ul>
+<li>
+<p>RNN如果最后一个位置想利用第一个位置的信息：必须把这个信息一直存在 hidden state 里经过很多步传递中间容易衰减、遗忘</p>
+<p>所以：RNN 处理长距离依赖比较困难。</p>
+</li>
+<li>
+<p>Self-Attention 更容易建模长距离依赖。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>并行性差异</strong></p>
+<ul>
+<li>RNN：无法完全并行</li>
+<li>Self-Attention：更容易并行，训练和推理更高效。</li>
+</ul>
+</li>
+</ul>
+<h3 id="18-图结构上的自注意力">
+<a class="header-anchor" href="#18-%e5%9b%be%e7%bb%93%e6%9e%84%e4%b8%8a%e7%9a%84%e8%87%aa%e6%b3%a8%e6%84%8f%e5%8a%9b"></a>
+1.8 图结构上的自注意力
+</h3><p>如果输入不只是向量集合，而且还带有“图结构”，那么自注意力也能进一步利用图中的边信息。</p>
+<p>图里面除了节点向量，还有边：</p>
+<ul>
+<li><strong>有边，说明两个节点有关联</strong></li>
+<li><strong>没边，说明关系弱或者没有关系</strong></li>
+</ul>
+<p>既然图结构本身已经提供了先验知识，那么就没必要还让模型在所有节点间都学习关系。</p>
+<p>所以可以直接限制：<strong>只在有边连接的节点之间计算注意力。</strong></p>
+<p>这样就变成了<strong>图神经网络（GNN）</strong>
+比如：</p>
+<ul>
+<li>节点 1 只和 5、6、8 相连</li>
+<li>那么节点 1 只需要和 5、6、8 算注意力</li>
+<li>不相连的节点直接不算，权重设为 0</li>
+</ul>
+<p>这样做的本质就是：</p>
+<ul>
+<li>利用图结构限制注意力的连接范围</li>
+<li>只在邻居之间聚合信息</li>
+</ul></div>
+    <footer class="article-footer"><div class="sponsor-wrapper">
+  <div class="sponsor-button"><div class="sponsor-icon rotate"></div><div class="sponsor-title">赞助</div><div class="sponsor-icon rotate"></div></div><div class="sponsor-tip">Buy me a coffee</div><div class="sponsor-qr"><div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/alipay.jpg" alt="支付宝" width="200" />
+          <p class="sponsor-qr-name">支付宝</p>
+        </div><div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/wechat.jpg" alt="微信" width="200" />
+          <p class="sponsor-qr-name">微信</p>
+        </div></div></div><div class="share-wrapper"><a href="https://service.weibo.com/share/share.php?url=http://localhost:1313/post/machinelearning/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/&amp;appkey=&amp;title=%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6&amp;pic=&amp;ralateUid=" target="_blank" rel="noopener noreferrer" title="注意力机制">
+      <div class="share-icon icon icon-weibo"></div>
+    </a><a href="https://connect.qq.com/widget/shareqq/index.html?url=http://localhost:1313/post/machinelearning/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/&amp;title=%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6&amp;desc=%0a&amp;lt;!--more--&amp;gt;%0a%0a%0a%0a##%20%e4%b8%80%e3%80%81%e8%87%aa%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6%0a%0a###%201.1%20%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6%0a%0a%e5%81%87%e5%a6%82%e8%be%93%e5%85%a5%e4%b8%80%e5%8f%a5%e8%af%9d%ef%bc%9a%0a%0a&amp;gt;%20%20%20%e6%88%91%e6%98%a8%e5%a4%a9%e4%b9%b0%e4%ba%86%e4%b8%80%e6%9c%ac%e5%85%b3%e4%ba%8e%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e7%9a%84%e4%b9%a6%ef%bc%8c%e5%ae%83%e9%9d%9e%e5%b8%b8%e6%9c%89%e6%84%8f%e6%80%9d%e3%80%82%0a&amp;gt;%0a%0a%e5%a6%82%e6%9e%9c%e6%a8%a1%e5%9e%8b%e7%8e%b0%e5%9c%a8%e8%a6%81%e7%90%86%e8%a7%a3%e2%80%9c%e5%ae%83%e2%80%9d%e6%8c%87%e4%bb%a3%e4%bb%80%e4%b9%88%ef%bc%8c%e5%ae%83%e5%85%b6%e5%ae%9e%e5%ba%94%e8%af%a5**%e9%87%8d%e7%82%b9**%e7%9c%8b%e5%89%8d%e9%9d%a2%e7%9a%84%e2%80%9c%e4%b9%a6%e2%80%9d%ef%bc%8c%e8%80%8c%e4%b8%8d%e6%98%af**%e5%b9%b3%e5%9d%87**%e7%9c%8b%e6%95%b4%e5%8f%a5%e8%af%9d%e3%80%82%0a%0a%e4%bc%a0%e7%bb%9f%e7%9a%84%20RNN/LSTM%20%e8%99%bd%e7%84%b6%e8%83%bd%e5%a4%84%e7%90%86%e5%ba%8f%e5%88%97%ef%bc%8c%e4%bd%86%e6%9c%89%e4%b8%a4%e4%b8%aa%e9%97%ae%e9%a2%98%ef%bc%9a%0a%0a1.%20%20**%e9%95%bf%e8%b7%9d%e7%a6%bb%e4%be%9d%e8%b5%96%e9%9a%be%e5%ad%a6**%0a%20%20%20%20-%20%20%20%e5%89%8d%e9%9d%a2%e7%9a%84%e4%bf%a1%e6%81%af%e4%bc%a0%e5%88%b0%e5%90%8e%e9%9d%a2%e4%bc%9a%e9%80%90%e6%b8%90%e8%a1%b0%e5%87%8f%0a2.%20%20**%e6%89%80%e6%9c%89%e4%bf%a1%e6%81%af%e8%a2%ab%e5%8e%8b%e7%bc%a9%e5%88%b0%e4%b8%80%e4%b8%aa%e5%9b%ba%e5%ae%9a%e9%95%bf%e5%ba%a6%e8%a1%a8%e7%a4%ba%e4%b8%ad**%0a%20%20%20%20-%20%20%20%e5%ae%b9%e6%98%93%e4%b8%a2%e5%a4%b1%e7%bb%86%e8%8a%82%0a%0a%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6%e8%a7%a3%e5%86%b3%e7%9a%84%e6%a0%b8%e5%bf%83%e6%80%9d%e8%b7%af%e6%98%af%ef%bc%9a**%e5%9c%a8%e7%94%9f%e6%88%90%e5%bd%93%e5%89%8d%e8%a1%a8%e7%a4%ba%e6%97%b6%ef%bc%8c%e7%9b%b4%e6%8e%a5%e5%8e%bb%e2%80%9c%e6%a3%80%e7%b4%a2%e2%80%9d%e8%be%93%e5%85%a5%e5%ba%8f%e5%88%97%e4%b8%ad%e6%9c%80%e7%9b%b8%e5%85%b3%e7%9a%84%e4%bd%8d%e7%bd%ae%e3%80%82**%20%e2%80%a6&amp;source=http://localhost:1313/" target="_blank" rel="noopener noreferrer" title="注意力机制">
+      <div class="share-icon icon icon-qq"></div>
+    </a><a href="javascript:;"  title="注意力机制">
+      <div class="share-icon icon icon-weixin"><div id="share-weixin">
+            <div class="share-weixin-dom">
+              <div class="share-weixin-content">
+                <img id="share-weixin-banner"> 
+                <div id="share-weixin-title"></div>
+                <div id="share-weixin-desc"></div>
+              </div>
+              <div class="share-weixin-qrcode">
+                <div class="share-weixin-info">
+                  <div id="share-weixin-author"></div>
+                  <div id="share-weixin-theme">Powered By hugo-theme-reimu</div>
+                </div>
+                <img id="share-weixin-qr" >
+              </div>
+            </div>
+            <div class="share-weixin-canvas"></div>
+          </div></div>
+    </a></div><ul class="article-category-list"><li class="article-tag-list-item" data-aos="zoom-in">
+    <a
+      class="article-category-link"
+      href="/categories/machinelearning"
+      data-aos="zoom-in"
+      >MachineLearning</a
+    >
+    </li></ul>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/llm"
+        rel="tag"
+        >LLM</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    aria-label="Article navigation"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg10.webp"
+              data-sizes="auto"
+              alt="Test Post"
+              class="lazyload"
+            /><a
+          href="/post/tech/test-post/"
+          aria-label="前一篇:Test Post"
+          title="前一篇:Test Post"
+        ></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Test Post</h3>
+      </div><div class="article-nav-link-wrap right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg13.webp"
+              data-sizes="auto"
+              alt="Word Embedding"
+              class="lazyload"
+            /><a
+          href="/post/machinelearning/word-embedding/"
+          aria-label="后一篇:Word Embedding"
+          title="后一篇:Word Embedding"
+        ></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">Word Embedding</h3>
+      </div></nav></article><section id="comments" data-aos="fade-up">
+<div class="comment-header"><h2 class="comment-title">Leave a comment</h2>
+  <div class="comment-selector">
+    <div class="comment-selector-wrap"><div class="selector-item" data-selector="giscus">
+          <span>giscus</span>
+        </div></div>
+  </div>
+</div>
+
+<div class="comment-content"><div class="comment giscus-comment" data-aos="fade-up"
+     >
+    </div></div>
+</section></section>
+        </div><footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2006-2026<span class="footer-info-sep rotate"></span>Equinox
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Hugo</a
+        >&nbsp;Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;76.0k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;02:43</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一自注意力机制">一、自注意力机制</a>
+          <ul>
+            <li><a href="#11-为什么需要注意力机制">1.1 为什么需要注意力机制</a></li>
+            <li><a href="#12-自注意力的运作原理">1.2 自注意力的运作原理</a></li>
+            <li><a href="#13-多头注意力">1.3 多头注意力</a></li>
+            <li><a href="#14-位置编码">1.4 位置编码</a></li>
+            <li><a href="#15-截断注意力">1.5 截断注意力</a></li>
+            <li><a href="#16-自注意力-vs-cnn">1.6 自注意力 vs CNN</a></li>
+            <li><a href="#17-自注意力-vs-rnn">1.7 自注意力 vs RNN</a></li>
+            <li><a href="#18-图结构上的自注意力">1.8 图结构上的自注意力</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="Equinox"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Equinox</div>
+  <div class="sidebar-description">记录学习过程...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">18</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">9</div>
+  </a>
+</div>
+<div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
+        <a
+          href="https://github.com/Equinox-2003"
+          itemprop="url"
+          target="_blank"
+          aria-label="github"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-bilibili sidebar-social-icon">
+        <a
+          href="https://space.bilibili.com/167350560"
+          itemprop="url"
+          target="_blank"
+          aria-label="bilibili"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-csdn sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://blog.csdn.net/EQUINOX1"
+          itemprop="url"
+          target="_blank"
+          aria-label="csdn"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-codeforces sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://codeforces.com/profile/_Equinox"
+          itemprop="url"
+          target="_blank"
+          aria-label="codeforces"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/anime"
+        aria-label="番剧"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
+    </div></div></div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js"  ></script><script src="/js/aos.js"  ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" data-pjax ></script><script>
+  var setupFirework = () => {
+    if (! false  || !window.matchMedia('(max-width: 768px)').matches) {
+      if (window.firework) {
+        const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+        options.excludeElements = options.excludeelements;
+        delete options.excludeelements;
+        window.firework(options);
+      }
+    }
+  }
+</script><script
+    src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js"
+    defer
+    
+    
+    onload="setupFirework()"
+    integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8&#43;pUoWX8n1rgq282T" crossorigin="anonymous"></script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "Equinox",
+          title: "注意力机制",
+          url: "http:\/\/localhost:1313\/post\/machinelearning\/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6\/",
+          description: "\n\u0026lt;!--more--\u0026gt;\n\n\n\n## 一、自注意力机制\n\n### 1.1 为什么需要注意力机制\n\n假如输入一句话：\n\n\u0026gt;   我昨天买了一本关于深度学习的书，它非常有意思。\n\u0026gt;\n\n如果模型现在要理解“它”指代什么，它其实应该**重点**看前面的“书”，而不是**平均**看整句话。\n\n传统的 RNN\/LSTM 虽然能处理序列，但有两个问题：\n\n1.  **长距离依赖难学**\n    -   前面的信息传到后面会逐渐衰减\n2.  **所有信息被压缩到一个固定长度表示中**\n    -   容易丢失细节\n\n注意力机制解决的核心思路是：**在生成当前表示时，直接去“检索”输入序列中最相关的位置。** …",
+          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" data-pjax ></script><script src="/js/tabs.js" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
+          if (_$$(`${gallery} ${children}`).length > 0) {
+            new PhotoSwipeLightbox({
+              gallery,
+              children,pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+        }
+        const pswp = () => {
+          initPswp('.article-entry', 'a.article-gallery-item');
+          initPswp('.article-gallery', 'a.article-gallery-item');
+        }
+        pswp()
+      </script><script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+  var commentConfigKeys = ['valine', 'waline', 'twikoo', 'gitalk', 'giscus', 'utterances', 'beaudar', 'disqus'];
+  var commentConfig = {giscus: {
+      enable: true,
+      load: async () => {
+        const container = document.querySelector('.giscus-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const existingScript = container.querySelector('script[src*="giscus.app/client.js"]');
+        if (existingScript) existingScript.remove();
+        const existingFrame = document.querySelector('iframe.giscus-frame');
+        if (existingFrame) existingFrame.remove();
+
+        const giscusScript = document.createElement('script');
+        const domMode = document.documentElement.getAttribute("data-theme");
+        const defaultTheme = { dark: 'dark', light: 'light' };
+        const customTheme = {
+          light: '' ? '' : new URL('\/css\/giscus_reimu_light.css', window.location.origin).href,
+          dark: '' ? '' : new URL('\/css\/giscus_reimu_dark.css', window.location.origin).href
+        };
+        const hasGiscusCorsHeader = async (url) => {
+          if (!url) return false;
+          if (!url.startsWith('http')) return true;
+          try {
+            let response = await fetch(url, { method: 'HEAD', cache: 'no-store' });
+            if (response.status === 405) {
+              response = await fetch(url, { method: 'GET', cache: 'no-store' });
+            }
+            const allowOrigin = response.headers.get('access-control-allow-origin') || '';
+            return allowOrigin === '*' || allowOrigin.split(',').map(value => value.trim()).includes('https://giscus.app');
+          } catch {
+            return false;
+          }
+        };
+        let giscusTheme = defaultTheme;
+        const [darkCorsOk, lightCorsOk] = await Promise.all([
+          hasGiscusCorsHeader(customTheme.dark),
+          hasGiscusCorsHeader(customTheme.light)
+        ]);
+        if (darkCorsOk && lightCorsOk) {
+          giscusTheme = customTheme;
+        }
+
+        const docLang = document.documentElement.lang || 'en';
+        const langBase = docLang.split('-')[0];
+        const supportedLangs = ['ar', 'be', 'bg', 'ca', 'cs', 'da', 'de', 'en',
+        'eo', 'es', 'eu', 'fa', 'fr', 'gr', 'hbs', 'he', 'hu', 'id', 'it', 'ja',
+        'kh', 'ko', 'nl', 'pl', 'pt', 'ro', 'ru', 'th', 'tr', 'uk', 'uz', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'];
+        const giscusLang = supportedLangs.includes(docLang) ? docLang : supportedLangs.includes(langBase) ? langBase : 'en';
+
+        giscusScript.src = 'https://giscus.app/client.js';
+        giscusScript.setAttribute('data-repo', 'Equinox-2003\/Equinox-Blog');
+        giscusScript.setAttribute('data-repo-id', 'R_kgDOSNpg_Q');
+        giscusScript.setAttribute('data-category', 'Announcements');
+        giscusScript.setAttribute('data-category-id', 'DIC_kwDOSNpg_c4C7zKB');
+        giscusScript.setAttribute('data-mapping', 'pathname');
+        giscusScript.setAttribute('data-strict', '0');
+        giscusScript.setAttribute('data-reactions-enabled', '1');
+        giscusScript.setAttribute('data-emit-metadata', '0');
+        giscusScript.setAttribute('data-input-position', 'top');
+        giscusScript.setAttribute('data-theme', domMode === 'dark' ? giscusTheme.dark : giscusTheme.light);
+        giscusScript.setAttribute('data-lang', giscusLang);
+        giscusScript.setAttribute('crossorigin', 'anonymous');
+        giscusScript.async = true;
+        container.appendChild(giscusScript);
+         const themeHandler = (e) => {
+          const isDark = e.detail.isDark;
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe || !iframe.contentWindow) {
+            document.body.removeEventListener('reimu:theme-set', themeHandler);
+            return;
+          }
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: isDark ? giscusTheme.dark : giscusTheme.light } } }, 'https://giscus.app');
+        };
+        document.body.addEventListener('reimu:theme-set', themeHandler);
+      }
+    },};
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig?.[key]?.enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    var savedCommentType = localStorage.getItem('commentType');
+
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+
+    if (!defaultComment) {
+      var configDefault = 'giscus';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig?.[sys]?.enable) || '';
+    }
+  }
+
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false,
+      disqus: false,
+      utterances: false,
+      beaudar: false,
+    };
+
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      const commentType = item.getAttribute('data-selector');
+
+      hideAllComments();
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          changeActiveCommentItems(item);
+        });
+      }
+
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script><script
+    src="https://npm.webcache.cn/qrcode@1.5.1/build/qrcode.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-VT1EeewTCEXgndcPMQ0PzV&#43;uVFYjxFIjmAA7s5gcMX9t4Dt5TD&#43;OVQIn7NJWIXn7" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/@zumer/snapdom@1.9.14/dist/snapdom.min.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-OEQ&#43;fJp/Mvi2uzBREXybtxryJvLytWapuHu4EE6LPwTKUwATYcc55tPPcZTzVcmx" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-MWNUH0WmtsYGhn2cbH6ELRCbf9LG3QDqCC&#43;gqPB3IBNO35xjZK3Ejb6oONRpDbPg" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/contrib/auto-render.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv&#43;fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script><script data-pjax>
+          var renderMath = () => {
+            if (!window.renderMathInElement) return;
+            window.renderMathInElement(_$("article"), {
+              delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "\\[", right: "\\]", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+              ],
+            });
+          };
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", renderMath, { once: true });
+          } else {
+            renderMath();
+          }
+        </script></div>
+</div><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    
+    async
+    
+    
+    integrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>

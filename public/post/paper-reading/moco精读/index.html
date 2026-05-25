@@ -1,0 +1,2010 @@
+<!doctype html>
+<html
+  lang="en-us" 
+  data-theme-mode="auto"
+  >
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  MoCo精读 | Equinox
+</title>
+<meta name="description" content="记录学习过程..."/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":25},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_ex15nbittbh.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><link rel="stylesheet" href="/css/loader.css" /><meta property="og:type" content="website" />
+  <meta property="og:title" content="MoCo精读 | Equinox" />
+  <meta
+    property="og:description"
+    content="记录学习过程..."
+  />
+  <meta property="og:url" content="http://localhost:1313/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/" />
+  <meta
+    property="og:site_name"
+    content="Welcome to my blog"
+  />
+  <meta property="og:image" content="http://localhost:1313/images/banner.webp" />
+  <meta property="article:author" content="Equinox" />
+  <meta property="article:published_time" content="2026-05-17T16:11:57&#43;08:00" />
+  <meta property="article:modified_time" content="2026-05-17T16:11:57&#43;08:00" /><meta property="article:tag" content="Contrastive Learning, CV, NLP" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="http://localhost:1313/images/banner.webp" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.css"
+    integrity="sha384-tTgKLjMYmJr94v8qu2PE5MUGSMbyN2xiH266JUB3gpm8vnnJywd1dWSOEfrFz&#43;YI" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg></div><div class="loading-word">Loading...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script><div id="copy-tooltip"></div>
+<div id="lang-tooltip">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation"><a class="main-nav-link-wrap" href="/"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">首页</span>
+      </a><a class="main-nav-link-wrap" href="/archives"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">归档</span>
+      </a><a class="main-nav-link-wrap" href="/about"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">关于</span>
+      </a><a class="main-nav-link-wrap" href="/friend"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">友链</span>
+      </a><a class="main-nav-link-wrap" href="/anime"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">番剧</span>
+      </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
+<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="MoCo精读"><div id="header-outer">
+    <div id="header-title"><span id="logo">
+            <h1 data-aos="slide-up">MoCo精读</h1>
+          </span><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          aria-label="Page content"
+          class="sidebar-left"
+            ><aside id="sidebar" aria-label="Sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#零写在前面">零、写在前面</a></li>
+        <li><a href="#一题目和作者">一、题目和作者</a></li>
+        <li><a href="#二摘要">二、摘要</a></li>
+        <li><a href="#三引言">三、引言</a>
+          <ul>
+            <li><a href="#31-问题背景">3.1 问题背景</a></li>
+            <li><a href="#32-为什么-nlp-更容易做无监督学习">3.2 为什么 NLP 更容易做无监督学习？</a></li>
+            <li><a href="#33-对比学习统一理解为动态字典查询">3.3 对比学习统一理解为“动态字典查询”</a></li>
+            <li><a href="#34-moco-的基本结构">3.4 MoCo 的基本结构</a></li>
+            <li><a href="#35-好的字典需要-large--consistent">3.5 好的字典需要 large + consistent</a>
+              <ul>
+                <li><a href="#351-large-dictionary字典要大">3.5.1 Large dictionary：字典要大</a></li>
+                <li><a href="#352-consistent-dictionary字典要一致">3.5.2 Consistent dictionary：字典要一致</a></li>
+              </ul>
+            </li>
+            <li><a href="#36-现有方法的问题难以同时做到-large-和-consistent">3.6 现有方法的问题：难以同时做到 large 和 consistent</a></li>
+            <li><a href="#37-moco的解决方案queue--momentum-encoder">3.7 MoCo的解决方案：queue + momentum encoder</a></li>
+            <li><a href="#38-pretext-taskinstance-discrimination">3.8 pretext task：instance discrimination</a></li>
+            <li><a href="#39-实验目标不仅看-imagenet-分类更看迁移能力">3.9 实验目标：不仅看 ImageNet 分类，更看迁移能力</a></li>
+          </ul>
+        </li>
+        <li><a href="#四结论">四、结论</a></li>
+        <li><a href="#五相关工作">五、相关工作</a>
+          <ul>
+            <li><a href="#51-loss-functions损失函数相关工作">5.1 Loss functions：损失函数相关工作</a></li>
+            <li><a href="#52-对比学习为什么适合无监督表征学习">5.2 对比学习为什么适合无监督表征学习？</a></li>
+            <li><a href="#53-pretext-tasks代理任务相关工作">5.3 Pretext tasks：代理任务相关工作</a>
+              <ul>
+                <li><a href="#531-恢复被破坏的输入">5.3.1 恢复被破坏的输入</a></li>
+                <li><a href="#532-构造伪标签">5.3.2 构造伪标签</a></li>
+              </ul>
+            </li>
+            <li><a href="#54-contrastive-learning-和-pretext-task-的关系">5.4 Contrastive learning 和 pretext task 的关系</a></li>
+            <li><a href="#55-定位">5.5 定位</a></li>
+          </ul>
+        </li>
+        <li><a href="#六moco方法">六、MoCo方法</a>
+          <ul>
+            <li><a href="#61-contrastive-learning-as-dictionary-look-up">6.1 Contrastive Learning as Dictionary Look-up</a></li>
+            <li><a href="#62-infonce">6.2 InfoNCE</a>
+              <ul>
+                <li><a href="#621-infonce-vs-nce">6.2.1 InfoNCE vs NCE</a></li>
+              </ul>
+            </li>
+            <li><a href="#63-三种对比学习机制的比较">6.3 三种对比学习机制的比较</a>
+              <ul>
+                <li><a href="#631-end-to-end">6.3.1 End-to-End</a></li>
+                <li><a href="#632-memory-bank-机制">6.3.2 Memory bank 机制</a></li>
+                <li><a href="#633-moco-机制">6.3.3 MoCo 机制</a></li>
+              </ul>
+            </li>
+            <li><a href="#64-核心思想">6.4 核心思想</a></li>
+            <li><a href="#65-dictionary-as-a-queue">6.5 Dictionary as a Queue</a></li>
+          </ul>
+        </li>
+        <li><a href="#七实验">七、实验</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#71-预训练数据集设置">7.1 预训练数据集设置</a></li>
+                <li><a href="#72-训练设置">7.2 训练设置</a></li>
+                <li><a href="#73-linear-classification-protocol">7.3 Linear Classification Protocol</a></li>
+                <li><a href="#74-消融实验一对比三种-contrastive-loss-机制">7.4 消融实验一：对比三种 contrastive loss 机制</a></li>
+                <li><a href="#74-消融实验二动量系数-m-的影响">7.4 消融实验二：动量系数 m 的影响</a></li>
+                <li><a href="#75-与已有无监督方法比较">7.5 与已有无监督方法比较</a></li>
+                <li><a href="#76-下游任务迁移实验">7.6 下游任务迁移实验</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="Equinox"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Equinox</div>
+  <div class="sidebar-description">记录学习过程...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">18</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">9</div>
+  </a>
+</div>
+<div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
+        <a
+          href="https://github.com/Equinox-2003"
+          itemprop="url"
+          target="_blank"
+          aria-label="github"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-bilibili sidebar-social-icon">
+        <a
+          href="https://space.bilibili.com/167350560"
+          itemprop="url"
+          target="_blank"
+          aria-label="bilibili"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-csdn sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://blog.csdn.net/EQUINOX1"
+          itemprop="url"
+          target="_blank"
+          aria-label="csdn"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-codeforces sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://codeforces.com/profile/_Equinox"
+          itemprop="url"
+          target="_blank"
+          aria-label="codeforces"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/anime"
+        aria-label="番剧"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
+    </div></div></div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main" aria-label="Main content"><article
+  class="h-entry article"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2026-05-17 16:11:57 &#43;0800 CST" itemprop="datePublished"
+      >2026-05-17</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2026-05-17</time
+    >
+  </span></div>
+</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h2 id="零写在前面">
+<a class="header-anchor" href="#%e9%9b%b6%e5%86%99%e5%9c%a8%e5%89%8d%e9%9d%a2"></a>
+零、写在前面
+</h2><p>MoCo 的核心思想是：把对比学习看成一个“字典查询”问题，用一个队列维护大量负样本，并用一个动量更新的 key encoder 保证这些负样本特征的一致性，从而高效学习无监督视觉表征。</p>
+<p>感觉这个 idea 好难想到，可能因为没有了解过对比学习？</p>
+<h2 id="一题目和作者">
+<a class="header-anchor" href="#%e4%b8%80%e9%a2%98%e7%9b%ae%e5%92%8c%e4%bd%9c%e8%80%85"></a>
+一、题目和作者
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Momentum Contrast for Unsupervised Visual Representation Learning
+</span></span></code></pre></div><p>这个格式就是：XXX Method for XXX</p>
+<p>用动量对比学习的方式来做无监督的视觉表征学习。</p>
+<p><strong>Momentum Contrast</strong>简称<strong>MoCo</strong>。</p>
+<p>作者是 <strong>Kaiming He</strong>、Haoqi Fan、Yuxin Wu、Saining Xie、Ross Girshick，来自 Facebook AI Research，发表于 CVPR 2020。这篇论文是视觉自监督学习领域的里程碑之一，对后来的 MoCo v2、SimCLR、BYOL、DINO、MAE、CLIP 等工作都有重要影响。</p>
+<h2 id="二摘要">
+<a class="header-anchor" href="#%e4%ba%8c%e6%91%98%e8%a6%81"></a>
+二、摘要
+</h2><p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1779096301874_image.png" alt="image.png"></p>
+<p>摘要简单介绍了下MoCo。</p>
+<p>作者把<strong>对比学习</strong>当作一种<strong>字典查找</strong>。</p>
+<ul>
+<li>给模型一个 query，例如一张图像的某个增强版本；</li>
+<li>字典里有很多 key，也就是其他图像或图像增强版本的特征；</li>
+<li>模型要从字典中找到与 query 匹配的那个 key，让二者尽可能接近；</li>
+<li>同时把不匹配的 key 推远。</li>
+</ul>
+<p>模型学到的是：</p>
+<blockquote>
+<p><strong>同一图像的不同视图应该相似，不同图像应该不相似。</strong></p>
+</blockquote>
+<p>这个字典是如何构建的？</p>
+<blockquote>
+<p>“we build a dynamic dictionary with a queue and a moving-averaged encoder.”</p>
+</blockquote>
+<p>作者用两个机制构建动态字典：</p>
+<p><strong>1、Queue</strong></p>
+<p>队列用于保存大量历史 key。<strong>普通对比学习通常只能使用当前 mini-batch 里的样本作为负样本，负样本数量受 batch size 限制</strong>。MoCo 则维护一个队列：</p>
+<ul>
+<li>当前 batch 的 key 入队；</li>
+<li>最旧的 key 出队；</li>
+<li>队列中保存很多过去 batch 的 key。</li>
+</ul>
+<p>这样就能得到一个很大的负样本集合。</p>
+<p><strong>2、Moving-averaged encoder：移动平均编码器</strong></p>
+<p><strong>队列中保存的是历史 key，但如果编码器变化太快，不同时间产生的 key 可能不一致。</strong></p>
+<p>因此 MoCo 使用一个<strong>移动平均编码器</strong>，也就是前面说的 <strong>momentum encoder</strong>：
+</p>
+$$
+\theta_k \leftarrow m\theta_k + (1-m)\theta_q
+$$<p>
+缓慢地用query的编码器来更新key的编码器。</p>
+<p>摘要中写了这么做的好处：<strong>队列 + 移动平均编码器，使得模型可以在线构建一个既大又一致的字典。</strong></p>
+<ul>
+<li>
+<p><strong>large</strong>：字典中有很多负样本</p>
+</li>
+<li>
+<p><strong>consistent</strong>：key 表征来自相近的编码器，比较更稳定</p>
+</li>
+<li>
+<p><strong>on-the-fly</strong>：训练过程中动态构建，不需要预先固定字典</p>
+<blockquote>
+<p>on-the-fly   phr. 立刻、飞快</p>
+</blockquote>
+</li>
+</ul>
+<p>摘要中也点了一下实验结果：</p>
+<blockquote>
+<p>“MoCo provides competitive results under the common linear protocol on ImageNet classification.”</p>
+</blockquote>
+<p>也就是说，把backbone冻住，然后只训练线性分类头做微调，在ImageNet 效果很好。</p>
+<blockquote>
+<p>“More importantly, the representations learned by MoCo transfer well to downstream tasks.”</p>
+</blockquote>
+<p>那么说明MoCo可以很好的迁移到下游任务。</p>
+<p><strong>然后也点了一下实验结论</strong>：</p>
+<blockquote>
+<p>“MoCo can <strong>outperform</strong> its supervised pre-training counterpart in 7 detection/segmentation tasks&hellip;”</p>
+</blockquote>
+<p>MoCo 的无监督预训练，在 7 个检测/分割任务上可以超过对应的 ImageNet 监督预训练。</p>
+<blockquote>
+<p>“This suggests that the gap between unsupervised and supervised representation learning has been largely closed&hellip;”</p>
+</blockquote>
+<p>作者也提出了观点：<strong>在许多视觉任务中，无监督表征学习和监督表征学习之间的差距已经大大缩小。</strong></p>
+<p>换句话说：</p>
+<ul>
+<li>过去：监督学习明显强于无监督学习；</li>
+<li>MoCo 之后：无监督预训练已经可以接近甚至超过监督预训练；</li>
+<li>尤其是在检测、分割等迁移任务中，MoCo 表现非常强。</li>
+</ul>
+<h2 id="三引言">
+<a class="header-anchor" href="#%e4%b8%89%e5%bc%95%e8%a8%80"></a>
+三、引言
+</h2><blockquote>
+<p>视觉无监督学习的关键难点是如何为连续高维图像空间构建有效字典；已有对比学习方法难以同时保证字典“大”和“一致”；MoCo 通过“队列 + 动量编码器”构建一个大规模且稳定的动态字典，从而提升无监督视觉表征学习，并让其在多个下游检测/分割任务中接近甚至超过监督预训练。</p>
+</blockquote>
+<h3 id="31-问题背景">
+<a class="header-anchor" href="#31-%e9%97%ae%e9%a2%98%e8%83%8c%e6%99%af"></a>
+3.1 问题背景
+</h3><p><strong>NLP 的无监督学习很成功，但 CV 还主要依赖监督预训练。</strong></p>
+<p>BERT、GPT这些模型可以利用大量无标注文本学到强大的语言表示。但在计算机视觉中，当时主流仍然是：、</p>
+<ul>
+<li>先在 ImageNet 上做有监督预训练；</li>
+<li>再迁移到检测、分割等下游任务。</li>
+</ul>
+<p>作者指出，视觉领域的无监督方法总体上还落后于监督预训练。</p>
+<h3 id="32-为什么-nlp-更容易做无监督学习">
+<a class="header-anchor" href="#32-%e4%b8%ba%e4%bb%80%e4%b9%88-nlp-%e6%9b%b4%e5%ae%b9%e6%98%93%e5%81%9a%e6%97%a0%e7%9b%91%e7%9d%a3%e5%ad%a6%e4%b9%a0"></a>
+3.2 为什么 NLP 更容易做无监督学习？
+</h3><p>作者给出的解释是：语言和图像的信号空间不同。</p>
+<p>语言由一些离散 token 构成，例如：</p>
+<ul>
+<li>word；</li>
+<li>sub-word；</li>
+<li>character；</li>
+<li>token id。</li>
+</ul>
+<p>所以 NLP 很容易构建一个“字典”：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">the, cat, dog, apple, ...
+</span></span></code></pre></div><p>模型可以围绕这些离散 token 做预测、遮盖建模、语言建模等任务。</p>
+<p><strong>CV：连续、高维、没有天然 token</strong></p>
+<p>图像则不同。原始图像是连续高维信号：</p>
+<ul>
+<li>像素值是连续或近似连续的；</li>
+<li>图像空间维度极高；</li>
+<li>图像不像语言那样天然服务于人类通信；</li>
+<li>图像没有现成的词表或 token 字典。</li>
+</ul>
+<p>所以，视觉无监督学习的一个核心难点是：<strong>如何为图像构建合适的字典</strong>。</p>
+<p>这就是后文 MoCo 的切入点。</p>
+<h3 id="33-对比学习统一理解为动态字典查询">
+<a class="header-anchor" href="#33-%e5%af%b9%e6%af%94%e5%ad%a6%e4%b9%a0%e7%bb%9f%e4%b8%80%e7%90%86%e8%a7%a3%e4%b8%ba%e5%8a%a8%e6%80%81%e5%ad%97%e5%85%b8%e6%9f%a5%e8%af%a2"></a>
+3.3 对比学习统一理解为“动态字典查询”
+</h3><p>接着，作者回顾了近期一些无监督视觉表征学习方法，指出它们虽然动机不同，但本质上都可以看作在构建动态字典。</p>
+<p>这里有几个核心概念：</p>
+<table>
+  <thead>
+      <tr>
+          <th>概念</th>
+          <th>在 MoCo 里的含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>dictionary</strong></td>
+          <td>存放大量 key 表征的集合</td>
+      </tr>
+      <tr>
+          <td><strong>key</strong></td>
+          <td>图像或图像块经过 encoder 得到的特征</td>
+      </tr>
+      <tr>
+          <td><strong>query</strong></td>
+          <td>当前输入图像经过 encoder 得到的特征</td>
+      </tr>
+      <tr>
+          <td><strong>matching key</strong></td>
+          <td>与 query 来自同一图像/同一语义来源的正样本</td>
+      </tr>
+      <tr>
+          <td><strong>negative keys</strong></td>
+          <td>与 query 不匹配的其他样本</td>
+      </tr>
+      <tr>
+          <td><strong>contrastive loss</strong></td>
+          <td>拉近 query 和正样本，推远 query 和负样本</td>
+      </tr>
+  </tbody>
+</table>
+<p>直观地说，模型要做的是：</p>
+<blockquote>
+<p>给定一个 query，从字典中找到它对应的 key。</p>
+</blockquote>
+<p>例如，对于同一张图片的两个不同裁剪：</p>
+<blockquote>
+<p>crop A 编码成 query；
+crop B 编码成 positive key；
+其他图片的表示作为 negative keys。</p>
+</blockquote>
+<p>训练目标就是让 query 更接近它自己的 positive key，而远离其他 key。</p>
+<h3 id="34-moco-的基本结构">
+<a class="header-anchor" href="#34-moco-%e7%9a%84%e5%9f%ba%e6%9c%ac%e7%bb%93%e6%9e%84"></a>
+3.4 MoCo 的基本结构
+</h3><p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1779183883964_image.png" alt="image.png"></p>
+<p>MoCo 的训练流程大致是：</p>
+<ol>
+<li>输入一个 query 图像 $x^{query}$；</li>
+<li>query encoder 把它编码成 $q$；</li>
+<li>字典中有很多 key：$k_0,k_1,k_2,\dots$；</li>
+<li>使用 contrastive loss 让 $q$ 匹配正确的 $key$；</li>
+<li>字典由一个 queue 维护；</li>
+<li>当前 mini-batch 的 $key$ 入队；</li>
+<li>最旧的 $key$ 出队；</li>
+<li>$key$ 由一个缓慢变化的 momentum encoder 编码。</li>
+</ol>
+<p><strong>queue：负责让字典变大；</strong>
+<strong>momentum encoder：负责让字典保持一致。</strong></p>
+<h3 id="35-好的字典需要-large--consistent">
+<a class="header-anchor" href="#35-%e5%a5%bd%e7%9a%84%e5%ad%97%e5%85%b8%e9%9c%80%e8%a6%81-large--consistent"></a>
+3.5 好的字典需要 large + consistent
+</h3><h4 id="351-large-dictionary字典要大">
+<a class="header-anchor" href="#351-large-dictionary%e5%ad%97%e5%85%b8%e8%a6%81%e5%a4%a7"></a>
+3.5.1 Large dictionary：字典要大
+</h4><p>这个很好理解。</p>
+<p>因为图像空间是：</p>
+<ul>
+<li>连续的；</li>
+<li>高维的；</li>
+<li>变化丰富的。</li>
+</ul>
+<p>如果负样本太少，模型看到的对比对象不够丰富，学到的表示可能不够泛化。</p>
+<p>大字典可以更好地采样整个视觉空间，让模型学习更有区分性的特征。</p>
+<h4 id="352-consistent-dictionary字典要一致">
+<a class="header-anchor" href="#352-consistent-dictionary%e5%ad%97%e5%85%b8%e8%a6%81%e4%b8%80%e8%87%b4"></a>
+3.5.2 Consistent dictionary：字典要一致
+</h4><p>为什么还要一致？</p>
+<p>因为字典里的 key 都是 encoder 产生的。如果不同 key 是由差异很大的 encoder 生成的，那么它们可能不在同一个稳定的特征空间里。</p>
+<p>这样 query 和 key 的相似度比较就会变得不可靠。</p>
+<p>所以作者认为：</p>
+<ul>
+<li>字典里的 key 最好由相同 encoder 产生；</li>
+<li>或至少由变化很慢、相近的 encoder 产生。</li>
+</ul>
+<h3 id="36-现有方法的问题难以同时做到-large-和-consistent">
+<a class="header-anchor" href="#36-%e7%8e%b0%e6%9c%89%e6%96%b9%e6%b3%95%e7%9a%84%e9%97%ae%e9%a2%98%e9%9a%be%e4%bb%a5%e5%90%8c%e6%97%b6%e5%81%9a%e5%88%b0-large-%e5%92%8c-consistent"></a>
+3.6 现有方法的问题：难以同时做到 large 和 consistent
+</h3><p>作者指出，以前的对比学习方法通常会在这两点上受限。</p>
+<p><strong>方法一：end-to-end mini-batch 字典</strong></p>
+<p>这类方法只用当前 mini-batch 里的样本作为字典。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>当前 batch 中的 key 由当前 encoder 产生；</li>
+<li>所以表示比较一致。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>字典大小受 batch size 限制；</li>
+<li>batch size 又受 GPU 显存限制；</li>
+<li>很难构建特别大的负样本集合。</li>
+</ul>
+<p><strong>方法二：memory bank</strong></p>
+<p>另一类方法使用 memory bank 存储大量历史样本表示。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>字典可以很大。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>memory bank 中的表示可能是很早之前的 encoder 产生的；</li>
+<li>encoder 已经变了，但存储的 key 没有同步更新；</li>
+<li>因此一致性较差。</li>
+</ul>
+<p>MoCo 的目标就是在这两类方法之间取长补短。</p>
+<h3 id="37-moco的解决方案queue--momentum-encoder">
+<a class="header-anchor" href="#37-moco%e7%9a%84%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88queue--momentum-encoder"></a>
+3.7 MoCo的解决方案：queue + momentum encoder
+</h3><p><strong>Queue：让字典足够大</strong></p>
+<p>MoCo 不只使用当前 mini-batch，而是维护一个队列：</p>
+<ul>
+<li>当前 mini-batch 的 key 加入队列；</li>
+<li>队列中最旧的 key 被移除；</li>
+<li>队列大小可以独立设置。</li>
+</ul>
+<p>这样一来，字典大小就不再等于 mini-batch size，而可以远大于 batch size。</p>
+<p>这解决了 large dictionary 的问题。</p>
+<p><strong>Momentum encoder：让字典保持一致</strong></p>
+<p>但是队列中的 key 来自过去几个 mini-batch。如果 encoder 更新很快，历史 key 和当前 key 的表征空间可能不一致。</p>
+<p>因此 MoCo 使用一个缓慢变化的 key encoder：
+</p>
+$$
+\theta_k \leftarrow m\theta_k + (1-m)\theta_q
+$$<p>其中：</p>
+<ul>
+<li>$\theta_q$ 是 query encoder 参数；</li>
+<li>$\theta_k$ 是 key encoder 参数；</li>
+<li>$m$ 是 momentum coefficient，通常接近 1。</li>
+</ul>
+<h3 id="38-pretext-taskinstance-discrimination">
+<a class="header-anchor" href="#38-pretext-taskinstance-discrimination"></a>
+3.8 pretext task：instance discrimination
+</h3><p>作者说明：MoCo 是一种构建动态字典的机制，可以搭配不同 pretext task。</p>
+<p>本文采用的是比较简单的 <strong>instance discrimination</strong> 任务。</p>
+<blockquote>
+<p>**instance discrimination：**如果 query 和 key 是同一张图像的不同增强视图，那么它们匹配；否则不匹配。</p>
+</blockquote>
+<p>这说明 MoCo 的重点不是设计复杂的预训练任务，而是设计一个更好的对比学习机制。</p>
+<h3 id="39-实验目标不仅看-imagenet-分类更看迁移能力">
+<a class="header-anchor" href="#39-%e5%ae%9e%e9%aa%8c%e7%9b%ae%e6%a0%87%e4%b8%8d%e4%bb%85%e7%9c%8b-imagenet-%e5%88%86%e7%b1%bb%e6%9b%b4%e7%9c%8b%e8%bf%81%e7%a7%bb%e8%83%bd%e5%8a%9b"></a>
+3.9 实验目标：不仅看 ImageNet 分类，更看迁移能力
+</h3><p>作者强调，无监督学习的主要目标不是只在预训练数据集上表现好，而是学到可以迁移的视觉表征。</p>
+<p>所以他们评估了两类任务：</p>
+<ol>
+<li>
+<p>ImageNet linear classification</p>
+<p>冻结 backbone；
+只训练线性分类器；
+测试表征质量。</p>
+</li>
+<li>
+<p>下游检测/分割任务</p>
+<p>将 MoCo 预训练模型迁移到 PASCAL VOC、COCO 等数据集；</p>
+<p>通过 fine-tuning 看实际迁移效果。</p>
+</li>
+</ol>
+<p>摘要和引言都强调：MoCo 在 7 个检测/分割任务中可以超过 ImageNet 有监督预训练，有些任务优势还比较明显。</p>
+<h2 id="四结论">
+<a class="header-anchor" href="#%e5%9b%9b%e7%bb%93%e8%ae%ba"></a>
+四、结论
+</h2><p>MoCo在一系列视觉的任务和数据集上取得了不错的效果。但是当训练数据从 IN-1M 扩大到 IG-1B 的时候，效果提升不是很大。所以作者认为，可能一个更好的pretext-task 可以解决这一点。</p>
+<p><strong>作者这里提了一个很有预见性的问题：能否用NLP那边的masked-encoding 作为pretext-task来进一步提升呢？</strong></p>
+<blockquote>
+<p>这不就是作者两年后提出的MAE吗（笑哭）</p>
+</blockquote>
+<p>然后作者点题：希望MoCo希望对其他对比学习的任务有帮助。</p>
+<h2 id="五相关工作">
+<a class="header-anchor" href="#%e4%ba%94%e7%9b%b8%e5%85%b3%e5%b7%a5%e4%bd%9c"></a>
+五、相关工作
+</h2><p>作者认为，无监督 / 自监督表征学习方法通常可以从两个维度理解：</p>
+<ul>
+<li>
+<p>Pretext task（预训练任务 / 代理任务）</p>
+<ul>
+<li>
+<p>它本身不是最终目的，而是为了让模型通过解决这个任务学到有用的表示。</p>
+<p>例如：</p>
+<p>让模型恢复被破坏的图像；
+预测图像块之间的位置关系；
+判断图像是否经过某种旋转；
+预测颜色；
+区分不同图像实例。</p>
+</li>
+</ul>
+<p>这些任务本身并不是我们真正关心的最终任务。真正目标是：<strong>让模型学到可以迁移到分类、检测、分割等下游任务的视觉特征。</strong></p>
+</li>
+<li>
+<p>Loss function（损失函数）</p>
+</li>
+</ul>
+<h3 id="51-loss-functions损失函数相关工作">
+<a class="header-anchor" href="#51-loss-functions%e6%8d%9f%e5%a4%b1%e5%87%bd%e6%95%b0%e7%9b%b8%e5%85%b3%e5%b7%a5%e4%bd%9c"></a>
+5.1 Loss functions：损失函数相关工作
+</h3><ul>
+<li>作者首先从损失函数角度回顾已有方法，主要分成三类：
+<ol>
+<li>固定目标的重建 / 分类损失</li>
+<li>对比损失</li>
+<li>对抗损失</li>
+</ol>
+</li>
+</ul>
+<p><strong>1、固定目标损失：重建或分类</strong></p>
+<p>传统无监督 / 自监督方法经常会定义一个固定目标，然后让模型去预测它。</p>
+<p>典型例子包括：
+<strong>1）重建输入</strong></p>
+<p>例如自编码器（auto-encoder）：</p>
+<ul>
+<li>输入一张图像；</li>
+<li>编码成特征；</li>
+<li>再从特征重建原图；</li>
+<li>用 L1 或 L2 loss 衡量重建误差。</li>
+</ul>
+<p><strong>2）预测预定义类别</strong></p>
+<p>例如：</p>
+<ul>
+<li>预测图像块的相对位置；</li>
+<li>预测颜色 bin；</li>
+<li>预测旋转角度。</li>
+</ul>
+<p>这类方法通常使用：</p>
+<ul>
+<li>cross-entropy loss；</li>
+<li>margin-based loss。</li>
+</ul>
+<p>也就是说，模型被要求从预定义类别中选出正确答案。</p>
+<p><strong>2、Contrastive losses：对比损失</strong></p>
+<p>MoCo 主要属于这一类。</p>
+<p>对比损失和固定目标损失的关键区别是：</p>
+<table>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>学习目标</th>
+          <th>特点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>固定目标损失</td>
+          <td>预测固定标签或重建固定像素</td>
+          <td>target 预先定义</td>
+      </tr>
+      <tr>
+          <td>对比损失</td>
+          <td>比较样本对在表征空间中的相似性</td>
+          <td>target 可在训练中动态变化</td>
+      </tr>
+  </tbody>
+</table>
+<p>对比学习不一定要求模型预测某个固定类别，而是要求模型学会：</p>
+<ul>
+<li>正样本对更相似；</li>
+<li>负样本对更不相似。</li>
+</ul>
+<p>例如在 MoCo 中：</p>
+<ul>
+<li>同一张图像的两个增强视图是正样本；</li>
+<li>不同图像的视图是负样本。</li>
+</ul>
+<p>这样一来，目标不是固定人工标签，而是由数据本身和当前网络表征动态定义。</p>
+<h3 id="52-对比学习为什么适合无监督表征学习">
+<a class="header-anchor" href="#52-%e5%af%b9%e6%af%94%e5%ad%a6%e4%b9%a0%e4%b8%ba%e4%bb%80%e4%b9%88%e9%80%82%e5%90%88%e6%97%a0%e7%9b%91%e7%9d%a3%e8%a1%a8%e5%be%81%e5%ad%a6%e4%b9%a0"></a>
+5.2 对比学习为什么适合无监督表征学习？
+</h3><p>对比学习的优势在于，<strong>它可以在没有人工标签的情况下构造监督信号</strong>。</p>
+<p>例如给定一张图片 x，做两种数据增强：
+</p>
+$$
+x_1 = t_1(x), \quad x_2 = t_2(x)
+$$<p>
+然后：</p>
+<ul>
+<li>$x_1$ 和 $x_2$ 应该被拉近；</li>
+<li>$x_1$ 和其他图像的增强结果应该被推远。</li>
+</ul>
+<p>这就形成了一个自监督学习目标。</p>
+<p>在 MoCo 的语境中，这个过程被解释为：</p>
+<ul>
+<li>$x_1$ 编码成 query；</li>
+<li>$x_2$ 编码成 positive key；</li>
+<li>其他图像编码成 negative keys；</li>
+<li>query 需要在字典中找到 positive key。</li>
+</ul>
+<p><strong>3、Adversarial losses：对抗损失</strong></p>
+<p>作者也提到了另一类重要损失：<strong>adversarial loss（对抗损失）</strong>。</p>
+<p>对抗损失衡量的是两个概率分布之间的差异。它在无监督生成模型中非常成功，典型代表是 GAN。</p>
+<p>GAN 中通常有：</p>
+<ul>
+<li>generator：生成数据；</li>
+<li>discriminator：判断数据是真实还是生成的；</li>
+<li>两者形成对抗训练。</li>
+</ul>
+<p>作者指出，对抗方法也被用于表征学习，并且 GAN 和 NCE（Noise-Contrastive Estimation，噪声对比估计）之间存在一定关系。</p>
+<p>不过，这篇论文并不主要研究对抗学习，而是把重点放在 contrastive learning 上。</p>
+<h3 id="53-pretext-tasks代理任务相关工作">
+<a class="header-anchor" href="#53-pretext-tasks%e4%bb%a3%e7%90%86%e4%bb%bb%e5%8a%a1%e7%9b%b8%e5%85%b3%e5%b7%a5%e4%bd%9c"></a>
+5.3 Pretext tasks：代理任务相关工作
+</h3><p>接下来，作者从 pretext task 的角度回顾已有方法。</p>
+<p>所谓 pretext task，就是人为设计一个任务，让模型通过解决它学到好的视觉表示。</p>
+<p>文中列举了几类典型任务。</p>
+<h4 id="531-恢复被破坏的输入">
+<a class="header-anchor" href="#531-%e6%81%a2%e5%a4%8d%e8%a2%ab%e7%a0%b4%e5%9d%8f%e7%9a%84%e8%be%93%e5%85%a5"></a>
+5.3.1 恢复被破坏的输入
+</h4><p>这一类任务要求模型从不完整或被扰动的输入中恢复原始信息。</p>
+<p>包括：</p>
+<ul>
+<li><strong>denoising auto-encoder</strong>：去噪自编码器；</li>
+<li><strong>context auto-encoder</strong>：上下文自编码器；</li>
+<li><strong>cross-channel auto-encoder / colorization</strong>：跨通道重建，例如图像上色。</li>
+</ul>
+<p>例如图像上色任务：</p>
+<ul>
+<li>输入灰度图；</li>
+<li>预测颜色通道；</li>
+<li>模型为了完成任务，需要理解物体和场景语义。</li>
+</ul>
+<p>这类任务的核心逻辑是：</p>
+<p>如果模型能恢复缺失信息，说明它学到了一定的结构和语义。</p>
+<h4 id="532-构造伪标签">
+<a class="header-anchor" href="#532-%e6%9e%84%e9%80%a0%e4%bc%aa%e6%a0%87%e7%ad%be"></a>
+5.3.2 构造伪标签
+</h4><p>另一类方法是构造 <strong>pseudo-labels（伪标签）</strong>。</p>
+<p>这些标签不是人工标注的，而是由数据本身自动生成。</p>
+<p>文中提到的例子包括：</p>
+<p><strong>1）图像变换相关任务</strong></p>
+<p>例如 exemplar-based task：</p>
+<ul>
+<li>对同一张图像做多种变换；</li>
+<li>让模型识别这些变换后的样本属于同一个实例。</li>
+</ul>
+<p><strong>2）图像块排序任务</strong></p>
+<p>例如：</p>
+<ul>
+<li>给模型打乱的 patch；</li>
+<li>要求模型恢复正确顺序；</li>
+<li>或预测 patch 之间的相对位置。</li>
+</ul>
+<p><strong>这类任务迫使模型学习空间结构</strong>。</p>
+<p><strong>3）视频中的追踪或分割</strong></p>
+<p>利用视频天然的时间连续性：</p>
+<ul>
+<li>跟踪物体；</li>
+<li>分割运动目标；</li>
+<li>学习跨帧一致表示。</li>
+</ul>
+<p><strong>4）聚类特征</strong></p>
+<p>例如 DeepCluster 一类方法：</p>
+<ul>
+<li>先用当前特征对图像聚类；</li>
+<li>把聚类结果当作伪标签；</li>
+<li>再训练网络预测这些伪标签。</li>
+</ul>
+<h3 id="54-contrastive-learning-和-pretext-task-的关系">
+<a class="header-anchor" href="#54-contrastive-learning-%e5%92%8c-pretext-task-%e7%9a%84%e5%85%b3%e7%b3%bb"></a>
+5.4 Contrastive learning 和 pretext task 的关系
+</h3><p>作者强调，<strong>contrastive learning 不是某一个具体 pretext task，而是一类 loss / learning framework。</strong></p>
+<p>也就是说，不同的 pretext task 都可以使用对比损失来实现。</p>
+<p>例如：</p>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>Pretext task 视角</th>
+          <th>Contrastive learning 视角</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Instance discrimination</td>
+          <td>区分不同图像实例</td>
+          <td>同一实例的增强为正样本，不同实例为负样本</td>
+      </tr>
+      <tr>
+          <td>contrastive predictive coding(CPC)</td>
+          <td>根据上下文预测未来 / 缺失部分</td>
+          <td>让正确未来 patch 与上下文更相似</td>
+      </tr>
+      <tr>
+          <td>contrastive multiview coding(CMC)</td>
+          <td>多视角 / 多通道预测</td>
+          <td>让不同视角或通道的对应表示更相似</td>
+      </tr>
+  </tbody>
+</table>
+<p>这说明 MoCo 的贡献不是“发明 instance discrimination”，而是提出一种更通用的机制：<strong>如何为对比学习构建大且一致的动态字典。</strong></p>
+<h3 id="55-定位">
+<a class="header-anchor" href="#55-%e5%ae%9a%e4%bd%8d"></a>
+5.5 定位
+</h3><ol>
+<li>
+<p><strong>MoCo 不主要贡献一个新的 pretext task</strong></p>
+</li>
+<li>
+<p><strong>MoCo 主要贡献在 contrastive learning 机制</strong></p>
+</li>
+<li>
+<p><strong>Loss function 和 pretext task 可以解耦</strong></p>
+<p>MoCo 不是只能用于 instance discrimination。</p>
+<p>论文明确说 MoCo 是一种构建动态字典的机制，可以和多种 pretext task 结合。</p>
+</li>
+</ol>
+<h2 id="六moco方法">
+<a class="header-anchor" href="#%e5%85%admoco%e6%96%b9%e6%b3%95"></a>
+六、MoCo方法
+</h2><blockquote>
+<p>如何用对比学习训练一个无监督视觉表征模型，并且让它拥有足够多、足够稳定的负样本？</p>
+</blockquote>
+<h3 id="61-contrastive-learning-as-dictionary-look-up">
+<a class="header-anchor" href="#61-contrastive-learning-as-dictionary-look-up"></a>
+6.1 Contrastive Learning as Dictionary Look-up
+</h3><p>作者把对比学习抽象成一个 dictionary look-up（字典查询） 任务。</p>
+<p>给定：</p>
+<ul>
+<li>一个 query 表征：q</li>
+<li>一个 key 字典：${k_0,k_1,k_2,\cdots}$</li>
+<li>其中只有一个 key 是和 query 匹配的正样本，记为 $k_+$</li>
+<li>其他 key 都是负样本</li>
+</ul>
+<p><strong>query 和 key 是怎么来的？</strong>
+</p>
+$$
+q = f_q(x_q)
+$$$$
+k = f_k(x_k)
+$$<p>其中：</p>
+<table>
+  <thead>
+      <tr>
+          <th>符号</th>
+          <th>含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$x_q$</td>
+          <td>query 输入样本</td>
+      </tr>
+      <tr>
+          <td>$x_k$</td>
+          <td>key 输入样本</td>
+      </tr>
+      <tr>
+          <td>$f_q$</td>
+          <td>query encoder</td>
+      </tr>
+      <tr>
+          <td>$f_k$</td>
+          <td>key encoder</td>
+      </tr>
+      <tr>
+          <td>$q$</td>
+          <td>query 表征</td>
+      </tr>
+      <tr>
+          <td>$k$</td>
+          <td>key 表征</td>
+      </tr>
+  </tbody>
+</table>
+<p>在 MoCo 这篇论文的具体实现里，通常可以理解为：</p>
+<ul>
+<li>$x_q$：一张图像的一个增强视图；</li>
+<li>$x_k$：同一张图像的另一个增强视图；</li>
+<li>这两个视图构成正样本对；</li>
+<li>其他图像的视图作为负样本。</li>
+</ul>
+<h3 id="62-infonce">
+<a class="header-anchor" href="#62-infonce"></a>
+6.2 InfoNCE
+</h3><h4 id="621-infonce-vs-nce">
+<a class="header-anchor" href="#621-infonce-vs-nce"></a>
+6.2.1 InfoNCE vs NCE
+</h4><blockquote>
+<p>关于NCE：<a href="https://equinox.wiki/post/math/nce/">NCE</a></p>
+</blockquote>
+<p>在NCE的推导中，我们发现，NCE目标函数的最优解就是使得 模型分布 等于 真实分布，那么为什么还要引入InfoNCE？</p>
+<p><strong>1、目的不同</strong></p>
+<p><strong>NCE</strong>：可以计算出图片的真实概率。</p>
+<p><strong>表征学习</strong>：不关心概率，更希望将一个图片变成一个好的向量：和正样本接近，负样本远离。</p>
+<p><strong>2、无法定义高维图像的噪声分布 <code>pn(x)</code></strong></p>
+<p>对于一张256 * 256 的图片，我们很难定义噪声数据的分布。</p>
+<p><strong>3、二分类 vs 多分类</strong></p>
+<p>InfoNCE 公式：
+$$
+\mathcal{L}<em>q = - \log \frac{\exp(sim(q, k^+))}{\exp(sim(q, k^+)) + \sum</em>{i=1}^K \exp(sim(q, k^-_i))}</p>
+<p>$$
+Softmax 它不仅要求正样本分数高，还<strong>强制要求正样本分数必须比所有负样本的加和还要高得多</strong>。</p>
+<p><strong>这种机制使得 InfoNCE 提取的特征比 NCE 强大得多。</strong></p>
+<p><strong>4、最大化“互信息（Mutual Information）”</strong></p>
+<p>InfoNCE 最早是由 Aäron van den Oord（DeepMind的巨佬）在 2018 年的 CPC (Contrastive Predictive Coding) 论文中正式提出的。</p>
+<p>他之所以加上 &ldquo;Info&rdquo; 这个前缀，是因为他在数学上证明了：<strong>最小化 InfoNCE 损失，实际上是在最大化输入 $x$ 和它的上下文/特征 $c$ 之间的“互信息” $I(x; c)$ 的下界。</strong></p>
+<p>具体的数学结论是：
+</p>
+$$ I(x; c) \ge \log(K) - \mathcal{L}_{\text{InfoNCE}} $$<p>
+<em>(其中 $K$ 是负样本的数量)</em></p>
+<p>这在理论上提供了一个极其强大的证明：
+只要我们使用的负样本数量 $K$ 足够多，且让 InfoNCE Loss 降得足够低，<strong>模型提取出的特征向量就保留了关于原图最多的“本质信息”</strong>，排除了无用的噪声。这就从理论上解释了为什么对比学习学到的特征那么好用。</p>
+<p>因此，采用InfoNCE 可以驱动模型学习：</p>
+<ul>
+<li>拉近正样本对；</li>
+<li>推远负样本对。</li>
+</ul>
+<h3 id="63-三种对比学习机制的比较">
+<a class="header-anchor" href="#63-%e4%b8%89%e7%a7%8d%e5%af%b9%e6%af%94%e5%ad%a6%e4%b9%a0%e6%9c%ba%e5%88%b6%e7%9a%84%e6%af%94%e8%be%83"></a>
+6.3 三种对比学习机制的比较
+</h3><p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1779264564040_image.png" alt="image.png"></p>
+<p>作者对比了三种机制，它们的主要区别在于：</p>
+<ul>
+<li>key 是怎么保存的；</li>
+<li>key encoder 是怎么更新的；</li>
+<li>dictionary 的大小和一致性如何权衡。</li>
+</ul>
+<h4 id="631-end-to-end">
+<a class="header-anchor" href="#631-end-to-end"></a>
+6.3.1 End-to-End
+</h4><p>这种方法直接用当前 mini-batch 中的样本作为字典。</p>
+<p>特点：</p>
+<ul>
+<li>query encoder 和 key encoder 都通过反向传播更新；</li>
+<li>当前 batch 内的 key 是用当前 encoder 编码的；</li>
+<li>因此 key 表征比较一致。</li>
+</ul>
+<p>但问题是：</p>
+<ul>
+<li>dictionary size 受 mini-batch size 限制；</li>
+<li>mini-batch size 又受 GPU 显存限制；</li>
+<li>如果想要很多负样本，就需要很大的 batch。</li>
+</ul>
+<p>论文指出，end-to-end 方法的字典大小与 mini-batch size 耦合，因此受 GPU memory 限制。</p>
+<h4 id="632-memory-bank-机制">
+<a class="header-anchor" href="#632-memory-bank-%e6%9c%ba%e5%88%b6"></a>
+6.3.2 Memory bank 机制
+</h4><p>Memory bank 方法会为整个数据集维护一个表征存储库。</p>
+<p>特点：</p>
+<ul>
+<li>可以支持很大的 dictionary；</li>
+<li>每次训练从 memory bank 中采样负样本；</li>
+<li>不需要在当前 batch 中包含所有负样本。</li>
+</ul>
+<p>但问题是：</p>
+<ul>
+<li>memory bank 中的表示可能是旧 encoder 计算出来的；</li>
+<li>当前 encoder 已经更新了，但旧 key 没有同步变化；</li>
+<li>因此 key 表征可能不一致。</li>
+</ul>
+<p>所以 memory bank 的优势是“大”，但劣势是“一致性不足”。</p>
+<h4 id="633-moco-机制">
+<a class="header-anchor" href="#633-moco-%e6%9c%ba%e5%88%b6"></a>
+6.3.3 MoCo 机制
+</h4><ul>
+<li>End-to-End 一致性好，但是容量不够大</li>
+<li>memory bank 够大但不够一致。</li>
+</ul>
+<p>所以MoCo选择折中：</p>
+<ol>
+<li>用 queue 维护大量 key；</li>
+<li>用 momentum encoder 编码 key，使 key 表征变化更平滑。</li>
+</ol>
+<h3 id="64-核心思想">
+<a class="header-anchor" href="#64-%e6%a0%b8%e5%bf%83%e6%80%9d%e6%83%b3"></a>
+6.4 核心思想
+</h3><p>作者认为，对比学习本质上是在高维连续图像空间上构建一个离散字典。</p>
+<p>这个字典是动态的，因为：</p>
+<ul>
+<li>key 是从数据中随机采样来的；</li>
+<li>encoder 在训练过程中不断变化；</li>
+<li>因此 key 的表示也会随时间变化</li>
+</ul>
+<h3 id="65-dictionary-as-a-queue">
+<a class="header-anchor" href="#65-dictionary-as-a-queue"></a>
+6.5 Dictionary as a Queue
+</h3><p>MoCo 引入 queue 之后：</p>
+<ul>
+<li>当前 mini-batch 的 key 会进入队列；</li>
+<li>之前若干 mini-batch 的 key 会保留在队列中；</li>
+<li>最旧的 mini-batch key 会被移除。</li>
+</ul>
+<p>这样，dictionary size 不再等于 mini-batch size，而是可以独立设置为一个更大的<strong>超参数</strong>。</p>
+<p>MoCo 的队列更新非常简单：</p>
+<ul>
+<li>当前 mini-batch 经过 key encoder 得到 key；</li>
+<li>这些 key 被加入队列尾部；</li>
+<li>队列头部最旧的一批 key 被移除；</li>
+<li>队列始终保持固定长度。</li>
+</ul>
+<p>queue 带来三个直接好处：</p>
+<ol>
+<li>
+<p><strong>第一，负样本更多</strong></p>
+<p>字典可以远大于 mini-batch size，因此每个 query 可以和更多负样本对比。</p>
+</li>
+<li>
+<p><strong>第二，计算可控</strong></p>
+<p>不需要像超大 batch 训练那样一次性把所有负样本都放进显存。</p>
+</li>
+<li>
+<p><strong>第三，旧 key 会逐渐淘汰</strong></p>
+<p>最旧的 key 最可能与当前 encoder 不一致，因此定期移除它们反而有助于保持 dictionary 的新鲜度。</p>
+</li>
+</ol>
+<p>queue 虽然解决了 dictionary size 的问题，但也带来一个新问题：</p>
+<p>如果 key encoder 变化太快，那么：</p>
+<ul>
+<li>较早进入队列的 key 来自旧 encoder；</li>
+<li>新进入队列的 key 来自新 encoder；</li>
+<li>它们可能不在完全一致的表征空间里；</li>
+<li>query 和这些 key 的相似度比较就会变得不稳定。</li>
+</ul>
+<p><strong>MoCo解决方式：</strong></p>
+<p>MoCo 使用两个 encoder：</p>
+<table>
+  <thead>
+      <tr>
+          <th>编码器</th>
+          <th>作用</th>
+          <th>更新方式</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$f_q$</td>
+          <td>编码 query</td>
+          <td>反向传播更新</td>
+      </tr>
+      <tr>
+          <td>$f_k$</td>
+          <td>编码 key</td>
+          <td>动量更新</td>
+      </tr>
+  </tbody>
+</table>
+<p>key encoder 的参数 $θ_k$ 不直接通过反向传播更新，而是用 query encoder 参数 $θ_q$ 的移动平均来更新：
+</p>
+$$
+\theta_k \leftarrow m\theta_k + (1-m)\theta_q
+$$<p>
+<strong>MoCo 的完整训练流程</strong></p>
+<p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1779268133214_image.png" alt="image.png"></p>
+<h2 id="七实验">
+<a class="header-anchor" href="#%e4%b8%83%e5%ae%9e%e9%aa%8c"></a>
+七、实验
+</h2><p>实验部分主要验证 MoCo 的两个核心主张：</p>
+<ul>
+<li>大规模字典有助于对比学习；</li>
+<li>动量编码器能保持字典一致性，从而优于 memory bank 等机制；</li>
+<li>MoCo 学到的无监督表征不仅在线性分类上有效，也能很好迁移到下游任务。</li>
+</ul>
+<h4 id="71-预训练数据集设置">
+<a class="header-anchor" href="#71-%e9%a2%84%e8%ae%ad%e7%bb%83%e6%95%b0%e6%8d%ae%e9%9b%86%e8%ae%be%e7%bd%ae"></a>
+7.1 预训练数据集设置
+</h4><p>论文在两个无标签数据集上做无监督预训练：</p>
+<table>
+  <thead>
+      <tr>
+          <th>数据集</th>
+          <th style="text-align: right">规模</th>
+          <th>特点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ImageNet-1M / IN-1M</strong></td>
+          <td style="text-align: right">约 128 万张图像</td>
+          <td>类别分布较均衡，图像多为典型物体视角</td>
+      </tr>
+      <tr>
+          <td><strong>Instagram-1B / IG-1B</strong></td>
+          <td style="text-align: right">约 9.4 亿张公开 Instagram 图像</td>
+          <td>更接近真实世界，长尾、不平衡、未充分清洗，包含物体和场景图像</td>
+      </tr>
+  </tbody>
+</table>
+<p>这里需要注意：虽然 IN-1M 有类别标签，但 MoCo 预训练阶段<strong>不使用标签</strong>，只使用图像本身。</p>
+<h4 id="72-训练设置">
+<a class="header-anchor" href="#72-%e8%ae%ad%e7%bb%83%e8%ae%be%e7%bd%ae"></a>
+7.2 训练设置
+</h4><p>论文使用 ResNet 作为 backbone，并采用 SGD 优化器。</p>
+<p>可以概括如下：</p>
+<table>
+  <thead>
+      <tr>
+          <th>设置</th>
+          <th style="text-align: right">IN-1M</th>
+          <th style="text-align: right">IG-1B</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>优化器</td>
+          <td style="text-align: right">SGD</td>
+          <td style="text-align: right">SGD</td>
+      </tr>
+      <tr>
+          <td>weight decay</td>
+          <td style="text-align: right">0.0001</td>
+          <td style="text-align: right">0.0001</td>
+      </tr>
+      <tr>
+          <td>momentum</td>
+          <td style="text-align: right">0.9</td>
+          <td style="text-align: right">0.9</td>
+      </tr>
+      <tr>
+          <td>batch size</td>
+          <td style="text-align: right">256</td>
+          <td style="text-align: right">1024</td>
+      </tr>
+      <tr>
+          <td>GPU 数量</td>
+          <td style="text-align: right">8</td>
+          <td style="text-align: right">64</td>
+      </tr>
+      <tr>
+          <td>初始学习率</td>
+          <td style="text-align: right">0.03</td>
+          <td style="text-align: right">0.12</td>
+      </tr>
+      <tr>
+          <td>训练时长</td>
+          <td style="text-align: right">200 epochs</td>
+          <td style="text-align: right">1.25M iterations，约 1.4 epochs</td>
+      </tr>
+      <tr>
+          <td>ResNet-50 时间</td>
+          <td style="text-align: right">约 53 小时</td>
+          <td style="text-align: right">约 6 天</td>
+      </tr>
+  </tbody>
+</table>
+<p>这说明 MoCo 可以扩展到非常大的无标签数据集，但 IG-1B 训练成本明显更高。</p>
+<h4 id="73-linear-classification-protocol">
+<a class="header-anchor" href="#73-linear-classification-protocol"></a>
+7.3 Linear Classification Protocol
+</h4><p>首先，作者使用标准的 <strong>linear classification protocol</strong> 来评估无监督表征质量。</p>
+<p>流程是：</p>
+<ol>
+<li>在 IN-1M 上进行无监督 MoCo 预训练；</li>
+<li>冻结 backbone，不再更新特征提取器；</li>
+<li>在 ImageNet 上训练一个监督线性分类器；</li>
+<li>使用 ImageNet validation set 的 <strong>1-crop top-1 accuracy</strong> 作为指标。</li>
+</ol>
+<p>这个实验的意义是：</p>
+<p>如果冻结特征后，只训练一个线性分类器就能取得好结果，说明预训练 backbone 学到的表征本身质量较高。</p>
+<h4 id="74-消融实验一对比三种-contrastive-loss-机制">
+<a class="header-anchor" href="#74-%e6%b6%88%e8%9e%8d%e5%ae%9e%e9%aa%8c%e4%b8%80%e5%af%b9%e6%af%94%e4%b8%89%e7%a7%8d-contrastive-loss-%e6%9c%ba%e5%88%b6"></a>
+7.4 消融实验一：对比三种 contrastive loss 机制
+</h4><p><img src="https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1779269743080_image.png" alt="image.png"></p>
+<p>论文比较了三种对比学习机制：</p>
+<table>
+  <thead>
+      <tr>
+          <th>机制</th>
+          <th>字典来源</th>
+          <th>优点</th>
+          <th>缺点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>End-to-end</strong></td>
+          <td>当前 mini-batch</td>
+          <td>key 一致性好</td>
+          <td>字典大小受 batch size 限制</td>
+      </tr>
+      <tr>
+          <td><strong>Memory bank</strong></td>
+          <td>存储历史样本特征</td>
+          <td>字典可以很大</td>
+          <td>key 可能来自过旧 encoder，不一致</td>
+      </tr>
+      <tr>
+          <td><strong>MoCo</strong></td>
+          <td>queue + momentum encoder</td>
+          <td>字典大且较一致</td>
+          <td>需要维护队列和动量编码器</td>
+      </tr>
+  </tbody>
+</table>
+<p>作者控制变量：
+三种方法使用相同 pretext task 和相同 InfoNCE loss，只改变 dictionary / key encoder 机制。</p>
+<p>实验结论非常关键：</p>
+<ol>
+<li>三种机制都受益于更大的 $K$，即更多负样本；</li>
+<li>这支持了作者关于 large dictionary 的假设；</li>
+<li>end-to-end 方法在 $K$ 小时接近 MoCo，但 $K$ 受 batch size 限制；</li>
+<li>memory bank 可以支持大字典，但效果低于 MoCo；</li>
+<li>MoCo 在大 $K$ 下表现最好。</li>
+</ol>
+<p>根据 Figure 3，ResNet-50 在线性分类下大致表现为：</p>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th style="text-align: right">最大/典型 $K$</th>
+          <th style="text-align: right">top-1 accuracy</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>End-to-end</td>
+          <td style="text-align: right">1024</td>
+          <td style="text-align: right">57.3%</td>
+      </tr>
+      <tr>
+          <td>Memory bank</td>
+          <td style="text-align: right">65536</td>
+          <td style="text-align: right">58.0%</td>
+      </tr>
+      <tr>
+          <td><strong>MoCo</strong></td>
+          <td style="text-align: right">65536</td>
+          <td style="text-align: right"><strong>60.6%</strong></td>
+      </tr>
+  </tbody>
+</table>
+<p>这说明：<strong>仅仅有大字典还不够，字典中的 key 还必须一致</strong>。MoCo 通过 momentum encoder 同时解决了这两个问题。</p>
+<h4 id="74-消融实验二动量系数-m-的影响">
+<a class="header-anchor" href="#74-%e6%b6%88%e8%9e%8d%e5%ae%9e%e9%aa%8c%e4%ba%8c%e5%8a%a8%e9%87%8f%e7%b3%bb%e6%95%b0-m-%e7%9a%84%e5%bd%b1%e5%93%8d"></a>
+7.4 消融实验二：动量系数 m 的影响
+</h4><p>MoCo 的 key encoder 用动量更新：
+</p>
+$$
+\theta_k \leftarrow m\theta_k + (1-m)\theta_q
+$$<p>
+论文进一步测试不同 m 的影响。</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: right">momentum $m$</th>
+          <th style="text-align: right">结果</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: right">0</td>
+          <td style="text-align: right">fail</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">0.9</td>
+          <td style="text-align: right">55.2%</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">0.99</td>
+          <td style="text-align: right">57.8%</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">0.999</td>
+          <td style="text-align: right"><strong>59.0%</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">0.9999</td>
+          <td style="text-align: right">58.9%</td>
+      </tr>
+  </tbody>
+</table>
+<p>这个消融实验说明：</p>
+<ul>
+<li>m=0 时，相当于没有动量，训练 loss 振荡且无法收敛；</li>
+<li>m=0.9 时，key encoder 变化仍然偏快，效果明显下降；</li>
+<li>m 在 0.99∼0.9999 区间时表现较好；</li>
+<li>最佳附近是 m=0.999。</li>
+</ul>
+<p>因此，实验强力支持论文的第二个核心假设：</p>
+<p><strong>key encoder 需要缓慢演化，才能让队列中的 dictionary 保持一致。</strong></p>
+<h4 id="75-与已有无监督方法比较">
+<a class="header-anchor" href="#75-%e4%b8%8e%e5%b7%b2%e6%9c%89%e6%97%a0%e7%9b%91%e7%9d%a3%e6%96%b9%e6%b3%95%e6%af%94%e8%be%83"></a>
+7.5 与已有无监督方法比较
+</h4><p>论文还将 MoCo 与之前的无监督 / 自监督方法进行比较。</p>
+<p>主要结论是：</p>
+<ul>
+<li>MoCo 使用标准 ResNet-50 就能取得有竞争力的结果；</li>
+<li>MoCo 不依赖特殊网络结构设计；</li>
+<li>模型变宽后，性能还能进一步提升；</li>
+<li>ResNet-50 下 MoCo 达到 60.6% ImageNet linear top-1 accuracy；</li>
+<li>更宽的 ResNet-50w4× 可以达到更高结果。</li>
+</ul>
+<p>这表明 MoCo 的收益主要来自其对比学习机制，而不是依赖复杂 architecture trick。</p>
+<h4 id="76-下游任务迁移实验">
+<a class="header-anchor" href="#76-%e4%b8%8b%e6%b8%b8%e4%bb%bb%e5%8a%a1%e8%bf%81%e7%a7%bb%e5%ae%9e%e9%aa%8c"></a>
+7.6 下游任务迁移实验
+</h4><p>实验部分更重要的结果是迁移学习。论文强调，无监督预训练真正的目标是学到能迁移到下游任务的通用表征，而不仅是 ImageNet 线性分类准确率。</p>
+<p>MoCo 被迁移到多个检测和分割任务中，例如：</p>
+<ul>
+<li>PASCAL VOC object detection；</li>
+<li>COCO object detection；</li>
+<li>COCO instance segmentation；</li>
+<li>keypoint detection；</li>
+<li>semantic segmentation 等。</li>
+</ul>
+<p>论文结论是：MoCo 在多个检测 / 分割任务上可以达到甚至超过 ImageNet supervised pre-training。</p>
+<p>从补充实验中也可以看到，MoCo 相比随机初始化有明显提升，并接近监督预训练。</p>
+<p>这里的核心含义是：</p>
+<ul>
+<li>MoCo 无监督预训练比随机初始化更好；</li>
+<li>MoCo 与 ImageNet 监督预训练接近；</li>
+<li>在某些检测 / 分割任务上甚至优于监督预训练；</li>
+<li>这说明 MoCo 学到的表征更具有通用迁移能力。</li>
+</ul></div>
+    <footer class="article-footer"><div class="sponsor-wrapper">
+  <div class="sponsor-button"><div class="sponsor-icon rotate"></div><div class="sponsor-title">赞助</div><div class="sponsor-icon rotate"></div></div><div class="sponsor-tip">Buy me a coffee</div><div class="sponsor-qr"><div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/alipay.jpg" alt="支付宝" width="200" />
+          <p class="sponsor-qr-name">支付宝</p>
+        </div><div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/wechat.jpg" alt="微信" width="200" />
+          <p class="sponsor-qr-name">微信</p>
+        </div></div></div><div class="share-wrapper"><a href="https://service.weibo.com/share/share.php?url=http://localhost:1313/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/&amp;appkey=&amp;title=MoCo%e7%b2%be%e8%af%bb&amp;pic=&amp;ralateUid=" target="_blank" rel="noopener noreferrer" title="MoCo精读">
+      <div class="share-icon icon icon-weibo"></div>
+    </a><a href="https://connect.qq.com/widget/shareqq/index.html?url=http://localhost:1313/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/&amp;title=MoCo%e7%b2%be%e8%af%bb&amp;desc=%0a&amp;lt;!--more--&amp;gt;%0a%0a%0a%0a##%20%e9%9b%b6%e3%80%81%e5%86%99%e5%9c%a8%e5%89%8d%e9%9d%a2%0a%0aMoCo%20%e7%9a%84%e6%a0%b8%e5%bf%83%e6%80%9d%e6%83%b3%e6%98%af%ef%bc%9a%e6%8a%8a%e5%af%b9%e6%af%94%e5%ad%a6%e4%b9%a0%e7%9c%8b%e6%88%90%e4%b8%80%e4%b8%aa%e2%80%9c%e5%ad%97%e5%85%b8%e6%9f%a5%e8%af%a2%e2%80%9d%e9%97%ae%e9%a2%98%ef%bc%8c%e7%94%a8%e4%b8%80%e4%b8%aa%e9%98%9f%e5%88%97%e7%bb%b4%e6%8a%a4%e5%a4%a7%e9%87%8f%e8%b4%9f%e6%a0%b7%e6%9c%ac%ef%bc%8c%e5%b9%b6%e7%94%a8%e4%b8%80%e4%b8%aa%e5%8a%a8%e9%87%8f%e6%9b%b4%e6%96%b0%e7%9a%84%20key%20encoder%20%e4%bf%9d%e8%af%81%e8%bf%99%e4%ba%9b%e8%b4%9f%e6%a0%b7%e6%9c%ac%e7%89%b9%e5%be%81%e7%9a%84%e4%b8%80%e8%87%b4%e6%80%a7%ef%bc%8c%e4%bb%8e%e8%80%8c%e9%ab%98%e6%95%88%e5%ad%a6%e4%b9%a0%e6%97%a0%e7%9b%91%e7%9d%a3%e8%a7%86%e8%a7%89%e8%a1%a8%e5%be%81%e3%80%82%0a%0a%e6%84%9f%e8%a7%89%e8%bf%99%e4%b8%aa%20idea%20%e5%a5%bd%e9%9a%be%e6%83%b3%e5%88%b0%ef%bc%8c%e5%8f%af%e8%83%bd%e5%9b%a0%e4%b8%ba%e6%b2%a1%e6%9c%89%e4%ba%86%e8%a7%a3%e8%bf%87%e5%af%b9%e6%af%94%e5%ad%a6%e4%b9%a0%ef%bc%9f%0a%0a%0a%0a##%20%e4%b8%80%e3%80%81%e9%a2%98%e7%9b%ae%e5%92%8c%e4%bd%9c%e8%80%85%0a%0a%60%60%60%0aMomentum%20Contrast%20for%20Unsupervised%20Visual%20Representation%20Learning%0a%60%60%60%0a%0a%e8%bf%99%e4%b8%aa%e6%a0%bc%e5%bc%8f%e5%b0%b1%e6%98%af%ef%bc%9aXXX%20Method%20for%20XXX%0a%0a%e7%94%a8%e5%8a%a8%e9%87%8f%e5%af%b9%e6%af%94%e5%ad%a6%e4%b9%a0%e7%9a%84%e6%96%b9%e5%bc%8f%e6%9d%a5%e5%81%9a%e6%97%a0%e7%9b%91%e7%9d%a3%e7%9a%84%e8%a7%86%e8%a7%89%e8%a1%a8%e5%be%81%e5%ad%a6%e4%b9%a0%e3%80%82%20%e2%80%a6&amp;source=http://localhost:1313/" target="_blank" rel="noopener noreferrer" title="MoCo精读">
+      <div class="share-icon icon icon-qq"></div>
+    </a><a href="javascript:;"  title="MoCo精读">
+      <div class="share-icon icon icon-weixin"><div id="share-weixin">
+            <div class="share-weixin-dom">
+              <div class="share-weixin-content">
+                <img id="share-weixin-banner"> 
+                <div id="share-weixin-title"></div>
+                <div id="share-weixin-desc"></div>
+              </div>
+              <div class="share-weixin-qrcode">
+                <div class="share-weixin-info">
+                  <div id="share-weixin-author"></div>
+                  <div id="share-weixin-theme">Powered By hugo-theme-reimu</div>
+                </div>
+                <img id="share-weixin-qr" >
+              </div>
+            </div>
+            <div class="share-weixin-canvas"></div>
+          </div></div>
+    </a></div><ul class="article-category-list"><li class="article-tag-list-item" data-aos="zoom-in">
+    <a
+      class="article-category-link"
+      href="/categories/paper-reading"
+      data-aos="zoom-in"
+      >paper-reading</a
+    >
+    </li></ul>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/contrastive-learning"
+        rel="tag"
+        >Contrastive Learning</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/cv"
+        rel="tag"
+        >CV</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/nlp"
+        rel="tag"
+        >NLP</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    aria-label="Article navigation"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg23.webp"
+              data-sizes="auto"
+              alt="MAE精读"
+              class="lazyload"
+            /><a
+          href="/post/paper-reading/mae%E7%B2%BE%E8%AF%BB/"
+          aria-label="前一篇:MAE精读"
+          title="前一篇:MAE精读"
+        ></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">MAE精读</h3>
+      </div><div class="article-nav-link-wrap right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg12.webp"
+              data-sizes="auto"
+              alt="NCE"
+              class="lazyload"
+            /><a
+          href="/post/math/nce/"
+          aria-label="后一篇:NCE"
+          title="后一篇:NCE"
+        ></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">NCE</h3>
+      </div></nav></article><section id="comments" data-aos="fade-up">
+<div class="comment-header"><h2 class="comment-title">Leave a comment</h2>
+  <div class="comment-selector">
+    <div class="comment-selector-wrap"><div class="selector-item" data-selector="giscus">
+          <span>giscus</span>
+        </div></div>
+  </div>
+</div>
+
+<div class="comment-content"><div class="comment giscus-comment" data-aos="fade-up"
+     >
+    </div></div>
+</section></section>
+        </div><footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2006-2026<span class="footer-info-sep rotate"></span>Equinox
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Hugo</a
+        >&nbsp;Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;76.1k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;02:43</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#零写在前面">零、写在前面</a></li>
+        <li><a href="#一题目和作者">一、题目和作者</a></li>
+        <li><a href="#二摘要">二、摘要</a></li>
+        <li><a href="#三引言">三、引言</a>
+          <ul>
+            <li><a href="#31-问题背景">3.1 问题背景</a></li>
+            <li><a href="#32-为什么-nlp-更容易做无监督学习">3.2 为什么 NLP 更容易做无监督学习？</a></li>
+            <li><a href="#33-对比学习统一理解为动态字典查询">3.3 对比学习统一理解为“动态字典查询”</a></li>
+            <li><a href="#34-moco-的基本结构">3.4 MoCo 的基本结构</a></li>
+            <li><a href="#35-好的字典需要-large--consistent">3.5 好的字典需要 large + consistent</a>
+              <ul>
+                <li><a href="#351-large-dictionary字典要大">3.5.1 Large dictionary：字典要大</a></li>
+                <li><a href="#352-consistent-dictionary字典要一致">3.5.2 Consistent dictionary：字典要一致</a></li>
+              </ul>
+            </li>
+            <li><a href="#36-现有方法的问题难以同时做到-large-和-consistent">3.6 现有方法的问题：难以同时做到 large 和 consistent</a></li>
+            <li><a href="#37-moco的解决方案queue--momentum-encoder">3.7 MoCo的解决方案：queue + momentum encoder</a></li>
+            <li><a href="#38-pretext-taskinstance-discrimination">3.8 pretext task：instance discrimination</a></li>
+            <li><a href="#39-实验目标不仅看-imagenet-分类更看迁移能力">3.9 实验目标：不仅看 ImageNet 分类，更看迁移能力</a></li>
+          </ul>
+        </li>
+        <li><a href="#四结论">四、结论</a></li>
+        <li><a href="#五相关工作">五、相关工作</a>
+          <ul>
+            <li><a href="#51-loss-functions损失函数相关工作">5.1 Loss functions：损失函数相关工作</a></li>
+            <li><a href="#52-对比学习为什么适合无监督表征学习">5.2 对比学习为什么适合无监督表征学习？</a></li>
+            <li><a href="#53-pretext-tasks代理任务相关工作">5.3 Pretext tasks：代理任务相关工作</a>
+              <ul>
+                <li><a href="#531-恢复被破坏的输入">5.3.1 恢复被破坏的输入</a></li>
+                <li><a href="#532-构造伪标签">5.3.2 构造伪标签</a></li>
+              </ul>
+            </li>
+            <li><a href="#54-contrastive-learning-和-pretext-task-的关系">5.4 Contrastive learning 和 pretext task 的关系</a></li>
+            <li><a href="#55-定位">5.5 定位</a></li>
+          </ul>
+        </li>
+        <li><a href="#六moco方法">六、MoCo方法</a>
+          <ul>
+            <li><a href="#61-contrastive-learning-as-dictionary-look-up">6.1 Contrastive Learning as Dictionary Look-up</a></li>
+            <li><a href="#62-infonce">6.2 InfoNCE</a>
+              <ul>
+                <li><a href="#621-infonce-vs-nce">6.2.1 InfoNCE vs NCE</a></li>
+              </ul>
+            </li>
+            <li><a href="#63-三种对比学习机制的比较">6.3 三种对比学习机制的比较</a>
+              <ul>
+                <li><a href="#631-end-to-end">6.3.1 End-to-End</a></li>
+                <li><a href="#632-memory-bank-机制">6.3.2 Memory bank 机制</a></li>
+                <li><a href="#633-moco-机制">6.3.3 MoCo 机制</a></li>
+              </ul>
+            </li>
+            <li><a href="#64-核心思想">6.4 核心思想</a></li>
+            <li><a href="#65-dictionary-as-a-queue">6.5 Dictionary as a Queue</a></li>
+          </ul>
+        </li>
+        <li><a href="#七实验">七、实验</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#71-预训练数据集设置">7.1 预训练数据集设置</a></li>
+                <li><a href="#72-训练设置">7.2 训练设置</a></li>
+                <li><a href="#73-linear-classification-protocol">7.3 Linear Classification Protocol</a></li>
+                <li><a href="#74-消融实验一对比三种-contrastive-loss-机制">7.4 消融实验一：对比三种 contrastive loss 机制</a></li>
+                <li><a href="#74-消融实验二动量系数-m-的影响">7.4 消融实验二：动量系数 m 的影响</a></li>
+                <li><a href="#75-与已有无监督方法比较">7.5 与已有无监督方法比较</a></li>
+                <li><a href="#76-下游任务迁移实验">7.6 下游任务迁移实验</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="Equinox"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Equinox</div>
+  <div class="sidebar-description">记录学习过程...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">18</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">9</div>
+  </a>
+</div>
+<div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
+        <a
+          href="https://github.com/Equinox-2003"
+          itemprop="url"
+          target="_blank"
+          aria-label="github"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-bilibili sidebar-social-icon">
+        <a
+          href="https://space.bilibili.com/167350560"
+          itemprop="url"
+          target="_blank"
+          aria-label="bilibili"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-csdn sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://blog.csdn.net/EQUINOX1"
+          itemprop="url"
+          target="_blank"
+          aria-label="csdn"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div><div class="icon-codeforces sidebar-social-icon sidebar-social-image-icon">
+        <a
+          href="https://codeforces.com/profile/_Equinox"
+          itemprop="url"
+          target="_blank"
+          aria-label="codeforces"
+          rel="noopener nofollow noreferrer"
+        ></a>
+      </div></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/anime"
+        aria-label="番剧"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">番剧</div>
+    </div></div></div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js"  ></script><script src="/js/aos.js"  ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" data-pjax ></script><script>
+  var setupFirework = () => {
+    if (! false  || !window.matchMedia('(max-width: 768px)').matches) {
+      if (window.firework) {
+        const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+        options.excludeElements = options.excludeelements;
+        delete options.excludeelements;
+        window.firework(options);
+      }
+    }
+  }
+</script><script
+    src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js"
+    defer
+    
+    
+    onload="setupFirework()"
+    integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8&#43;pUoWX8n1rgq282T" crossorigin="anonymous"></script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "Equinox",
+          title: "MoCo精读",
+          url: "http:\/\/localhost:1313\/post\/paper-reading\/moco%E7%B2%BE%E8%AF%BB\/",
+          description: "\n\u0026lt;!--more--\u0026gt;\n\n\n\n## 零、写在前面\n\nMoCo 的核心思想是：把对比学习看成一个“字典查询”问题，用一个队列维护大量负样本，并用一个动量更新的 key encoder 保证这些负样本特征的一致性，从而高效学习无监督视觉表征。\n\n感觉这个 idea 好难想到，可能因为没有了解过对比学习？\n\n\n\n## 一、题目和作者\n\n\u0060\u0060\u0060\nMomentum Contrast for Unsupervised Visual Representation Learning\n\u0060\u0060\u0060\n\n这个格式就是：XXX Method for XXX\n\n用动量对比学习的方式来做无监督的视觉表征学习。 …",
+          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" data-pjax ></script><script src="/js/tabs.js" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
+          if (_$$(`${gallery} ${children}`).length > 0) {
+            new PhotoSwipeLightbox({
+              gallery,
+              children,pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+        }
+        const pswp = () => {
+          initPswp('.article-entry', 'a.article-gallery-item');
+          initPswp('.article-gallery', 'a.article-gallery-item');
+        }
+        pswp()
+      </script><script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+  var commentConfigKeys = ['valine', 'waline', 'twikoo', 'gitalk', 'giscus', 'utterances', 'beaudar', 'disqus'];
+  var commentConfig = {giscus: {
+      enable: true,
+      load: async () => {
+        const container = document.querySelector('.giscus-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const existingScript = container.querySelector('script[src*="giscus.app/client.js"]');
+        if (existingScript) existingScript.remove();
+        const existingFrame = document.querySelector('iframe.giscus-frame');
+        if (existingFrame) existingFrame.remove();
+
+        const giscusScript = document.createElement('script');
+        const domMode = document.documentElement.getAttribute("data-theme");
+        const defaultTheme = { dark: 'dark', light: 'light' };
+        const customTheme = {
+          light: '' ? '' : new URL('\/css\/giscus_reimu_light.css', window.location.origin).href,
+          dark: '' ? '' : new URL('\/css\/giscus_reimu_dark.css', window.location.origin).href
+        };
+        const hasGiscusCorsHeader = async (url) => {
+          if (!url) return false;
+          if (!url.startsWith('http')) return true;
+          try {
+            let response = await fetch(url, { method: 'HEAD', cache: 'no-store' });
+            if (response.status === 405) {
+              response = await fetch(url, { method: 'GET', cache: 'no-store' });
+            }
+            const allowOrigin = response.headers.get('access-control-allow-origin') || '';
+            return allowOrigin === '*' || allowOrigin.split(',').map(value => value.trim()).includes('https://giscus.app');
+          } catch {
+            return false;
+          }
+        };
+        let giscusTheme = defaultTheme;
+        const [darkCorsOk, lightCorsOk] = await Promise.all([
+          hasGiscusCorsHeader(customTheme.dark),
+          hasGiscusCorsHeader(customTheme.light)
+        ]);
+        if (darkCorsOk && lightCorsOk) {
+          giscusTheme = customTheme;
+        }
+
+        const docLang = document.documentElement.lang || 'en';
+        const langBase = docLang.split('-')[0];
+        const supportedLangs = ['ar', 'be', 'bg', 'ca', 'cs', 'da', 'de', 'en',
+        'eo', 'es', 'eu', 'fa', 'fr', 'gr', 'hbs', 'he', 'hu', 'id', 'it', 'ja',
+        'kh', 'ko', 'nl', 'pl', 'pt', 'ro', 'ru', 'th', 'tr', 'uk', 'uz', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'];
+        const giscusLang = supportedLangs.includes(docLang) ? docLang : supportedLangs.includes(langBase) ? langBase : 'en';
+
+        giscusScript.src = 'https://giscus.app/client.js';
+        giscusScript.setAttribute('data-repo', 'Equinox-2003\/Equinox-Blog');
+        giscusScript.setAttribute('data-repo-id', 'R_kgDOSNpg_Q');
+        giscusScript.setAttribute('data-category', 'Announcements');
+        giscusScript.setAttribute('data-category-id', 'DIC_kwDOSNpg_c4C7zKB');
+        giscusScript.setAttribute('data-mapping', 'pathname');
+        giscusScript.setAttribute('data-strict', '0');
+        giscusScript.setAttribute('data-reactions-enabled', '1');
+        giscusScript.setAttribute('data-emit-metadata', '0');
+        giscusScript.setAttribute('data-input-position', 'top');
+        giscusScript.setAttribute('data-theme', domMode === 'dark' ? giscusTheme.dark : giscusTheme.light);
+        giscusScript.setAttribute('data-lang', giscusLang);
+        giscusScript.setAttribute('crossorigin', 'anonymous');
+        giscusScript.async = true;
+        container.appendChild(giscusScript);
+         const themeHandler = (e) => {
+          const isDark = e.detail.isDark;
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe || !iframe.contentWindow) {
+            document.body.removeEventListener('reimu:theme-set', themeHandler);
+            return;
+          }
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: isDark ? giscusTheme.dark : giscusTheme.light } } }, 'https://giscus.app');
+        };
+        document.body.addEventListener('reimu:theme-set', themeHandler);
+      }
+    },};
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig?.[key]?.enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    var savedCommentType = localStorage.getItem('commentType');
+
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+
+    if (!defaultComment) {
+      var configDefault = 'giscus';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig?.[sys]?.enable) || '';
+    }
+  }
+
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false,
+      disqus: false,
+      utterances: false,
+      beaudar: false,
+    };
+
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      const commentType = item.getAttribute('data-selector');
+
+      hideAllComments();
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          changeActiveCommentItems(item);
+        });
+      }
+
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script><script
+    src="https://npm.webcache.cn/qrcode@1.5.1/build/qrcode.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-VT1EeewTCEXgndcPMQ0PzV&#43;uVFYjxFIjmAA7s5gcMX9t4Dt5TD&#43;OVQIn7NJWIXn7" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/@zumer/snapdom@1.9.14/dist/snapdom.min.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-OEQ&#43;fJp/Mvi2uzBREXybtxryJvLytWapuHu4EE6LPwTKUwATYcc55tPPcZTzVcmx" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-MWNUH0WmtsYGhn2cbH6ELRCbf9LG3QDqCC&#43;gqPB3IBNO35xjZK3Ejb6oONRpDbPg" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/katex@0.16.24/dist/contrib/auto-render.min.js"
+    
+    
+    data-pjax
+    
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv&#43;fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script><script data-pjax>
+          var renderMath = () => {
+            if (!window.renderMathInElement) return;
+            window.renderMathInElement(_$("article"), {
+              delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "\\[", right: "\\]", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+              ],
+            });
+          };
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", renderMath, { once: true });
+          } else {
+            renderMath();
+          }
+        </script></div>
+</div><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    
+    async
+    
+    
+    integrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>

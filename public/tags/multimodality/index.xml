@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Multimodality on Welcome to my blog</title>
+    <link>http://localhost:1313/tags/multimodality/</link>
+    <description>Recent content from Welcome to my blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    
+    <managingEditor>shixy2003@gmail.com (Equinox)</managingEditor>
+    <webMaster>shixy2003@gmail.com (Equinox)</webMaster>
+    
+    <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
+    
+    <lastBuildDate>Thu, 14 May 2026 11:34:47 +0800</lastBuildDate>
+    
+    
+    <atom:link href="http://localhost:1313/tags/multimodality/index.xml" rel="self" type="application/rss&#43;xml" />
+    
+
+    
+    
+
+    <item>
+      <title>MAE精读</title>
+      <link>http://localhost:1313/post/paper-reading/mae%E7%B2%BE%E8%AF%BB/</link>
+      <pubDate>Thu, 14 May 2026 11:34:47 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/paper-reading/mae%E7%B2%BE%E8%AF%BB/</guid>
+      <description>
+        <![CDATA[<h1>MAE精读</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-14首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-14</p>]]>
+      </description>
+      
+        <category>paper-reading</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>ViT精读</title>
+      <link>http://localhost:1313/post/paper-reading/vit%E7%B2%BE%E8%AF%BB/</link>
+      <pubDate>Wed, 13 May 2026 12:52:48 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>http://localhost:1313/post/paper-reading/vit%E7%B2%BE%E8%AF%BB/</guid>
+      <description>
+        <![CDATA[<h1>ViT精读</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-13首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-13</p>]]>
+      </description>
+      
+        <category>paper-reading</category>
+      
+    </item>
+    
+  </channel>
+</rss>
