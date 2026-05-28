@@ -10,7 +10,10 @@
       "PowerShell(Stop-Process *)",
       "PowerShell(git *)",
       "PowerShell(python -c \"import json,pathlib; p=pathlib.Path\\('D:/gitRepo/Hugo/blog/public/algolia.json'\\); data=json.loads\\(p.read_text\\(encoding='utf-8'\\)\\); print\\('records=%s' % len\\(data\\)\\); print\\('keys=' + ','.join\\(data[0].keys\\(\\)\\) if data else 'keys='\\); print\\('first_title=' + \\(data[0].get\\('title',''\\) if data else ''\\)\\)\")",
-      "PowerShell(New-Item *)"
+      "PowerShell(New-Item *)",
+      "PowerShell(Test-Path *)",
+      "PowerShell(\"tracked_public=\" + \\(git ls-files public | Measure-Object\\).Count; \"tracked_resources=\" + \\(git ls-files resources | Measure-Object\\).Count; \"tracked_github=\" + \\(git ls-files .github | Measure-Object\\).Count)",
+      "PowerShell(Get-ChildItem public -Recurse -File | Sort-Object Length -Descending | Select-Object -First 15 @{Name='SizeKB';Expression={[math]::Round\\($_.Length/1KB,1\\)}}, FullName | Format-Table -AutoSize)"
     ]
   }
 }
