@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(hugo *)",
+      "PowerShell(python -c \"import json, pathlib; p=pathlib.Path\\(r'D:\\\\gitRepo\\\\Hugo\\\\blog\\\\public\\\\algolia.json'\\); data=json.loads\\(p.read_text\\(encoding='utf-8'\\)\\); print\\(f'exists={p.exists\\(\\)} records={len\\(data\\)} first_title={data[0].get\\(\\\\\"title\\\\\"\\) if data else \\\\\"NONE\\\\\"}'\\)\")",
+      "PowerShell(python -c 'import json, pathlib; p=pathlib.Path\\(r\"D:\\\\gitRepo\\\\Hugo\\\\blog\\\\public\\\\algolia.json\"\\); data=json.loads\\(p.read_text\\(encoding=\"utf-8\"\\)\\); title=data[0].get\\(\"title\"\\) if data else \"NONE\"; print\\(\"exists={} records={} first_title={}\".format\\(p.exists\\(\\), len\\(data\\), title\\)\\)')",
+      "PowerShell(python -c \"import json,pathlib; p=pathlib.Path\\('D:/gitRepo/Hugo/blog/public/algolia.json'\\); data=json.loads\\(p.read_text\\(encoding='utf-8'\\)\\); title=data[0].get\\('title'\\) if data else 'NONE'; print\\('exists=%s records=%s first_title=%s' % \\(p.exists\\(\\), len\\(data\\), title\\)\\)\")",
+      "Bash(git *)",
+      "PowerShell($headers = @{ 'X-Algolia-API-Key' = '4908356919c08f0502bc54de50fa2ec9'; 'X-Algolia-Application-Id' = 'A9B3U706WK' }; $body = @{ query = 'Transformer'; hitsPerPage = 3 } | ConvertTo-Json; $result = Invoke-RestMethod -Method Post -Uri 'https://A9B3U706WK-dsn.algolia.net/1/indexes/Hugo/query' -Headers $headers -ContentType 'application/json' -Body $body; \"hits=$\\($result.nbHits\\)\"; $result.hits | Select-Object -First 3 title,permalink | Format-List)",
+      "PowerShell(Stop-Process *)",
+      "PowerShell(git *)",
+      "PowerShell(python -c \"import json,pathlib; p=pathlib.Path\\('D:/gitRepo/Hugo/blog/public/algolia.json'\\); data=json.loads\\(p.read_text\\(encoding='utf-8'\\)\\); print\\('records=%s' % len\\(data\\)\\); print\\('keys=' + ','.join\\(data[0].keys\\(\\)\\) if data else 'keys='\\); print\\('first_title=' + \\(data[0].get\\('title',''\\) if data else ''\\)\\)\")",
+      "PowerShell(New-Item *)"
+    ]
+  }
+}

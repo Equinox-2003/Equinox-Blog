@@ -470,10 +470,10 @@ beaudar:
 ########################################
 
 algolia_search:
-  enable: false
-  appID:
-  apiKey:
-  indexName:
+  enable: true
+  appID: A9B3U706WK
+  apiKey: 4908356919c08f0502bc54de50fa2ec9
+  indexName: Hugo
   hits:
     per_page: 10
 

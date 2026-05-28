@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>MachineLearning on Welcome to my blog</title>
-    <link>http://localhost:1313/categories/machinelearning/</link>
+    <link>https://example.org/categories/machinelearning/</link>
     <description>Recent content from Welcome to my blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Thu, 30 Apr 2026 13:08:53 +0800</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/categories/machinelearning/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://example.org/categories/machinelearning/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>Transformer</title>
-      <link>http://localhost:1313/post/machinelearning/transformer/</link>
+      <link>https://example.org/post/machinelearning/transformer/</link>
       <pubDate>Thu, 30 Apr 2026 13:08:53 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/machinelearning/transformer/</guid>
+      <guid>https://example.org/post/machinelearning/transformer/</guid>
       <description>
         <![CDATA[<h1>Transformer</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
           
         
-        <hr><p>本文2026-04-30首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-04-30</p>]]>
+        <hr><p>本文2026-04-30首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-04-30</p>]]>
       </description>
       
         <category>MachineLearning</category>
@@ -43,16 +43,16 @@
 
     <item>
       <title>Word Embedding</title>
-      <link>http://localhost:1313/post/machinelearning/word-embedding/</link>
+      <link>https://example.org/post/machinelearning/word-embedding/</link>
       <pubDate>Tue, 28 Apr 2026 15:04:20 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/machinelearning/word-embedding/</guid>
+      <guid>https://example.org/post/machinelearning/word-embedding/</guid>
       <description>
         <![CDATA[<h1>Word Embedding</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
           
         
-        <hr><p>本文2026-04-28首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-04-28</p>]]>
+        <hr><p>本文2026-04-28首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-04-28</p>]]>
       </description>
       
         <category>MachineLearning</category>
@@ -63,16 +63,16 @@
 
     <item>
       <title>注意力机制</title>
-      <link>http://localhost:1313/post/machinelearning/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/</link>
+      <link>https://example.org/post/machinelearning/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/</link>
       <pubDate>Tue, 28 Apr 2026 13:53:40 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/machinelearning/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/</guid>
+      <guid>https://example.org/post/machinelearning/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/</guid>
       <description>
         <![CDATA[<h1>注意力机制</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
           
         
-        <hr><p>本文2026-04-28首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-04-28</p>]]>
+        <hr><p>本文2026-04-28首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-04-28</p>]]>
       </description>
       
         <category>MachineLearning</category>

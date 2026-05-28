@@ -1,0 +1,199 @@
+name: Sync Algolia Search Index
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - "content/**"
+      - "config/**"
+      - "hugo.toml"
+      - "themes/reimu/layouts/**"
+      - "themes/reimu/assets/js/algolia_search.ts"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: algolia-index-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    name: Build Hugo index and upload to Algolia
+    runs-on: ubuntu-latest
+    env:
+      ALGOLIA_APP_ID: A9B3U706WK
+      ALGOLIA_INDEX_NAME: Hugo
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Set up Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.160.1"
+          extended: true
+
+      - name: Build site
+        run: hugo --minify
+
+      - name: Validate Algolia index file
+        run: |
+          set -euo pipefail
+
+          if [ ! -s public/algolia.json ]; then
+            echo "::error::public/algolia.json was not generated or is empty."
+            exit 1
+          fi
+
+          jq -e '
+            type == "array"
+            and length > 0
+            and all(.[];
+              type == "object"
+              and (.objectID | type == "string" and length > 0)
+              and (.permalink | type == "string" and length > 0)
+              and (.title | type == "string")
+              and (.content | type == "string")
+            )
+            and ((map(.objectID) | unique | length) == length)
+          ' public/algolia.json >/dev/null
+
+          record_count=$(jq 'length' public/algolia.json)
+          echo "Algolia records: $record_count"
+
+      - name: Upload index to Algolia
+        env:
+          ALGOLIA_ADMIN_API_KEY: ${{ secrets.ALGOLIA_ADMIN_API_KEY }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "$ALGOLIA_ADMIN_API_KEY" ]; then
+            echo "::error::Missing GitHub secret ALGOLIA_ADMIN_API_KEY."
+            exit 1
+          fi
+
+          api="https://${ALGOLIA_APP_ID}.algolia.net/1/indexes"
+          temp_index="${ALGOLIA_INDEX_NAME}_tmp_${GITHUB_RUN_ID}_${GITHUB_RUN_ATTEMPT}"
+          move_started=false
+
+          cleanup_temp_index() {
+            if [ "$move_started" = "false" ]; then
+              curl --silent --show-error \
+                --request DELETE \
+                --header "X-Algolia-Application-Id: ${ALGOLIA_APP_ID}" \
+                --header "X-Algolia-API-Key: ${ALGOLIA_ADMIN_API_KEY}" \
+                "${api}/${temp_index}" >/dev/null || true
+            fi
+          }
+          trap cleanup_temp_index EXIT
+
+          algolia_post() {
+            local url="$1"
+            local data="$2"
+            curl --fail-with-body --silent --show-error \
+              --request POST \
+              --header "X-Algolia-Application-Id: ${ALGOLIA_APP_ID}" \
+              --header "X-Algolia-API-Key: ${ALGOLIA_ADMIN_API_KEY}" \
+              --header "Content-Type: application/json" \
+              --data "$data" \
+              "$url"
+          }
+
+          algolia_post_file() {
+            local url="$1"
+            local file="$2"
+            curl --fail-with-body --silent --show-error \
+              --request POST \
+              --header "X-Algolia-Application-Id: ${ALGOLIA_APP_ID}" \
+              --header "X-Algolia-API-Key: ${ALGOLIA_ADMIN_API_KEY}" \
+              --header "Content-Type: application/json" \
+              --data-binary "@${file}" \
+              "$url"
+          }
+
+          algolia_get() {
+            local url="$1"
+            curl --fail-with-body --silent --show-error \
+              --header "X-Algolia-Application-Id: ${ALGOLIA_APP_ID}" \
+              --header "X-Algolia-API-Key: ${ALGOLIA_ADMIN_API_KEY}" \
+              "$url"
+          }
+
+          wait_task() {
+            local index_name="$1"
+            local task_id="$2"
+            local status=""
+
+            for _ in $(seq 1 60); do
+              status=$(algolia_get "${api}/${index_name}/task/${task_id}" | jq -r '.status')
+              if [ "$status" = "published" ]; then
+                return 0
+              fi
+              sleep 2
+            done
+
+            echo "::error::Timed out waiting for Algolia task ${task_id} on index ${index_name}. Last status: ${status}"
+            return 1
+          }
+
+          echo "Copying index settings, synonyms, and rules to temporary index ${temp_index}."
+          copy_response=$(algolia_post \
+            "${api}/${ALGOLIA_INDEX_NAME}/operation" \
+            "$(jq -nc --arg destination "$temp_index" '{operation:"copy", destination:$destination, scope:["settings", "synonyms", "rules"]}')")
+          copy_task_id=$(echo "$copy_response" | jq -r '.taskID')
+          if [ -z "$copy_task_id" ] || [ "$copy_task_id" = "null" ]; then
+            echo "::error::Algolia copy operation did not return a taskID."
+            exit 1
+          fi
+          wait_task "$temp_index" "$copy_task_id"
+
+          echo "Uploading generated records to temporary index."
+          record_count=$(jq 'length' public/algolia.json)
+          batch_file="${RUNNER_TEMP}/algolia-batch.json"
+          jq -c '{requests: map({action:"addObject", body:.})}' public/algolia.json > "$batch_file"
+          batch_response=$(algolia_post_file "${api}/${temp_index}/batch" "$batch_file")
+          batch_task_id=$(echo "$batch_response" | jq -r '.taskID')
+          if [ -z "$batch_task_id" ] || [ "$batch_task_id" = "null" ]; then
+            echo "::error::Algolia batch upload did not return a taskID."
+            exit 1
+          fi
+          wait_task "$temp_index" "$batch_task_id"
+
+          temp_count=$(algolia_post \
+            "${api}/${temp_index}/query" \
+            '{"query":"","hitsPerPage":0}' | jq -r '.nbHits')
+
+          if [ "$temp_count" != "$record_count" ]; then
+            echo "::error::Temporary Algolia index ${temp_index} reports ${temp_count} records, expected ${record_count}."
+            exit 1
+          fi
+
+          echo "Moving temporary index to production index ${ALGOLIA_INDEX_NAME}."
+          move_response=$(algolia_post \
+            "${api}/${temp_index}/operation" \
+            "$(jq -nc --arg destination "$ALGOLIA_INDEX_NAME" '{operation:"move", destination:$destination}')")
+          move_task_id=$(echo "$move_response" | jq -r '.taskID')
+          if [ -z "$move_task_id" ] || [ "$move_task_id" = "null" ]; then
+            echo "::error::Algolia move operation did not return a taskID."
+            exit 1
+          fi
+          move_started=true
+          wait_task "$ALGOLIA_INDEX_NAME" "$move_task_id"
+
+          final_count=$(algolia_post \
+            "${api}/${ALGOLIA_INDEX_NAME}/query" \
+            '{"query":"","hitsPerPage":0}' | jq -r '.nbHits')
+
+          if [ "$final_count" != "$record_count" ]; then
+            echo "::error::Algolia index ${ALGOLIA_INDEX_NAME} reports ${final_count} records, expected ${record_count}."
+            exit 1
+          fi
+
+          echo "Algolia index ${ALGOLIA_INDEX_NAME} is synced with ${final_count} searchable records."

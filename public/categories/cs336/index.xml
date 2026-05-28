@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CS336 on Welcome to my blog</title>
-    <link>http://localhost:1313/categories/cs336/</link>
+    <link>https://example.org/categories/cs336/</link>
     <description>Recent content from Welcome to my blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Wed, 20 May 2026 20:45:30 +0800</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/categories/cs336/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://example.org/categories/cs336/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>Assignment1</title>
-      <link>http://localhost:1313/post/cs336/assignment1/</link>
+      <link>https://example.org/post/cs336/assignment1/</link>
       <pubDate>Wed, 20 May 2026 20:45:30 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/cs336/assignment1/</guid>
+      <guid>https://example.org/post/cs336/assignment1/</guid>
       <description>
         <![CDATA[<h1>Assignment1</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
           
         
-        <hr><p>本文2026-05-20首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-20</p>]]>
+        <hr><p>本文2026-05-20首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-05-20</p>]]>
       </description>
       
         <category>CS336</category>

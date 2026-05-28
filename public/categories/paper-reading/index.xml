@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Paper-Reading on Welcome to my blog</title>
-    <link>http://localhost:1313/categories/paper-reading/</link>
+    <link>https://example.org/categories/paper-reading/</link>
     <description>Recent content from Welcome to my blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
@@ -12,27 +12,67 @@
     
     <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
     
-    <lastBuildDate>Sun, 17 May 2026 16:11:57 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 27 May 2026 16:33:14 +0800</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/categories/paper-reading/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://example.org/categories/paper-reading/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
     
 
     <item>
+      <title>Swin Transformer精读</title>
+      <link>https://example.org/post/paper-reading/swin-transformer%E7%B2%BE%E8%AF%BB/</link>
+      <pubDate>Wed, 27 May 2026 16:33:14 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>https://example.org/post/paper-reading/swin-transformer%E7%B2%BE%E8%AF%BB/</guid>
+      <description>
+        <![CDATA[<h1>Swin Transformer精读</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-27首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-05-27</p>]]>
+      </description>
+      
+        <category>paper-reading</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>CLIP精读</title>
+      <link>https://example.org/post/paper-reading/clip%E7%B2%BE%E8%AF%BB/</link>
+      <pubDate>Mon, 25 May 2026 13:26:56 &#43;0800</pubDate>
+      <author>shixy2003@gmail.com (Equinox)</author>
+      <guid>https://example.org/post/paper-reading/clip%E7%B2%BE%E8%AF%BB/</guid>
+      <description>
+        <![CDATA[<h1>CLIP精读</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-25首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-05-25</p>]]>
+      </description>
+      
+        <category>paper-reading</category>
+      
+    </item>
+    
+    
+
+    <item>
       <title>MoCo精读</title>
-      <link>http://localhost:1313/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/</link>
+      <link>https://example.org/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/</link>
       <pubDate>Sun, 17 May 2026 16:11:57 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/</guid>
+      <guid>https://example.org/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/</guid>
       <description>
         <![CDATA[<h1>MoCo精读</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
           
         
-        <hr><p>本文2026-05-17首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-17</p>]]>
+        <hr><p>本文2026-05-17首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-05-17</p>]]>
       </description>
       
         <category>paper-reading</category>
@@ -43,16 +83,16 @@
 
     <item>
       <title>MAE精读</title>
-      <link>http://localhost:1313/post/paper-reading/mae%E7%B2%BE%E8%AF%BB/</link>
+      <link>https://example.org/post/paper-reading/mae%E7%B2%BE%E8%AF%BB/</link>
       <pubDate>Thu, 14 May 2026 11:34:47 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/paper-reading/mae%E7%B2%BE%E8%AF%BB/</guid>
+      <guid>https://example.org/post/paper-reading/mae%E7%B2%BE%E8%AF%BB/</guid>
       <description>
         <![CDATA[<h1>MAE精读</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
           
         
-        <hr><p>本文2026-05-14首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-14</p>]]>
+        <hr><p>本文2026-05-14首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-05-14</p>]]>
       </description>
       
         <category>paper-reading</category>
@@ -63,16 +103,16 @@
 
     <item>
       <title>ViT精读</title>
-      <link>http://localhost:1313/post/paper-reading/vit%E7%B2%BE%E8%AF%BB/</link>
+      <link>https://example.org/post/paper-reading/vit%E7%B2%BE%E8%AF%BB/</link>
       <pubDate>Wed, 13 May 2026 12:52:48 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/paper-reading/vit%E7%B2%BE%E8%AF%BB/</guid>
+      <guid>https://example.org/post/paper-reading/vit%E7%B2%BE%E8%AF%BB/</guid>
       <description>
         <![CDATA[<h1>ViT精读</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
           
         
-        <hr><p>本文2026-05-13首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-13</p>]]>
+        <hr><p>本文2026-05-13首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-05-13</p>]]>
       </description>
       
         <category>paper-reading</category>

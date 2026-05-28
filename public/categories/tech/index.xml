@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tech on Welcome to my blog</title>
-    <link>http://localhost:1313/categories/tech/</link>
+    <link>https://example.org/categories/tech/</link>
     <description>Recent content from Welcome to my blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Mon, 11 May 2026 17:11:09 +0800</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/categories/tech/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://example.org/categories/tech/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>个人图床搭建</title>
-      <link>http://localhost:1313/post/tech/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</link>
+      <link>https://example.org/post/tech/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</link>
       <pubDate>Mon, 11 May 2026 17:11:09 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/tech/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</guid>
+      <guid>https://example.org/post/tech/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</guid>
       <description>
         <![CDATA[<h1>个人图床搭建</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
           
         
-        <hr><p>本文2026-05-11首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-11</p>]]>
+        <hr><p>本文2026-05-11首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-05-11</p>]]>
       </description>
       
         <category>Tech</category>
@@ -43,10 +43,10 @@
 
     <item>
       <title>Test Post</title>
-      <link>http://localhost:1313/post/tech/test-post/</link>
+      <link>https://example.org/post/tech/test-post/</link>
       <pubDate>Mon, 27 Apr 2026 16:41:52 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/tech/test-post/</guid>
+      <guid>https://example.org/post/tech/test-post/</guid>
       <description>
         <![CDATA[<h1>Test Post</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
@@ -80,7 +80,7 @@ H3
 H4
 </h4>
         
-        <hr><p>本文2026-04-27首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-04-27</p>]]>
+        <hr><p>本文2026-04-27首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-04-27</p>]]>
       </description>
       
         <category>Tech</category>

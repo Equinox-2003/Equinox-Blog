@@ -6,7 +6,7 @@ lastmod: 2026-05-18T20:34:13+08:00
 draft: false
 
 categories:
-  - MatH
+  - Math
 tags:
   - Contrastive Learning
 

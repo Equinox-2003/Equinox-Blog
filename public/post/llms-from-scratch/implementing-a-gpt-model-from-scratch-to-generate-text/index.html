@@ -3,7 +3,7 @@
   lang="en-us" 
   data-theme-mode="auto"
   >
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+  <head><meta charset="utf-8" />
 <meta
   name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -11,7 +11,7 @@
   Implementing a GPT Model From Scratch to Generate Text | Equinox
 </title>
 <meta name="description" content="记录学习过程..."/><script>
-  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":25},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"https://example.org/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":25},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
   
 </script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,22 +32,22 @@
     as="font"
     type="font/woff2"
     crossorigin="anonymous"
-  /><link rel="stylesheet" href="/css/loader.css" /><meta property="og:type" content="website" />
+  /><link rel="stylesheet" href="/css/loader.min.ac746e154f756f8220326eeb52a719f142ab038be5a8ddf30ea5ef15ef2356ea.css" /><meta property="og:type" content="website" />
   <meta property="og:title" content="Implementing a GPT Model From Scratch to Generate Text | Equinox" />
   <meta
     property="og:description"
     content="记录学习过程..."
   />
-  <meta property="og:url" content="http://localhost:1313/post/llms-from-scratch/implementing-a-gpt-model-from-scratch-to-generate-text/" />
+  <meta property="og:url" content="https://example.org/post/llms-from-scratch/implementing-a-gpt-model-from-scratch-to-generate-text/" />
   <meta
     property="og:site_name"
     content="Welcome to my blog"
   />
-  <meta property="og:image" content="http://localhost:1313/images/banner.webp" />
+  <meta property="og:image" content="https://example.org/images/banner.webp" />
   <meta property="article:author" content="Equinox" />
   <meta property="article:published_time" content="2026-05-04T21:09:06&#43;08:00" />
-  <meta property="article:modified_time" content="2026-05-04T21:09:06&#43;08:00" /><meta property="article:tag" content="LLM" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="http://localhost:1313/images/banner.webp" />
-<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" /><link
+  <meta property="article:modified_time" content="2026-05-04T21:09:06&#43;08:00" /><meta property="article:tag" content="LLM" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="https://example.org/images/banner.webp" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.80e1a28e2c90a7a7d9e3ca1e05d08b89950130e42f0dc7fa9bfe9948a1662cdb.css" /><link
     rel="preload"
     as="style"
     href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
@@ -121,7 +121,7 @@
       </a><a class="main-nav-link-wrap" href="/anime"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">番剧</span>
       </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
   </nav>
-  <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
+  <nav id="sub-nav" aria-label="Secondary navigation"><a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索" aria-label="搜索"></a></nav></div>
 <header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="Implementing a GPT Model From Scratch to Generate Text"><div id="header-outer">
     <div id="header-title"><span id="logo">
             <h1 data-aos="slide-up">Implementing a GPT Model From Scratch to Generate Text</h1>
@@ -169,17 +169,17 @@
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>文章</div><div class="sidebar-state-number">18</div>
+    <div>文章</div><div class="sidebar-state-number">22</div>
   </div>
   <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
     <div>分类</div>
     <div class="sidebar-state-number">
-      6
+      7
     </div>
   </a>
   <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
     <div>标签</div>
-    <div class="sidebar-state-number">9</div>
+    <div class="sidebar-state-number">14</div>
   </a>
 </div>
 <div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
@@ -821,9 +821,9 @@ $$<p>
         </div><div class="sponsor-qr-image-wrapper">
           <img src="/sponsor/wechat.jpg" alt="微信" width="200" />
           <p class="sponsor-qr-name">微信</p>
-        </div></div></div><div class="share-wrapper"><a href="https://service.weibo.com/share/share.php?url=http://localhost:1313/post/llms-from-scratch/implementing-a-gpt-model-from-scratch-to-generate-text/&amp;appkey=&amp;title=Implementing%20a%20GPT%20Model%20From%20Scratch%20to%20Generate%20Text&amp;pic=&amp;ralateUid=" target="_blank" rel="noopener noreferrer" title="Implementing a GPT Model From Scratch to Generate Text">
+        </div></div></div><div class="share-wrapper"><a href="https://service.weibo.com/share/share.php?url=https://example.org/post/llms-from-scratch/implementing-a-gpt-model-from-scratch-to-generate-text/&amp;appkey=&amp;title=Implementing%20a%20GPT%20Model%20From%20Scratch%20to%20Generate%20Text&amp;pic=&amp;ralateUid=" target="_blank" rel="noopener noreferrer" title="Implementing a GPT Model From Scratch to Generate Text">
       <div class="share-icon icon icon-weibo"></div>
-    </a><a href="https://connect.qq.com/widget/shareqq/index.html?url=http://localhost:1313/post/llms-from-scratch/implementing-a-gpt-model-from-scratch-to-generate-text/&amp;title=Implementing%20a%20GPT%20Model%20From%20Scratch%20to%20Generate%20Text&amp;desc=%0a&amp;lt;!--more--&amp;gt;%0a%0a%0a%0a##%20%e9%9b%b6%e3%80%81%e5%89%8d%e8%a8%80%0a%0a%e8%bf%99%e4%b8%80%e7%ab%a0%e4%bd%9c%e8%80%85%e5%b8%a6%e7%9d%80%e6%89%8b%e6%90%93%e4%ba%86%e4%b8%80%e4%b8%8bGPT%202%e7%9a%84architecture%ef%bc%8c%e6%9e%b6%e6%9e%84%e8%bf%98%e6%98%af%e6%af%94%e4%bb%b7%e6%b8%85%e6%99%b0%e6%98%93%e6%87%82%e7%9a%84%e3%80%82%0a%0a%e6%9c%ac%e7%ab%a0%e4%bb%a3%e7%a0%81%ef%bc%9a[ch04]%28https://github.com/Equinox-2003/LLMs-from-scratch-Practice/tree/main/ch04%29%0a%0a%0a%0a##%20%e4%b8%80%e3%80%81Implementing%20a%20GPT%20model%0a%0a###%201.1%20Coding%20a%20LLM%20architecture%0a%0a%e5%83%8f**GPT%28generative%20pretrained%20transformer%29**%e8%bf%99%e6%a0%b7%e7%9a%84LLM%ef%bc%8c%e9%83%bd%e6%98%af%e5%a4%a7%e8%80%8c%e6%b7%b1%e7%9a%84%e7%a5%9e%e7%bb%8f%e7%bd%91%e7%bb%9c%e6%9e%b6%e6%9e%84%ef%bc%8c%e4%bd%bf%e5%be%97%e7%94%9f%e6%88%90%e6%96%87%e6%9c%ac%e6%97%b6%e4%b8%80%e6%ac%a1%e7%94%9f%e6%88%90%20%e2%80%a6&amp;source=http://localhost:1313/" target="_blank" rel="noopener noreferrer" title="Implementing a GPT Model From Scratch to Generate Text">
+    </a><a href="https://connect.qq.com/widget/shareqq/index.html?url=https://example.org/post/llms-from-scratch/implementing-a-gpt-model-from-scratch-to-generate-text/&amp;title=Implementing%20a%20GPT%20Model%20From%20Scratch%20to%20Generate%20Text&amp;desc=%0a&amp;lt;!--more--&amp;gt;%0a%0a%0a%0a##%20%e9%9b%b6%e3%80%81%e5%89%8d%e8%a8%80%0a%0a%e8%bf%99%e4%b8%80%e7%ab%a0%e4%bd%9c%e8%80%85%e5%b8%a6%e7%9d%80%e6%89%8b%e6%90%93%e4%ba%86%e4%b8%80%e4%b8%8bGPT%202%e7%9a%84architecture%ef%bc%8c%e6%9e%b6%e6%9e%84%e8%bf%98%e6%98%af%e6%af%94%e4%bb%b7%e6%b8%85%e6%99%b0%e6%98%93%e6%87%82%e7%9a%84%e3%80%82%0a%0a%e6%9c%ac%e7%ab%a0%e4%bb%a3%e7%a0%81%ef%bc%9a[ch04]%28https://github.com/Equinox-2003/LLMs-from-scratch-Practice/tree/main/ch04%29%0a%0a%0a%0a##%20%e4%b8%80%e3%80%81Implementing%20a%20GPT%20model%0a%0a###%201.1%20Coding%20a%20LLM%20architecture%0a%0a%e5%83%8f**GPT%28generative%20pretrained%20transformer%29**%e8%bf%99%e6%a0%b7%e7%9a%84LLM%ef%bc%8c%e9%83%bd%e6%98%af%e5%a4%a7%e8%80%8c%e6%b7%b1%e7%9a%84%e7%a5%9e%e7%bb%8f%e7%bd%91%e7%bb%9c%e6%9e%b6%e6%9e%84%ef%bc%8c%e4%bd%bf%e5%be%97%e7%94%9f%e6%88%90%e6%96%87%e6%9c%ac%e6%97%b6%e4%b8%80%e6%ac%a1%e7%94%9f%e6%88%90%20%e2%80%a6&amp;source=https://example.org/" target="_blank" rel="noopener noreferrer" title="Implementing a GPT Model From Scratch to Generate Text">
       <div class="share-icon icon icon-qq"></div>
     </a><a href="javascript:;"  title="Implementing a GPT Model From Scratch to Generate Text">
       <div class="share-icon icon icon-weixin"><div id="share-weixin">
@@ -865,7 +865,7 @@ $$<p>
     aria-label="Article navigation"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap left"><img
-              data-src="https://d-sketon.top/img/_backwebp/bg15.webp"
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
               data-sizes="auto"
               alt="Coding Attention Mechanisms"
               class="lazyload"
@@ -877,7 +877,7 @@ $$<p>
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Coding Attention Mechanisms</h3>
       </div><div class="article-nav-link-wrap right"><img
-              data-src="https://d-sketon.top/img/_backwebp/bg28.webp"
+              data-src="https://d-sketon.top/img/_backwebp/bg11.webp"
               data-sizes="auto"
               alt="Pretraining on Unlabeled Data"
               class="lazyload"
@@ -921,10 +921,10 @@ $$<p>
         >
       </div><div>
         <span class="icon-brush"
-          >&nbsp;76.0k</span
+          >&nbsp;100.5k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;02:43</span>
+        <span class="icon-coffee">&nbsp;03:34</span>
       </div><div>
         <span class="icon-eye"></span>
         <span id="busuanzi_container_site_pv"
@@ -981,17 +981,17 @@ $$<p>
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>文章</div><div class="sidebar-state-number">18</div>
+    <div>文章</div><div class="sidebar-state-number">22</div>
   </div>
   <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
     <div>分类</div>
     <div class="sidebar-state-number">
-      6
+      7
     </div>
   </a>
   <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
     <div>标签</div>
-    <div class="sidebar-state-number">9</div>
+    <div class="sidebar-state-number">14</div>
   </a>
 </div>
 <div class="sidebar-social" ><div class="icon-github sidebar-social-icon">
@@ -1060,7 +1060,21 @@ $$<p>
         <div class="sidebar-toc-btn current"></div>
         <div class="sidebar-common-btn"></div>
       </div></nav>
-</div><script
+</div><div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png" />
+        </div>
+      </div><script
     src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
     
     
@@ -1072,7 +1086,7 @@ $$<p>
     
     
     
-    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js"  ></script><script src="/js/aos.js"  ></script><script>
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous"  ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous"  ></script><script>
     var aosInit = () => {
       AOS.init({
         duration: 1000,
@@ -1086,7 +1100,36 @@ $$<p>
     } else {
       aosInit();
     }
-  </script><script src="/js/pjax_main.js" data-pjax ></script><script>
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax ></script><script>
+    var ALGOLIA_CONFIG = {
+      logo: '\/images\/algolia_logo.svg',
+      algolia: {
+        applicationID: "A9B3U706WK",
+        apiKey: "4908356919c08f0502bc54de50fa2ec9",
+        indexName: "Hugo",
+        hits: {
+          "per_page": parseInt("10")
+        },
+        labels: {
+          "input_placeholder": '搜索.....',
+          "hits_empty": '未发现与 「${query}」相关内容',
+          "hits_stats": '找到${hits}条结果（用时 ${time} ms）'
+        }
+      }
+    };
+  </script><script
+    src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"
+    defer
+    
+    
+    
+    integrity="sha384-xvLS0jfKuoREs7pqkRI/OI8GcqohO5S&#43;jQz7ZBtQXnsXmD&#43;9jDOOY4cL6dCPzlrk" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/@reimujs/instantsearch.js@4.57.0-beta.1/dist/instantsearch.production.min.js"
+    defer
+    
+    
+    
+    integrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l&#43;M5Q2WH/Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous"></script><script src="/js/algolia_search.js" integrity="" crossorigin="anonymous"  ></script><script>
   var setupFirework = () => {
     if (! false  || !window.matchMedia('(max-width: 768px)').matches) {
       if (window.firework) {
@@ -1110,11 +1153,11 @@ $$<p>
         window.REIMU_POST = {
           author: "Equinox",
           title: "Implementing a GPT Model From Scratch to Generate Text",
-          url: "http:\/\/localhost:1313\/post\/llms-from-scratch\/implementing-a-gpt-model-from-scratch-to-generate-text\/",
+          url: "https:\/\/example.org\/post\/llms-from-scratch\/implementing-a-gpt-model-from-scratch-to-generate-text\/",
           description: "\n\u0026lt;!--more--\u0026gt;\n\n\n\n## 零、前言\n\n这一章作者带着手搓了一下GPT 2的architecture，架构还是比价清晰易懂的。\n\n本章代码：[ch04](https:\/\/github.com\/Equinox-2003\/LLMs-from-scratch-Practice\/tree\/main\/ch04)\n\n\n\n## 一、Implementing a GPT model\n\n### 1.1 Coding a LLM architecture\n\n像**GPT(generative pretrained transformer)**这样的LLM，都是大而深的神经网络架构，使得生成文本时一次生成 …",
-          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+          cover: "https:\/\/example.org\/images\/banner.webp",
         };
-      </script><script src="/js/insert_highlight.js" data-pjax ></script><script src="/js/tabs.js" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax ></script><script src="/js/tabs.js" integrity="" crossorigin="anonymous" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
           if (_$$(`${gallery} ${children}`).length > 0) {
             new PhotoSwipeLightbox({
               gallery,
@@ -1151,8 +1194,8 @@ $$<p>
         const domMode = document.documentElement.getAttribute("data-theme");
         const defaultTheme = { dark: 'dark', light: 'light' };
         const customTheme = {
-          light: '' ? '' : new URL('\/css\/giscus_reimu_light.css', window.location.origin).href,
-          dark: '' ? '' : new URL('\/css\/giscus_reimu_dark.css', window.location.origin).href
+          light: '' ? '' : new URL('\/css\/giscus_reimu_light.min.901ef2535e7299a46ff662976efa1a587a81edeeb4e3995fabbd1e8910ece5af.css', window.location.origin).href,
+          dark: '' ? '' : new URL('\/css\/giscus_reimu_dark.min.c75b80b2280ed9d50e49bff3dc34b6a859d218046bcd3ea20212b55f95be5747.css', window.location.origin).href
         };
         const hasGiscusCorsHeader = async (url) => {
           if (!url) return false;

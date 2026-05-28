@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Contrastive Learning on Welcome to my blog</title>
-    <link>http://localhost:1313/tags/contrastive-learning/</link>
+    <link>https://example.org/tags/contrastive-learning/</link>
     <description>Recent content from Welcome to my blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Mon, 18 May 2026 20:34:13 +0800</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/tags/contrastive-learning/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://example.org/tags/contrastive-learning/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,19 +23,19 @@
 
     <item>
       <title>NCE</title>
-      <link>http://localhost:1313/post/math/nce/</link>
+      <link>https://example.org/post/math/nce/</link>
       <pubDate>Mon, 18 May 2026 20:34:13 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/math/nce/</guid>
+      <guid>https://example.org/post/math/nce/</guid>
       <description>
         <![CDATA[<h1>NCE</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
           
         
-        <hr><p>本文2026-05-18首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-18</p>]]>
+        <hr><p>本文2026-05-18首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-05-18</p>]]>
       </description>
       
-        <category>MatH</category>
+        <category>Math</category>
       
     </item>
     
@@ -43,16 +43,16 @@
 
     <item>
       <title>MoCo精读</title>
-      <link>http://localhost:1313/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/</link>
+      <link>https://example.org/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/</link>
       <pubDate>Sun, 17 May 2026 16:11:57 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/</guid>
+      <guid>https://example.org/post/paper-reading/moco%E7%B2%BE%E8%AF%BB/</guid>
       <description>
         <![CDATA[<h1>MoCo精读</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
           
         
-        <hr><p>本文2026-05-17首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-05-17</p>]]>
+        <hr><p>本文2026-05-17首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-05-17</p>]]>
       </description>
       
         <category>paper-reading</category>

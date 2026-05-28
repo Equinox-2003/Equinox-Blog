@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Unsuperviesed Learning on Welcome to my blog</title>
-    <link>http://localhost:1313/tags/unsuperviesed-learning/</link>
+    <link>https://example.org/tags/unsuperviesed-learning/</link>
     <description>Recent content from Welcome to my blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Tue, 28 Apr 2026 15:04:20 +0800</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/tags/unsuperviesed-learning/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://example.org/tags/unsuperviesed-learning/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>Word Embedding</title>
-      <link>http://localhost:1313/post/machinelearning/word-embedding/</link>
+      <link>https://example.org/post/machinelearning/word-embedding/</link>
       <pubDate>Tue, 28 Apr 2026 15:04:20 &#43;0800</pubDate>
       <author>shixy2003@gmail.com (Equinox)</author>
-      <guid>http://localhost:1313/post/machinelearning/word-embedding/</guid>
+      <guid>https://example.org/post/machinelearning/word-embedding/</guid>
       <description>
         <![CDATA[<h1>Word Embedding</h1><p>作者：Equinox（shixy2003@gmail.com）</p>
         
           
         
-        <hr><p>本文2026-04-28首发于<a href='http://localhost:1313/'>Welcome to my blog</a>，最后修改于2026-04-28</p>]]>
+        <hr><p>本文2026-04-28首发于<a href='https://example.org/'>Welcome to my blog</a>，最后修改于2026-04-28</p>]]>
       </description>
       
         <category>MachineLearning</category>
