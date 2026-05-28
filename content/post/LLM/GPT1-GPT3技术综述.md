@@ -1,5 +1,5 @@
 ---
-title: "GPT1 GPT3技术综述"
+title: "GPT1~GPT3技术综述"
 description: ""
 date: 2026-05-28T22:42:23+08:00
 lastmod: 2026-05-28T22:42:23+08:00
