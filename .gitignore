@@ -1,0 +1,7 @@
+# Hugo generated output
+/public/
+/resources/_gen/
+/.hugo_build.lock
+
+# Local Claude Code state
+/.claude/
