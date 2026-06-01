@@ -23,7 +23,7 @@ mermaid: true
 
 ## 零、写在前面
 
-
+VLMo主要就是试图 dual encoder 和 多模态融合的 fusion encoder 到一个架构里面，然后基于此又提出一个预训练策略，取得了很好的效果。
 
 
 
