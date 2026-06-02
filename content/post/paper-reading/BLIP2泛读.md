@@ -3,7 +3,7 @@ title: "BLIP2泛读"
 description: ""
 date: 2026-06-02T14:10:54+08:00
 lastmod: 2026-06-02T14:10:54+08:00
-draft: true
+draft: false
 
 categories:
   - paper-reading
