@@ -1,6 +1,6 @@
 baseURL = 'https://example.org/'
 locale = 'en-us'
-title = 'Welcome to my blog'
+title = "Welcome to Equinox's wiki！"
 theme = "reimu"
 
 languageCode = 'zh-CN'

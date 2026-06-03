@@ -283,28 +283,47 @@
         {{- partial "helpers/cdnJs.html" (dict "name" "mathjax" "ctx" . "defer" true "pjax" true) -}}
       {{- end -}}
     {{- end -}}
-    {{- if and .IsHome (reflect.IsMap .Site.Params.subtitle) .Site.Params.subtitle.typing.enable -}}
-      {{- partial "helpers/cdnJs.html" (dict "name" "typed" "ctx" . "defer" true "onload" "initSubtitleTyping") -}}
+    {{- if .IsHome -}}
+      {{- $useSubtitleTyping := and (reflect.IsMap .Site.Params.subtitle) .Site.Params.subtitle.typing.enable -}}
+      {{- partial "helpers/cdnJs.html" (dict "name" "typed" "ctx" . "defer" true "onload" "initHomeTyping()") -}}
       <script data-pjax>
+        window.homeTitleTypingConfig = {
+          strings: {{ slice .Site.Title | jsonify | safeJS }},
+          typeSpeed: 90,
+          startDelay: 300,
+          loop: false,
+          showCursor: true,
+          cursorChar: "|"
+        };
+        {{- if $useSubtitleTyping }}
         window.subtitleTypingConfig = {
-          strings: [
-            {{- range $index, $string := .Site.Params.subtitle.typing.strings -}}
-              {{- if $index -}},{{- end -}}
-              "{{ $string }}"
-            {{- end -}}
-          ],
+          strings: {{ .Site.Params.subtitle.typing.strings | jsonify | safeJS }},
           typeSpeed: {{ .Site.Params.subtitle.typing.typeSpeed | default 100 }},
           backSpeed: {{ .Site.Params.subtitle.typing.backSpeed | default 50 }},
           backDelay: {{ .Site.Params.subtitle.typing.backDelay | default 2000 }},
           startDelay: {{ .Site.Params.subtitle.typing.startDelay | default 300 }},
-          loop: {{ .Site.Params.subtitle.typing.loop | default true }},
-          shuffle: {{ .Site.Params.subtitle.typing.shuffle | default true }},
-          showCursor: {{ .Site.Params.subtitle.typing.showCursor | default true }},
+          loop: {{ if isset .Site.Params.subtitle.typing "loop" }}{{ .Site.Params.subtitle.typing.loop }}{{ else }}true{{ end }},
+          shuffle: {{ if isset .Site.Params.subtitle.typing "shuffle" }}{{ .Site.Params.subtitle.typing.shuffle }}{{ else }}true{{ end }},
+          showCursor: {{ if isset .Site.Params.subtitle.typing "showCursor" }}{{ .Site.Params.subtitle.typing.showCursor }}{{ else }}true{{ end }},
           {{- if .Site.Params.subtitle.typing.cursorChar -}}
-          cursorChar: "{{ .Site.Params.subtitle.typing.cursorChar }}",
+          cursorChar: {{ .Site.Params.subtitle.typing.cursorChar | jsonify | safeJS }},
           {{- end -}}
           smartBackspace: {{ .Site.Params.subtitle.typing.smartBackspace | default false }}
         };
+        {{- end }}
+        function initHomeTitleTyping() {
+          const titleElement = document.querySelector('#home-title-typing');
+          if (!titleElement || !window.Typed || !window.homeTitleTypingConfig) {
+            return;
+          }
+
+          if (window.__homeTitleTypedInstance) {
+            window.__homeTitleTypedInstance.destroy();
+          }
+
+          titleElement.textContent = "";
+          window.__homeTitleTypedInstance = new Typed('#home-title-typing', window.homeTitleTypingConfig);
+        }
         function initSubtitleTyping() {
           const subtitleElement = document.querySelector('#subtitle span');
           if (!subtitleElement || !window.Typed || !window.subtitleTypingConfig) {
@@ -315,19 +334,24 @@
             window.__typedInstance.destroy();
           }
 
+          subtitleElement.textContent = "";
           window.__typedInstance = new Typed('#subtitle span', window.subtitleTypingConfig);
         }
-        
-        if (!window.__typedInitialized) {
-          window.__typedInitialized = true;
-          
+        function initHomeTyping() {
+          initHomeTitleTyping();
+          initSubtitleTyping();
+        }
+
+        if (!window.__homeTypingInitialized) {
+          window.__homeTypingInitialized = true;
+
           if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initSubtitleTyping);
+            document.addEventListener('DOMContentLoaded', initHomeTyping);
           } else {
-            initSubtitleTyping();
+            initHomeTyping();
           }
         } else {
-          initSubtitleTyping();
+          initHomeTyping();
         }
       </script>
     {{- end -}}

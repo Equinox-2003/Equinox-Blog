@@ -197,7 +197,11 @@
   
         {{- if $title -}}
           <span id="logo">
-            <h1 data-aos="{{ .Site.Params.animation.options.header.title }}">{{ $title }}</h1>
+            {{- if .IsHome -}}
+              <h1 data-aos="{{ .Site.Params.animation.options.header.title }}" aria-label="{{ $title }}"><span id="home-title-typing">{{ $title }}</span></h1>
+            {{- else -}}
+              <h1 data-aos="{{ .Site.Params.animation.options.header.title }}">{{ $title }}</h1>
+            {{- end -}}
           </span>
         {{- end -}}
       {{- end -}}
@@ -212,6 +216,9 @@
         {{- if .IsHome -}}
           {{- if and (reflect.IsMap .Site.Params.subtitle) .Site.Params.subtitle.typing.enable -}}
             {{- $useTyping = true -}}
+            {{- if .Site.Params.subtitle.text -}}
+              {{- $subtitle = .Site.Params.subtitle.text -}}
+            {{- end -}}
           {{- else if and (reflect.IsMap .Site.Params.subtitle) .Site.Params.subtitle.text -}}
             {{- $subtitle = .Site.Params.subtitle.text -}}
           {{- else if .Site.Params.subtitle -}}
@@ -228,7 +235,7 @@
         {{- end -}}
         <h2 id="subtitle-wrap" data-aos="{{ .Site.Params.animation.options.header.subTitle }}">
           {{- if $useTyping -}}
-            <span id="subtitle"><span></span></span>
+            <span id="subtitle"><span>{{ $subtitle }}</span></span>
           {{- else if $subtitle -}}
             <span id="subtitle">{{ $subtitle }}</span>
           {{- end -}}

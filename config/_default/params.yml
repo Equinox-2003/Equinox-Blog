@@ -35,18 +35,15 @@ description: "记录学习过程..."
 # subtitle: "少女祈祷中..."
 subtitle:
   typing:
-    enable: false
+    enable: true
     strings:
-      # - Sentence 1
-      # - Sentence 2
-      # - Sentence 3
-      # - Sentence 4
-    typeSpeed: 100              # 打字速度（毫秒/字符） 
+      - "I like it and I'm good at it."
+    typeSpeed: 100              # 打字速度（毫秒/字符）
     backSpeed: 50               # 删除速度（毫秒/字符）
     backDelay: 2000             # 打完一句话后，等待时间
     startDelay: 300             # 页面加载后，等待时间
-    loop: true                  # 是否循环播放
-    shuffle: true              # 是否随机输出句子
+    loop: false                 # 是否循环播放
+    shuffle: false             # 是否随机输出句子
     showCursor: true            # 是否显示闪烁的字符
     cursorChar: "|"             # 字符
     smartBackspace: false       # 智能退格，只删除不同的部分
