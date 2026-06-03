@@ -3,12 +3,14 @@ title: "MiniGPT 4精读"
 description: ""
 date: 2026-06-03T10:56:35+08:00
 lastmod: 2026-06-03T10:56:35+08:00
-draft: true
+draft: false
 
 categories:
-  - Tech
+  - paper-reading
 tags:
-  - Algorithm
+  - multimodality
+  - LLM
+  - NLP
 
 toc: true
 math: true
