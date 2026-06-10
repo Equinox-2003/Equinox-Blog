@@ -3,7 +3,7 @@ title: "Qwen2.5 VL泛读"
 description: ""
 date: 2026-06-09T16:07:55+08:00
 lastmod: 2026-06-09T16:07:55+08:00
-draft: true
+draft: false
 
 categories:
   - paper-reading
