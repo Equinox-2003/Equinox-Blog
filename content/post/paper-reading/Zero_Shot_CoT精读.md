@@ -1,6 +1,6 @@
 ---
-title: "Zero_Shot_CoT精读"
-description: ""
+title: "Zero Shot CoT精读"
+description: "Let's think step by step"
 date: 2026-06-23T00:36:28+08:00
 lastmod: 2026-06-23T00:36:28+08:00
 draft: false
