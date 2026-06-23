@@ -15,8 +15,8 @@ tags:
 toc: true
 math: true
 mermaid: true
-banner: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1782219646339_image.png
-cover: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1782219745138_image.png
+banner: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1782219745138_image.png
+cover: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1782219646339_image.png
 ---
 
 <!--more-->
