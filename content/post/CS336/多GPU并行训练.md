@@ -3,7 +3,7 @@ title: "多GPU并行训练"
 description: ""
 date: 2026-06-16T17:08:34+08:00
 lastmod: 2026-06-16T17:08:34+08:00
-draft: false
+draft: true
 
 categories:
   - CS336

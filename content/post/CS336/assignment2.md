@@ -3,7 +3,7 @@ title: "Assignment2"
 description: ""
 date: 2026-06-12T14:48:27+08:00
 lastmod: 2026-06-12T14:48:27+08:00
-draft: false
+draft: true
 
 categories:
   - CS336
