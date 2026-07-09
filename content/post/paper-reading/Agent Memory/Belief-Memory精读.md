@@ -1,10 +1,9 @@
 ---
-title: "Belief Memory精读"
+title: "论文精读 | Belief Memory精读"
 description: ""
 date: 2026-07-09T00:00:08+08:00
 lastmod: 2026-07-09T00:00:08+08:00
-draft: true
-
+draft: false
 categories:
   - paper-reading
 tags:

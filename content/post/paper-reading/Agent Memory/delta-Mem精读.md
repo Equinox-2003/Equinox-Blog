@@ -1,9 +1,9 @@
 ---
-title: Delta Mem精读
+title: "论文精读 | Delta Mem精读"
 description: ""
 date: 2026-07-03T11:07:41+08:00
 lastmod: 2026-07-03T11:07:41+08:00
-draft: true
+draft: false
 categories:
   - paper-reading
 tags:
