@@ -590,7 +590,7 @@ moe_icp:
 
 # Sponsor
 sponsor:
-  enable: true
+  enable: false
   tip: 
     zh-CN: 请作者喝杯咖啡吧
     zh-TW: 請作者喝杯咖啡吧

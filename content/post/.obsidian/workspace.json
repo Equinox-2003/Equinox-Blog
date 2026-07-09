@@ -1,0 +1,226 @@
+{
+  "main": {
+    "id": "11a9b92a0a05744b",
+    "type": "split",
+    "children": [
+      {
+        "id": "a94a02689b85a653",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d15ec1b6f8988348",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "paper-reading/Agent Memory/delta-Mem精读.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "delta-Mem精读"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3035310e8d0fd3bb",
+    "type": "split",
+    "children": [
+      {
+        "id": "4b48ebe94fd5124f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d2f16e3d4bd1bb0f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "0905aaafc8a92e4e",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "049f52a683d579fb",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "right": {
+    "id": "3894317d4b746671",
+    "type": "split",
+    "children": [
+      {
+        "id": "e326879a8e8cc97b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0410e71747d1527d",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "paper-reading/Agent Memory/delta-Mem精读.md",
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for delta-Mem精读"
+            }
+          },
+          {
+            "id": "cfc38f0106a56ca1",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "paper-reading/Agent Memory/delta-Mem精读.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from delta-Mem精读"
+            }
+          },
+          {
+            "id": "5c2f3c588b01ab1a",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "726d4fdc1232a8db",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "9ee17fd3fd3a3bb0",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "paper-reading/Agent Memory/delta-Mem精读.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of delta-Mem精读"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "d15ec1b6f8988348",
+  "lastOpenFiles": [
+    "paper-reading/Agent Memory/斯坦福小镇.md",
+    "Math/KL散度.md",
+    "paper-reading/Agent Memory/delta-Mem精读.md",
+    "Untitled 1.base",
+    "Untitled.base",
+    "paper-reading/Agent Memory/Generative-Agents.md",
+    "paper-reading/Agent Memory/Mem0精读.md",
+    "paper-reading/VLM/MiniGPT-4精读.md",
+    "paper-reading/VLM/LLaVA精读.md",
+    "paper-reading/VLM/LLaVA1.5精读.md",
+    "paper-reading/VLM/Qwen3-VL精读.md",
+    "paper-reading/VLM/Qwen2.5-VL泛读.md",
+    "paper-reading/VLM/Qwen2-VL精读.md",
+    "paper-reading/VLM/Qwen-VL精读.md",
+    "paper-reading/VLM",
+    "paper-reading/CoT/Self-Consistency泛读.md",
+    "paper-reading/CoT/Zero_Shot_CoT精读.md",
+    "paper-reading/多模态学习/VLMO泛读.md",
+    "paper-reading/多模态学习/ViLT精读.md",
+    "paper-reading/多模态学习/CLIP精读.md",
+    "paper-reading/多模态学习/BLIP泛读.md",
+    "paper-reading/多模态学习/BLIP2泛读.md",
+    "paper-reading/多模态学习/ALBEF泛读.md",
+    "paper-reading/多模态学习",
+    "paper-reading/计算机视觉 - 对比学习/MoCo精读.md",
+    "paper-reading/计算机视觉 - 对比学习",
+    "paper-reading/新建文件夹",
+    "paper-reading/计算机视觉 - Transformer/ViT精读.md",
+    "paper-reading/计算机视觉 - Transformer/Swin-Transformer精读.md",
+    "paper-reading/计算机视觉 - Transformer/MAE精读.md",
+    "paper-reading/计算机视觉 - Transformer",
+    "paper-reading/CV/ViT精读.md",
+    "paper-reading/CV/Swin-Transformer精读.md",
+    "paper-reading/CV",
+    "paper-reading/Qwen",
+    "paper-reading/CoT"
+  ]
+}
