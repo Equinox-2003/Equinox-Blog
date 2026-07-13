@@ -1,6 +1,6 @@
 ---
-title: "论文精读 | Delta Mem精读"
-description: ""
+title: "论文精读 | Delta Mem"
+description: "LoRA也能做 Agent Memory？"
 date: 2026-07-03T11:07:41+08:00
 lastmod: 2026-07-03T11:07:41+08:00
 draft: false

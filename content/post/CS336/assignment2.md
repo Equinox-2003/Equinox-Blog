@@ -3,7 +3,7 @@ title: "Assignment2"
 description: ""
 date: 2026-06-12T14:48:27+08:00
 lastmod: 2026-06-12T14:48:27+08:00
-draft: true
+draft: false
 
 categories:
   - CS336
@@ -30,6 +30,10 @@ mermaid: true
 [GPUs and TPUs](https://equinox.wiki/post/cs336/gpus-and-tpus/)
 
 [Benchmarking、Profiling 与 Triton Kernels](https://equinox.wiki/post/cs336/benchmarkingprofiling-%E4%B8%8E-triton-kernels/)
+
+[并行训练优化、MoE扩展与系统瓶颈](https://equinox.wiki/post/cs336/%E5%B9%B6%E8%A1%8C%E8%AE%AD%E7%BB%83%E4%BC%98%E5%8C%96moe%E6%89%A9%E5%B1%95%E4%B8%8E%E7%B3%BB%E7%BB%9F%E7%93%B6%E9%A2%88/)
+
+本章代码：[assignment2](https://github.com/Equinox-2003/CS336-Assignment/tree/main/assignment2)
 
 
 
@@ -1774,6 +1778,1233 @@ class FlashAttentionTritonFunction(torch.autograd.Function):
 
 
 ## 四、Distributed Data Parallel Training
+
+然后这部分主要就是学习下怎么利用多gpu训练llm。
+
+### 4.1 pytorch 实现单节点分布式通信
+
+assignment给了一个示例代码：
+
+```python
+import os
+import torch
+import torch.distributed as dist
+import torch.multiprocessing as mp
+
+def setup(rank, world_size):
+    os.environ["MASTER_ADDR"] = "localhost"
+    os.environ["MASTER_PORT"] = "29500"
+    dist.init_process_group("gloo", rank=rank, world_size=world_size)
+
+def distributed_demo(rank, world_size):  
+    setup(rank, world_size) 
+    data = torch.randint(0, 10, (3,)) 
+    print(f"rank {rank} data (before all-reduce): {data}") 
+    dist.all_reduce(data, async_op=False) 
+    print(f"rank {rank} data (after all-reduce): {data}")
+
+if __name__ == '__main__':
+    world_size = 4
+    mp.spawn(fn=distributed_demo, args=(world_size, ), nprocs=world_size, join=True)
+```
+
+然后本地跑一下：
+
+```text
+rank 2 data (before all-reduce): tensor([2, 8, 9])
+rank 1 data (before all-reduce): tensor([2, 0, 4])
+rank 0 data (before all-reduce): tensor([0, 5, 0])
+rank 3 data (before all-reduce): tensor([6, 9, 7])
+rank 1 data (after all-reduce): tensor([10, 22, 20])
+rank 0 data (after all-reduce): tensor([10, 22, 20])
+rank 3 data (after all-reduce): tensor([10, 22, 20])
+rank 2 data (after all-reduce): tensor([10, 22, 20])
+```
+
+其实就是做了一个 all_reduce 的操作，求和的结果送到了每个process上
+
+
+
+-   `mp.spawn`
+    -   生成 `nprocs` 个进程，每个进程都运行带有给定 `args` 参数的 `fn` 函数
+    -   `fn` 函数会被以 `fn(rank, *args)` 的形式调用，其中 `rank` 是工作进程的索引（取值范围是 0 到 nprocs-1）
+    -   distributed_demo 函数必须接受这个整数 rank 作为其第一个位置参数
+    -   我们还会传入 world_size，它指的是工作进程的总数
+
+**每个工作进程都属于一个进程组**，**该进程组通过 dist.init_process_group 初始化**。进程组代表多个工作进程，**这些进程将通过一个共享的主节点进行协调和通信。主节点由其 IP 地址和端口定义，并且主节点运行着 rank 为 0 的进程**。像 all-reduce 这样的集合通信操作会对进程组中的每个进程执行操作。
+
+例子中使用 "gloo" 后端初始化了进程组，但还有其他后端可用：
+
+"nccl" 后端将使用 NVIDIA NCCL 集合通信库，对于 CUDA 张量，通常会具有更高的性能。
+
+不过 NCCL 只能在带有 GPU 的机器上使用，而 Gloo 可以在仅 CPU 的机器上运行。
+
+在运行多 GPU 任务时，得确保不同的 rank 使用不同的 GPU。
+
+一种实现方法是在 setup 函数中调用 torch.cuda.set_device(rank)，这样 tensor.to("cuda") 就会自动将其移动到指定的设备。
+
+或者，也可以明确地创建一个按 rank 区分的设备字符串（例如，device = f"cuda:{rank}"），然后将这个设备字符串用作任何数据移动的目标设备（例如，tensor.to(f"cuda:{rank}")）。
+
+
+
+#### 4.1.1 Best Practices for Benchmarking Distributed Applications
+
+做实验看不同的 tensor 和 gpu 数量变化的时候 all_reduce 的时间和吞吐量怎么变化：
+
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1783751905056_image.png)
+
+**左图：纵坐标表示All-reduce的时间**
+
+-   all-reduce 通信开销同时受 tensor 大小和参与 GPU 数量影响；
+-   大 tensor 更受带宽限制，小 tensor 更受固定启动/同步开销影响；GPU 数越多，梯度同步通常越贵。 
+
+**右图：纵坐标：吞吐量**
+
+-   吞吐量从 1 MiB 到 1024 MiB 明显上升，说明小 tensor 时很多时间花在固定开销上，而大 tensor 能更充分利用 GPU 间通信带宽（把很多小梯度分开 all-reduce 效率低； 把梯度合成较大的 bucket 再通信更高效） 
+-   GPU 数越多，单次 all-reduce 通常越慢，同一个 tensor size 下，6 GPUs 通常比 4 GPUs 慢，4 GPUs 通常比 2 GPUs 慢。原因是更多 rank 参与 collective，会带来更多通信阶段和同步开销。从 2 GPUs 到 6 GPUs，GPU 数变成 3 倍，但 1024 MiB 时间只是：3.409 ms -> 5.039 m大约 1.48 倍，这说明NCCL 的 all-reduce 能利用单机多 GPU 的高速互联，并行化一部分通信
+
+
+
+### 4.2 A Naïve Implementation of Distributed Data Parallel Training
+
+naive 版本非常简单，广播一下参数，算完同步一下就好。让每个 rank 都拿到全局 batch 的平均梯度。随后每个 rank 以相同梯度执行相同的 optimizer.step()；因为初始参数和 optimizer state 一致，更新后模型仍保持一致。
+
+`ddp.py`
+
+```python
+"""Minimal synchronous Distributed Data Parallel implementation"""
+
+from __future__ import annotations
+
+from typing import Any
+
+import torch
+import torch.distributed as dist
+
+
+class NaiveDistributedDataParallel(torch.nn.Module):
+    """使用逐参数同步梯度的最小化数据并行容器。"""
+
+    def __init__(self, module: torch.nn.Module) -> None:
+        super().__init__()
+        if not dist.is_available() or not dist.is_initialized():
+            raise RuntimeError("NaiveDistributedDataParallel requires an initialized process group.")
+
+        self.module = module
+        self._broadcast_initial_parameters()
+
+    def _broadcast_initial_parameters(self) -> None:
+        """将 rank 0 的初始参数复制到其他所有 rank。"""
+        with torch.no_grad():
+            for parameter in self.module.parameters():
+                dist.broadcast(parameter, src=0)
+
+    def forward(self, *inputs: Any, **kwargs: Any) -> Any:
+        """将前向计算直接委托给被包装的模型。"""
+        return self.module(*inputs, **kwargs)
+
+    @torch.no_grad()
+    def synchronize_gradients(self) -> None:
+        """对每个已产生的梯度分别求和，再计算所有 rank 的平均梯度。"""
+        world_size = dist.get_world_size()
+        for parameter in self.module.parameters():
+            # 未参与本次图计算或被冻结的参数没有梯度，不应执行通信。
+            if parameter.grad is None:
+                continue
+            dist.all_reduce(parameter.grad, op=dist.ReduceOp.SUM, async_op=False)
+            parameter.grad.div_(world_size)
+
+```
+
+
+
+`adapters.py`
+
+```python
+def get_ddp(module: torch.nn.Module) -> NaiveDistributedDataParallel:
+    """
+    返回一个负责参数广播和梯度同步的 DDP 容器。
+
+    当前为第 5.2 节所需的朴素同步实现：反向传播结束后，
+    对每个参数梯度单独执行 all-reduce。第 5.3 节可在此替换为
+    扁平梯度或与反向计算重叠的实现。
+
+    Args:
+        module: torch.nn.Module
+            Underlying model to wrap with DDP.
+    Returns:
+        Instance of a DDP class.
+    """
+    return NaiveDistributedDataParallel(module)
+```
+
+Naive DDP 的问题
+
+  - 每个参数张量单独发起一次 all_reduce，小张量很多时通信启动开销很大。
+  - 必须等整个 backward 完成后才开始通信，通信时间完全暴露在训练关键路径上，无法与反向计算重叠。
+  - 每个 rank 保存完整模型参数、梯度和 optimizer state，显存随模型规模增长很快。
+  - 各 rank 必须执行相同通信顺序；任一 rank 较慢都会阻塞整个训练步骤。
+
+
+
+![fa4e4acb520f37da4d7ab8d082e5d9f2.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1783757122838_fa4e4acb520f37da4d7ab8d082e5d9f2.png)
+
+-   单节点 2 GPU 上使用 NCCL backend 运行 naive DDP，每个 GPU 一个进程
+-   xl模型配置：vocab size 10000、context length 512、d_model 2560、d_ff 10240、32 layers、32 heads，global batch size 为 4，因此每个 rank 处理 2 个样本。
+-   测得平均每步训练时间约为 1070.7 ms，其中逐参数 all-reduce 梯度通信约为 60.8 ms，占总时间约 5.7%。
+-   由于这个 naive 实现等 backward 全部完成后才开始通信，通信不能和反向计算重叠，所以这 5.7% 基本就是gradient all_reduce的开销。
+
+
+
+### 4.3 Improving Upon the Minimal DDP Implementation
+
+然后assignment对于前面的naive ddp 给了个减少通讯开销次数的方案：
+
+-   把所有的梯度concatenate为一个tensor，然后all_reduce，可以用：
+
+    ```python
+    torch._utils._flatten_dense_tensors
+    torch._utils._unflatten_dense_tensors
+    ```
+
+
+
+#### 4.3.1 Overlapping Computation with Communication of Individual Parameter Gradients
+
+这部分就是想要让 backward 计算 和 通信尽可能重叠，然后要我们实现一个用于处理分布式数据并行训练的 Python 类。该类应封装任意 PyTorch nn.Module，并负责在训练前广播权重（使所有 rank 具有相同的初始参数）以及发起用于梯度平均的通信调用。实现以下公共接口：
+
+    def __init__(self, module: torch.nn.Module)：给定一个已实例化、待并行化的 PyTorch nn.Module，构造一个将处理跨 rank 梯度同步的 DDP 容器。
+    def forward(self, *inputs, **kwargs)：使用提供的定位参数和关键字参数调用被封装的模块的 forward 方法。
+    def finish_gradient_synchronization(self)：当调用时，等待异步通信调用在 GPU 上完成。
+
+要使用该类执行分布式训练，会将其传递给一个待封装的模块，然后在运行 optimizer.step 之前添加对 finish_gradient_synchronization 的调用，以确保依赖于梯度的优化步骤可以被安全地排入队列：
+
+```python
+model = ToyModel.to(device)
+ddp_model = DDP(model)
+
+for _ in range(train_steps):
+    x, y = get_batch()
+    logits = ddp_model(x)
+    loss = loss_fn(logits, y)
+    loss.backward()
+    ddp_model.finish_gradient_synchronization()
+    optimizer.step()
+```
+
+
+
+`ddp.py`
+
+```python
+class OverlappedDistributedDataParallel(torch.nn.Module):
+    """在反向传播期间异步同步逐参数梯度的 DDP 容器。"""
+
+    def __init__(self, module: torch.nn.Module) -> None:
+        super().__init__()
+        _require_initialized_process_group()
+
+        self.module = module
+        self._world_size = dist.get_world_size()
+        self._pending_works: list[Any] = []
+        self._gradient_hook_handles: list[Any] = []
+        _broadcast_initial_parameters(self.module)
+        self._register_gradient_hooks()
+
+    def _register_gradient_hooks(self) -> None:
+        """在每个可训练参数的梯度累计完成后立即触发通信。"""
+        for parameter in self.module.parameters():
+            if parameter.requires_grad:
+                handle = parameter.register_post_accumulate_grad_hook(self._queue_gradient_all_reduce)
+                self._gradient_hook_handles.append(handle)
+
+    @torch.no_grad()
+    def _queue_gradient_all_reduce(self, parameter: torch.nn.Parameter) -> None:
+        """缩放本地梯度并异步发起 all-reduce，不等待通信完成。"""
+        gradient = parameter.grad
+        if gradient is None:
+            return
+
+        # 先缩放本地梯度；all-reduce 求和后即为全局平均梯度。
+        gradient.div_(self._world_size)
+        work = dist.all_reduce(gradient, op=dist.ReduceOp.SUM, async_op=True)
+        self._pending_works.append(work)
+
+    def forward(self, *inputs: Any, **kwargs: Any) -> Any:
+        """将前向计算直接委托给被包装的模型。"""
+        return self.module(*inputs, **kwargs)
+
+    def finish_gradient_synchronization(self) -> None:
+        """在 optimizer.step() 前等待所有尚未完成的梯度通信。"""
+        for work in self._pending_works:
+            work.wait()
+        self._pending_works.clear()
+
+```
+
+
+
+## 五、Optimizer State Sharding
+
+这个部分就是实现一下 optimizer state 分片，此时每个 rank 保留完整参数、完整梯度、**部分**Optimizer States。
+
+
+
+```python
+class ShardedOptimizer(torch.optim.Optimizer):
+    """仅在参数所有者 rank 上保存 optimizer state 的包装器。"""
+
+    def __init__(
+        self,
+        params: Iterable[torch.Tensor] | Iterable[dict[str, Any]],
+        optimizer_cls: type[torch.optim.Optimizer],
+        **kwargs: Any,
+    ) -> None:
+        # 1. 检查分布式环境是否就绪
+        if not dist.is_available() or not dist.is_initialized():
+            raise RuntimeError("ShardedOptimizer requires an initialized process group.")
+
+        self._optimizer_cls = optimizer_cls
+        self._rank = dist.get_rank()	# 当前是第几号卡（比如 0, 1, 2, 3）
+    	self._world_size = dist.get_world_size() 	# 总共有几张卡（比如 4）
+        self._all_parameters: list[torch.Tensor] = []
+        self._local_param_groups: list[dict[str, Any]] = []
+        self._local_optimizer: torch.optim.Optimizer | None = None
+        self._is_initializing = True
+
+        # 2. 调用父类（原生Optimizer）的初始化
+        # 注意：这里把所有参数都传给了父类。
+        # 为什么？因为当你在外面调用 optimizer.zero_grad() 时，
+        # 需要清空所有参数的梯度，所以父类必须知道所有的参数。
+        super().__init__(params, kwargs)
+        self._is_initializing = False
+        
+        # 3. 创建只属于当前卡的“本地优化器”
+        self._create_local_optimizer()
+
+    def _create_local_optimizer(self) -> None:
+        """用当前 rank 拥有的非空参数组创建底层 optimizer。"""
+        non_empty_groups = [group for group in self._local_param_groups if group["params"]]
+        if non_empty_groups:
+            self._local_optimizer = self._optimizer_cls(non_empty_groups)
+            # 对外暴露的 state 也只包含当前 rank 的 optimizer state。
+            self.state = self._local_optimizer.state
+
+    def _make_local_group(self, param_group: dict[str, Any]) -> dict[str, Any]:
+        """按全局参数顺序轮转分配参数，并保留原参数组的超参数。"""
+        local_group = {key: value for key, value in param_group.items() if key != "params"}
+        local_parameters: list[torch.Tensor] = []
+        for parameter in param_group["params"]:
+            owner_rank = len(self._all_parameters) % self._world_size
+            self._all_parameters.append(parameter)
+            if owner_rank == self._rank:
+                local_parameters.append(parameter)
+        local_group["params"] = local_parameters
+        return local_group
+
+    def add_param_group(self, param_group: dict[str, Any]) -> None:
+        """添加完整参数组，并将其中参数分配给各个 rank。"""
+        super().add_param_group(param_group)
+        local_group = self._make_local_group(self.param_groups[-1])
+        self._local_param_groups.append(local_group)
+
+        if self._is_initializing or not local_group["params"]:
+            return
+        if self._local_optimizer is None:
+            self._local_optimizer = self._optimizer_cls([local_group])
+            self.state = self._local_optimizer.state
+        else:
+            self._local_optimizer.add_param_group(local_group)
+
+    @torch.no_grad()
+    def step(self, closure: Callable[[], Any] | None = None, **kwargs: Any) -> Any:
+        """更新本 rank 的参数分片，再广播每个所有者更新后的参数。"""
+        loss = None
+        if self._local_optimizer is not None:
+            loss = self._local_optimizer.step(closure=closure, **kwargs)
+        elif closure is not None:
+            # 没有本地参数时仍保持 Optimizer closure 的调用语义。
+            with torch.enable_grad():
+                loss = closure()
+
+        for parameter_index, parameter in enumerate(self._all_parameters):
+            owner_rank = parameter_index % self._world_size
+            dist.broadcast(parameter, src=owner_rank)
+        return loss
+
+```
+
+
+
+这个 `ShardedOptimizer` 是一个**包装器（Wrapper）**。它伪装成一个普通的 Optimizer，但背地里做了分工合作的事情。
+
+**1. 初始化 `__init__`**
+
+```python
+def __init__(self, params, optimizer_cls, **kwargs):
+    # 1. 检查分布式环境是否就绪
+    # ...
+    self._rank = dist.get_rank()             # 当前是第几号卡（比如 0, 1, 2, 3）
+    self._world_size = dist.get_world_size() # 总共有几张卡（比如 4）
+    
+    # 2. 调用父类（原生Optimizer）的初始化
+    # 注意：这里把所有参数都传给了父类。
+    # 为什么？因为当你在外面调用 optimizer.zero_grad() 时，
+    # 需要清空所有参数的梯度，所以父类必须知道所有的参数。
+    super().__init__(params, kwargs)
+    
+    # 3. 创建只属于当前卡的“本地优化器”
+    self._create_local_optimizer()
+```
+
+**2. 核心分发逻辑 `_make_local_group`**
+
+这是决定“哪个参数归哪张卡管”的地方。代码使用了**轮询（Round-Robin）**的方式分配参数。
+```python
+def _make_local_group(self, param_group: dict[str, Any]) -> dict[str, Any]:
+    local_group = {...} # 复制学习率等超参数
+    local_parameters: list[torch.Tensor] = []
+    
+    # 遍历当前参数组里的每一个参数（Tensor）
+    for parameter in param_group["params"]:
+        # 【核心逻辑】：通过取模运算决定这个参数归谁管
+        # len(self._all_parameters) 是当前参数的全局序号 (0, 1, 2...)
+        owner_rank = len(self._all_parameters) % self._world_size
+        self._all_parameters.append(parameter)
+        
+        # 如果这个参数的主人刚好是当前这张卡，就把它加入到 local_parameters 中
+        if owner_rank == self._rank:
+            local_parameters.append(parameter)
+            
+    local_group["params"] = local_parameters
+    return local_group
+```
+**举个例子：** 假设有 2 张卡，模型有 4 个参数矩阵 [A, B, C, D]。
+* A 是第0个，`0 % 2 = 0` -> 归卡 0 管。
+* B 是第1个，`1 % 2 = 1` -> 归卡 1 管。
+* C 是第2个，`2 % 2 = 0` -> 归卡 0 管。
+* D 是第3个，`3 % 2 = 1` -> 归卡 1 管。
+
+**3. 创建本地优化器 `_create_local_optimizer`**
+
+```python
+def _create_local_optimizer(self) -> None:
+    non_empty_groups = [group for group in self._local_param_groups if group["params"]]
+    if non_empty_groups:
+        # 用刚才挑出来的、属于当前卡的参数，实例化真正的优化器（比如 Adam）
+        self._local_optimizer = self._optimizer_cls(non_empty_groups)
+        
+        # 把包装器的 state 替换成本地优化器的 state。
+        # 这样当前卡就只会在显存里保存它负责的那部分参数的动量/方差！
+        self.state = self._local_optimizer.state
+```
+
+**4. 参数更新与同步 `step` (最关键的一步)**
+
+当你在训练循环中调用 `optimizer.step()` 时，发生了什么？
+```python
+@torch.no_grad()
+def step(self, closure=None, **kwargs):
+    # 1. 本地更新
+    if self._local_optimizer is not None:
+        # 当前卡上的底层优化器开始工作。
+        # 注意：卡 0 只更新了参数 A 和 C；卡 1 只更新了参数 B 和 D。
+        # 此时，所有卡上的模型参数是不一致的！
+        loss = self._local_optimizer.step(closure=closure, **kwargs)
+
+    # 2. 全局同步 (Broadcast)
+    # 遍历模型的所有参数
+    for parameter_index, parameter in enumerate(self._all_parameters):
+        # 算出这个参数刚刚是谁更新的（谁是 owner）
+        owner_rank = parameter_index % self._world_size
+        
+        # 通信操作：把更新后的参数从 owner_rank 广播给所有的卡。
+        # 如果当前卡是 owner，它就发送；如果不是，它就接收覆盖旧的值。
+        dist.broadcast(parameter, src=owner_rank)
+        
+    # 当这个循环结束时，所有卡都集齐了拼图，拿到了最新、最完整的模型参数
+    return loss
+```
+
+
+
+## 六、Fully-Sharded Data Parallel
+
+然后就是实现一下 FSDP，把参数分片到各个rank上，降低显存开销。
+
+    1. 初始化时先由 rank 0 广播参数，保证所有 rank 起点一致。
+    2. 对 Linear 与 Embedding 的 weight：
+       - 展平后按 rank 切分；
+       - 空闲时参数仅保留本 rank 的 FP32 分片；
+       - optimizer 因此只会为本地参数分片创建状态。
+    
+    3. 前向传播：
+       - 当前层使用前执行 all_gather，临时拼出完整权重；
+       - 当前层计算后立刻释放完整权重、恢复本地分片；
+       - 当前层完成时异步预取第 i + 2 个分片层，实现通信与中间计算重叠。
+    
+    4. 反向传播：
+       - 层反向前再次 all_gather 完整权重，以支持 grad_input 计算；
+       - 完整梯度产生后执行异步 reduce_scatter，每个 rank 只保留自己的平均梯度分片；
+       - Gloo/CPU 不支持原生 reduce_scatter 时，自动使用“all_reduce 后切片”的语义等价回退路径，保证测试可运行。
+    
+    5. RMSNorm、bias 等小参数不分片，但梯度会异步 all_reduce 平均，保持普通 DDP 语义。
+    6. 支持 mixed precision：
+       - master weight 与 optimizer 更新仍是 FP32；
+       - compute_dtype=torch.float16 时，通信和层计算使用 FP16，降低带宽与计算开销；
+       - 梯度在交给 optimizer 前恢复为 master weight 的 dtype。
+
+```python
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any
+
+import torch
+import torch.distributed as dist
+import torch.nn as nn
+
+
+@dataclass
+class _ShardedWeight:
+    """记录一个已分片权重在通信、还原和梯度同步时所需的元数据。"""
+
+    parameter: nn.Parameter
+    original_shape: torch.Size
+    original_numel: int
+    shard_numel: int
+    master_shard: torch.Tensor
+    prefetch_work: Any | None = None
+    prefetch_input: torch.Tensor | None = None
+    prefetch_outputs: list[torch.Tensor] | None = None
+
+
+@dataclass
+class _PendingShardedReduction:
+    """保存尚未完成的 reduce-scatter 及其输入输出缓冲区的引用。"""
+
+    work: Any
+    weight: _ShardedWeight
+    reduced_shard: torch.Tensor | None
+    full_padded_gradient: torch.Tensor
+
+
+class FullyShardedDataParallel(nn.Module):
+    """对模型的 Linear / Embedding 权重进行全分片数据并行训练。
+
+    module 中的参数对象不替换，因此外部仍可直接使用 torch.optim.AdamW(fsdp.parameters())；
+    需要分片的权重空闲时是长度相同的一维 FP32 分片，前向和反向计算时临时
+    替换为完整权重；
+    
+    Norm 等小层不分片，但在反向传播期间用 all-reduce 同步其梯度；
+    
+    compute_dtype 只影响通信与计算权重，master weight 和最终交给
+    optimizer 的梯度始终保持原始（通常为 FP32）精度。
+    """
+
+    def __init__(self, module: nn.Module, compute_dtype: torch.dtype | None = None) -> None:
+        super().__init__()
+        self._require_initialized_process_group()
+
+        self.module = module
+        self.compute_dtype = compute_dtype
+        self._rank = dist.get_rank()
+        self._world_size = dist.get_world_size()
+        self._sharded_weights: list[_ShardedWeight] = []
+        self._weight_by_parameter_id: dict[int, _ShardedWeight] = {}
+        self._sharded_modules: list[nn.Module] = []
+        self._pending_sharded_reductions: list[_PendingShardedReduction] = []
+        self._pending_replicated_reductions: list[tuple[Any, nn.Parameter]] = []
+        self._hook_handles: list[Any] = []
+
+        # 所有 rank 必须从同一组参数开始；之后只有分片参数的 owner 更新自己的部分。
+        self._broadcast_initial_parameters()
+        self._install_sharding_and_hooks()
+
+    @staticmethod
+    def _require_initialized_process_group() -> None:
+        """在创建容器前验证分布式通信环境已初始化。"""
+        if not dist.is_available() or not dist.is_initialized():
+            raise RuntimeError("FullyShardedDataParallel requires an initialized process group.")
+
+    @torch.no_grad()
+    def _broadcast_initial_parameters(self) -> None:
+        """将 rank 0 的初始参数广播给所有 rank，避免训练起点不一致。"""
+        for parameter in self.module.parameters():
+            dist.broadcast(parameter, src=0)
+
+    @staticmethod
+    def _is_shardable_module(module: nn.Module) -> bool:
+        """仅分片大矩阵层；Norm 等小参数层保留复制副本以避免通信延迟。"""
+        # 导入放在这里，避免仅使用 PyTorch 原生层时强制依赖作业 1 的包。
+        from cs336_basics.model import Embedding as AssignmentEmbedding
+        from cs336_basics.model import Linear as AssignmentLinear
+
+        return isinstance(module, (AssignmentLinear, AssignmentEmbedding, nn.Linear, nn.Embedding))
+
+    @torch.no_grad()
+    def _install_sharding_and_hooks(self) -> None:
+        """分片权重，并为前向、反向与梯度完成阶段注册hook。"""
+        for module in self.module.modules():
+            if not self._is_shardable_module(module):
+                continue
+
+            # 课程模型的 Linear / Embedding 都有 weight。原生 Linear 的 bias 很小，
+            # 保持复制并通过后面的梯度 all-reduce 同步，避免改变模块的调用约定。
+            parameter = getattr(module, "weight", None)
+            if not isinstance(parameter, nn.Parameter):
+                continue
+
+            weight = self._weight_by_parameter_id.get(id(parameter))
+            if weight is None:
+                weight = self._shard_parameter(parameter)
+                self._sharded_weights.append(weight)
+                self._weight_by_parameter_id[id(parameter)] = weight
+
+            layer_index = len(self._sharded_modules)
+            self._sharded_modules.append(module)
+            self._register_sharded_module_hooks(module, weight, layer_index)
+
+        # 未分片的参数（例如 RMSNorm 与 nn.Linear.bias）仍需要 DDP 语义的梯度平均。
+        for parameter in self.module.parameters():
+            if id(parameter) not in self._weight_by_parameter_id and parameter.requires_grad:
+                self._hook_handles.append(parameter.register_post_accumulate_grad_hook(self._queue_replicated_gradient_sync))
+
+    @torch.no_grad()
+    def _shard_parameter(self, parameter: nn.Parameter) -> _ShardedWeight:
+        """把一个完整参数展平、补齐并切出当前 rank 的本地 master 分片。"""
+        original_shape = parameter.shape
+        original_numel = parameter.numel()
+        shard_numel = (original_numel + self._world_size - 1) // self._world_size
+
+        # collective 要求每个 rank 的输入形状相同；末尾补零只用于通信，从不参与计算。
+        padded = torch.zeros(shard_numel * self._world_size, dtype=parameter.dtype, device=parameter.device)
+        padded[:original_numel].copy_(parameter.detach().reshape(-1))
+        master_shard = padded.narrow(0, self._rank * shard_numel, shard_numel).clone()
+
+        # 将 Parameter 的 data 指向本地分片。optimizer 创建于 FSDP 之后时，看到的正是它。
+        parameter.data = master_shard
+        return _ShardedWeight(parameter, original_shape, original_numel, shard_numel, master_shard)
+
+    def _register_sharded_module_hooks(self, module: nn.Module, weight: _ShardedWeight, layer_index: int) -> None:
+        """注册在权重使用前 gather、使用后释放、反向时再 gather 的层级钩子。"""
+
+        def forward_pre_hook(_: nn.Module, _inputs: tuple[Any, ...]) -> None:
+            self._materialize_weight(weight)
+
+        def forward_post_hook(_: nn.Module, _inputs: tuple[Any, ...], output: Any) -> Any:
+            # 本层输出已计算完成，完整权重不再被前向传播需要，立刻释放以降低峰值显存。
+            self._restore_master_shard(weight)
+
+            # 第 i 层完成后预取第 i+2 层：预取距离为 2，既让通信与中间两层计算重叠，
+            # 又不会同时长期保留过多完整权重。
+            prefetch_index = layer_index + 2
+            if prefetch_index < len(self._sharded_modules):
+                future_module = self._sharded_modules[prefetch_index]
+                future_weight = self._weight_by_parameter_id[id(future_module.weight)]
+                self._start_prefetch(future_weight)
+            return output
+
+        def backward_pre_hook(_: nn.Module, _grad_output: tuple[torch.Tensor, ...]) -> None:
+            # 许多 Linear backward 需要完整权重计算 grad_input，因此反向前重新 all-gather。
+            self._materialize_weight(weight)
+
+        self._hook_handles.extend(
+            [
+                module.register_forward_pre_hook(forward_pre_hook),
+                module.register_forward_hook(forward_post_hook),
+                module.register_full_backward_pre_hook(backward_pre_hook),
+                weight.parameter.register_post_accumulate_grad_hook(self._queue_sharded_gradient_reduce_scatter),
+            ]
+        )
+
+    def _communication_weight(self, weight: _ShardedWeight) -> torch.Tensor:
+        """返回通信用本地分片；mixed precision 时在通信前降低带宽占用。"""
+        if self.compute_dtype is None:
+            return weight.master_shard
+        return weight.master_shard.to(self.compute_dtype)
+
+    @torch.no_grad()
+    def _start_prefetch(self, weight: _ShardedWeight) -> None:
+        """异步预取一个未来层的完整权重；真正使用前由 ``_materialize_weight`` 等待。"""
+        if weight.prefetch_work is not None:
+            return
+
+        communication_shard = self._communication_weight(weight)
+        outputs = [torch.empty_like(communication_shard) for _ in range(self._world_size)]
+        weight.prefetch_input = communication_shard
+        weight.prefetch_outputs = outputs
+        weight.prefetch_work = dist.all_gather(outputs, communication_shard, async_op=True)
+
+    @torch.no_grad()
+    def _materialize_weight(self, weight: _ShardedWeight) -> None:
+        """等待或同步执行 all-gather，并把参数临时恢复为原始二维（或更高维）形状。"""
+        if weight.prefetch_work is not None:
+            weight.prefetch_work.wait()
+            gathered = weight.prefetch_outputs
+            weight.prefetch_work = None
+            weight.prefetch_input = None
+            weight.prefetch_outputs = None
+            assert gathered is not None
+        else:
+            communication_shard = self._communication_weight(weight)
+            gathered = [torch.empty_like(communication_shard) for _ in range(self._world_size)]
+            dist.all_gather(gathered, communication_shard)
+
+        # 删除补齐元素并还原原始形状；此张量的 dtype 是 compute_dtype 或 master dtype。
+        full_weight = torch.cat(gathered, dim=0)[: weight.original_numel].view(weight.original_shape)
+        weight.parameter.data = full_weight
+
+    @torch.no_grad()
+    def _restore_master_shard(self, weight: _ShardedWeight) -> None:
+        """将参数 data 切回本地 FP32 分片，释放临时 all-gather 缓冲区的引用。"""
+        weight.parameter.data = weight.master_shard
+
+    @torch.no_grad()
+    def _queue_sharded_gradient_reduce_scatter(self, parameter: nn.Parameter) -> None:
+        """将完整梯度异步规约并仅保留当前 rank 对应的平均梯度分片。"""
+        weight = self._weight_by_parameter_id[id(parameter)]
+        gradient = parameter.grad
+        if gradient is None:
+            self._restore_master_shard(weight)
+            return
+
+        # 先转回 master dtype，再展平补齐，使 reduce-scatter 的每个输出分片大小一致。
+        flat_gradient = gradient.detach().to(weight.master_shard.dtype).reshape(-1)
+        padded_gradient = torch.zeros(
+            weight.shard_numel * self._world_size,
+            dtype=weight.master_shard.dtype,
+            device=weight.master_shard.device,
+        )
+        padded_gradient[: weight.original_numel].copy_(flat_gradient)
+
+        # 此时全量 gradient 不应继续绑定在 Parameter 上；恢复分片后 optimizer 才能安全读取它。
+        parameter.grad = None
+        self._restore_master_shard(weight)
+
+        # NCCL 等后端支持真正的 reduce-scatter。Gloo 目前不提供此 collective，故使用
+        # all-reduce 后切片作为仅 CPU 测试环境下的语义等价回退路径。
+        if self._world_size == 1:
+            self._pending_sharded_reductions.append(
+                _PendingShardedReduction(_CompletedWork(), weight, None, padded_gradient)
+            )
+        elif dist.get_backend() != "gloo":
+            reduced_shard = torch.empty_like(weight.master_shard)
+            work = dist.reduce_scatter_tensor(reduced_shard, padded_gradient, op=dist.ReduceOp.SUM, async_op=True)
+            self._pending_sharded_reductions.append(
+                _PendingShardedReduction(work, weight, reduced_shard, padded_gradient)
+            )
+        else:
+            work = dist.all_reduce(padded_gradient, op=dist.ReduceOp.SUM, async_op=True)
+            self._pending_sharded_reductions.append(_PendingShardedReduction(work, weight, None, padded_gradient))
+
+    @torch.no_grad()
+    def _queue_replicated_gradient_sync(self, parameter: nn.Parameter) -> None:
+        """对未分片参数异步 all-reduce，使其遵循普通 DDP 的平均梯度语义。"""
+        if parameter.grad is None:
+            return
+        parameter.grad.div_(self._world_size)
+        work = dist.all_reduce(parameter.grad, op=dist.ReduceOp.SUM, async_op=True)
+        self._pending_replicated_reductions.append((work, parameter))
+
+    def forward(self, *inputs: Any, **kwargs: Any) -> Any:
+        """把前向计算委托给被包装模型；各层 hook 会按需管理权重。"""
+        return self.module(*inputs, **kwargs)
+
+    @torch.no_grad()
+    def finish_gradient_synchronization(self) -> None:
+        """在 ``optimizer.step`` 前等待通信，并把本地分片梯度写回各参数。"""
+        for pending in self._pending_sharded_reductions:
+            pending.work.wait()
+            if pending.reduced_shard is None:
+                # Gloo 回退：all-reduce 后仅取当前 rank 的那段，效果等同 reduce-scatter。
+                local_gradient = pending.full_padded_gradient.narrow(
+                    0, self._rank * pending.weight.shard_numel, pending.weight.shard_numel
+                ).clone()
+            else:
+                local_gradient = pending.reduced_shard
+            pending.weight.parameter.grad = local_gradient.div_(self._world_size).view_as(pending.weight.master_shard)
+        self._pending_sharded_reductions.clear()
+
+        for work, _parameter in self._pending_replicated_reductions:
+            work.wait()
+        self._pending_replicated_reductions.clear()
+
+    @torch.no_grad()
+    def gather_full_params(self) -> dict[str, torch.Tensor]:
+        """为检查点或测试重建完整参数；不会改变训练时仍为分片的参数 data。"""
+        full_params: dict[str, torch.Tensor] = {}
+        for name, parameter in self.module.named_parameters():
+            weight = self._weight_by_parameter_id.get(id(parameter))
+            if weight is None:
+                full_params[name] = parameter.detach().clone()
+                continue
+
+            local_shard = weight.master_shard
+            shards = [torch.empty_like(local_shard) for _ in range(self._world_size)]
+            dist.all_gather(shards, local_shard)
+            full_params[name] = torch.cat(shards, dim=0)[: weight.original_numel].view(weight.original_shape).clone()
+        return full_params
+
+
+class _CompletedWork:
+    """让单 rank 情况复用异步通信完成路径的极小适配对象。"""
+
+    def wait(self) -> bool:
+        return True
+
+```
+
+
+
+**1、两个数据类 (Dataclass)**
+
+- `_ShardedWeight`：这就是那“1/4 字典”的档案袋。记录了这个参数原来有多大（`original_shape`），分片后有多大（`shard_numel`），以及你手里拿着的那个真实的 1/4 碎片（`master_shard`）。它还负责记录提前拉取别人碎片（Prefetch）的任务。
+- `_PendingShardedReduction`：用来存放还没在后台同步完的“1/4 梯度”任务。
+
+
+
+**2、初始化与分片 (`_shard_parameter`)**
+
+```python
+def _shard_parameter(self, parameter: nn.Parameter) -> _ShardedWeight:
+```
+- 切分的时候，不能整除就向上取整，然后padding
+- 代码中用 `padded = torch.zeros(...)` 
+
+
+
+**3、核心魔法：钩子 (Hooks) 机制**
+
+FSDP 的运作全靠在每一层计算前后hook
+在 `_register_sharded_module_hooks` 中，我们注册了 4 个 Hook：
+
+1. **`forward_pre_hook` (前向计算前):**
+   - 触发动作：`self._materialize_weight(weight)`。
+   - 作用：这一层要开始算了，赶紧把 4 张卡的碎片收集过来（**All-Gather**），拼成完整的权重。
+2. **`forward_post_hook` (前向计算后):**
+   - 触发动作：`self._restore_master_shard(weight)`。
+   - 作用：这一层算完了，完整权重没用了，赶紧扔掉（把指针切回本地小碎片），释放显存。同时，顺便提前去网络上拉取（Prefetch）后面要用到的层的参数，让计算和网络通信重叠，提高速度。
+3. **`backward_pre_hook` (反向传播前):**
+   - 触发动作：`self._materialize_weight(weight)`。
+   - 作用：要算梯度了，同样需要完整的权重，再次通过 All-Gather 拼全。
+4. **`post_accumulate_grad_hook` (梯度计算完后):**
+   - 触发动作：`self._queue_sharded_gradient_reduce_scatter(parameter)`。
+   - 作用：此时得到了这一层完整的梯度。但我们不需要完整梯度，只需要更新我们自己的 1/4。于是发起一次 **Reduce-Scatter** 通信，把所有卡的完整梯度加起来，然后把属于你的那 1/4 梯度留给你。算完后，再次把权重扔掉切回小碎片。
+
+
+
+**4、小参数层的特殊处理**
+
+代码里有 `_is_shardable_module` 这么个判断。
+
+对于 `Linear` 和 `Embedding` 这种动辄几个 G 的大矩阵，我们进行分片。
+但对于 `LayerNorm` 等只有几千个参数的小层，或者 `bias`，分片的收益太低了（省不了多少内存，反而增加了通信时间的开销）。
+所以对这些小参数，代码选择**不分片（保持复制）**，只在最后算完梯度时做一个常规的梯度求平均（`_queue_replicated_gradient_sync` 中调用的 **All-Reduce**）。
+
+
+
+**5、收尾工作 (`finish_gradient_synchronization`)**
+
+在执行 `optimizer.step()` 之前，必须调用这个函数。
+因为之前的网络通信（Reduce-Scatter 算梯度）都是**异步 (async_op=True)** 的（为了不阻塞 CPU）。这个函数的作用就是：
+
+- 等待所有网络通信完成（`wait()`）。
+- 将真正属于你的那 1/k 梯度正确地赋值给 `parameter.grad`。
+- 之后，就可以放心地调用 `optimizer.step()` 更新你本地的 1/4 参数了。
+
+
+
+## 七、Analyzing Parallelism Strategies
+
+### 7.1 Communication Primitives
+
+考虑 N 个设备，每对设备之间通过一条链路连接。假定设备带宽为 W B/s。那么如何实现 gather 和 reduce呢？
+
+全局张量大小为 `S` bytes，每个 rank 初始持有 `S/N` bytes。环上共执行 `N-1` 轮，
+每轮每卡发送 `S/N` bytes，因此：
+$$
+T_{AG}(S,N)=\frac{N-1}{N}\frac{S}{W}
+$$
+实现 **all-gather** 的一种常见方式是环形 **all-gather**，环上的每个节点每次向下一个节点传送自己上一轮得到的数据，这样除去初始各节点拥有的一片数据，一共需要传递 N - 1 次就能实现 **all-gather**。
+
+然后分析一下**Ring reduce-scatter**
+
+每卡起初持有完整的 `S` bytes 张量。将其分成 `N` 块并在环上转发、累加，最后每卡仅
+保留一个已经规约的块。每轮发送量仍为 `S/N`，所以：
+$$
+T_{RS}(S,N)=\frac{N-1}{N}\frac{S}{W}
+$$
+
+
+标准 ring all-reduce 等于一次 reduce-scatter 加一次 all-gather：
+
+$$
+T_{AR}(S,N)=2\frac{N-1}{N}\frac{S}{W}.
+$$
+
+
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1783834221603_image.png)
+
+**答案：**
+$$
+T=\frac{(N-1)S}{W}
+$$
+证明：环上每个节点每轮都能新累加一块数据，那么只需要N - 1轮，环上节点就能够全部完成reduce。
+
+
+
+### 7.2 Analyzing Data Parallel
+
+DP 仅沿 batch 维切分数据。每个 rank 持有完整模型、处理 `B/N_DP` 个样本；前向没有通信。
+
+反向时，每个 rank 得到自己的局部 `dW`，通过 all-reduce 求和（通常再除以`N_DP`）得到所有 rank 相同的完整梯度。
+
+因此 DP 的**优点是通信模式简单**；**缺点是每张卡都复制参数、梯度和 optimizer state**。
+
+给了个例子，后面要基于这些式子回答问题：
+
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1783836400266_image.png)
+
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1783836183085_image.png)
+
+**(a) 每个 rank 的反向 FLOPs**
+$$
+F_{bwd}^{DP}=\frac{12BDD_{FF}}{N_{DP}}
+$$
+全局反向仍有六次相同规模的矩阵乘法；DP 只把 batch 维平均切给 `N_DP` 个 rank，故
+每卡计算量缩小为原来的 `1/N_DP`。
+
+**(b) 每个 rank 的反向通信时间**
+
+三个权重的总 FP16 大小为 `S_W=6DD_FF` bytes。对它们执行一次 ring all-reduce：
+
+$$
+T_{bwd,comm}^{DP}
+=2\frac{N_{DP}-1}{N_{DP}}\frac{6DD_{FF}}{W}
+=\frac{12(N_{DP}-1)DD_{FF}}{N_{DP}W}
+$$
+DP 前向没有 collective；反向只需要同步完整权重梯度。
+
+
+
+**(c) 可保持 compute-bound 的最大 `N_DP`**
+
+要求通信不超过反向计算：
+
+$$
+\frac{12(N_{DP}-1)DD_{FF}}{N_{DP}W}
+\le
+\frac{12BDD_{FF}}{N_{DP}C}.
+$$
+约去公共项可得：
+
+$$
+N_{DP}\le 1+\frac{BW}{C}
+$$
+**解释：**DP 的梯度通信不随 batch 变小，而每卡反向计算正比于 `B/N_DP`；因此较大的 global batch `B` 能支撑更多 DP rank。这也是 DP 常被称为“由 batch size 决定扩展性”的原因。
+
+
+
+### 7.3 Analyzing Fully Sharded Data Parallel
+
+FSDP 同样切分 batch，但还将权重、梯度和 optimizer state 沿 FSDP 轴切分：
+
+- 前向前：对每个即将使用的权重做 all-gather；使用后释放完整权重。
+- 反向前：再次 all-gather 权重，以计算输入梯度。
+- 反向后：对完整局部梯度做 reduce-scatter，每卡只留下本地参数分片的梯度。
+
+FSDP 以额外的 all-gather 为代价换取显存节省。实际系统会预取下一层权重，使通信尽可能与其他层计算重叠。
+
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1783871779746_image.png)
+
+**(a) 前向和反向 FLOPs**
+
+FSDP 仍只按 batch 切计算，因此每卡计算量与 DP 相同：
+
+$$
+F_{bwd}^{FSDP}=\frac{12BDD_{FF}}{N_{FSDP}}
+\qquad
+F_{fwd}^{FSDP}=\frac{6BDD_{FF}}{N_{FSDP}}
+$$
+权重存储是否分片不会改变完整 FFN 的数学计算；all-gather 后，每个 rank 仍对本地`B/N_FSDP` 个样本做完整层计算。
+
+
+
+**(b) 前向和反向通信时间**
+
+前向：三个权重都要 all-gather 一次：
+
+$$
+T_{fwd,comm}^{FSDP}
+=\frac{N_{FSDP}-1}{N_{FSDP}}\frac{6DD_{FF}}{W}
+$$
+反向：先 all-gather 三个权重，再对三个完整梯度 reduce-scatter：
+
+$$
+T_{bwd,comm}^{FSDP}
+=2\frac{N_{FSDP}-1}{N_{FSDP}}\frac{6DD_{FF}}{W}
+=\frac{12(N_{FSDP}-1)DD_{FF}}{N_{FSDP}W}
+$$
+注意 FSDP 的反向通信时间恰好等于 DP 的梯度 all-reduce 时间；因为 all-reduce 本身就是 reduce-scatter 加 all-gather，而 FSDP 将这两个阶段分别用于“取权重”和“留梯度分片”。
+
+
+
+**(c) 可保持 compute-bound 的最大 `N_FSDP`**
+
+反向：
+
+$$
+\frac{12(N_{FSDP}-1)DD_{FF}}{N_{FSDP}W}
+\le
+\frac{12BDD_{FF}}{N_{FSDP}C}
+\quad\Rightarrow\quad
+N_{FSDP}\le 1+\frac{BW}{C}
+$$
+前向：
+
+$$
+\frac{6(N_{FSDP}-1)DD_{FF}}{N_{FSDP}W}
+\le
+\frac{6BDD_{FF}}{N_{FSDP}C}
+\quad\Rightarrow\quad
+N_{FSDP}\le 1+\frac{BW}{C}
+$$
+**两个上限相同：前向的通信和计算都恰好是反向对应量的一半。**FSDP 并没有改善纯吞吐扩展上限；其首要价值是降低模型状态显存，从而让本来装不下的模型能够训练。
+
+
+
+### 7.4 Analyzing Tensor Parallel
+
+TP 切的是张量维度而非 batch：每个 rank 处理完整 batch，但只计算部分隐藏通道。
+
+- **列并行（column parallel）**：按输出维切 `W`。每卡都需要完整输入，得到输出通道的一部分；若后续操作需要完整输出，使用 all-gather。
+- **行并行（row parallel）**：按输入维切 `W`，同时切输入通道；每卡产生完整输出的部分和，通过 all-reduce 相加。
+
+本题的 FFN 选择 `W_1,W_2` 列并行，`W_3` 行并行。这样 `W_1,W_2` 的局部输出恰好能直接作为 `W_3` 的局部输入，避免了中间 `D_FF` 激活的 all-gather；仅在末尾 all-reduce大小为 `(B,D)` 的输出。
+
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1783873258117_image.png)
+
+**(a) 反向传播方程**
+
+每个 rank `i` 先拥有前向保存的 `x,x_1^(i),x_2^(i),z^(i)`，以及来自后续网络的完整`dy`。令 `N=N_TP`，则每个 rank 接收的反向输入相同，即 `dy^(i)=dy`，并且：
+
+$$
+dz^{(i)}=dy(W_3^{(i)})^T,
+$$
+
+$$
+dx_2^{(i)}=dz^{(i)}*f(x_1^{(i)}),
+\qquad
+dx_1^{(i)}=dz^{(i)}*f'(x_1^{(i)})*x_2^{(i)},
+$$
+
+$$
+dW_3^{(i)}=(z^{(i)})^Tdy,
+$$
+
+$$
+dW_2^{(i)}=x^Tdx_2^{(i)},
+\qquad
+dW_1^{(i)}=x^Tdx_1^{(i)},
+$$
+
+$$
+dx_{local}^{(i)}=dx_1^{(i)}(W_1^{(i)})^T
++dx_2^{(i)}(W_2^{(i)})^T,
+$$
+
+$$
+dx=\operatorname{all\text{-}reduce}\bigl(\{dx_{local}^{(i)}\}_{i=0}^{N-1}\bigr)
+$$
+
+其中 `dz^(i), dx_1^(i), dx_2^(i)` 的形状均为 `(B,D_FF/N_TP)`，而`dx_local^(i)` 的形状为 `(B,D)`。
+
+这里 `dW_k^(i)` 已经是对应权重分片的正确梯度，不需跨 TP rank 求和；只有 `dx` 是各输出通道分片贡献之和，必须 all-reduce。`dy` 在每个 TP rank 可直接使用，因为前向末尾的all-reduce 已使输出在每卡相同；其反向会把同一 `dy` 提供给各 rank。
+
+
+
+**(b) 前向和反向 FLOPs**
+$$
+F_{fwd}^{TP}=\frac{6BDD_{FF}}{N_{TP}}
+\qquad
+F_{bwd}^{TP}=\frac{12BDD_{FF}}{N_{TP}}
+$$
+每个矩阵乘法都沿 `D_FF` 维切为 `1/N_TP`，而 batch 没有切分；所有局部矩阵乘法总量因此均缩小为原来的 `1/N_TP`。
+
+
+
+**(c) 前向和反向通信时间**
+
+前向末尾 all-reduce 的激活形状为 `(B,D)`，其 FP16 大小为 `2BD` bytes：
+$$
+T_{fwd,comm}^{TP}
+=2\frac{N_{TP}-1}{N_{TP}}\frac{2BD}{W}
+=\frac{4(N_{TP}-1)BD}{N_{TP}W}
+$$
+反向仅对同样形状的 `dx` 执行一次 all-reduce，因此：
+
+$$
+T_{bwd,comm}^{TP}=\frac{4(N_{TP}-1)BD}{N_{TP}W}
+$$
+
+
+**(d) 可保持 compute-bound 的最大 `N_TP`**
+
+反向：
+
+$$
+\frac{4(N_{TP}-1)BD}{N_{TP}W}
+\le
+\frac{12BDD_{FF}}{N_{TP}C}
+\quad\Rightarrow\quad
+N_{TP}\le 1+\frac{3D_{FF}W}{C}
+$$
+前向：
+
+$$
+\frac{4(N_{TP}-1)BD}{N_{TP}W}
+\le
+\frac{6BDD_{FF}}{N_{TP}C}
+\quad\Rightarrow\quad
+N_{TP}\le 1+\frac{3D_{FF}W}{2C}
+$$
+前向更严格，因为前向 FLOPs 只有反向的一半，而两者通信量相同。还应注意 `B,D` 被约掉了：TP 的扩展性主要由每个 token 的模型宽度 `D_FF` 和机器的带宽/算力比决定，而不是 global batch size。
+
+
+
+### 7.5 2D Parallelism (FSDP + TP)
+
+Batch size 和 参数大小限制了我们能够扩展到多少设备，但是将批次大小扩展到超过某个点后，性能会开始下降，因为梯度噪声显著减小，丧失了 SGD 的隐式正则化特性。
+
+这个点通常被称为“**临界批次大小**”。而 **scaling law** 通常告诉我们模型应该有多大。
+
+这一节，考虑一个简化场景：有人把所有的任务参数（批次大小、模型大小、带宽、加速器速度）都交给了我们。我们的工作是选择一个 FSDP 和 TP 的配置，使得在尽可能多的设备上扩展时，仍然保持计算受限而非通信受限。
+
+令总设备数为：
+
+$$
+N=N_{FSDP}N_{TP}
+$$
+FSDP 轴切 batch 和权重的另一维；TP 轴切 `D_FF` 通道。每个设备 `(i,j)` 持有：
+
+$$
+W_1^{(i,j)},W_2^{(i,j)}:\left(\frac{D}{N_{FSDP}},\frac{D_{FF}}{N_{TP}}\right)
+$$
+
+$$
+W_3^{(i,j)}:\left(\frac{D_{FF}}{N_{TP}},\frac{D}{N_{FSDP}}\right)
+$$
+
+前向中，先沿 FSDP 轴 all-gather 出每个 TP rank 所需的完整 TP 分片权重；然后做 TP 局部计算；最后沿 TP 轴 all-reduce 输出激活。它结合了 FSDP 的省显存与 TP 的模型维度扩展能力。
+
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1783875343721_image.png)
+
+**(a) 每设备前向 FLOPs**
+$$
+F_{fwd}^{2D}=\frac{6BDD_{FF}}{N_{FSDP}N_{TP}}
+$$
+FSDP 轴把 batch 除以 `N_FSDP`，TP 轴把每个矩阵乘法的 `D_FF` 维除以 `N_TP`，两者
+相乘即为每卡计算量的缩放比例。
+
+
+
+**(b) 前向通信时间（两轴可重叠）**
+
+沿 FSDP 轴：三个权重的总 FP16 大小在一个 TP rank 内为 `6DD_FF/N_TP` bytes，故：
+
+$$
+T_{FSDP}
+=\frac{6(N_{FSDP}-1)DD_{FF}}{N_{FSDP}N_{TP}W}
+$$
+沿 TP 轴：输出激活形状为 `(B/N_FSDP,D)`，其 all-reduce 时间为：
+
+$$
+T_{TP}
+=\frac{4(N_{TP}-1)BD}{N_{TP}N_{FSDP}W}
+$$
+两条轴使用可独立重叠的通信资源时，临界路径取较大者：
+
+$$
+T_{fwd,comm}^{2D}
+=\max\left(
+\frac{6(N_{FSDP}-1)DD_{FF}}{N_{FSDP}N_{TP}W},
+\frac{4(N_{TP}-1)BD}{N_{TP}N_{FSDP}W}
+\right)
+$$
+
+
+**(c) 两轴通信可重叠时，最优总规模**
+
+要使 `max(T_FSDP,T_TP)` 不超过计算时间 `6BDD_FF/(N_FSDP N_TP C)`，两项都必须各自
+不超过计算时间：
+
+$$
+N_{FSDP}\le 1+\frac{BW}{C},
+$$
+
+$$
+N_{TP}\le 1+\frac{3D_{FF}W}{2C}
+$$
+
+因此可以各自取最大，得到：
+
+$$
+N=N_{FSDP}N_{TP}
+\le
+\left(1+\frac{BW}{C}\right)
+\left(1+\frac{3D_{FF}W}{2C}\right)
+$$
+这比单独 DP/FSDP 或单独 TP 的上限更大：FSDP 轴利用 batch 提供的计算，TP 轴利用模型中间维度提供的计算，且两条通信轴可以并行推进。
+
+
+
+**(d) 两轴通信不能重叠时，最优总规模**
+
+不能重叠时，临界路径通信是两项之和。设：
+
+$$
+\alpha=\frac{BW}{C},\qquad \beta=\frac{2B}{3D_{FF}}
+$$
+由 `T_FSDP + T_TP <= T_compute`，乘以公共正项并化简：
+
+$$
+(N_{FSDP}-1)+\beta(N_{TP}-1)\le\alpha
+$$
+令 `x=N_FSDP-1`，则边界上 `N_TP=1+(\alpha-x)/\beta`，待最大化的总设备数为：
+
+$$
+N(x)=(x+1)\left(1+\frac{\alpha-x}{\beta}\right)
+$$
+在内部可行域 `N_FSDP,N_TP >= 1` 中，对 `x` 求导并令其为零，得到连续最优解：
+
+$$
+N_{FSDP}^*=\frac{1+\alpha+\beta}{2},
+\qquad
+N_{TP}^*=\frac{1+\alpha+\beta}{2\beta}
+$$
+所以：
+
+$$
+N\le \frac{(1+\alpha+\beta)^2}{4\beta}
+=\frac{3D_{FF}}{8B}
+\left(1+\frac{BW}{C}+\frac{2B}{3D_{FF}}\right)^2
+$$
+这里按题目要求忽略了 `N_FSDP,N_TP` 必须为整数的限制。若该连续解使任一轴小于 1，实际最优点应落在边界（即只用另一轴）；通常讨论的大规模训练区间中，两者均大于等于 1。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
