@@ -1,6 +1,6 @@
 ---
-title: "Memory OS of AI Agent精读"
-description: ""
+title: "论文精读 | Memory OS of AI Agent"
+description: "记忆也能做段页式存储管理"
 date: 2026-07-13T12:52:59+08:00
 lastmod: 2026-07-13T12:52:59+08:00
 draft: false
