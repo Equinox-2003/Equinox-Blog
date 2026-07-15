@@ -102,7 +102,7 @@ copyright:
 #   All website licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a></div>
 
 footer:
-  since: 2006 # 2020-current year
+  since: 2026 # Copyright start year
   powered: true
   count: true
   busuanzi: true

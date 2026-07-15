@@ -245,7 +245,7 @@ Qwen3-VL 把每个视频 temporal patch 前缀成文本时间戳，例如 `<3.0 
 
 **4. MoE**
 
->   [注意力替代方案与MoE](https://equinox.wiki/post/cs336/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88%E4%B8%8Emoe/)
+>   [注意力替代方案与MoE](https://blog.equinox.wiki/post/cs336/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88%E4%B8%8Emoe/)
 
 MoE 是 Qwen3-VL 相对 Qwen2.5-VL 的重要扩展。它的核心思想是把模型容量拆成多个 experts，每个 token 由 router 选择少数 experts 处理。
 
@@ -809,7 +809,6 @@ Needle-in-a-Haystack 是长上下文检索能力测试：把关键帧插入长�
 6. **Strong-to-Weak Distillation**：强模型教弱模型，尤其帮助小模型；
 7. **RL 后训练**：通过 reward system 优化模型输出，不只是模仿数据；
 8. **Thinking with Images**：模型不只回答，还能 think、act、读工具反馈、再回答。
-
 
 
 

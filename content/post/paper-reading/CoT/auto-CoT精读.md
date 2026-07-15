@@ -156,11 +156,11 @@ The answer is 11.
 
 ### 4.2 Zero-Shot-CoT
 
-见：[Zero Shot CoT精读](https://equinox.wiki/post/paper-reading/zero_shot_cot%E7%B2%BE%E8%AF%BB/)
+见：[Zero Shot CoT精读](https://blog.equinox.wiki/post/paper-reading/zero_shot_cot%E7%B2%BE%E8%AF%BB/)
 
 ### 4.3 Manual-CoT
 
-见：[CoT精读](https://equinox.wiki/post/paper-reading/cot%E7%B2%BE%E8%AF%BB/)
+见：[CoT精读](https://blog.equinox.wiki/post/paper-reading/cot%E7%B2%BE%E8%AF%BB/)
 
 
 
@@ -675,4 +675,3 @@ Auto-CoT 的局限也比较明显。
 第四，**论文主要关注 prompting，不涉及模型训练。因此它不能从根本上提升模型推理能力**，只是在 inference-time 更好地组织上下文。
 
 第五，自动 demonstrations 的质量可能受 LLM 版本、解码参数、answer extraction 规则影响。论文使用 `temperature = 0` 和 greedy decoding，但不同模型时代的表现可能不同。
-

@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://blog.equinox.wiki/'
 locale = 'en-us'
 title = "Welcome to Equinox's wiki！"
 theme = "reimu"

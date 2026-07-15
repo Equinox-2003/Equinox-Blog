@@ -109,7 +109,7 @@ Qwen2-VL 系列包含 2B、7B、72B 三个主要版本。论文强调所有不�
 >
 >   ![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1780936300574_image.png)
 >
->   首先要知道RoPE原理：[Assignment1](https://equinox.wiki/post/cs336/assignment1/)
+>   首先要知道RoPE原理：[Assignment1](https://blog.equinox.wiki/post/cs336/assignment1/)
 >
 >   具体来说，现在把embedding 看成 [T, H, W] 三段，然后在三段上分别做RoPE
 >
@@ -253,7 +253,6 @@ Qwen2-VL 的核心价值可以概括为：**用动态视觉 token 机制和多�
 - 三阶段训练与大规模混合数据支撑 OCR、文档、视频、agent 等多能力形成；
 - 基础设施解决动态序列、长视频、并行训练和大模型训练效率问题；
 - 广泛实验展示其作为通用 open-weight LVLM 的竞争力。
-
 
 
 

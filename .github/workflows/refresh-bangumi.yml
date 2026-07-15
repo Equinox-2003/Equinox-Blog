@@ -1,0 +1,42 @@
+name: Refresh Bangumi Collection
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 2 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-bangumi
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Refresh collection data
+        run: python tools/refresh-bangumi.py
+
+      - name: Commit updated data
+        run: |
+          if git diff --quiet -- data/bangumi.yml; then
+            echo "Bangumi collection is already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/bangumi.yml
+          git commit -m "chore: refresh bangumi collection"
+          git push

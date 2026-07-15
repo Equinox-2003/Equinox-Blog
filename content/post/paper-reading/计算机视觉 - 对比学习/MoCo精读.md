@@ -652,7 +652,7 @@ $$
 
 #### 6.2.1 InfoNCE vs NCE
 
->   关于NCE：[NCE](https://equinox.wiki/post/math/nce/)
+>   关于NCE：[NCE](https://blog.equinox.wiki/post/math/nce/)
 
 在NCE的推导中，我们发现，NCE目标函数的最优解就是使得 模型分布 等于 真实分布，那么为什么还要引入InfoNCE？
 
@@ -998,7 +998,6 @@ MoCo 被迁移到多个检测和分割任务中，例如：
 -   MoCo 与 ImageNet 监督预训练接近；
 -   在某些检测 / 分割任务上甚至优于监督预训练；
 -   这说明 MoCo 学到的表征更具有通用迁移能力。
-
 
 
 

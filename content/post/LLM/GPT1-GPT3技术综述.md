@@ -22,7 +22,7 @@ mermaid: true
 
 ## 零、写在前面
 
-之前手搓过GPT-2（[LLMs-From-Scratch](https://equinox.wiki/categories/llms-from-scratch/)），然后一时兴起想梳理一下GPT1~3的技术路线。
+之前手搓过GPT-2（[LLMs-From-Scratch](https://blog.equinox.wiki/categories/llms-from-scratch/)），然后一时兴起想梳理一下GPT1~3的技术路线。
 
 
 
@@ -435,4 +435,3 @@ GPT-3 之后，大语言模型研究沿着几条方向继续发展：
 - **Efficient fine-tuning**：用 LoRA、prefix tuning 等方式降低适配成本。
 
 这些方向并不是 GPT-1/2/3 的组成部分，但都建立在 GPT 系列展示出的通用语言建模能力之上。
-

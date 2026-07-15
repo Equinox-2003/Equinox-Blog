@@ -7,6 +7,7 @@
 {{- end -}}
 
 <footer id="footer" aria-label="Site footer">
+  {{- $currentYear := now.Year -}}
   <div style="width: 100%; overflow: hidden">
     <div class="footer-line"></div>
   </div>
@@ -16,11 +17,11 @@
     {{- end -}}
     <div>
       <span class="icon-copyright"></span>
-      {{- if eq (string .Site.Params.footer.since) (now.Format .Site.Params.yearFormat) -}}
-        {{- now.Format .Site.Params.yearFormat -}}
+      {{- if eq (string .Site.Params.footer.since) (string $currentYear) -}}
+        {{- $currentYear -}}
       {{- else -}}
         {{- .Site.Params.footer.since -}} -
-        {{- now.Format .Site.Params.yearFormat -}}
+        {{- $currentYear -}}
       {{- end -}}
       {{- if eq .Site.Params.footer.icon.url false -}}
         &nbsp;

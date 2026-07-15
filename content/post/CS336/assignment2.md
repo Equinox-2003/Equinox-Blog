@@ -25,13 +25,13 @@ mermaid: true
 
 至少需要了解这些内容：
 
-[注意力替代方案与MoE](https://equinox.wiki/post/cs336/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88%E4%B8%8Emoe/)
+[注意力替代方案与MoE](https://blog.equinox.wiki/post/cs336/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88%E4%B8%8Emoe/)
 
-[GPUs and TPUs](https://equinox.wiki/post/cs336/gpus-and-tpus/)
+[GPUs and TPUs](https://blog.equinox.wiki/post/cs336/gpus-and-tpus/)
 
-[Benchmarking、Profiling 与 Triton Kernels](https://equinox.wiki/post/cs336/benchmarkingprofiling-%E4%B8%8E-triton-kernels/)
+[Benchmarking、Profiling 与 Triton Kernels](https://blog.equinox.wiki/post/cs336/benchmarkingprofiling-%E4%B8%8E-triton-kernels/)
 
-[并行训练优化、MoE扩展与系统瓶颈](https://equinox.wiki/post/cs336/%E5%B9%B6%E8%A1%8C%E8%AE%AD%E7%BB%83%E4%BC%98%E5%8C%96moe%E6%89%A9%E5%B1%95%E4%B8%8E%E7%B3%BB%E7%BB%9F%E7%93%B6%E9%A2%88/)
+[并行训练优化、MoE扩展与系统瓶颈](https://blog.equinox.wiki/post/cs336/%E5%B9%B6%E8%A1%8C%E8%AE%AD%E7%BB%83%E4%BC%98%E5%8C%96moe%E6%89%A9%E5%B1%95%E4%B8%8E%E7%B3%BB%E7%BB%9F%E7%93%B6%E9%A2%88/)
 
 本章代码：[assignment2](https://github.com/Equinox-2003/CS336-Assignment/tree/main/assignment2)
 
@@ -2991,7 +2991,6 @@ N\le \frac{(1+\alpha+\beta)^2}{4\beta}
 \left(1+\frac{BW}{C}+\frac{2B}{3D_{FF}}\right)^2
 $$
 这里按题目要求忽略了 `N_FSDP,N_TP` 必须为整数的限制。若该连续解使任一轴小于 1，实际最优点应落在边界（即只用另一轴）；通常讨论的大规模训练区间中，两者均大于等于 1。
-
 
 
 

@@ -75,7 +75,7 @@ $$
 少数层用 full attention
 ```
 
->   [Swin Transformer精读](https://equinox.wiki/post/paper-reading/swin-transformer%E7%B2%BE%E8%AF%BB/)中就引入了局部注意力 与 shifted window 注意力
+>   [Swin Transformer精读](https://blog.equinox.wiki/post/paper-reading/swin-transformer%E7%B2%BE%E8%AF%BB/)中就引入了局部注意力 与 shifted window 注意力
 >
 >   而且 shifted window 比起 lecture03 提到的sliding window 更加具有访存友好。
 
@@ -1333,7 +1333,6 @@ MTP 可以作为辅助训练目标，帮助模型学习更强的未来预测能�
 可以浓缩为：
 
 > MoE 用“只激活部分专家”的方式，让模型拥有超大参数容量，但每个 token 的计算量保持可控。
-
 
 
 

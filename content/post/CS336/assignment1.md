@@ -606,9 +606,9 @@ class Tokenizer:
 
 >   一些前置知识：
 >
->   [注意力机制](https://equinox.wiki/post/machinelearning/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/)
+>   [注意力机制](https://blog.equinox.wiki/post/machinelearning/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/)
 >
->   [Transformer](https://equinox.wiki/post/machinelearning/transformer/)
+>   [Transformer](https://blog.equinox.wiki/post/machinelearning/transformer/)
 
 这一部分的总体目标是从零实现一个 decoder-only Transformer 语言模型，也就是类似 GPT/LLaMA 这类自回归语言模型的核心架构。从高层结构到每个基础模块，最后把它们组装成完整的 Transformer LM。
 
@@ -2571,7 +2571,6 @@ $$
 \sum_{j\in V(p)}q_j \geq p
 $$
 这个集合很好求，按概率降序排序，然后顺序取，概率和超过p就停。
-
 
 
 
