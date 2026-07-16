@@ -111,12 +111,16 @@
         {{- $desc = .RawContent | truncate 300 -}}
       {{- end -}}
       <script data-pjax>
+        {{- $cover := .Params.cover -}}
+        {{- if and .IsPage (in .Site.Params.mainSections .Section) -}}
+          {{- $cover = partial "helpers/postImage.html" (dict "page" . "field" "cover" "ctx" .) -}}
+        {{- end -}}
         window.REIMU_POST = {
           author: "{{ .Params.author | default $params.author }}",
           title: "{{ .Title }}",
           url: "{{ .Permalink }}",
           description: "{{ $desc }}",
-          cover: {{ if and .Params.cover (not (strings.HasPrefix .Params.cover "rgb")) }}"{{ .Params.cover | absURL }}"{{ else }}"{{ .Site.Params.banner | absURL }}"{{ end }},
+          cover: {{ if and $cover (not (strings.HasPrefix $cover "rgb")) }}"{{ $cover | absURL }}"{{ else }}"{{ .Site.Params.banner | absURL }}"{{ end }},
         };
       </script>
     {{- end -}}

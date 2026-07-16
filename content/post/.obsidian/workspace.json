@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "paper-reading/Agent Memory/Belief-Memory精读.md",
+                "file": "paper-reading/Agent Memory/RGMem.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Belief-Memory精读"
+              "title": "RGMem"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "paper-reading/Agent Memory/Belief-Memory精读.md",
+                "file": "paper-reading/Agent Memory/RGMem.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Belief-Memory精读"
+              "title": "Outline of RGMem"
             }
           }
         ],
@@ -183,12 +183,16 @@
       "bases:Create new base": false
     }
   },
-  "active": "d2f16e3d4bd1bb0f",
+  "active": "d15ec1b6f8988348",
   "lastOpenFiles": [
+    "paper-reading/Agent Memory/Memory OS of AI Agent.md",
+    "paper-reading/Agent Memory/RGMem.md",
+    "paper-reading/Agent Memory Benchmark",
+    "paper-reading/新建文件夹",
+    "paper-reading/Agent Memory/Belief-Memory精读.md",
     "paper-reading/Agent Memory/delta-Mem精读.md",
     "Agent/Mem0.md",
     "paper-reading/Agent Memory/斯坦福小镇.md",
-    "paper-reading/Agent Memory/Belief-Memory精读.md",
     "Math/KL散度.md",
     "Untitled 1.base",
     "Untitled.base",
@@ -213,13 +217,9 @@
     "paper-reading/多模态学习",
     "paper-reading/计算机视觉 - 对比学习/MoCo精读.md",
     "paper-reading/计算机视觉 - 对比学习",
-    "paper-reading/新建文件夹",
     "paper-reading/计算机视觉 - Transformer/ViT精读.md",
-    "paper-reading/计算机视觉 - Transformer/Swin-Transformer精读.md",
-    "paper-reading/计算机视觉 - Transformer/MAE精读.md",
     "paper-reading/计算机视觉 - Transformer",
     "paper-reading/CV",
-    "paper-reading/Qwen",
-    "paper-reading/CoT"
+    "paper-reading/Qwen"
   ]
 }

@@ -1,0 +1,15 @@
+{{- $page := .page -}}
+{{- $field := .field -}}
+{{- $ctx := .ctx | default $page -}}
+{{- $image := "" -}}
+{{- if isset $page.Params $field -}}
+  {{- $image = index $page.Params $field -}}
+{{- else -}}
+  {{- $scratchKey := printf "helpers/postImage/%s" $field -}}
+  {{- $image = $page.Scratch.Get $scratchKey -}}
+  {{- if not $image -}}
+    {{- $image = partial "helpers/randomCover.html" $ctx -}}
+    {{- $page.Scratch.Set $scratchKey $image -}}
+  {{- end -}}
+{{- end -}}
+{{- return $image -}}

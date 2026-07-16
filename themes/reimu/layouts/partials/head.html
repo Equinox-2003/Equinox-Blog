@@ -77,8 +77,12 @@
 {{- if .Site.Params.open_graph.enable -}}
   {{- $openGraphOptions := .Site.Params.open_graph.options -}}
   {{- $ogImage := "" -}}
-  {{- if and .Params.cover (not (strings.HasPrefix .Params.cover "rgb")) -}}
-    {{- $ogImage = .Params.cover | absURL -}}
+  {{- $cover := .Params.cover -}}
+  {{- if and .IsPage (in .Site.Params.mainSections .Section) -}}
+    {{- $cover = partial "helpers/postImage.html" (dict "page" . "field" "cover" "ctx" .) -}}
+  {{- end -}}
+  {{- if and $cover (not (strings.HasPrefix $cover "rgb")) -}}
+    {{- $ogImage = $cover | absURL -}}
   {{- else if and .Params.banner (not (strings.HasPrefix .Params.banner "rgb")) -}}
     {{- $ogImage = .Params.banner | absURL -}}
   {{- else -}}

@@ -34,37 +34,21 @@
     {{- if and $page.Params.weight (or (eq $ctx.Site.Params.sort_order.home "default") (not $ctx.Site.Params.sort_order.home)) -}}
       <div class="post-sticky">{{ i18n "sticky" }}</div>
     {{- end -}}
+    {{- $cover := partial "helpers/postImage.html" (dict "page" $page "field" "cover" "ctx" $ctx) -}}
     <div
       class="{{ if mod $index 2 }}
         post-cover right
       {{ else }}
         post-cover left
-      {{ end }}"
+      {{ end }}"{{ if and $cover (hasPrefix $cover "rgb") }} style="background: {{ $cover | safeCSS }}"{{ end }}
     >
-      {{- if and $page.Params.cover (not (hasPrefix $page.Params.cover "rgb")) -}}
+      {{- if and $cover (not (hasPrefix $cover "rgb")) -}}
         <img
-          data-src="{{ $page.Params.cover | relURL }}"
+          data-src="{{ $cover | relURL }}"
           data-sizes="auto"
           alt="{{ .Title }}"
           class="lazyload"
         />
-      {{- else -}}
-        {{- $cover := partial "helpers/randomCover.html" $ctx -}}
-        {{- if $cover -}}
-          <img
-            data-src="{{ $cover | relURL }}"
-            data-sizes="auto"
-            alt="{{ $page.Title }}"
-            class="lazyload"
-          />
-        {{- else -}}
-          <img
-            data-src="{{ $ctx.Site.Params.banner | relURL }}"
-            data-sizes="auto"
-            alt="{{ $page.Title }}"
-            class="lazyload"
-          />
-        {{- end -}}
       {{- end -}}
     </div>
     <div class="post-info">
