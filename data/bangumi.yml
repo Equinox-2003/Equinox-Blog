@@ -2,15 +2,23 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   collection_url: "https://bangumi.tv/anime/list/1214444"
-  updated_at: "2026-07-15"
+  updated_at: "2026-07-16"
 items:
+  - title: "恶女不才，请多关照 ～雏宫蝶鼠换身传～"
+    original_title: "ふつつかな悪女ではございますが ～雛宮蝶鼠とりかえ伝～"
+    url: "https://bangumi.tv/subject/545008"
+    cover: "https://lain.bgm.tv/r/400/pic/cover/l/14/a1/545008_pNnzQ.jpg"
+    status: "do"
+    status_label: "在看"
+    date: "2026-7-15"
+    rating: 7
   - title: "尼古喵喵"
     original_title: "ヤニねこ"
     url: "https://bangumi.tv/subject/622206"
     cover: "https://lain.bgm.tv/r/400/pic/cover/l/6a/b3/622206_dpWcC.jpg"
     status: "do"
     status_label: "在看"
-    date: "2026-7-13"
+    date: "2026-7-15"
     rating: 7
   - title: "穹庐下的魔女"
     original_title: "天幕のジャードゥーガル"
@@ -18,7 +26,7 @@ items:
     cover: "https://lain.bgm.tv/r/400/pic/cover/l/28/41/552533_E9DF9.jpg"
     status: "do"
     status_label: "在看"
-    date: "2026-7-6"
+    date: "2026-7-15"
     rating: 9
   - title: "无职转生 第三季 ～到了异世界就拿出真本事～"
     original_title: "無職転生Ⅲ ～異世界行ったら本気だす～"
@@ -26,7 +34,7 @@ items:
     cover: "https://lain.bgm.tv/r/400/pic/cover/l/1f/9e/501963_bXlEP.jpg"
     status: "do"
     status_label: "在看"
-    date: "2026-7-4"
+    date: "2026-7-15"
     rating: 10
   - title: "猫与龙"
     original_title: "猫と竜"
@@ -42,7 +50,7 @@ items:
     cover: "https://lain.bgm.tv/r/400/pic/cover/l/6f/42/571784_leRlL.jpg"
     status: "do"
     status_label: "在看"
-    date: "2026-6-5"
+    date: "2026-7-15"
     rating: 9
   - title: "金牌得主 第二季"
     original_title: "メダリスト 第2期"
