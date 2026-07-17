@@ -80,8 +80,6 @@ LPM：用户与 Agent 的长期 Persona
 - **STM -> MTM**：按 dialogue-chain 的 FIFO 规则迁移；
 - **MTM -> LPM**：按 segment heat 和 segmented page 机制迁移。
 
-
-
 ## 三、引言
 
 ### 3.1 Motivation
@@ -297,11 +295,12 @@ User KB 与 Agent Traits 各维护固定长度 **100** 的 FIFO queue。
 
 给定 query，系统同时从三层取内容。
 
-| 层级 | 检索方式                                                     | 用途                             |
-| ---- | ------------------------------------------------------------ | -------------------------------- |
-| STM  | 直接取全部近期 pages                                         | 保留当前会话连续性               |
-| MTM  | 先取 Top-m segment，再从中取 Top-k page                      | 找到与当前问题有关的历史事件细节 |
-| LPM  | User KB、Agent Traits 各取 Top-10；稳定 profile/traits 一并使用 | 提供长期个性化和 persona 信息    |
+| 层级  | 检索方式                                                  | 用途                  |
+| --- | ----------------------------------------------------- | ------------------- |
+| STM | 直接取全部近期 pages                                         | 保留当前会话连续性           |
+| MTM | 先取 Top-m segment，再从中取 Top-k page                      | 找到与当前问题有关的历史事件细节    |
+| LPM | User KB、Agent Traits 各取 Top-10；稳定 profile/traits 一并使用 | 提供长期个性化和 persona 信息 |
+|     |                                                       |                     |
 
 每次 MTM 检索后，系统会更新该 segment 的访问次数和 recency，因此 retrieval 会影响后续保留策略。
 
@@ -417,6 +416,4 @@ MemoryOS 给出了一个容易沟通、容易实现的系统分工：
 - **固定 90 维 trait schema 有约束**：容易工程部署，但可能漏掉开放世界的新型用户特征。
 - **冲突/遗忘机制较粗**：MTM 用 heat 淘汰、LPM 用固定长度 FIFO，但没有详细讨论语义冲突、错误记忆校正和来源追溯。
 - **写入成本仍需更完整报告**：论文的效率表以 retrieval tokens 和每次响应 LLM calls 为主，但 LLM 对 dialogue chain、segment summary、persona extraction 的长期写入成本没有充分拆开。
-
-
 

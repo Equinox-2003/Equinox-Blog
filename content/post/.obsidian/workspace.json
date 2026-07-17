@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "paper-reading/Agent Memory/RGMem.md",
+                "file": "paper-reading/Agent Memory/Memory OS of AI Agent.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "RGMem"
+              "title": "Memory OS of AI Agent"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "paper-reading/Agent Memory/RGMem.md",
+                "file": "paper-reading/Agent Memory/Memory OS of AI Agent.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of RGMem"
+              "title": "Outline of Memory OS of AI Agent"
             }
           }
         ],
@@ -185,12 +185,12 @@
   },
   "active": "d15ec1b6f8988348",
   "lastOpenFiles": [
-    "paper-reading/Agent Memory/Memory OS of AI Agent.md",
     "paper-reading/Agent Memory/RGMem.md",
-    "paper-reading/Agent Memory Benchmark",
-    "paper-reading/新建文件夹",
+    "paper-reading/Agent Memory/Memory OS of AI Agent.md",
     "paper-reading/Agent Memory/Belief-Memory精读.md",
     "paper-reading/Agent Memory/delta-Mem精读.md",
+    "paper-reading/Agent Memory Benchmark",
+    "paper-reading/新建文件夹",
     "Agent/Mem0.md",
     "paper-reading/Agent Memory/斯坦福小镇.md",
     "Math/KL散度.md",
