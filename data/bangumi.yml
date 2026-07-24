@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   collection_url: "https://bangumi.tv/anime/list/1214444"
-  updated_at: "2026-07-23"
+  updated_at: "2026-07-24"
 items:
   - title: "恶女不才，请多关照 ～雏宫蝶鼠换身传～"
     original_title: "ふつつかな悪女ではございますが ～雛宮蝶鼠とりかえ伝～"
@@ -58,7 +58,7 @@ items:
     cover: "https://lain.bgm.tv/r/400/pic/cover/l/0c/08/548818_iLSG6.jpg"
     status: "do"
     status_label: "在看"
-    date: "2026-4-27"
+    date: "2026-7-24"
     rating: 8
   - title: "尖帽子的魔法工房"
     original_title: "とんがり帽子のアトリエ"
@@ -74,7 +74,7 @@ items:
     cover: "https://lain.bgm.tv/r/400/pic/cover/l/30/1b/543360_Ru78k.jpg"
     status: "do"
     status_label: "在看"
-    date: "2026-6-14"
+    date: "2026-7-24"
     rating: 6
   - title: "宝石之国"
     original_title: "宝石の国"
@@ -90,7 +90,7 @@ items:
     cover: "https://lain.bgm.tv/r/400/pic/cover/l/0b/24/515759_qA1Zc.jpg"
     status: "do"
     status_label: "在看"
-    date: "2026-2-24"
+    date: "2026-7-24"
     rating: 8
   - title: "【我推的孩子】 第三季"
     original_title: "【推しの子】 第3期"
