@@ -217,17 +217,22 @@ flowchart LR
 
 ### 6.2 第一步：构建 kNN-LM datastore
 
-将语料中每一个位置跑过 base LM。对每个上下文 $ x_{<t} $，保存：
+将语料中每一个位置跑过 base LM。对每个上下文 $ x_{ < t } $，保存：
+
 
 $$
-(K,V)=\{(h(x_{<t}),x_t)\}
+(K,V)=\{(h(x_{ < t}),x_t)\}
 $$
+
+
 
 这等于建立了海量的“语境状态 -> 当时真实下一个词”案例库。对于训练样本，再去库中检索 $k$ 个相似上下文，按距离加权得到：
 
+
 $$
-p_{kNN}(w\mid x_{<t}) \propto
-\sum_{(k_i,v_i)\in N} \mathbf 1[w=v_i]\exp(-d(k_i,h(x_{<t}))/T)
+p_{kNN}(w\mid x_{ < t}) \propto
+
+\sum_{(k_i,v_i)\in N} \mathbf 1[w=v_i]\exp(-d(k_i,h(x_{ < t}))/T)
 $$
 
 - 邻居越像当前上下文，票数越大；
@@ -266,7 +271,7 @@ $$
 $$
 
 $$
-\mathcal L_{CE}=-\log p_{Mem}(x_t\mid x_{<t})
+\mathcal L_{CE}=-\log p_{Mem}(x_t\mid x_{ < t})
 $$
 
 $$
