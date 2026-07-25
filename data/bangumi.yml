@@ -2,8 +2,16 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   collection_url: "https://bangumi.tv/anime/list/1214444"
-  updated_at: "2026-07-24"
+  updated_at: "2026-07-25"
 items:
+  - title: "与你相恋到生命尽头"
+    original_title: "きみが死ぬまで恋をしたい"
+    url: "https://bangumi.tv/subject/541285"
+    cover: "https://lain.bgm.tv/r/400/pic/cover/l/b3/26/541285_CYBZc.jpg"
+    status: "do"
+    status_label: "在看"
+    date: "2026-7-25"
+    rating: 8
   - title: "恶女不才，请多关照 ～雏宫蝶鼠换身传～"
     original_title: "ふつつかな悪女ではございますが ～雛宮蝶鼠とりかえ伝～"
     url: "https://bangumi.tv/subject/545008"
