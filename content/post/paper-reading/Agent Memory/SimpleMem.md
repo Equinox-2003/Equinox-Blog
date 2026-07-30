@@ -1,6 +1,6 @@
 ---
-title: "SimpleMem"
-description: ""
+title: "论文精读 | SimpleMem"
+description: "提高记忆信息密度来降低成本"
 date: 2026-07-29T14:55:08+08:00
 lastmod: 2026-07-29T14:55:08+08:00
 draft: false
