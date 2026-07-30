@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   collection_url: "https://bangumi.tv/anime/list/1214444"
-  updated_at: "2026-07-29"
+  updated_at: "2026-07-30"
 items:
   - title: "与你相恋到生命尽头"
     original_title: "きみが死ぬまで恋をしたい"
@@ -31,7 +31,7 @@ items:
   - title: "穹庐下的魔女"
     original_title: "天幕のジャードゥーガル"
     url: "https://bangumi.tv/subject/552533"
-    cover: "https://lain.bgm.tv/r/400/pic/cover/l/28/41/552533_E9DF9.jpg"
+    cover: "https://lain.bgm.tv/r/400/pic/cover/l/28/41/552533_jJsJj.jpg"
     status: "do"
     status_label: "在看"
     date: "2026-7-15"
@@ -186,8 +186,8 @@ items:
     cover: "https://lain.bgm.tv/r/400/pic/cover/l/ce/3c/430699_hsj90.jpg"
     status: "collect"
     status_label: "看过"
-    date: "2026-3-23"
-    rating: 8
+    date: "2026-7-29"
+    rating: 9
   - title: "剧场版 链锯人 蕾塞篇"
     original_title: "劇場版 チェンソーマン レゼ篇"
     url: "https://bangumi.tv/subject/470660"
