@@ -33,6 +33,8 @@ cover: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1784821204803_image
 ![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1784821204803_image.png)
 
 >   标题通俗的讲就是：让 Agent 学会按问题决定“记忆处理要花多少钱”
+>
+>   **来源：ICML 2026**
 
 - **Learning（学习）**：预算不是hardcode，而是训练一个轻量 router（路由器）来学。
 - **Query-Aware（查询感知）**：不同问题需要的记忆处理深度不同。简单事实不值得调用很多大模型；复杂的多跳问题可能值得花更多钱。
