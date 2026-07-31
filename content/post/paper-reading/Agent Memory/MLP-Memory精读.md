@@ -130,7 +130,7 @@ MLP Memory 试图把二者拆开：**保留 base LM 的语言与推理能力，�
 对训练语料中每个位置，kNN-LM 存一对：
 
 $$
-(k_i,v_i)=(h(x_{<i}),x_i)
+(k_i,v_i)=(h(x_{ < i}),x_i)
 $$
 
 - `key` $k_i$：当时的上下文 hidden state；
@@ -228,11 +228,10 @@ $$
 
 这等于建立了海量的“语境状态 -> 当时真实下一个词”案例库。对于训练样本，再去库中检索 $k$ 个相似上下文，按距离加权得到：
 
-
 $$
-p_{kNN}(w\mid x_{ < t}) \propto
-
-\sum_{(k_i,v_i)\in N} \mathbf 1[w=v_i]\exp(-d(k_i,h(x_{ < t}))/T)
+p_{kNN}(w \mid x_{ < t}) 
+\propto
+\sum_{(k_i,v_i)\in N} \mathbf 1[w = v_i]\exp(-d(k_i,h(x_{ < t}))/T)
 $$
 
 - 邻居越像当前上下文，票数越大；
