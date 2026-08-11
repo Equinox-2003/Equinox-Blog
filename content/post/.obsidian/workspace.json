@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "paper-reading/Agent Memory/Memory OS of AI Agent.md",
+                "file": "paper-reading/Agent Memory/SimpleMem.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Memory OS of AI Agent"
+              "title": "SimpleMem"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "paper-reading/Agent Memory/Memory OS of AI Agent.md",
+                "file": "paper-reading/Agent Memory/SimpleMem.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Memory OS of AI Agent"
+              "title": "Outline of SimpleMem"
             }
           }
         ],
@@ -185,8 +185,14 @@
   },
   "active": "d15ec1b6f8988348",
   "lastOpenFiles": [
+    "paper-reading/Agent Memory/ViLoMem精读.md",
+    "paper-reading/Agent Memory/xMemory.md",
+    "paper-reading/Agent Memory/SimpleMem.md",
     "paper-reading/Agent Memory/RGMem.md",
+    "paper-reading/Agent Memory/MLP-Memory精读.md",
     "paper-reading/Agent Memory/Memory OS of AI Agent.md",
+    "paper-reading/Agent Memory/MemGen.md",
+    "paper-reading/Agent Memory/BudgetMem精读.md",
     "paper-reading/Agent Memory/Belief-Memory精读.md",
     "paper-reading/Agent Memory/delta-Mem精读.md",
     "paper-reading/Agent Memory Benchmark",
@@ -210,14 +216,8 @@
     "paper-reading/CoT/Zero_Shot_CoT精读.md",
     "paper-reading/多模态学习/VLMO泛读.md",
     "paper-reading/多模态学习/ViLT精读.md",
-    "paper-reading/多模态学习/CLIP精读.md",
-    "paper-reading/多模态学习/BLIP泛读.md",
-    "paper-reading/多模态学习/BLIP2泛读.md",
-    "paper-reading/多模态学习/ALBEF泛读.md",
     "paper-reading/多模态学习",
-    "paper-reading/计算机视觉 - 对比学习/MoCo精读.md",
     "paper-reading/计算机视觉 - 对比学习",
-    "paper-reading/计算机视觉 - Transformer/ViT精读.md",
     "paper-reading/计算机视觉 - Transformer",
     "paper-reading/CV",
     "paper-reading/Qwen"

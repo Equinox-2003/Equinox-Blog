@@ -675,8 +675,6 @@ BeliefMem 虽然 token 消耗低于 Mem0 和 A-MEM，但 memory writing 和 merg
 
 ### 7.3 对 Agent Memory 研究的启发
 
-这篇论文对你做 Agent Memory 很有启发，尤其是以下几个方向。
-
 **方向一：Belief Memory + Cognitive Layer**
 
 你之前提到的 **belief system / cognitive layer（信念系统或认知层）** 和这篇论文高度相关。

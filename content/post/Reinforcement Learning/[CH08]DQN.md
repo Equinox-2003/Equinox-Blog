@@ -23,6 +23,8 @@ cover: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1784273674617_image
 
 
 
+
+
 ## 零、写在前面
 
 其实直接把 Q 学习 和 神经网络结合是不太好的，二者一个依赖强相关数据，一个依赖随机数据，那么我们可以通过一些策略来解决这个问题。
@@ -45,7 +47,7 @@ pip install gymnasium
 
 以游戏 CartPole 为例：
 
-![image-20260803170320049](D:\TyporaPics\image-20260803170320049.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1786014848694_image.png)
 
 
 
@@ -143,8 +145,6 @@ data = random.sample(self.buffer, self.batch_size)
 > **值得注意的是，经验回放只适用于 off-policy。**
 >
 > Q-learning 的 target 是 $\max_aQ(s',a)$，它学习贪婪目标策略的价值；产生数据的行为策略可以是 epsilon-greedy，因此旧数据仍可用于更新。SARSA 的 target 含当前行为策略实际选择的下一动作，不能不加处理地把旧策略数据拿来回放。
-
-### 
 
 ###  2.2 经验回放的实现
 
@@ -397,7 +397,7 @@ plt.show()
 
 曲线很夸张：
 
-![image-20260803202613519](D:\TyporaPics\image-20260803202613519.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1786014924054_image.png)
 
 因为强化学习的训练曲线变动是很大的，我们不能仅凭一次结果评判，所以进行100次实验取平均：
 

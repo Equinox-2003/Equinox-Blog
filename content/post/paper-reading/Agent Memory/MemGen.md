@@ -1,9 +1,9 @@
 ---
-title: "MemGen"
-description: ""
+title: "论文精读 | MemGen"
+description: "记忆和推理交叉推进"
 date: 2026-07-30T16:47:35+08:00
 lastmod: 2026-07-30T16:47:35+08:00
-draft: true
+draft: false
 
 categories:
   - paper-reading
@@ -1077,9 +1077,9 @@ MemGen 默认没有：
 
 
 
-### 8.5 对 Agent Memory 研究的启发
+### 8.5 启发。？
 
-#### 方向一：External Memory Manager + Latent Weaver
+**1、External Memory Manager + Latent Weaver**
 
 让 Mem0、Graph Memory 或 episode database 负责：
 
@@ -1098,7 +1098,7 @@ MemGen 默认没有：
 
 
 
-#### 方向二：Adaptive Memory Length
+**2、Adaptive Memory Length**
 
 把固定 K 改为：
 
@@ -1112,7 +1112,7 @@ MemGen 默认没有：
 
 
 
-#### 方向三：可解释 Latent Memory
+**3、可解释 Latent Memory**
 
 可以增加：
 
@@ -1126,7 +1126,7 @@ MemGen 默认没有：
 
 
 
-#### 方向四：Belief-aware Trigger
+**4、Belief-aware Trigger**
 
 目前 trigger 主要学习何时调用。进一步可以让它区分：
 
