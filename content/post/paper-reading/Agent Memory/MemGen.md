@@ -336,8 +336,7 @@ $$
 第 $j$ 个 token 的生成满足：
 
 $$
-z_{t,j}\sim\pi_\theta(\cdot\mid s_t,z_{t,<j}).
-\tag{1}
+z_{t,j}\sim\pi_\theta(\cdot\mid s_t,z_{t,\lt j}). \tag{1}
 $$
 执行整个 action 后，环境从 $s_t$ 转移到 $s_{t+1}$，最后通过 $R(\tau)$ 评价整条轨迹是否成功。
 
@@ -364,7 +363,7 @@ $$
 不同 memory paradigm 的区别，可以统一写成：
 
 $$
-m_t=f_{\mathcal{M}}(s_t,\mathcal{H},m_{<t}).
+m_t=f_{\mathcal{M}}(s_t,\mathcal{H},m_{\lt t}).
 \tag{3}
 $$
 
@@ -411,13 +410,12 @@ $$
 生成到第 $j$ 个 token 前，reasoner 已经形成隐藏状态序列：
 
 $$
-H_{t,<j}=(h_{t,1},\ldots,h_{t,j-1}),
-\qquad h_{t,k}\in\mathbb{R}^{d_{\text{model}}}.
+H_{t, \lt j}=(h_{t,1},\ldots,h_{t,j-1}), \qquad h_{t,k}\in\mathbb{R}^{d_{\text{model}}}.
 $$
 Trigger 根据这段隐藏状态计算调用概率：
 
 $$
-p_j=\sigma(T_{\text{trigger}}(H_{t,<j})),
+p_j=\sigma(T_{\text{trigger}}(H_{t,\lt j})),
 $$
 并采样：
 
@@ -429,13 +427,13 @@ $$
 如果是 SKIP，reasoner 正常生成：
 
 $$
-z_{t,j}\sim\pi_\theta(\cdot\mid s_t,z_{t,<j}).
+z_{t,j}\sim\pi_\theta(\cdot\mid s_t,z_{t,\lt j}).
 $$
 如果是 INVOKE，weaver 生成固定长度 K 的 latent memory：
 
 $$
 M_t=[m_{t,1},m_{t,2},\ldots,m_{t,K}]
-=W_{\text{weaver}}(H_{t,<j}),
+=W_{\text{weaver}}(H_{t,\lt< j}),
 \tag{5}
 $$
 其中：
@@ -447,7 +445,7 @@ $$
 
 $$
 z_{t,j}\sim
-\pi_\theta(\cdot\mid s_t,z_{t,<j},M_t).
+\pi_\theta(\cdot\mid s_t,z_{t,\lt< j},M_t).
 \tag{6}
 $$
 这里的 prepend 不是把一段文本加进 prompt，而是把 K 个连续 latent vectors 加入 reasoner 后续计算使用的隐藏上下文。
@@ -472,7 +470,7 @@ $$
 p_j=
 \begin{cases}
 0, & z_j\notin\mathcal D,\\
-T_{\text{trigger}}(H_{t,<j}), & z_j\in\mathcal D,
+T_{\text{trigger}}(H_{t,\lt j}), & z_j\in\mathcal D,
 \end{cases}
 \qquad
 d_j\sim\operatorname{Bernoulli}(p_j).
@@ -530,7 +528,7 @@ $$
 
 #### 6.4.1 Weaver 保存了什么？
 
-新增经验不会更新 reasoner，而是学习进 weaver 的参数。推理时，weaver 再根据当前 $H_{t,<j}$ 把相关经验重构成 $M_t$。
+新增经验不会更新 reasoner，而是学习进 weaver 的参数。推理时，weaver 再根据当前 $H_{t,\lt j}$ 把相关经验重构成 $M_t$。
 
 可以用人类类比理解：
 
@@ -543,7 +541,7 @@ Weaver 参数：长期积累的经验和技能
 论文把 weaver 实现为附着在同一基础 LLM 上的另一套 LoRA adapter：
 
 $$
-M_t=W_{\theta'}(H_{t,<j}),
+M_t=W_{\theta'}(H_{t,\lt j}),
 \qquad
 M_t\in\mathbb{R}^{K\times d_{\text{model}}}.
 $$
@@ -596,15 +594,14 @@ $$
 \sum_t\sum_j
 \log\pi_\theta
 (z_{i,t,j}^*
-\mid s_{i,t},z_{i,t,<j}^*,M_{i,t,j})
+\mid s_{i,t},z_{i,t,\lt j}^*,M_{i,t,j})
 \right].
 \tag{11}
 $$
 其中：
 
 $$
-M_{i,t,j}=W_{\theta'}(H_{i,t,<j}).
-\tag{12}
+M_{i,t,j}=W_{\theta'}(H_{i,t,\lt j}). \tag{12}
 $$
 参数更新：
 
@@ -647,8 +644,7 @@ GRPO objective 让高于组平均 reward 的 trajectory 概率增加，并使用
 
 $$
 J_{\text{GRPO}}(\theta')
-=
-\mathbb{E}
+= \mathbb{E}
 \left[
 \frac{1}{K_g}\sum_k
 A(\tau_{i,k})
@@ -699,8 +695,7 @@ MemGen 默认从 weaver 的 parametric knowledge 生成 latent memory，但也�
 Trigger 激活时，将当前已生成文本解码为 query：
 
 $$
-q_{t,j}=\operatorname{Decode}(z_{t,<j}).
-\tag{17}
+q_{t,j}=\operatorname{Decode}(z_{t,\lt j}). \tag{17}
 $$
 从外部库检索：
 
@@ -711,8 +706,7 @@ $$
 将检索文本编码成 embedding sequence $E_t$，再与当前 hidden states 拼接后交给 weaver：
 
 $$
-M_t=W_{\text{weaver}}([H_{t,<j};E_t]).
-\tag{19}
+M_t=W_{\text{weaver}}([H_{t, \lt j};E_t]). \tag{19}
 $$
 因此外部文本不是直接追加给 reasoner，而是先经过 weaver 压缩、重构成 latent memory。
 
