@@ -1,5 +1,5 @@
 ---
-title: "AttriMem"
+title: "论文精读 | AttriMem"
 description: "密集奖励强化学习训练LLM记忆构建"
 date: 2026-08-12T13:19:36+08:00
 lastmod: 2026-08-12T13:19:36+08:00

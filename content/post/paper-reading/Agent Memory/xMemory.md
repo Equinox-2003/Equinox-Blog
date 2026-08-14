@@ -1,5 +1,5 @@
 ---
-title: "xMemory"
+title: "论文精读 | xMemory"
 description: "Agent Memory 别再硬套 RAG范式"
 date: 2026-08-05T18:58:12+08:00
 lastmod: 2026-08-05T18:58:12+08:00
