@@ -2,8 +2,16 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   collection_url: "https://bangumi.tv/anime/list/1214444"
-  updated_at: "2026-08-13"
+  updated_at: "2026-08-14"
 items:
+  - title: "Re：从零开始的异世界生活 第四季 夺还篇"
+    original_title: "Re:ゼロから始める異世界生活 4th season 奪還編"
+    url: "https://bangumi.tv/subject/633836"
+    cover: "https://lain.bgm.tv/r/400/pic/cover/l/43/ca/633836_ql0f3.jpg"
+    status: "do"
+    status_label: "在看"
+    date: "2026-8-13"
+    rating: 8
   - title: "与你相恋到生命尽头"
     original_title: "きみが死ぬまで恋をしたい"
     url: "https://bangumi.tv/subject/541285"
