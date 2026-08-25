@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   collection_url: "https://bangumi.tv/anime/list/1214444"
-  updated_at: "2026-08-24"
+  updated_at: "2026-08-25"
 items:
   - title: "Re：从零开始的异世界生活 第四季 夺还篇"
     original_title: "Re:ゼロから始める異世界生活 4th season 奪還編"
@@ -180,7 +180,7 @@ items:
     status_label: "看过"
     date: "2026-6-8"
     rating: 7
-  - title: "超时空辉夜姬！"
+  - title: "超辉夜姬！"
     original_title: "超かぐや姫！"
     url: "https://bangumi.tv/subject/604826"
     cover: "https://lain.bgm.tv/r/400/pic/cover/l/f6/0f/604826_2XWRN.jpg"
