@@ -1,5 +1,5 @@
 ---
-title: "论文精读 |JITRL"
+title: "论文精读 | JITRL"
 description: "基于memory做即时强化学习"
 date: 2026-08-13T18:59:16+08:00
 lastmod: 2026-08-13T18:59:16+08:00

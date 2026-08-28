@@ -27,15 +27,15 @@ cover: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1787747613323_image
 
 偶尔写点小玩具也是蛮有趣的。~~才不是因为我人工玩 flapy bird 过 7 个口就似了~~
 
-源码：https://github.com/Equinox-2003/DQN-From-Scratch
+源码：[DQN-From-Scratch](https://github.com/Equinox-2003/DQN-From-Scratch)
 
 
 
 ## 一、FlappyBird Environment Setup
 
-打开gymnasium.farama找一下 flappy bird 的环境：https://gymnasium.farama.org/environments/third_party_environments/
+打开gymnasium.farama找一下 flappy bird 的环境：[third_party_environments](https://gymnasium.farama.org/environments/third_party_environments/)
 
-最后选了这个：https://github.com/markub3327/flappy-bird-gymnasium
+最后选了这个：[flappy-bird-gymnasium](https://github.com/markub3327/flappy-bird-gymnasium)
 
 因为他这个 observation 可以选择，一个是神秘传感器信号看不懂，一个是各种位置信息，相对来说简单一点。
 
