@@ -25,7 +25,7 @@ cover: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1787747613323_image
 
 ## 零、写在前面
 
-偶尔写点小玩具也是蛮有趣的。~~才不是因为我人工玩 flapy bird 过 7 个口就似了~~
+偶尔写点小玩具也是蛮有趣的。~~才不是因为我人工玩 flappy bird 过 7 个口就似了~~
 
 源码：[DQN-From-Scratch](https://github.com/Equinox-2003/DQN-From-Scratch)
 
@@ -118,7 +118,7 @@ env = gymnasium.make("CartPole-v1", render_mode="human")
 
 首先我们需要写一个 net 来做 Q-learning，输入是state，输出是 action：
 
-![image-20260826211750140](D:\TyporaPics\image-20260826211750140.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1787894912587_image.png)
 
 简单搭建一个网络：
 
@@ -1206,7 +1206,7 @@ Goal reached! Solved in 316 episodes with 5-episode average reward: 500.00!
 >   1. **开赛车游戏**：
 >      * **直道无障碍时**：不管是微调方向盘、稍微靠左还是靠右，车子都能顺利向前开。此时状态本身很好（$V(s)$ 很高），动作的选择并不致命。
 >      * **即将撞墙时（极度危险）**：此时**选什么动作至关重要**（左转能活，不转就死）。
->   2. **Flappy Bird（你刚才的代码环境）**：
+>   2. **Flappy Bird**：
 >      * 小鸟在两根水管正中间正常下落时，无论这一帧跳不跳，都不会马上死。
 >      * 只有当小鸟逼近下边缘或上边缘的临界瞬间，跳跃动作的优劣才真正体现出来。
 >
@@ -1351,7 +1351,7 @@ target_dqn = DQN(num_states, num_actions, hidden_dim=self.fc1_nodes, enable_duel
 
 
 
-## 九、 DQN、Double DQN、Dueling DQN
+## 九、DQN、Double DQN、Dueling DQN
 
 三者并不是相互替代的关系，而是**在不同维度上做出的正交改进**：
 
