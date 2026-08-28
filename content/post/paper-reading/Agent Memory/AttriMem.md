@@ -595,21 +595,21 @@ $$
 
 ### 6.7 训练配置
 
-| 项目                      |                                  配置 |
-| ------------------------- | ------------------------------------: |
-| Memory policy             |                              Qwen3-4B |
-| SFT                       |                3,000 steps，10 epochs |
-| SFT batch size            |                                    32 |
-| SFT learning rate         |                      $5\times10^{-7}$ |
-| RL                        |                        GRPO 400 steps |
-| GRPO effective batch size |                                   256 |
-| GRPO group size           |                                     8 |
-| RL learning rate          |                      $1\times10^{-6}$ |
-| 最大序列长度              |                                 6,000 |
+| 项目                        |                              配置 |
+| ------------------------- | ------------------------------: |
+| Memory policy             |                        Qwen3-4B |
+| SFT                       |           3,000 steps，10 epochs |
+| SFT batch size            |                              32 |
+| SFT learning rate         |                $5\times10^{-7}$ |
+| RL                        |                  GRPO 400 steps |
+| GRPO effective batch size |                             256 |
+| GRPO group size           |                               8 |
+| RL learning rate          |                $1\times10^{-6}$ |
+| 最大序列长度                    |                           6,000 |
 | Attribution masks         | RL step 0/80/200 时累计提高到 8/16/32 |
-| LASSO \(\alpha\)          |                                  0.01 |
-| 硬件                      |                  8 × NVIDIA H800 80GB |
-| 作者报告时间              |            SFT 约 30 小时；RL 约 5 天 |
+| LASSO \(\alpha\)          |                            0.01 |
+| 硬件                        |            8 × NVIDIA H800 80GB |
+| 作者报告时间                    |            SFT 约 30 小时；RL 约 5 天 |
 
 粗略换算约为：
 

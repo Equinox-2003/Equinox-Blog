@@ -97,7 +97,7 @@ Q 学习通过下面的式子更新 Q 函数：
 $$
 Q'(S_t,A_t)=Q(S_t,A_t)+\alpha
 \left[
-R_t+\gamma\max_aQ(S_{t+1},a)-Q(S_t,A_t)
+R_{t+1}+\gamma\max_aQ(S_{t+1},a)-Q(S_t,A_t)
 \right].
 \tag{7.3}
 $$
