@@ -1,9 +1,9 @@
 ---
-title: "REINFORCE"
-description: ""
+title: "Policy-Gradient-Method-From-Scratch | REINFORCE"
+description: "REINFORCE的简单实现"
 date: 2026-08-28T21:54:55+08:00
 lastmod: 2026-08-28T21:54:55+08:00
-draft: true
+draft: false
 
 categories:
   - Reinforcement Learning
@@ -16,6 +16,7 @@ tags:
 toc: true
 math: true
 mermaid: true
+cover: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1788003344827_image.png
 ---
 
 <!--more-->
@@ -26,7 +27,7 @@ mermaid: true
 
 依旧练手。
 
-源码：https://github.com/Equinox-2003/Policy-Gradient-Method-From-Scratch/tree/main/REINFORCE
+源码：[REINFORCE](https://github.com/Equinox-2003/Policy-Gradient-Method-From-Scratch/tree/main/REINFORCE)
 
 
 
