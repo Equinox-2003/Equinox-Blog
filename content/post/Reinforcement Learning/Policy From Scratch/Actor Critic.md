@@ -1,6 +1,6 @@
 ---
-title: "Actor Critic"
-description: ""
+title: "Policy-Gradient-Method-From-Scratch | Actor Critic"
+description: "让策略梯度更稳定、更高效地收敛"
 date: 2026-08-31T10:34:10+08:00
 lastmod: 2026-08-31T10:34:10+08:00
 draft: false
