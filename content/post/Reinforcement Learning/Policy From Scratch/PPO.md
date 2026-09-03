@@ -56,8 +56,7 @@ REINFORCE 和 A2C 都是在用采样轨迹估计 $\nabla_\theta J(\theta)$。因
 
 $$
 L^{A2C}_{actor}(\theta)
-=
--\mathbb{E}_t
+= -\mathbb{E}_t
 \left[
 \log\pi_\theta(a_t|s_t)\hat A_t
 \right].
@@ -146,8 +145,7 @@ $$
 
 $$
 r_t(\theta)
-=
-\frac{\pi_\theta(a_t|s_t)}
+= \frac{\pi_\theta(a_t|s_t)}
 {\pi_{\theta_{old}}(a_t|s_t)}.
 $$
 
@@ -159,8 +157,7 @@ $$
 
 $$
 L^{CPI}(\theta)
-=
-\mathbb{E}_t
+= \mathbb{E}_t
 \left[
 r_t(\theta)\hat A_t
 \right],
@@ -190,8 +187,7 @@ $$
 
 $$
 \mathbb{E}_{a\sim\pi_\theta}[f(a)]
-=
-\mathbb{E}_{a\sim\pi_{old}}
+= \mathbb{E}_{a\sim\pi_{old}}
 \left[
 \frac{\pi_\theta(a|s)}{\pi_{old}(a|s)}f(a)
 \right].
@@ -229,8 +225,7 @@ old_log_probs 必须在采样时保存，并在整个 PPO update 期间保持不
 
 $$
 L^{CPI}(\theta)
-=
-\mathbb{E}_t
+= \mathbb{E}_t
 \left[
 r_t(\theta)\hat A_t
 \right].
@@ -262,8 +257,7 @@ $$
 
 $$
 s_t^{clip}(\theta)
-=
-\operatorname{clip}
+= \operatorname{clip}
 \left(
 r_t(\theta),1-\epsilon,1+\epsilon
 \right)
@@ -274,8 +268,7 @@ $$
 
 $$
 L^{CLIP}_{max}(\theta)
-=
-\mathbb{E}_t
+= \mathbb{E}_t
 \left[
 \min
 \left(
@@ -364,8 +357,7 @@ PyTorch optimizer 默认执行梯度下降，所以我们实现时需要把它�
 
 $$
 L^{CLIP}(\theta)
-=
--\mathbb{E}_t
+= -\mathbb{E}_t
 \left[
 \min
 \left(
@@ -509,16 +501,14 @@ GAE 把多个时间尺度的 TD error 进行指数衰减累积：
 
 $$
 \hat A_t^{GAE(\gamma,\lambda)}
-=
-\sum_{l=0}^{\infty}(\gamma\lambda)^l\delta_{t+l}.
+= \sum_{l=0}^{\infty}(\gamma\lambda)^l\delta_{t+l}.
 $$
 
 代码从 rollout 尾部向前递推：
 
 $$
 \hat A_t
-=
-\delta_t+\gamma\lambda c_t\hat A_{t+1}.
+= \delta_t+\gamma\lambda c_t\hat A_{t+1}.
 $$
 
 其中 $\lambda$ 控制 bias-variance trade-off：
@@ -634,16 +624,14 @@ Entropy bonus 为：
 
 $$
 \mathcal{H}(\pi(\cdot|s))
-=
--\sum_a\pi(a|s)\log\pi(a|s).
+= -\sum_a\pi(a|s)\log\pi(a|s).
 $$
 
 Actor loss 为：
 
 $$
 L_{actor}
-=
-L^{CLIP}
+= L^{CLIP}
 -\beta\mathbb{E}_t
 \left[\mathcal{H}(\pi_\theta(\cdot|s_t))\right].
 $$
@@ -713,14 +701,10 @@ old_log_prob 固定了 denominator，使每个 epoch 都是在比较当前策略
 
 $$
 \text{PPO}
-=
-\text{Actor-Critic}
-+
-\text{GAE}
-+
-\text{Importance Sampling Ratio}
-+
-\text{Clipped Policy Objective}.
+= \text{Actor-Critic}
++ \text{GAE}
++ \text{Importance Sampling Ratio}
++ \text{Clipped Policy Objective}.
 $$
 
 这也是为什么 PPO 的代码结构和 A2C 很像，但 update 部分多了 old_log_probs、ratio、clipped objective 和多轮 minibatch。
