@@ -15,10 +15,6 @@ tags:
 toc: true
 math: true
 mermaid: true
-
-toc: true
-math: true
-mermaid: true
 cover: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1788691564397_image.png
 ---
 
@@ -811,4 +807,3 @@ $$
 作者提到 TTT 等工作采用跨 chunk nonlinear、chunk 内 linear 的策略。这可能在不完全牺牲并行性的前提下，突破 DeltaNet 当前的表达能力限制。
 
 **当然，现在已经26年了，一堆工作已经涌现出来了（**
-
