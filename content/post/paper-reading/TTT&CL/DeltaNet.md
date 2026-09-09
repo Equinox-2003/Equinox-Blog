@@ -15,7 +15,7 @@ tags:
 toc: true
 math: true
 mermaid: true
-cover: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1788691564397_image.png
+cover: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1788953861699_image.png
 ---
 
 <!--more-->
@@ -34,7 +34,7 @@ cover: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1788691564397_image
 
 ## 一、标题
 
-![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1788691564397_image.png)
+![image.png](https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1788953861699_image.png)
 
 >   来源：**NeurIPS 2024**
 >
