@@ -257,8 +257,7 @@ Figure 4 说明了这一过程：一次梯度更新可以让当前 token 的 TTT
 内循环损失是：
 
 $$
-\ell(W;x_t)
-=
+\ell(W;x_t) =
 \left\|f(\theta_Kx_t;W)-\theta_Vx_t\right\|_2^2.
 $$
 
@@ -345,8 +344,7 @@ $$
 把序列切成大小为 $b$ 的 mini-batch。令 $t'$ 为当前 batch 开始前的最后一个时间位置，则：
 
 $$
-G_t=\nabla\ell(W_{t'};x_t),
-\qquad
+G_t=\nabla\ell(W_{t'};x_t), \qquad
 W_t=W_{t-1}-\eta G_t.
 $$
 
@@ -442,16 +440,14 @@ Dual form 不只适用于线性模型。附录 A 对任意深度、带逐元素�
 对第 $k$ 层：
 
 $$
-Z^k=W_0^k\widehat X^k,
-\qquad
+Z^k=W_0^k\widehat X^k, \qquad
 \widehat X^{k+1}=\sigma_k(Z^k).
 $$
 
 首先在初始权重上做一次标准的 batch forward/backward，得到对 mini-batch 总 loss 的梯度：
 
 $$
-\nabla_{W_0^k}\ell
-=
+\nabla_{W_0^k}\ell =
 \left(\nabla_{Z^k}\ell\right)\left(\widehat X^k\right)^\top.
 $$
 
@@ -495,16 +491,14 @@ $$
 在 $W_0=0$ 时：
 
 $$
-\nabla\ell(W_0;x_t)
-=
+\nabla\ell(W_0;x_t) =
 -2(\theta_Vx_t)(\theta_Kx_t)^\top.
 $$
 
 因此：
 
 $$
-W_t
-=
+W_t =
 \sum_{s=1}^{t}
 (\theta_Vx_s)(\theta_Kx_s)^\top.
 $$
@@ -512,10 +506,8 @@ $$
 输出为：
 
 $$
-z_t
-=
-f(\theta_Qx_t;W_t)
-=
+z_t =
+f(\theta_Qx_t;W_t) =
 \sum_{s=1}^{t}
 (\theta_Vx_s)
 (\theta_Kx_s)^\top
@@ -525,8 +517,7 @@ $$
 这正是最简单的 linear attention：
 
 $$
-z_t
-=
+z_t =
 \sum_{s=1}^{t}
 v_sk_s^\top q_t.
 $$
@@ -540,8 +531,7 @@ $$
 TTT 的 learner 不一定有显式参数 $W$。论文考虑：
 
 $$
-f(x;x_1,\ldots,x_t)
-=
+f(x;x_1,\ldots,x_t) =
 \frac{
 \sum_{s=1}^{t}\kappa(x,x_s)y_s
 }{
@@ -596,8 +586,7 @@ $$
 #### TTT-MLP
 
 $$
-f_{\mathrm{MLP}}(x)
-=
+f_{\mathrm{MLP}}(x) =
 W_2\operatorname{GELU}(W_1x),
 $$
 
@@ -627,8 +616,7 @@ LayerNorm 和 residual 是 inner model 的一部分，而不是仅仅在外部 b
 论文让 learning rate 依赖当前输入：
 
 $$
-\eta(x)
-=
+\eta(x) =
 \eta_{\mathrm{base}}\sigma(\theta_{\mathrm{lr}}^\top x).
 $$
 
