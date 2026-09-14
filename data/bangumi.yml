@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   collection_url: "https://bangumi.tv/anime/list/1214444"
-  updated_at: "2026-09-13"
+  updated_at: "2026-09-14"
 items:
   - title: "猫与龙"
     original_title: "猫と竜"
@@ -34,7 +34,7 @@ items:
     cover: "https://lain.bgm.tv/r/400/pic/cover/l/6a/b3/622206_dpWcC.jpg"
     status: "do"
     status_label: "在看"
-    date: "2026-8-27"
+    date: "2026-9-14"
     rating: 8
   - title: "穹庐下的魔女"
     original_title: "天幕のジャードゥーガル"
@@ -50,7 +50,7 @@ items:
     cover: "https://lain.bgm.tv/r/400/pic/cover/l/1f/9e/501963_bXlEP.jpg"
     status: "do"
     status_label: "在看"
-    date: "2026-8-27"
+    date: "2026-9-14"
     rating: 10
   - title: "在超市后门吸烟的二人"
     original_title: "スーパーの裏でヤニ吸うふたり"
