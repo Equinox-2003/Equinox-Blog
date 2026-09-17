@@ -17,8 +17,8 @@ menu:
   - name: friend
     url: "friend"
     icon:
-  - name: anime
-    url: "anime"
+  - name: time_machine
+    url: "timeline"
     icon:
 
 mainSections: ["post"]

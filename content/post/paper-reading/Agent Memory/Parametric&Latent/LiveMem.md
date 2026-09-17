@@ -1,6 +1,6 @@
 ---
 title: "LiveMem"
-description: ""
+description: "模型原生记忆能力"
 date: 2026-09-17T14:50:15+08:00
 lastmod: 2026-09-17T14:50:15+08:00
 draft: false

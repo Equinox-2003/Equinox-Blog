@@ -1,211 +1,622 @@
-{{- $bangumi := .Site.Data.bangumi -}}
-{{- $items := $bangumi.items | default (slice) -}}
-{{- $user := $bangumi.user | default dict -}}
+{{- $data := site.Data.bangumi | default dict -}}
+{{- $user := $data.user | default dict -}}
+{{- $categories := $data.categories | default dict -}}
+{{- $legacyItems := $data.items | default (slice) -}}
+{{- $categoryDefs := slice
+  (dict "key" "anime" "label" "动画" "english" "ANIME" "icon" "✦")
+  (dict "key" "game" "label" "游戏" "english" "GAME" "icon" "◆")
+  (dict "key" "book" "label" "书籍" "english" "BOOK" "icon" "▤")
+  (dict "key" "real" "label" "电视剧" "english" "DRAMA" "icon" "◎")
+-}}
 
-<div class="article-content">
-    <style>
-        .anime-page {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+<div class="time-machine-page" data-time-machine>
+  <style>
+    .time-machine-page {
+      --tm-accent: var(--red-1);
+      --tm-accent-soft: var(--red-5);
+      --tm-muted: var(--grey-9);
+      --tm-line: color-mix(in srgb, var(--red-3) 42%, transparent);
+      color: var(--color-default);
+    }
 
-        .anime-page p {
-            margin: 0;
-        }
+    .time-machine-hero {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      padding: 26px 28px;
+      margin: 0 0 24px;
+      border: 1px solid var(--tm-line);
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--tm-accent-soft), var(--color-wrap) 62%);
+      box-shadow: var(--shadow-card);
+    }
 
-        .anime-page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
+    .time-machine-hero::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -48px;
+      top: -80px;
+      border: 1px solid var(--tm-line);
+      border-radius: 50%;
+      box-shadow: 0 0 0 18px color-mix(in srgb, var(--red-3) 12%, transparent), 0 0 0 38px color-mix(in srgb, var(--red-3) 8%, transparent);
+      pointer-events: none;
+    }
 
-        .anime-page-title {
-            margin: 0;
-            border: none;
-            padding: 0;
-            color: var(--body-text-color);
-        }
+    .time-machine-kicker {
+      margin: 0 0 8px;
+      color: var(--tm-accent);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
 
-        .anime-page-title::before {
-            display: none;
-        }
+    .time-machine-title {
+      position: relative;
+      z-index: 1;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      color: var(--body-text-color, var(--color-default));
+      font-size: clamp(1.7rem, 4vw, 2.5rem) !important;
+      line-height: 1.1 !important;
+    }
 
-        .anime-page-subtitle {
-            color: var(--second-text-color);
-        }
+    .time-machine-title::before {
+      display: none !important;
+    }
 
-        .anime-page-link {
-            text-decoration: none;
-            color: var(--accent-color);
-            font-weight: 600;
-        }
+    .time-machine-description {
+      position: relative;
+      z-index: 1;
+      margin: 10px 0 0 !important;
+      color: var(--tm-muted);
+    }
 
-        .anime-page-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            color: var(--second-text-color);
-            font-size: 0.95rem;
-        }
+    .time-machine-user {
+      position: relative;
+      z-index: 1;
+      flex: 0 0 auto;
+      color: var(--tm-muted);
+      font-size: 0.88rem;
+      text-align: right;
+    }
 
-        .anime-grid {
-            display: grid;
-            grid-template-columns: repeat(5, minmax(0, 1fr));
-            gap: 24px;
-            align-items: stretch;
-        }
+    .time-machine-user a,
+    .time-machine-source {
+      color: var(--tm-accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
 
-        .anime-card {
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            overflow: hidden;
-            border-radius: 14px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
-            backdrop-filter: blur(6px);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-        }
+    .time-machine-user a:hover,
+    .time-machine-source:hover {
+      text-decoration: underline;
+    }
 
-        .anime-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.18);
-        }
+    .time-machine-overview {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
 
-        .anime-card-cover {
-            width: 100%;
-            aspect-ratio: 3 / 4;
-            object-fit: cover;
-            display: block;
-        }
+    .time-machine-overview-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid color-mix(in srgb, var(--red-3) 28%, transparent);
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--color-wrap) 78%, var(--red-6));
+      color: inherit;
+      cursor: pointer;
+      text-align: left;
+      transition: 0.25s ease;
+    }
 
-        .anime-card-body {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            padding: 14px;
-            height: 100%;
-        }
+    .time-machine-overview-card:hover,
+    .time-machine-overview-card.is-active {
+      border-color: var(--tm-accent);
+      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-2px);
+    }
 
-        .anime-card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+    .time-machine-overview-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 38px;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--tm-accent-soft);
+      color: var(--tm-accent);
+      font-size: 1.25rem;
+    }
 
-        .anime-status {
-            display: inline-flex;
-            align-items: center;
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-size: 0.8rem;
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--body-text-color);
-        }
+    .time-machine-overview-copy {
+      min-width: 0;
+    }
 
-        .anime-rating {
-            color: #f6c344;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
+    .time-machine-overview-label,
+    .time-machine-overview-count {
+      display: block;
+    }
 
-        .anime-card-title {
-            margin: 0;
-            padding: 0;
-            border: none;
-            font-size: 1.1rem;
-            color: var(--body-text-color);
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            line-clamp: 2;
-            overflow: hidden;
-        }
+    .time-machine-overview-label {
+      overflow: hidden;
+      color: var(--tm-muted);
+      font-size: 0.83rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
-        .anime-card-title::before {
-            display: none;
-        }
+    .time-machine-overview-count {
+      margin-top: 2px;
+      color: var(--tm-accent);
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
 
-        .anime-card-original,
-        .anime-card-date {
-            color: var(--second-text-color);
-            font-size: 0.92rem;
-        }
+    .time-machine-browser-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
 
-        .anime-empty {
-            padding: 18px;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--second-text-color);
-        }
+    .time-machine-section-title {
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      font-size: 1.45rem !important;
+    }
 
-        @media (max-width: 1200px) {
-            .anime-grid {
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-            }
-        }
+    .time-machine-section-title::before {
+      display: none !important;
+    }
 
-        @media (max-width: 900px) {
-            .anime-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-        }
+    .time-machine-section-note {
+      margin: 5px 0 0 !important;
+      color: var(--tm-muted);
+      font-size: 0.9rem;
+    }
 
-        @media (max-width: 640px) {
-            .anime-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-    </style>
+    .time-machine-search {
+      width: min(100%, 250px);
+      padding: 9px 12px;
+      border: 1px solid var(--tm-line);
+      border-radius: 8px;
+      outline: 0;
+      background: var(--color-wrap);
+      color: var(--color-default);
+      font: inherit;
+    }
 
-    <div class="anime-page">
-        <div class="anime-page-header">
-            <div>
-                <h2 class="anime-page-title">Bangumi 动画收藏</h2>
-                <p class="anime-page-subtitle">展示全部公开收藏状态，不再依赖构建时远程抓取。</p>
-            </div>
-            {{ with $user.profile }}
-            <a class="anime-page-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">查看 Bangumi 主页</a>
-            {{ end }}
-        </div>
+    .time-machine-search:focus {
+      border-color: var(--tm-accent);
+      box-shadow: 0 0 0 3px var(--tm-accent-soft);
+    }
 
-        {{ if gt (len $items) 0 }}
-        <div class="anime-page-meta">
-            <span>共 {{ len $items }} 条收藏</span>
-            {{ with $user.updated_at }}<span>最近更新：{{ . }}</span>{{ end }}
-        </div>
+    .time-machine-statuses {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 0 12px;
+      scrollbar-width: thin;
+    }
 
-        <div class="anime-grid">
-            {{ range $items }}
-            {{ $displayTitle := .title }}
-            <a href="{{ .url }}" target="_blank" rel="noopener noreferrer" class="anime-card">
-                <img class="anime-card-cover no-lightbox" src="{{ .cover }}" alt="{{ $displayTitle }}" loading="lazy" referrerpolicy="no-referrer">
-                <div class="anime-card-body">
-                    <div class="anime-card-top">
-                        {{ with .status_label }}<span class="anime-status">{{ . }}</span>{{ end }}
-                        {{ with .rating }}<span class="anime-rating">★ {{ . }}</span>{{ end }}
-                    </div>
-                    <h3 class="anime-card-title">{{ $displayTitle }}</h3>
-                    {{ if and .original_title .title (ne .original_title .title) }}
-                    <p class="anime-card-original">{{ .original_title }}</p>
-                    {{ end }}
-                    {{ with .date }}<p class="anime-card-date">标记时间：{{ . }}</p>{{ end }}
-                </div>
-            </a>
-            {{ end }}
-        </div>
-        {{ else }}
-        <div class="anime-empty">
-            暂时还没有可展示的 Bangumi 收藏数据。先运行 <code>python tools/refresh-bangumi.py</code>，再重新构建 Hugo 站点即可。
-        </div>
-        {{ end }}
+    .time-machine-status {
+      flex: 0 0 auto;
+      padding: 7px 11px;
+      border: 1px solid var(--tm-line);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--tm-muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.86rem;
+      transition: 0.2s ease;
+    }
+
+    .time-machine-status:hover,
+    .time-machine-status.is-active {
+      border-color: var(--tm-accent);
+      background: var(--tm-accent-soft);
+      color: var(--tm-accent);
+    }
+
+    .time-machine-status-count {
+      margin-left: 3px;
+      opacity: 0.75;
+    }
+
+    .time-machine-items {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .time-machine-item {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--red-3) 26%, transparent);
+      border-radius: 12px;
+      background: var(--color-wrap);
+      box-shadow: var(--shadow-card);
+      color: inherit;
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .time-machine-item:hover {
+      border-color: var(--tm-accent);
+      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-4px);
+      text-decoration: none !important;
+    }
+
+    .time-machine-cover {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      background: linear-gradient(145deg, var(--tm-accent-soft), var(--color-background));
+    }
+
+    .time-machine-cover-placeholder {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background: linear-gradient(145deg, var(--tm-accent-soft), var(--color-background));
+      color: var(--tm-accent);
+      font-size: 2rem;
+    }
+
+    .time-machine-item-body {
+      display: flex;
+      min-width: 0;
+      flex: 1;
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px;
+    }
+
+    .time-machine-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      color: var(--tm-muted);
+      font-size: 0.78rem;
+    }
+
+    .time-machine-item-status {
+      max-width: 70%;
+      overflow: hidden;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--tm-accent-soft);
+      color: var(--tm-accent);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .time-machine-item-rating {
+      color: #c79000;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .time-machine-item-title {
+      display: -webkit-box;
+      overflow: hidden;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      color: var(--color-default);
+      font-size: 1rem !important;
+      line-height: 1.35 !important;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+
+    .time-machine-item-title::before {
+      display: none !important;
+    }
+
+    .time-machine-item-original,
+    .time-machine-item-date {
+      display: block;
+      overflow: hidden;
+      margin: 0 !important;
+      color: var(--tm-muted);
+      font-size: 0.78rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .time-machine-item-original {
+      direction: ltr;
+    }
+
+    .time-machine-load-more {
+      display: block;
+      margin: 22px auto 0;
+      padding: 8px 18px;
+      border: 1px solid var(--tm-line);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--tm-accent);
+      cursor: pointer;
+      font: inherit;
+      transition: 0.2s ease;
+    }
+
+    .time-machine-load-more:hover {
+      background: var(--tm-accent-soft);
+    }
+
+    .time-machine-empty {
+      grid-column: 1 / -1;
+      padding: 26px 16px;
+      border: 1px dashed var(--tm-line);
+      border-radius: 12px;
+      color: var(--tm-muted);
+      text-align: center;
+    }
+
+    .time-machine-panel[hidden],
+    .time-machine-item[hidden],
+    .time-machine-empty[hidden],
+    .time-machine-load-more[hidden] {
+      display: none;
+    }
+
+    @media (max-width: 1050px) {
+      .time-machine-items {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .time-machine-hero {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 22px 20px;
+      }
+
+      .time-machine-user {
+        text-align: left;
+      }
+
+      .time-machine-overview {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .time-machine-items {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .time-machine-overview-card {
+        padding: 10px;
+      }
+
+      .time-machine-overview-icon {
+        flex-basis: 32px;
+        width: 32px;
+        height: 32px;
+      }
+
+      .time-machine-item-body {
+        padding: 10px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .time-machine-overview-card,
+      .time-machine-item,
+      .time-machine-status,
+      .time-machine-load-more {
+        transition: none;
+      }
+    }
+  </style>
+
+  <section class="time-machine-hero" aria-labelledby="time-machine-title">
+    <div>
+      <p class="time-machine-kicker">PERSONAL ARCHIVE · BANGUMI</p>
+      <h2 class="time-machine-title" id="time-machine-title">我的时光机</h2>
+      <p class="time-machine-description">记录正在经历、已经走过，以及准备抵达的故事。</p>
     </div>
+    <div class="time-machine-user">
+      {{ with $user.profile }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer">Bangumi 个人主页</a>{{ end }}
+      {{ with $user.updated_at }}<span> · 更新于 {{ . }}</span>{{ end }}
+    </div>
+  </section>
+
+  <div class="time-machine-overview" role="tablist" aria-label="时光机分类">
+    {{- range $index, $definition := $categoryDefs -}}
+      {{- $category := index $categories $definition.key | default dict -}}
+      {{- $items := $category.items | default (slice) -}}
+      {{- if and (eq $definition.key "anime") (eq (len $items) 0) (gt (len $legacyItems) 0) -}}
+        {{- $items = $legacyItems -}}
+      {{- end -}}
+      <button class="time-machine-overview-card{{ if eq $index 0 }} is-active{{ end }}" type="button" data-category-target="{{ $definition.key }}" role="tab" aria-selected="{{ if eq $index 0 }}true{{ else }}false{{ end }}" aria-controls="time-machine-panel-{{ $definition.key }}">
+        <span class="time-machine-overview-icon" aria-hidden="true">{{ $definition.icon }}</span>
+        <span class="time-machine-overview-copy">
+          <span class="time-machine-overview-label">我的{{ $definition.label }}</span>
+          <span class="time-machine-overview-count">{{ len $items }}</span>
+        </span>
+      </button>
+    {{- end -}}
+  </div>
+
+  {{- range $index, $definition := $categoryDefs -}}
+    {{- $category := index $categories $definition.key | default dict -}}
+    {{- $items := $category.items | default (slice) -}}
+    {{- if and (eq $definition.key "anime") (eq (len $items) 0) (gt (len $legacyItems) 0) -}}
+      {{- $items = $legacyItems -}}
+    {{- end -}}
+    <section class="time-machine-panel" id="time-machine-panel-{{ $definition.key }}" data-category-panel="{{ $definition.key }}" data-category-label="{{ $definition.label }}" role="tabpanel"{{ if ne $index 0 }} hidden{{ end }}>
+      <div class="time-machine-browser-head">
+        <div>
+          <h3 class="time-machine-section-title">我的{{ $definition.label }}</h3>
+          <p class="time-machine-section-note">按 Bangumi 收藏状态浏览，共 {{ len $items }} 条记录。</p>
+        </div>
+        <label>
+          <span class="sr-only">搜索{{ $definition.label }}</span>
+          <input class="time-machine-search" type="search" placeholder="搜索{{ $definition.label }}..." data-time-machine-search>
+        </label>
+      </div>
+
+      <div class="time-machine-statuses" role="group" aria-label="{{ $definition.label }}状态筛选">
+        <button class="time-machine-status is-active" type="button" data-status-filter="all" aria-pressed="true">全部 <span class="time-machine-status-count">{{ len $items }}</span></button>
+        {{- if or (eq $definition.key "anime") (eq $definition.key "real") -}}
+          {{- $statusOptions := slice (dict "key" "do" "label" "在看") (dict "key" "collect" "label" "看过") (dict "key" "wish" "label" "想看") (dict "key" "on_hold" "label" "搁置") (dict "key" "dropped" "label" "抛弃") -}}
+          {{- range $statusOptions -}}
+            {{- $statusItems := where $items "status" .key -}}
+            <button class="time-machine-status" type="button" data-status-filter="{{ .key }}" aria-pressed="false">{{ .label }} <span class="time-machine-status-count">{{ len $statusItems }}</span></button>
+          {{- end -}}
+        {{- else if eq $definition.key "game" -}}
+          {{- $statusOptions := slice (dict "key" "do" "label" "在玩") (dict "key" "collect" "label" "玩过") (dict "key" "wish" "label" "想玩") (dict "key" "on_hold" "label" "搁置") (dict "key" "dropped" "label" "抛弃") -}}
+          {{- range $statusOptions -}}
+            {{- $statusItems := where $items "status" .key -}}
+            <button class="time-machine-status" type="button" data-status-filter="{{ .key }}" aria-pressed="false">{{ .label }} <span class="time-machine-status-count">{{ len $statusItems }}</span></button>
+          {{- end -}}
+        {{- else -}}
+          {{- $statusOptions := slice (dict "key" "do" "label" "在读") (dict "key" "collect" "label" "读过") (dict "key" "wish" "label" "想读") (dict "key" "on_hold" "label" "搁置") (dict "key" "dropped" "label" "抛弃") -}}
+          {{- range $statusOptions -}}
+            {{- $statusItems := where $items "status" .key -}}
+            <button class="time-machine-status" type="button" data-status-filter="{{ .key }}" aria-pressed="false">{{ .label }} <span class="time-machine-status-count">{{ len $statusItems }}</span></button>
+          {{- end -}}
+        {{- end -}}
+      </div>
+
+      <div class="time-machine-items" data-time-machine-items>
+        {{- range $items -}}
+          {{- $title := .title | default .original_title | default "未命名条目" -}}
+          {{- $searchText := printf "%s %s %s" $title (.original_title | default "") (.summary | default "") | lower -}}
+          <a class="time-machine-item" href="{{ .url }}" target="_blank" rel="noopener noreferrer" data-time-machine-item data-status="{{ .status | default "" }}" data-search="{{ $searchText }}">
+            {{- if .cover -}}
+              <img class="time-machine-cover no-lightbox" src="{{ .cover }}" alt="{{ $title }}" loading="lazy" referrerpolicy="no-referrer">
+            {{- else -}}
+              <div class="time-machine-cover-placeholder" aria-hidden="true">{{ $definition.icon }}</div>
+            {{- end -}}
+            <span class="time-machine-item-body">
+              <span class="time-machine-item-top">
+                {{ with .status_label }}<span class="time-machine-item-status">{{ . }}</span>{{ end }}
+                {{ if and .rating (gt (int .rating) 0) }}<span class="time-machine-item-rating">★ {{ .rating }}</span>{{ end }}
+              </span>
+              <span class="time-machine-item-title">{{ $title }}</span>
+              {{ if and .original_title (ne .original_title $title) }}<span class="time-machine-item-original">{{ .original_title }}</span>{{ end }}
+              {{ with .date }}<span class="time-machine-item-date">标记于 {{ . }}</span>{{ end }}
+            </span>
+          </a>
+        {{- end -}}
+        <p class="time-machine-empty" data-time-machine-empty hidden>没有匹配的记录，换个关键词或状态试试。</p>
+      </div>
+      <button class="time-machine-load-more" type="button" data-time-machine-more hidden>显示更多</button>
+    </section>
+  {{- end -}}
+
+  <p><a class="time-machine-source" href="{{ $user.timeline_url | default (printf "https://bangumi.tv/user/%s/timeline" $user.id) }}" target="_blank" rel="noopener noreferrer">在 Bangumi 查看完整时光机 →</a></p>
 </div>
+
+<script data-pjax>
+  (() => {
+    const initTimeMachine = () => {
+      const root = document.querySelector("[data-time-machine]");
+      if (!root || root.dataset.initialized === "true") return;
+      root.dataset.initialized = "true";
+
+      const pageSize = 12;
+      const categoryButtons = [...root.querySelectorAll("[data-category-target]")];
+      const panels = [...root.querySelectorAll("[data-category-panel]")];
+
+      const updatePanel = (panel) => {
+        const activeStatus = panel.dataset.activeStatus || "all";
+        const query = (panel.querySelector("[data-time-machine-search]")?.value || "").trim().toLowerCase();
+        const items = [...panel.querySelectorAll("[data-time-machine-item]")];
+        const matches = items.filter((item) => {
+          const statusMatches = activeStatus === "all" || item.dataset.status === activeStatus;
+          const textMatches = !query || (item.dataset.search || "").includes(query);
+          return statusMatches && textMatches;
+        });
+        const visibleLimit = panel.dataset.expanded === "true" ? matches.length : pageSize;
+        items.forEach((item) => {
+          item.hidden = !matches.includes(item) || matches.indexOf(item) >= visibleLimit;
+        });
+        const empty = panel.querySelector("[data-time-machine-empty]");
+        if (empty) empty.hidden = matches.length > 0;
+        const more = panel.querySelector("[data-time-machine-more]");
+        if (more) {
+          more.hidden = matches.length <= pageSize || panel.dataset.expanded === "true";
+          more.textContent = `显示更多（${matches.length - pageSize}）`;
+        }
+      };
+
+      const selectCategory = (key) => {
+        categoryButtons.forEach((button) => {
+          const selected = button.dataset.categoryTarget === key;
+          button.classList.toggle("is-active", selected);
+          button.setAttribute("aria-selected", String(selected));
+        });
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.categoryPanel !== key;
+          if (!panel.hidden) updatePanel(panel);
+        });
+      };
+
+      categoryButtons.forEach((button) => {
+        button.addEventListener("click", () => selectCategory(button.dataset.categoryTarget));
+      });
+
+      panels.forEach((panel) => {
+        panel.dataset.activeStatus = "all";
+        panel.querySelectorAll("[data-status-filter]").forEach((button) => {
+          button.addEventListener("click", () => {
+            panel.dataset.activeStatus = button.dataset.statusFilter;
+            panel.dataset.expanded = "false";
+            panel.querySelectorAll("[data-status-filter]").forEach((candidate) => {
+              const selected = candidate === button;
+              candidate.classList.toggle("is-active", selected);
+              candidate.setAttribute("aria-pressed", String(selected));
+            });
+            updatePanel(panel);
+          });
+        });
+        panel.querySelector("[data-time-machine-search]")?.addEventListener("input", () => {
+          panel.dataset.expanded = "false";
+          updatePanel(panel);
+        });
+        panel.querySelector("[data-time-machine-more]")?.addEventListener("click", () => {
+          panel.dataset.expanded = "true";
+          updatePanel(panel);
+        });
+        updatePanel(panel);
+      });
+
+      selectCategory(categoryButtons[0]?.dataset.categoryTarget || "anime");
+    };
+
+    if (!window.__reimuTimeMachineReady) {
+      window.__reimuTimeMachineReady = initTimeMachine;
+      window.addEventListener("pjax:complete", initTimeMachine);
+    }
+    initTimeMachine();
+  })();
+</script>
