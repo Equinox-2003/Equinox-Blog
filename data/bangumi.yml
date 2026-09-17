@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   collection_url: "https://bangumi.tv/anime/list/1214444"
-  updated_at: "2026-09-16"
+  updated_at: "2026-09-17"
 items:
   - title: "猫与龙"
     original_title: "猫と竜"
@@ -34,16 +34,8 @@ items:
     cover: "https://lain.bgm.tv/r/400/pic/cover/l/6a/b3/622206_dpWcC.jpg"
     status: "do"
     status_label: "在看"
-    date: "2026-9-14"
+    date: "2026-9-16"
     rating: 8
-  - title: "穹庐下的魔女"
-    original_title: "天幕のジャードゥーガル"
-    url: "https://bangumi.tv/subject/552533"
-    cover: "https://lain.bgm.tv/r/400/pic/cover/l/28/41/552533_E9DF9.jpg"
-    status: "do"
-    status_label: "在看"
-    date: "2026-9-15"
-    rating: 10
   - title: "无职转生 第三季 ～到了异世界就拿出真本事～"
     original_title: "無職転生Ⅲ ～異世界行ったら本気だす～"
     url: "https://bangumi.tv/subject/501963"
@@ -58,8 +50,16 @@ items:
     cover: "https://lain.bgm.tv/r/400/pic/cover/l/6f/42/571784_leRlL.jpg"
     status: "do"
     status_label: "在看"
-    date: "2026-7-15"
-    rating: 9
+    date: "2026-9-16"
+    rating: 8
+  - title: "穹庐下的魔女"
+    original_title: "天幕のジャードゥーガル"
+    url: "https://bangumi.tv/subject/552533"
+    cover: "https://lain.bgm.tv/r/400/pic/cover/l/28/41/552533_E9DF9.jpg"
+    status: "collect"
+    status_label: "看过"
+    date: "2026-9-16"
+    rating: 10
   - title: "尖帽子的魔法工房"
     original_title: "とんがり帽子のアトリエ"
     url: "https://bangumi.tv/subject/377130"
