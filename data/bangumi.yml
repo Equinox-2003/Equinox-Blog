@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-09-20"
+  updated_at: "2026-09-21"
 categories:
   anime:
     key: "anime"
@@ -28,15 +28,6 @@ categories:
         status_label: "在看"
         date: "2026-8-27"
         rating: 8
-      - subject_id: "545008"
-        title: "恶女不才，请多关照 ～雏宫蝶鼠换身传～"
-        original_title: "ふつつかな悪女ではございますが ～雛宮蝶鼠とりかえ伝～"
-        url: "https://bangumi.tv/subject/545008"
-        cover: "https://lain.bgm.tv/r/400/pic/cover/l/14/a1/545008_pNnzQ.jpg"
-        status: "do"
-        status_label: "在看"
-        date: "2026-7-20"
-        rating: 8
       - subject_id: "622206"
         title: "尼古喵喵"
         original_title: "ヤニねこ"
@@ -53,7 +44,7 @@ categories:
         cover: "https://lain.bgm.tv/r/400/pic/cover/l/1f/9e/501963_bXlEP.jpg"
         status: "do"
         status_label: "在看"
-        date: "2026-9-14"
+        date: "2026-9-21"
         rating: 10
       - subject_id: "571784"
         title: "在超市后门吸烟的二人"
@@ -63,6 +54,15 @@ categories:
         status: "do"
         status_label: "在看"
         date: "2026-9-16"
+        rating: 8
+      - subject_id: "545008"
+        title: "恶女不才，请多关照 ～雏宫蝶鼠换身传～"
+        original_title: "ふつつかな悪女ではございますが ～雛宮蝶鼠とりかえ伝～"
+        url: "https://bangumi.tv/subject/545008"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/14/a1/545008_pNnzQ.jpg"
+        status: "collect"
+        status_label: "看过"
+        date: "2026-9-21"
         rating: 8
       - subject_id: "328609"
         title: "孤独摇滚！"
