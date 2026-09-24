@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "paper-reading/RL&Self-Evolving/JITRL.md",
+                "file": "paper-reading/Agent Memory/Parametric&Latent/delta-Mem精读.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "JITRL"
+              "title": "delta-Mem精读"
             }
           }
         ]
@@ -158,7 +158,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "paper-reading/RL&Self-Evolving/JITRL.md",
+                "file": "paper-reading/Agent Memory/Parametric&Latent/delta-Mem精读.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -187,6 +187,8 @@
   },
   "active": "d15ec1b6f8988348",
   "lastOpenFiles": [
+    "paper-reading/TTT&CL/DeltaNet.md",
+    "paper-reading/TTT&CL/Titans.md",
     "paper-reading/Agent Memory/AttriMem.md",
     "paper-reading/Agent Memory/MemGen.md",
     "paper-reading/RL&Self-Evolving/JITRL.md",
@@ -216,8 +218,6 @@
     "paper-reading/VLM/Qwen2-VL精读.md",
     "paper-reading/VLM/Qwen-VL精读.md",
     "paper-reading/VLM",
-    "paper-reading/CoT/Self-Consistency泛读.md",
-    "paper-reading/CoT/Zero_Shot_CoT精读.md",
     "paper-reading/多模态学习",
     "paper-reading/计算机视觉 - 对比学习",
     "paper-reading/计算机视觉 - Transformer",
