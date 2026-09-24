@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-09-23"
+  updated_at: "2026-09-24"
 categories:
   anime:
     key: "anime"
@@ -182,7 +182,7 @@ categories:
         date: "2026-7-10"
         rating: 9
       - subject_id: "309311"
-        title: "赛博浪客"
+        title: "赛博朋克：边缘行者"
         original_title: "Cyberpunk: Edgerunners"
         url: "https://bangumi.tv/subject/309311"
         cover: "https://lain.bgm.tv/r/400/pic/cover/l/39/83/309311_dJU58.jpg"
