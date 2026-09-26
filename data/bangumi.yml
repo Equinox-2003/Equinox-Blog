@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-09-25"
+  updated_at: "2026-09-26"
 categories:
   anime:
     key: "anime"
@@ -28,15 +28,6 @@ categories:
         status_label: "在看"
         date: "2026-8-27"
         rating: 8
-      - subject_id: "622206"
-        title: "尼古喵喵"
-        original_title: "ヤニねこ"
-        url: "https://bangumi.tv/subject/622206"
-        cover: "https://lain.bgm.tv/r/400/pic/cover/l/6a/b3/622206_dpWcC.jpg"
-        status: "do"
-        status_label: "在看"
-        date: "2026-9-16"
-        rating: 8
       - subject_id: "501963"
         title: "无职转生 第三季 ～到了异世界就拿出真本事～"
         original_title: "無職転生Ⅲ ～異世界行ったら本気だす～"
@@ -55,6 +46,15 @@ categories:
         status_label: "在看"
         date: "2026-9-16"
         rating: 8
+      - subject_id: "622206"
+        title: "尼古喵喵"
+        original_title: "ヤニねこ"
+        url: "https://bangumi.tv/subject/622206"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/6a/b3/622206_dpWcC.jpg"
+        status: "collect"
+        status_label: "看过"
+        date: "2026-9-26"
+        rating: 9
       - subject_id: "545008"
         title: "恶女不才，请多关照 ～雏宫蝶鼠换身传～"
         original_title: "ふつつかな悪女ではございますが ～雛宮蝶鼠とりかえ伝～"
