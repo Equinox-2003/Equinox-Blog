@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-09-30"
+  updated_at: "2026-10-01"
 categories:
   anime:
     key: "anime"
@@ -10,6 +10,42 @@ categories:
     subject_type: 2
     collection_url: "https://bangumi.tv/anime/list/1214444"
     items:
+      - subject_id: "420628"
+        title: "药屋少女的呢喃"
+        original_title: "薬屋のひとりごと"
+        url: "https://bangumi.tv/subject/420628"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/fe/31/420628_2ZEz0.jpg"
+        status: "do"
+        status_label: "在看"
+        date: "2026-9-30"
+        rating: 8
+      - subject_id: "615835"
+        title: "炒翻天"
+        original_title: "鉄鍋のジャン！"
+        url: "https://bangumi.tv/subject/615835"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/27/b5/615835_IbNAh.jpg"
+        status: "do"
+        status_label: "在看"
+        date: "2026-9-30"
+        rating: 7
+      - subject_id: "545917"
+        title: "画完这个再去死"
+        original_title: "これ描いて死ね"
+        url: "https://bangumi.tv/subject/545917"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/8b/c0/545917_GoNvI.jpg"
+        status: "do"
+        status_label: "在看"
+        date: "2026-9-30"
+        rating: 9
+      - subject_id: "622288"
+        title: "FX战士久留美"
+        original_title: "FX戦士くるみちゃん"
+        url: "https://bangumi.tv/subject/622288"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/d3/99/622288_nmbC3.jpg"
+        status: "do"
+        status_label: "在看"
+        date: "2026-9-30"
+        rating: 7
       - subject_id: "538760"
         title: "猫与龙"
         original_title: "猫と竜"
