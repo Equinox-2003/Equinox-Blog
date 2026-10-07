@@ -68,7 +68,7 @@ cover: https://8504cc9c.cloudflare-imgbed-8qo.pages.dev/file/1790138902562_image
 | **Layer 1-2** | `: Country in the United Kingdom`                            | 仅识别出 Wales 属于英国                                      |
 | **Layer 3**   | `: Country in Europe`                                        | 欧洲国家                                                     |
 | **Layer 4**   | `: Title held by female sovereigns in their own right or by queens consort` | 识别出这是一个女性头衔（Princess of Wales），但尚未绑定具体人物 |
-| **Layer 5**   | `: Title given to the wife of the Prince of Wales (and later King)` | 威尔士王妃头衔（未特指）                                     |
+| **Layer 5**   | `: Title given to the wife of the Prince ofx Wales (and later King)` | 威尔士王妃头衔（未特指）                                     |
 | **Layer 6**   | `: Diana, Princess of Wales (1961-1997), the first wife of Prince Charles...` | **终于在第 6 层拼凑出了完整的实体事实！**                    |
 
 从底层原理看，**这相当于模型在每次前向推理时，都要用前 5~6 层的多头注意力与 FFN 计算，去硬生生动态重构一张本应静态存在的哈希查找表！** 这浪费了宝贵的有效序列层深（Sequential Depth），挤占了原本应当分配给高层复杂逻辑推理的计算带宽。
