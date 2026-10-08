@@ -1522,8 +1522,7 @@ $$
 只保留前 `k` 个奇异方向，构造低秩近似：
 
 $$
-\widehat M_t^{(l)}
-=
+\widehat M_t^{(l)} =
 \widehat U_t^{(l)}
 \widehat\Sigma_t^{(l)}
 (\widehat V_t^{(l)})^\top.
