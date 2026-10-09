@@ -704,3 +704,9 @@ Output is truncated. View as a scrollable element or open in a text editor. Adju
   - **KV 缓存**：存储中间状态，避免在每一步重新计算此前已经处理过的输入 token。
   - **模型编译**：使用 `torch.compile` 优化运行时性能。
 
+## 二、REFERENCE
+
+[Build a Reasoning Model (From Scratch)，Sebastian Raschka](https://www.manning.com/books/build-a-reasoning-model-from-scratch?utm_source=raschka&utm_medium=affiliate&utm_campaign=book_raschka2&a_aid=raschka&a_bid=4c3c5398&chan=mm_github)
+
+[[reasoning-from-scratch](https://github.com/rasbt/reasoning-from-scratch)](https://github.com/rasbt/reasoning-from-scratch/tree/main)
+
