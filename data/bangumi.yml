@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-10-08"
+  updated_at: "2026-10-09"
 categories:
   anime:
     key: "anime"
@@ -35,7 +35,7 @@ categories:
         cover: "https://lain.bgm.tv/r/400/pic/cover/l/8b/c0/545917_GoNvI.jpg"
         status: "do"
         status_label: "在看"
-        date: "2026-10-7"
+        date: "2026-10-9"
         rating: 10
       - subject_id: "622288"
         title: "FX战士久留美"
