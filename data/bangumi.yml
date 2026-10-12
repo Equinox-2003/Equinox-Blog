@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-10-11"
+  updated_at: "2026-10-12"
 categories:
   anime:
     key: "anime"
@@ -28,15 +28,6 @@ categories:
         status_label: "在看"
         date: "2026-9-30"
         rating: 7
-      - subject_id: "545917"
-        title: "画完这个再去死"
-        original_title: "これ描いて死ね"
-        url: "https://bangumi.tv/subject/545917"
-        cover: "https://lain.bgm.tv/r/400/pic/cover/l/8b/c0/545917_GoNvI.jpg"
-        status: "do"
-        status_label: "在看"
-        date: "2026-10-9"
-        rating: 10
       - subject_id: "622288"
         title: "FX战士久留美"
         original_title: "FX戦士くるみちゃん"
@@ -55,6 +46,15 @@ categories:
         status_label: "在看"
         date: "2026-9-6"
         rating: 8
+      - subject_id: "545917"
+        title: "画完这个再去死"
+        original_title: "これ描いて死ね"
+        url: "https://bangumi.tv/subject/545917"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/8b/c0/545917_GoNvI.jpg"
+        status: "collect"
+        status_label: "看过"
+        date: "2026-10-11"
+        rating: 10
       - subject_id: "501963"
         title: "无职转生 第三季 ～到了异世界就拿出真本事～"
         original_title: "無職転生Ⅲ ～異世界行ったら本気だす～"
