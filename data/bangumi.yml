@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-10-21"
+  updated_at: "2026-10-22"
 categories:
   anime:
     key: "anime"
@@ -17,8 +17,8 @@ categories:
         cover: "https://lain.bgm.tv/r/400/pic/cover/l/db/94/513878_5f77g.jpg"
         status: "do"
         status_label: "在看"
-        date: "2026-10-20"
-        rating: 8
+        date: "2026-10-22"
+        rating: 6
       - subject_id: "554779"
         title: "学生会也有洞！"
         original_title: "生徒会にも穴はある！"
