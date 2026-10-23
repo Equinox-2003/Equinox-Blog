@@ -708,5 +708,5 @@ Output is truncated. View as a scrollable element or open in a text editor. Adju
 
 [Build a Reasoning Model (From Scratch)，Sebastian Raschka](https://www.manning.com/books/build-a-reasoning-model-from-scratch?utm_source=raschka&utm_medium=affiliate&utm_campaign=book_raschka2&a_aid=raschka&a_bid=4c3c5398&chan=mm_github)
 
-[[reasoning-from-scratch](https://github.com/rasbt/reasoning-from-scratch)](https://github.com/rasbt/reasoning-from-scratch/tree/main)
+[reasoning-from-scratch](https://github.com/rasbt/reasoning-from-scratch/tree/main)
 
