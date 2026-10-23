@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-10-22"
+  updated_at: "2026-10-23"
 categories:
   anime:
     key: "anime"
@@ -176,7 +176,7 @@ categories:
         title: "尖帽子的魔法工房"
         original_title: "とんがり帽子のアトリエ"
         url: "https://bangumi.tv/subject/377130"
-        cover: "https://lain.bgm.tv/r/400/pic/cover/l/27/ff/377130_xvMZ8.jpg"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/27/ff/377130_wDU1x.jpg"
         status: "collect"
         status_label: "看过"
         date: "2026-8-29"
