@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-10-23"
+  updated_at: "2026-10-24"
 categories:
   anime:
     key: "anime"
@@ -10,15 +10,6 @@ categories:
     subject_type: 2
     collection_url: "https://bangumi.tv/anime/list/1214444"
     items:
-      - subject_id: "513878"
-        title: "赛博朋克：边缘行者 2"
-        original_title: "Cyberpunk: Edgerunners 2"
-        url: "https://bangumi.tv/subject/513878"
-        cover: "https://lain.bgm.tv/r/400/pic/cover/l/db/94/513878_5f77g.jpg"
-        status: "do"
-        status_label: "在看"
-        date: "2026-10-22"
-        rating: 6
       - subject_id: "554779"
         title: "学生会也有洞！"
         original_title: "生徒会にも穴はある！"
@@ -64,6 +55,15 @@ categories:
         status_label: "在看"
         date: "2026-9-6"
         rating: 8
+      - subject_id: "513878"
+        title: "赛博朋克：边缘行者 2"
+        original_title: "Cyberpunk: Edgerunners 2"
+        url: "https://bangumi.tv/subject/513878"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/db/94/513878_5f77g.jpg"
+        status: "collect"
+        status_label: "看过"
+        date: "2026-10-23"
+        rating: 6
       - subject_id: "545917"
         title: "画完这个再去死"
         original_title: "これ描いて死ね"
