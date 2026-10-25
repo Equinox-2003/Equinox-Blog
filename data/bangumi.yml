@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-10-24"
+  updated_at: "2026-10-25"
 categories:
   anime:
     key: "anime"
@@ -54,6 +54,24 @@ categories:
         status: "do"
         status_label: "在看"
         date: "2026-9-6"
+        rating: 8
+      - subject_id: "341311"
+        title: "时光代理人 第二季"
+        original_title: "时光代理人 第二季"
+        url: "https://bangumi.tv/subject/341311"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/a0/e6/341311_127Gp.jpg"
+        status: "collect"
+        status_label: "看过"
+        date: "2026-10-24"
+        rating: 6
+      - subject_id: "320224"
+        title: "时光代理人"
+        original_title: "时光代理人"
+        url: "https://bangumi.tv/subject/320224"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/cf/fc/320224_3446Q.jpg"
+        status: "collect"
+        status_label: "看过"
+        date: "2026-10-24"
         rating: 8
       - subject_id: "513878"
         title: "赛博朋克：边缘行者 2"
