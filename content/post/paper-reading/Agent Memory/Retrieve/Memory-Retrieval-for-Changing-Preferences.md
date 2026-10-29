@@ -113,7 +113,8 @@ $$
 Controller 的目标输出由 <thought> 和 <action> 组成，action 中含 trigger、focus_chunk_indices 和 policy；Reader 则根据少量 evidence 和四个选项，输出以 <final_answer>(a/b/c/d) 结束的答案。二者没有采用独立分类损失或 RL，而是共享一个参数集合、把两个样本集合合并，使用 next-token cross-entropy 做
 全参数 SFT。
 $$
-\mathcal{L}_{\text{SFT}} = - \sum_{(x,y) \in \mathcal{D}_{\text{ctrl}} \cup \mathcal{D}_{\text{read}}} \sum_{t} \log p_{\theta}(y_t \mid y_{<t}, x).
+\mathcal{L}_{\mathrm{SFT}} 
+= - \sum_{(x,y) \in \mathcal{D}_{\mathrm{ctrl}} \cup \mathcal{D}_{\mathrm{read}}} \sum_{t} \log p_{\theta}(y_t \mid y_{\lt t}, x).
 $$
 
 ### 3.6 实际推理链路
