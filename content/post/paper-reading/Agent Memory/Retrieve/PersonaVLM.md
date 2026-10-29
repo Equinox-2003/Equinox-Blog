@@ -1,6 +1,6 @@
 ---
 title: "PersonaVLM"
-description: ""
+description: "多模态长期个人助手"
 date: 2026-10-26T19:29:14+08:00
 lastmod: 2026-10-26T19:29:14+08:00
 draft: false
