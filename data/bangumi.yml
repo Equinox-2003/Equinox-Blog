@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-10-30"
+  updated_at: "2026-10-31"
 categories:
   anime:
     key: "anime"
@@ -28,15 +28,6 @@ categories:
         status_label: "在看"
         date: "2026-9-30"
         rating: 8
-      - subject_id: "615835"
-        title: "炒翻天"
-        original_title: "鉄鍋のジャン！"
-        url: "https://bangumi.tv/subject/615835"
-        cover: "https://lain.bgm.tv/r/400/pic/cover/l/27/b5/615835_IbNAh.jpg"
-        status: "do"
-        status_label: "在看"
-        date: "2026-9-30"
-        rating: 7
       - subject_id: "622288"
         title: "FX战士久留美"
         original_title: "FX戦士くるみちゃん"
@@ -55,6 +46,15 @@ categories:
         status_label: "在看"
         date: "2026-9-6"
         rating: 8
+      - subject_id: "615835"
+        title: "炒翻天"
+        original_title: "鉄鍋のジャン！"
+        url: "https://bangumi.tv/subject/615835"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/27/b5/615835_IbNAh.jpg"
+        status: "collect"
+        status_label: "看过"
+        date: "2026-10-31"
+        rating: 9
       - subject_id: "341311"
         title: "时光代理人 第二季"
         original_title: "时光代理人 第二季"
