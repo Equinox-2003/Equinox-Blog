@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-10-31"
+  updated_at: "2026-11-01"
 categories:
   anime:
     key: "anime"
@@ -68,7 +68,7 @@ categories:
         title: "时光代理人"
         original_title: "时光代理人"
         url: "https://bangumi.tv/subject/320224"
-        cover: "https://lain.bgm.tv/r/400/pic/cover/l/cf/fc/320224_3446Q.jpg"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/cf/fc/320224_R5rf5.jpg"
         status: "collect"
         status_label: "看过"
         date: "2026-10-24"
