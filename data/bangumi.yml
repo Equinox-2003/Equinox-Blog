@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-11-01"
+  updated_at: "2026-11-02"
 categories:
   anime:
     key: "anime"
@@ -17,7 +17,7 @@ categories:
         cover: "https://lain.bgm.tv/r/400/pic/cover/l/17/c7/554779_oPitO.jpg"
         status: "do"
         status_label: "在看"
-        date: "2026-10-13"
+        date: "2026-11-2"
         rating: 7
       - subject_id: "420628"
         title: "药屋少女的呢喃"
@@ -35,7 +35,7 @@ categories:
         cover: "https://lain.bgm.tv/r/400/pic/cover/l/d3/99/622288_nmbC3.jpg"
         status: "do"
         status_label: "在看"
-        date: "2026-9-30"
+        date: "2026-11-2"
         rating: 7
       - subject_id: "538760"
         title: "猫与龙"
