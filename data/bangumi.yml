@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-11-16"
+  updated_at: "2026-11-17"
 categories:
   anime:
     key: "anime"
@@ -17,8 +17,8 @@ categories:
         cover: "https://lain.bgm.tv/r/400/pic/cover/l/17/c7/554779_oPitO.jpg"
         status: "do"
         status_label: "在看"
-        date: "2026-11-7"
-        rating: 7
+        date: "2026-11-17"
+        rating: 8
       - subject_id: "420628"
         title: "药屋少女的呢喃"
         original_title: "薬屋のひとりごと"
