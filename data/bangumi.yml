@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-11-26"
+  updated_at: "2026-11-27"
 categories:
   anime:
     key: "anime"
@@ -14,7 +14,7 @@ categories:
         title: "愚者之夜"
         original_title: "フールナイト"
         url: "https://bangumi.tv/subject/661692"
-        cover: "https://lain.bgm.tv/r/400/pic/cover/l/dc/ac/663129_e8E81.jpg"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/98/2b/661692_pb2g9.jpg"
         status: "do"
         status_label: "在看"
         date: "2026-11-26"
