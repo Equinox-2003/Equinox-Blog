@@ -2,7 +2,7 @@ user:
   id: "1214444"
   profile: "https://bangumi.tv/user/1214444"
   timeline_url: "https://bangumi.tv/user/1214444/timeline"
-  updated_at: "2026-11-27"
+  updated_at: "2026-11-28"
 categories:
   anime:
     key: "anime"
@@ -59,7 +59,7 @@ categories:
         title: "炒翻天"
         original_title: "鉄鍋のジャン！"
         url: "https://bangumi.tv/subject/615835"
-        cover: "https://lain.bgm.tv/r/400/pic/cover/l/27/b5/615835_IbNAh.jpg"
+        cover: "https://lain.bgm.tv/r/400/pic/cover/l/27/b5/615835_kEUex.jpg"
         status: "collect"
         status_label: "看过"
         date: "2026-10-31"
